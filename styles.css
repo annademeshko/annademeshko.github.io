@@ -1240,18 +1240,18 @@ h3,
     padding-bottom: 24px;
   }
 
-  /* Centered "Анна Демешко" hero + intro text on mobile. */
+  /* Left-aligned "Анна Демешко" hero + intro text on mobile. */
   .home-page .intro-copy {
-    align-items: center;
+    align-items: flex-start;
     gap: 18px;
-    text-align: center;
+    text-align: left;
   }
 
-  /* Contact links sit centred under the intro on mobile, with a bit more
+  /* Contact links sit left-aligned under the intro on mobile, with a bit more
      breathing room so they're easier to tap. */
   .home-page .text-links {
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 18px;
   }
 
