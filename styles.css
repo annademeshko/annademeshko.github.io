@@ -1543,7 +1543,7 @@ h3,
   z-index: 3;
   width: min(860px, calc(100vw - 48px));
   display: grid;
-  gap: 8px;
+  gap: 4px;
   justify-items: center;
   padding: 38px 42px 34px;
   border-radius: 34px;
@@ -1561,6 +1561,7 @@ h3,
 
 .neverlandTitle h1 {
   margin: 0;
+  padding-bottom: 0;
   background: linear-gradient(110deg, #ffffff 0%, #ffd36d 18%, #ff5ec4 42%, #8b6cff 62%, #ffffff 82%);
   background-size: 220% 100%;
   color: transparent;
@@ -1581,7 +1582,7 @@ h3,
 .neverlandTitle p {
   max-width: 620px;
   margin: 0;
-  padding: 10px 16px;
+  padding: 7px 14px;
   border: none;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.38);
@@ -1656,6 +1657,28 @@ h3,
   touch-action: none;
 }
 
+.neverlandItem::before,
+.neverlandMobileItem::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background:
+    linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.2) 42%, transparent 78%),
+    rgba(255, 255, 255, 0.08);
+  background-size: 220% 100%, 100% 100%;
+  opacity: 0.7;
+  animation: neverlandImageLoading 1.4s ease-in-out infinite;
+  transition: opacity 420ms ease;
+  pointer-events: none;
+}
+
+.neverlandItem.is-loaded::before,
+.neverlandMobileItem.is-loaded::before {
+  opacity: 0;
+  animation-play-state: paused;
+}
+
 .neverlandItem--dragging {
   z-index: 20;
   cursor: grabbing;
@@ -1667,7 +1690,22 @@ h3,
   height: auto;
   border-radius: 0;
   box-shadow: none;
+  opacity: 0;
+  filter: blur(14px) saturate(0.86);
+  transform: scale(0.96);
+  transition: opacity 520ms ease, filter 680ms ease, transform 680ms ease;
   pointer-events: none;
+}
+
+.neverlandItem.is-loaded img {
+  opacity: 1;
+  filter: blur(0) saturate(1);
+  transform: scale(1);
+}
+
+@keyframes neverlandImageLoading {
+  from { background-position: 120% 0, 0 0; }
+  to { background-position: -120% 0, 0 0; }
 }
 
 .neverlandEnd {
@@ -1786,6 +1824,8 @@ h3,
   .neverlandTitle h1,
   .neverlandScrollHint::before,
   .neverlandScrollHint::after,
+  .neverlandItem::before,
+  .neverlandMobileItem::before,
   .neverlandEnd span,
   .neverlandMobileEnd span {
     animation: none;
@@ -1842,7 +1882,7 @@ h3,
   }
 
   .neverlandMobileHead p {
-    margin: 12px auto 0;
+    margin: 7px auto 0;
     max-width: 290px;
     font-size: 15px;
     line-height: 1.42;
@@ -1855,6 +1895,7 @@ h3,
   }
 
   .neverlandMobileItem {
+    position: relative;
     margin: 0 0 12px;
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
@@ -1870,6 +1911,16 @@ h3,
     height: auto;
     border-radius: 10px;
     box-shadow: none;
+    opacity: 0;
+    filter: blur(14px) saturate(0.86);
+    transform: scale(0.96);
+    transition: opacity 520ms ease, filter 680ms ease, transform 680ms ease;
+  }
+
+  .neverlandMobileItem.is-loaded img {
+    opacity: 1;
+    filter: blur(0) saturate(1);
+    transform: scale(1);
   }
 
   .neverlandMobileEnd {

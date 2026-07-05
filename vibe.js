@@ -96,6 +96,16 @@
   const memePath = "./assets/мемы/";
   const isMobile = window.matchMedia("(max-width: 760px)").matches;
 
+  function revealImageWhenLoaded(figure, image) {
+    const reveal = () => figure.classList.add("is-loaded");
+    if (image.complete) {
+      reveal();
+      return;
+    }
+    image.addEventListener("load", reveal, { once: true });
+    image.addEventListener("error", reveal, { once: true });
+  }
+
   const neverlandItems = NEVERLAND_MEDIA.map((file, index) => {
     const column = index % 6;
     const row = Math.floor(index / 7);
@@ -130,6 +140,7 @@
       image.decoding = "async";
       figure.appendChild(image);
       feed.appendChild(figure);
+      revealImageWhenLoaded(figure, image);
     });
     return;
   }
@@ -151,6 +162,7 @@
     image.decoding = "async";
     figure.appendChild(image);
     scene.appendChild(figure);
+    revealImageWhenLoaded(figure, image);
     return { figure, item };
   });
 
