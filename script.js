@@ -155,7 +155,7 @@
       return;
     }
     if (lang === "en") {
-      cvLink.setAttribute("href", "./assets/СV_Demeshko.pdf");
+      cvLink.setAttribute("href", "./assets/CV%20Anna%20Demeshko.pdf");
     } else {
       cvLink.setAttribute("href", "./assets/СV_Демешко%20А.В.pdf");
     }
