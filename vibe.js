@@ -200,9 +200,9 @@
 
   if (isMobile && mobileFeed) {
     mobileFeed.innerHTML = [
-      '<header class="neverlandMobileHead"><h2>Мой Neverland</h2><p>личный архив вайба, мемов и случайных смыслов</p></header>',
+      '<header class="neverlandMobileHead"><h2><span data-lang="ru">Мой Neverland</span><span data-lang="en">My Neverland</span></h2><p><span data-lang="ru">личный архив вайба, мемов и случайных смыслов</span><span data-lang="en">personal archive of vibes, memes and accidental meaning</span></p></header>',
       '<div class="neverlandMobileFeed"></div>',
-      '<div class="neverlandMobileEnd"><span>vibe check passed</span><a href="https://t.me/annademeshko" target="_blank" rel="noreferrer">Написать в Telegram</a></div>'
+      '<div class="neverlandMobileEnd"><span>vibe check passed</span><a href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span data-lang="ru">Написать в Telegram</span><span data-lang="en">Message on Telegram</span></a></div>'
     ].join("");
 
     const feed = mobileFeed.querySelector(".neverlandMobileFeed");
