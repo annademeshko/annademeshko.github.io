@@ -1581,7 +1581,7 @@ h3,
 
 .neverlandTitle p {
   max-width: 620px;
-  margin: 0;
+  margin: -10px 0 0;
   padding: 7px 14px;
   border: none;
   border-radius: 999px;
@@ -1882,7 +1882,7 @@ h3,
   }
 
   .neverlandMobileHead p {
-    margin: 7px auto 0;
+    margin: -3px auto 0;
     max-width: 290px;
     font-size: 15px;
     line-height: 1.42;
