@@ -95,6 +95,82 @@
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
   const memePath = "./assets/мемы/";
   const isMobile = window.matchMedia("(max-width: 760px)").matches;
+  const NEVERLAND_IMAGE_SIZES = {
+    "0515c18df7001b1f96a5434b58a6441b.jpg": [1200, 897],
+    "056ddb7b5d307360300cfc3a38c07d6d.jpg": [604, 604],
+    "05fcd171321a7448a3e21870b875ce74.jpg": [750, 1014],
+    "0a4321a63998c7f80f4d27f65652d854.jpg": [736, 902],
+    "0a7f3506ffea66b6c46efe07903cab00.jpg": [682, 700],
+    "0b0212cab1acf241eafabf8e1d88218c.jpg": [736, 883],
+    "12265ab4f32ff892e57756173dce5585.jpg": [1200, 1180],
+    "13a09ca307fb349545d335900d8842eb.jpg": [803, 626],
+    "169f54dc71b60e0c0136510ec772deba.jpg": [720, 900],
+    "17e4ec33940683d8ab4ea11298c734ff.jpg": [1080, 1127],
+    "1ddcad2f7cddf184abb28aefbd703793.jpg": [736, 736],
+    "1ea117043c8b270d028dc475a46d77ed.jpg": [736, 552],
+    "1f19e78f9b32fb5e5c1754d59288841f.jpg": [735, 603],
+    "1fc46fc3e493e3e8dc31e410ab07c6ec.jpg": [735, 632],
+    "1ff54ba4ef1228e021be7660be5afeff.jpg": [1080, 975],
+    "23104bee8ceb29b79faf5113eaca0850.jpg": [736, 896],
+    "29f112efce74c17d8a4f645baa7c1f4d.jpg": [735, 491],
+    "2a90e1e4ed2fdec1a3a1c48a9275c8af.jpg": [640, 970],
+    "2e8e8e11bcbd9c2c6ba5a9aeb209ae76.jpg": [1080, 1125],
+    "33ac673c94a6527db08674ed74099d31.jpg": [640, 480],
+    "34eb57d56af81b9ee5383a673f3b62b0.jpg": [1200, 1104],
+    "35aa07118d454b8a2313d45e5cd1701b.jpg": [736, 736],
+    "37bad2a44e8d622e33892c69b75da23e.jpg": [400, 311],
+    "3a6ad358396aee4a1fbc44ca999956cd.jpg": [736, 920],
+    "445a49a57ffef320a7dd63441f13c78a.jpg": [640, 640],
+    "4522339a468e011c6eb81842b5e449a6.jpg": [736, 691],
+    "45d53294887fe23172171ca8d2f12ce4.jpg": [530, 800],
+    "47404e2228cd90029b747ef0e80782a8.jpg": [489, 769],
+    "5035e428d8f6ad29bda9bc278badc9a5.jpg": [1190, 1190],
+    "57db5d515ab8b99e8da08f0450fccde8.jpg": [736, 612],
+    "580894d818ced0f8daa3f3b26e4cbede.jpg": [736, 920],
+    "5874425b48dd020367f1f42ef8bd9c4f.jpg": [735, 588],
+    "5ecb4fb562b292bafd10b3c5dcafff91.jpg": [736, 598],
+    "660b425d43c9d76060c17325a96ce34f.jpg": [736, 697],
+    "6be3ef15ddf1acf4aba328084b5b7ec1.jpg": [500, 680],
+    "6e680fb2aa54869c415dd8cd307f9d6b.jpg": [720, 1560],
+    "7930ad092511940015133f9ef563469e.jpg": [640, 640],
+    "7ae262a02022ff61ae05bb72b21e9d81.jpg": [1080, 1422],
+    "7e4d8fdd1ead02e636e851592090639a.jpg": [736, 703],
+    "807fc9de574e26316a3e2c8a4c952400.jpg": [878, 724],
+    "8153bb2d5d8d8a2b4275d4fc6a5dbdf3.jpg": [1200, 1031],
+    "868dda2357095a2a92917c6e375b1eac.jpg": [736, 1308],
+    "89cdb212351b61215d013116ffc43c1b.jpg": [1200, 928],
+    "92ad6fb187519c58788fbd38ef9d3b4d.jpg": [640, 640],
+    "959677461370aa862dc5024464b5326a.jpg": [1170, 1132],
+    "99b5b88a7bcfd17105854f511279af79.jpg": [871, 871],
+    "9a3b6732a87203bb0a3eee0f46325d95.jpg": [565, 550],
+    "a588efcd69768d100e9a315edb69cc5e.jpg": [736, 720],
+    "a63b916acd9a9d82cc174d1448054ef5.jpg": [674, 673],
+    "b2a18ca7fc696e4ddf1da47eb5cfd681.jpg": [735, 684],
+    "b8671d9d0dc2dbb4c0ee8afb4e798dbc.jpg": [720, 719],
+    "b94bb0110a127b3c6a2b3ca02bd83fbc.jpg": [583, 820],
+    "bdd92123c1ce3fe3e1ee2728d081e74a.jpg": [640, 875],
+    "bede3108f2a2e80495c0525080b72c77.jpg": [736, 736],
+    "c104731e2779191b366742578a0de595.jpg": [487, 515],
+    "c5ab6ad9b9f9345e692b7f3313a1abdb.jpg": [736, 736],
+    "c66a6f5ace87bbe2f0da8a5ad01fcfb0.jpg": [736, 736],
+    "ca5d5132a963cf8be03b1687d90ec8f3.jpg": [735, 788],
+    "d4efcfdfc18cab8e4934a618085beffd.jpg": [394, 493],
+    "d66eb6e2a3c4dd8652e43d9004bfbcb9.jpg": [1080, 1080],
+    "d78e6fbab6f2efdf465d13114b3ada64.jpg": [720, 663],
+    "d944165474802ea6c4df9cbb7e0196f3.jpg": [735, 880],
+    "dc28f64587e9f93bae186cbdbf72f595.jpg": [1080, 1080],
+    "e08ddd99fb0cbdf1b0323fb0516ab5be.jpg": [736, 693],
+    "e3c245e2388551302173a828947b6920.jpg": [736, 736],
+    "ec6fc42d36a9a215e70a9194e40025c3.jpg": [735, 716],
+    "eee3f1b09b65b355ff3e3c0cb2fcaa16.jpg": [736, 813],
+    "f0b3dbdf2c33c5000727d99a2882f484.jpg": [849, 681],
+    "f2cb159e7e3ec419601408dfb11659a2.jpg": [1173, 1466],
+    "f2f265aaaf60cb67db75e1b30f93847e.jpg": [720, 717],
+    "f359d1e0267068f127260e49f70cdf05.jpg": [1200, 915],
+    "f55a78f260390575a16ff4cb5338c2df.jpg": [736, 1104],
+    "fd7b7ea6ca2e5b50198729b99a5973a5.jpg": [1200, 807],
+    "ffc535f9800d1e41de59a4d9f4383c26.jpg": [1200, 930]
+  };
 
   function revealImageWhenLoaded(figure, image) {
     const reveal = () => figure.classList.add("is-loaded");
@@ -133,7 +209,13 @@
     NEVERLAND_MEDIA.forEach((file, index) => {
       const figure = document.createElement("figure");
       const image = document.createElement("img");
+      const imageSize = NEVERLAND_IMAGE_SIZES[file];
       figure.className = "neverlandMobileItem";
+      if (imageSize) {
+        figure.style.aspectRatio = `${imageSize[0]} / ${imageSize[1]}`;
+        image.width = imageSize[0];
+        image.height = imageSize[1];
+      }
       image.src = memePath + file;
       image.alt = "";
       image.loading = index < 4 ? "eager" : "lazy";
@@ -156,6 +238,10 @@
     figure.className = "neverlandItem";
     figure.dataset.index = String(index);
     figure.style.width = `${item.width}px`;
+    if (NEVERLAND_IMAGE_SIZES[item.file]) {
+      image.width = NEVERLAND_IMAGE_SIZES[item.file][0];
+      image.height = NEVERLAND_IMAGE_SIZES[item.file][1];
+    }
     image.src = item.src;
     image.alt = "";
     image.loading = index < 8 ? "eager" : "lazy";
