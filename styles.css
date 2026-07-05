@@ -1543,7 +1543,7 @@ h3,
   z-index: 3;
   width: min(860px, calc(100vw - 48px));
   display: grid;
-  gap: 4px;
+  gap: 14px;
   justify-items: center;
   padding: 38px 42px 34px;
   border-radius: 34px;
@@ -1882,7 +1882,7 @@ h3,
   }
 
   .neverlandMobileHead p {
-    margin: -3px auto 0;
+    margin: -8px auto 0;
     max-width: 290px;
     font-size: 15px;
     line-height: 1.42;
@@ -1908,7 +1908,8 @@ h3,
   .neverlandMobileItem img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
     box-shadow: none;
     opacity: 0;
