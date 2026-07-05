@@ -248,7 +248,7 @@ h1 {
 .text-links {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 26px;
   width: 100%;
 }
@@ -1581,7 +1581,7 @@ h3,
 
 .neverlandTitle p {
   max-width: 620px;
-  margin: -10px 0 0;
+  margin: 0;
   padding: 7px 14px;
   border: none;
   border-radius: 999px;
