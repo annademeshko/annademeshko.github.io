@@ -1,4 +1,22 @@
 (function () {
+  // Swap the skeleton shimmer for the real screenshot once it has loaded.
+  const lazyImages = document.querySelectorAll("img.is-loading");
+  function markLoaded(img) {
+    img.classList.remove("is-loading");
+    img.classList.add("is-loaded");
+  }
+  lazyImages.forEach((img) => {
+    if (img.complete && img.naturalWidth > 0) {
+      markLoaded(img);
+      return;
+    }
+    img.addEventListener("load", () => markLoaded(img), { once: true });
+    // If the image fails, drop the shimmer so it doesn't animate forever.
+    img.addEventListener("error", () => markLoaded(img), { once: true });
+  });
+})();
+
+(function () {
   const tooltip = document.querySelector(".cursor-tooltip");
   const cards = document.querySelectorAll(".work .case-link");
 

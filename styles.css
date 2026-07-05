@@ -514,12 +514,18 @@ h2 {
 }
 
 [data-theme="dark"] .vibe-button {
-  border-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.28);
   background:
-    linear-gradient(145deg, rgba(33, 35, 42, 0.78), rgba(18, 19, 21, 0.38)),
-    radial-gradient(circle at 24% 22%, rgba(255, 205, 96, 0.18), transparent 38%),
-    linear-gradient(135deg, rgba(255, 111, 196, 0.24), rgba(106, 123, 255, 0.28), rgba(255, 204, 92, 0.18));
-  box-shadow: 0 20px 62px rgba(0, 0, 0, 0.36);
+    linear-gradient(145deg, rgba(58, 60, 70, 0.82), rgba(30, 31, 36, 0.55)),
+    radial-gradient(circle at 24% 22%, rgba(255, 205, 96, 0.4), transparent 42%),
+    linear-gradient(135deg, rgba(255, 111, 196, 0.55), rgba(106, 123, 255, 0.55), rgba(255, 204, 92, 0.42));
+  box-shadow: 0 20px 62px rgba(0, 0, 0, 0.45), 0 0 24px rgba(150, 130, 255, 0.28), inset 0 0 22px rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .vibe-button:hover,
+[data-theme="dark"] .vibe-button:focus-visible {
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 24px 68px rgba(0, 0, 0, 0.5), 0 0 32px rgba(160, 140, 255, 0.4);
 }
 
 .case-copy {
@@ -557,6 +563,46 @@ h3,
   width: 100%;
   height: auto;
   background: var(--surface);
+}
+
+/* Skeleton shimmer shown while a screenshot is still downloading. The image
+   fades in over the shimmer once it has finished loading. */
+.case-image.is-loading,
+.study-image.is-loading {
+  opacity: 0;
+  background:
+    linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.55) 50%, transparent 80%),
+    var(--surface);
+  background-size: 200% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  animation: skeleton-shimmer 1.3s ease-in-out infinite;
+}
+
+.case-image.is-loaded,
+.study-image.is-loaded {
+  opacity: 1;
+  transition: opacity 320ms ease;
+}
+
+@keyframes skeleton-shimmer {
+  from { background-position: 150% 0, 0 0; }
+  to { background-position: -50% 0, 0 0; }
+}
+
+[data-theme="dark"] .case-image.is-loading,
+[data-theme="dark"] .study-image.is-loading {
+  background:
+    linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.12) 50%, transparent 80%),
+    var(--surface);
+  background-size: 200% 100%, 100% 100%;
+  background-repeat: no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-image.is-loading,
+  .study-image.is-loading {
+    animation: none;
+  }
 }
 
 .home-page {
@@ -1247,11 +1293,11 @@ h3,
     text-align: left;
   }
 
-  /* Contact links sit left-aligned under the intro on mobile, with a bit more
+  /* Contact links sit centred under the intro on mobile, with a bit more
      breathing room so they're easier to tap. */
   .home-page .text-links {
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 18px;
   }
 
