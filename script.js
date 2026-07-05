@@ -1,3 +1,26 @@
+// Page loader: reveal the content once it has loaded (min visible time so it
+// doesn't flash, plus a safety timeout so it can never get stuck).
+(function () {
+  const root = document.documentElement;
+  const start = Date.now();
+  const MIN_MS = 500;
+  let revealed = false;
+  const reveal = () => {
+    if (revealed) {
+      return;
+    }
+    revealed = true;
+    const wait = Math.max(0, MIN_MS - (Date.now() - start));
+    window.setTimeout(() => root.classList.add("loaded"), wait);
+  };
+  if (document.readyState === "complete") {
+    reveal();
+  } else {
+    window.addEventListener("load", reveal);
+    window.setTimeout(reveal, 4000);
+  }
+})();
+
 (function () {
   const tooltip = document.querySelector(".cursor-tooltip");
   const cards = document.querySelectorAll(".work .case-link");
