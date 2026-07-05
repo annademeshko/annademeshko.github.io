@@ -9,8 +9,12 @@
     <script>
       (function () {
         try {
-          var l = localStorage.getItem("lang");
-          if (l === "en" || l === "ru") document.documentElement.setAttribute("lang", l);
+          var q = new URLSearchParams(location.search).get("lang");
+          var l = (q === "en" || q === "ru") ? q : localStorage.getItem("lang");
+          if (l === "en" || l === "ru") {
+            document.documentElement.setAttribute("lang", l);
+            if (q === "en" || q === "ru") localStorage.setItem("lang", l);
+          }
         } catch (e) {}
       })();
     </script>
