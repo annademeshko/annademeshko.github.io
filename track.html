@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Кейс Анны Демешко: Track — настраиваемый дашборд безопасности.">
+    <title>Track: дашборд безопасности</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (l === "en" || l === "ru") document.documentElement.setAttribute("lang", l);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button class="lang-btn" type="button" data-lang-set="ru">RU</button>
+        <button class="lang-btn" type="button" data-lang-set="en">EN</button>
+      </div>
+    </div>
+
+    <main class="page case-page" aria-label="Кейс Track: дашборд безопасности">
+      <article class="case-study">
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Context</p>
+            <p><span data-lang="ru">Security-команды работали с разными первыми вопросами:</span><span data-lang="en">Security teams started from different first questions:</span></p>
+            <ul>
+              <li><span data-lang="ru">DevOps следил за репозиториями,</span><span data-lang="en">DevOps watched the repositories,</span></li>
+              <li><span data-lang="ru">AppSec-аналитик — за severity и приложениями</span><span data-lang="en">the AppSec analyst — severity and applications</span></li>
+              <li><span data-lang="ru">менеджер — за политиками и нарушениями</span><span data-lang="en">the manager — policies and violations</span></li>
+            </ul>
+            <p><span data-lang="ru">Один статичный дашборд давал шум одним ролям и слепые зоны другим.</span><span data-lang="en">A single static dashboard gave noise to some roles and blind spots to others.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Design challenge</p>
+            <p><span data-lang="ru">Нужно было дать пользователю контроль над обзором, но не превращать настройку в сложный конфигуратор. Empty state должен вести к первому действию, а widget picker объяснять выбор до применения.</span><span data-lang="en">I had to give users control over their overview without turning setup into a complex configurator. The empty state had to lead to the first action, and the widget picker had to explain the choice before applying it.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" src="./assets/track/dashboard.png" alt="Настраиваемый дашборд безопасности Track с виджетами severity">
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Моя роль</span><span data-lang="en">My role</span></p>
+            <p><span data-lang="ru">Проектировала дашборд от ролевых сценариев до handoff: IA, empty state, widget picker, заполненный dashboard, expanded view и severity-визуализацию. Работала с PM, аналитиками безопасности и разработкой.</span><span data-lang="en">I designed the dashboard from role-based scenarios to handoff: IA, empty state, widget picker, the populated dashboard, expanded view and severity visualization. I worked with PM, security analysts and engineering.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Задачи</span><span data-lang="en">Goals</span></p>
+            <ul>
+              <li><span data-lang="ru">Разложить дашборд по ролевым вопросам, а не по типам графиков</span><span data-lang="en">Organize the dashboard around role questions, not chart types</span></li>
+              <li><span data-lang="ru">Спроектировать empty state и widget picker как короткий путь к первому обзору</span><span data-lang="en">Design the empty state and widget picker as a short path to the first overview</span></li>
+              <li><span data-lang="ru">Выстроить populated dashboard: иерархия, размеры виджетов и приоритет данных</span><span data-lang="en">Build the populated dashboard: hierarchy, widget sizes and data priority</span></li>
+              <li><span data-lang="ru">Собрать expanded view и severity-систему для разных типов визуализации</span><span data-lang="en">Assemble the expanded view and a severity system for different visualization types</span></li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
+            <p><strong><span data-lang="ru">Empty state как точка старта, а не тупик:</span><span data-lang="en">The empty state as a starting point, not a dead end:</span></strong> <span data-lang="ru">пустой экран сразу предлагает действие: добавить виджет. Большая зона с «+» показывает, что здесь появится персональный обзор.</span><span data-lang="en">the empty screen immediately offers an action — add a widget. A large “+” area shows that a personal overview will appear here.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" src="./assets/track/empty-state.png" alt="Empty state дашборда Track с призывом добавить виджет">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Widget picker: выбор с пониманием:</span><span data-lang="en">Widget picker: an informed choice:</span></strong> <span data-lang="ru">пикер показывает превью виджетов до подтверждения. Select all ускоряет старт, ручной выбор даёт контроль, active-бейджи показывают текущий набор.</span><span data-lang="en">the picker shows widget previews before confirmation. Select all speeds up the start, manual selection gives control, and active badges show the current set.</span></p>
+        </section>
+
+        <img class="study-image" src="./assets/track/widget-picker.png" alt="Widget picker Track с превью виджетов">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Populated dashboard: единый обзор безопасности:</span><span data-lang="en">Populated dashboard: a single security overview:</span></strong> <span data-lang="ru">обзор собирает severity, уязвимые приложения, заблокированные репозитории и policy triggers. Цветовая система Critical/High/Medium/Low/Informational остаётся единой во всех виджетах.</span><span data-lang="en">the overview brings together severity, vulnerable applications, blocked repositories and policy triggers. The Critical/High/Medium/Low/Informational color system stays consistent across all widgets.</span></p>
+        </section>
+
+        <img class="study-image" src="./assets/track/dashboard.png" alt="Заполненный дашборд безопасности Track с единой severity-системой">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Expanded view: детали без потери контекста:</span><span data-lang="en">Expanded view: detail without losing context:</span></strong> <span data-lang="ru">виджет раскрывается в детальный режим со stacked bar chart, периодом и hover-state по severity. Вернуться к обзору можно одним кликом.</span><span data-lang="en">a widget expands into a detailed mode with a stacked bar chart, time period and severity hover states. You can return to the overview in one click.</span></p>
+        </section>
+
+        <img class="study-image" src="./assets/track/expanded.png" alt="Expanded view виджета Track со stacked bar chart">
+
+        <section class="study-block result-block">
+          <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+          <ul>
+            <li><strong><span data-lang="ru">1 мин. на сборку</span><span data-lang="en">1 min to assemble</span></strong> <span data-lang="ru">персонального security-обзора метрик</span><span data-lang="en">a personal security overview of metrics</span></li>
+            <li><span data-lang="ru">DevOps, AppSec-аналитик и менеджер могут собрать разные наборы метрик, не расходясь по разным продуктовым сценариям.</span><span data-lang="en">DevOps, the AppSec analyst and the manager can assemble different sets of metrics without splitting into separate product flows.</span></li>
+            <li><span data-lang="ru">Продуктовая команда может добавлять новые виджеты без пересборки всей логики дашборда.</span><span data-lang="en">The product team can add new widgets without rebuilding the whole dashboard logic.</span></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Навигация по кейсам">
+      <a class="case-nav-link case-nav-prev" href="./alwa.html" aria-label="Предыдущий кейс" data-aria-ru="Предыдущий кейс" data-aria-en="Previous case"><img class="case-nav-icon prev-icon" src="./assets/icon-external.svg" alt=""><span class="case-nav-label"><span data-lang="ru">Предыдущий кейс</span><span data-lang="en">Previous case</span></span></a>
+      <a class="case-nav-link case-nav-home" href="./index.html"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+      <a class="case-nav-link case-nav-next" href="./wave.html" aria-label="Следующий кейс" data-aria-ru="Следующий кейс" data-aria-en="Next case"><span class="case-nav-label"><span data-lang="ru">Следующий кейс</span><span data-lang="en">Next case</span></span><img class="case-nav-icon next-icon" src="./assets/icon-external.svg" alt=""></a>
+    </nav>
+    <script src="./script.js"></script>
+  </body>
+</html>

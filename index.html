@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Портфолио Анны Демешко, Middle Product Designer.">
+    <title>Анна Демешко</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (l === "en" || l === "ru") document.documentElement.setAttribute("lang", l);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button class="lang-btn" type="button" data-lang-set="ru">RU</button>
+        <button class="lang-btn" type="button" data-lang-set="en">EN</button>
+      </div>
+    </div>
+
+    <div class="top-fade" aria-hidden="true"></div>
+
+    <main class="page home-page" aria-label="Портфолио Анны Демешко">
+      <section class="intro" aria-labelledby="intro-title">
+        <div class="intro-copy">
+          <h1 id="intro-title"><span data-lang="ru">Анна Демешко</span><span data-lang="en">Anna Demeshko</span></h1>
+          <p><span data-lang="ru">Middle Product Designer с опытом более 3 лет в B2B, B2C, SaaS, data-heavy</span><span data-lang="en">Middle Product Designer with 3+ years of experience across B2B, B2C, SaaS and data-heavy products</span></p>
+          <p><span data-lang="ru">Большой опыт проектирования дашбордов, таблиц, фильтров, форм, аналитических интерфейсов и сложных пользовательских сценариев.</span><span data-lang="en">Extensive experience designing dashboards, tables, filters, forms, analytical interfaces and complex user scenarios.</span></p>
+          <p><span data-lang="ru">Использую AI-инструменты для ускорения исследований, генерации гипотез, подготовки UX-артефактов и оптимизации дизайн-процессов.</span><span data-lang="en">I use AI tools to speed up research, generate hypotheses, prepare UX artifacts and optimize design processes.</span></p>
+        </div>
+
+        <nav class="text-links" aria-label="Контакты">
+          <a class="text-link" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span class="text-link-label">tg</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+          <a class="text-link" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><span class="text-link-label">LinkedIn</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+          <button class="text-link" type="button" data-copy-email="aneyta@mail.ru"><span class="text-link-label">email</span><img class="text-link-icon" src="./assets/Copy thin.svg" alt=""></button>
+          <a class="text-link" data-cv href="./assets/СV_Демешко%20А.В.pdf" target="_blank" rel="noreferrer"><span class="text-link-label">CV</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+        </nav>
+      </section>
+
+      <div class="works">
+        <div class="segmented" role="tablist" aria-label="Кейсы и концепты">
+          <span class="segmented__thumb" aria-hidden="true"></span>
+          <button class="segmented-btn is-active" type="button" role="tab" aria-selected="true" data-panel="cases"><span data-lang="ru">Кейсы</span><span data-lang="en">Cases</span></button>
+          <button class="segmented-btn" type="button" role="tab" aria-selected="false" data-panel="concepts"><span data-lang="ru">Концепты</span><span data-lang="en">Concepts</span></button>
+        </div>
+
+        <section class="work" data-panel="cases" aria-label="Кейсы">
+
+        <a class="case-card case-link" href="./copilot.html" aria-label="CoPilot">
+          <img class="case-image" src="./assets/copilot-case/overview.png" alt="Интерфейс CoPilot с отчетами по безопасности">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">CoPilot: отчёты по безопасности</span><span data-lang="en">CoPilot: security reports</span></span>
+            <span class="case-description"><span data-lang="ru">Рабочее пространство для AppSec-аналитиков, которые разбирают отчёты сканирования и принимают решения по уязвимостям. Спроектировала split-screen workspace: список отчётов, evidence, рекомендации и действия остаются в одном контексте.</span><span data-lang="en">A workspace for AppSec analysts who review scan reports and make decisions on vulnerabilities. I designed a split-screen workspace where the report list, evidence, recommendations and actions stay in one context.</span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link" id="alwa" href="./alwa.html" aria-label="Alwa MVP">
+          <img class="case-image" src="./assets/alwa-case/overview.png" alt="Экраны MVP Alwa с результатами анализов и профилем здоровья">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">Alwa MVP: результаты анализов и профиль здоровья</span><span data-lang="en">Alwa MVP: lab results and health profile</span></span>
+            <span class="case-description"><span data-lang="ru">MVP health-приложения, которое помогает пользователю разобрать результаты анализов, добавить контекст о себе и получить понятный следующий шаг.</span><span data-lang="en">An MVP of a health app that helps users make sense of their lab results, add personal context and get a clear next step.</span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link" href="./track.html" aria-label="Track">
+          <img class="case-image" src="./assets/track/dashboard.png" alt="Дашборд Track с виджетами безопасности">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">Track: security dashboard</span></span>
+            <span class="case-description"><span data-lang="ru">Настраиваемый security-дашборд для enterprise AppSec-платформы. Спроектировала widget-based workspace: каждая роль быстро собирает свой обзор и переходит к деталям без потери общей картины</span><span data-lang="en">A customizable security dashboard for an enterprise AppSec platform. I designed a widget-based workspace: each role quickly assembles its own overview and drills into details without losing the big picture.</span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link" href="./wave.html" aria-label="Wave">
+          <img class="case-image" src="./assets/wave/scans.png" alt="Интерфейс Wave для разбора результатов сканирования">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">Wave: разбор результатов сканирования</span><span data-lang="en">Wave: triaging scan results</span></span>
+            <span class="case-description"><span data-lang="ru">AI-модуль для разбора уязвимостей после скана, команда получала сотни находок и тратила часы на ручную проверку. Спроектировала сценарий, где AI показывает статус проверки, вероятность, объяснение и путь к коду, но финальное решение остаётся за аналитиком.</span><span data-lang="en">An AI module for triaging vulnerabilities after a scan, where the team got hundreds of findings and spent hours on manual review. I designed a flow where AI shows the check status, probability, explanation and path to code, while the final decision stays with the analyst.</span></span>
+          </span>
+        </a>
+      </section>
+
+        <section class="concepts" data-panel="concepts" aria-label="Концепты" hidden>
+
+        <article class="case-card">
+          <img class="case-image" src="./assets/aether-1.png" alt="Экраны концепта Aether для изучения космоса">
+          <div class="case-copy">
+            <h3>Aether</h3>
+            <p><span data-lang="ru">Фокус концепта — не просто набор образовательных экранов, а атмосферный продуктовый мир, приложение помогает изучать космос через уроки, наблюдения ночного неба, sky map и персональный прогресс.</span><span data-lang="en">The concept focuses not just on a set of educational screens but on an atmospheric product world; the app helps explore space through lessons, night-sky observations, a sky map and personal progress.</span></p>
+          </div>
+          <img class="case-image" src="./assets/aether-2.png" alt="Дополнительные экраны концепта Aether">
+        </article>
+
+        <article class="case-card last-card">
+          <img class="case-image" src="./assets/lumen-1.png" alt="Экраны концепта Lumen для управления финансами">
+          <div class="case-copy">
+            <h3>Lumen</h3>
+            <p><span data-lang="ru">Концепт fintech-приложения с AI-ассистентом для управления личными финансами. Продукт объединяет счета, расходы, переводы, инвестиции и персональные рекомендации, помогая пользователю лучше понимать бюджет, планировать траты и принимать финансовые решения.</span><span data-lang="en">A concept for a fintech app with an AI assistant for managing personal finances. It brings together accounts, expenses, transfers, investments and personal recommendations, helping users understand their budget, plan spending and make financial decisions.</span></p>
+          </div>
+          <img class="case-image" src="./assets/lumen-2.png" alt="Дополнительные экраны концепта Lumen">
+        </article>
+        </section>
+      </div>
+    </main>
+    <a class="vibe-button vibesCheck" href="./vibe.html" aria-label="Vibe Check">
+      <span>Vibe</span>
+      <span>Check</span>
+    </a>
+    <div class="cursor-tooltip" role="status" aria-hidden="true"><span data-lang="ru">Смотреть кейс</span><span data-lang="en">View case</span></div>
+    <script src="./script.js"></script>
+  </body>
+</html>

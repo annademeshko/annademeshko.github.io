@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Кейс Анны Демешко: CoPilot, отчёты по безопасности.">
+    <title>CoPilot: отчёты по безопасности</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (l === "en" || l === "ru") document.documentElement.setAttribute("lang", l);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button class="lang-btn" type="button" data-lang-set="ru">RU</button>
+        <button class="lang-btn" type="button" data-lang-set="en">EN</button>
+      </div>
+    </div>
+
+    <main class="page case-page" aria-label="Кейс CoPilot: отчёты по безопасности">
+      <article class="case-study">
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Context</p>
+            <p><span data-lang="ru">AppSec-команды работали с отчётами, уязвимостями, CWE, source evidence, рекомендациями сервисов и историей решений в разных местах. При сотнях находок это замедляло review и повышало риск случайных решений.</span><span data-lang="en">AppSec teams worked with reports, vulnerabilities, CWE, source evidence, service recommendations and decision history scattered across different places. With hundreds of findings, this slowed down review and raised the risk of accidental decisions.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Design challenge</p>
+            <p><span data-lang="ru">Нужно было не добавить ещё один экран с данными, а выстроить порядок принятия решения: что видно сразу, где проверяется рекомендация и какое действие безопасно выбрать.</span><span data-lang="en">The goal was not to add yet another data screen, but to build an order for decision-making: what is visible right away, where a recommendation is verified and which action is safe to take.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" src="./assets/copilot-case/overview.png" alt="Обзор отчётов CoPilot">
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Моя роль</span><span data-lang="en">My role</span></p>
+            <p><span data-lang="ru">Вела дизайн полного цикла: интервью и наблюдение review-сессий, информационная архитектура, split-screen workspace, сценарии принятия решений и компоненты для security UI. Работала с PM, аналитиками безопасности, DevSecOps и разработкой.</span><span data-lang="en">I led the full design cycle: interviews and observation of review sessions, information architecture, the split-screen workspace, decision-making scenarios and components for the security UI. I worked with PM, security analysts, DevSecOps and engineering.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Задачи</span><span data-lang="en">Goals</span></p>
+            <ul>
+              <li><span data-lang="ru">Разобрать review-цикл AppSec-аналитиков и точки потери контекста</span><span data-lang="en">Break down the AppSec analysts' review cycle and the points where context is lost</span></li>
+              <li><span data-lang="ru">Спроектировать ИА: что видно сразу, а что открывается по запросу</span><span data-lang="en">Design the IA: what is visible right away and what opens on demand</span></li>
+              <li><span data-lang="ru">Собрать split-screen workspace со списком отчётов, деталями и действиями</span><span data-lang="en">Build a split-screen workspace with the report list, details and actions</span></li>
+              <li><span data-lang="ru">Показать evidence для доверия к рекомендациям: source, code, rule, CWE и параметры</span><span data-lang="en">Show evidence to build trust in recommendations: source, code, rule, CWE and parameters</span></li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
+            <p><strong><span data-lang="ru">Split-screen workspace вместо переходов между страницами:</span><span data-lang="en">A split-screen workspace instead of page-to-page navigation:</span></strong> <span data-lang="ru">заменила сценарий список → страница → назад на две панели: отчёты остаются слева, а детали и действия открываются справа. Этот паттерн выбрала после сравнения full-page, drawer и split-screen вариантов.</span><span data-lang="en">I replaced the list → page → back flow with two panels: reports stay on the left while details and actions open on the right. I chose this pattern after comparing full-page, drawer and split-screen options.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" src="./assets/copilot-case/split-workspace.png" alt="Split-screen workspace CoPilot">
+
+        <div class="study-pair">
+          <section class="study-note">
+            <p><strong><span data-lang="ru">Левая панель / обзор отчётов:</span><span data-lang="en">Left panel / reports overview:</span></strong> <span data-lang="ru">каждая строка показывает прогресс, прогноз, совпадение, число проблем, формат и дату. Аналитик переключается между отчётами, не теряя общий список.</span><span data-lang="en">each row shows progress, prediction, match, issue count, format and date. The analyst switches between reports without losing the overall list.</span></p>
+          </section>
+          <img class="study-image" src="./assets/copilot-case/left-panel.png" alt="Левая панель со списком отчётов CoPilot">
+        </div>
+
+        <div class="study-pair">
+          <section class="study-note">
+            <p><strong><span data-lang="ru">Правая панель / детальный анализ отчёта:</span><span data-lang="en">Right panel / detailed report analysis:</span></strong> <span data-lang="ru">детали собирают рекомендации сервисов, severity, список уязвимостей, параметры, rule и triage-действия. После тестирования я сократила вкладки, закрепила severity/status и добавила якоря к находкам.</span><span data-lang="en">the details bring together service recommendations, severity, the vulnerability list, parameters, rule and triage actions. After testing, I reduced the tabs, pinned severity/status and added anchors to the findings.</span></p>
+          </section>
+          <img class="study-image" src="./assets/copilot-case/right-panel.png" alt="Правая панель детального анализа отчёта CoPilot">
+        </div>
+
+        <section class="study-block result-block">
+          <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+          <ul>
+            <li><span data-lang="ru">120+ часов сэкономлено команде и компании в месяц</span><span data-lang="en">120+ hours saved for the team and the company every month</span></li>
+            <li><strong><span data-lang="ru">Один workspace вместо разрозненных инструментов:</span><span data-lang="en">One workspace instead of scattered tools:</span></strong> <span data-lang="ru">отчёт, детали уязвимости, evidence и действия собраны рядом, поэтому review не распадается на переходы между сервисами</span><span data-lang="en">the report, vulnerability details, evidence and actions sit side by side, so review no longer breaks apart into jumps between services</span></li>
+            <li><strong><span data-lang="ru">Рекомендации стали проверяемыми:</span><span data-lang="en">Recommendations became verifiable:</span></strong> <span data-lang="ru">Severity, CWE, source evidence, rule и параметры находятся рядом с рекомендациями, поэтому решение принимается не вслепую</span><span data-lang="en">severity, CWE, source evidence, rule and parameters sit next to the recommendations, so decisions are no longer made blindly</span></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Навигация по кейсам">
+      <span class="case-nav-spacer" aria-hidden="true"></span>
+      <a class="case-nav-link case-nav-home" href="./index.html"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+      <a class="case-nav-link case-nav-next" href="./alwa.html" aria-label="Следующий кейс" data-aria-ru="Следующий кейс" data-aria-en="Next case"><span class="case-nav-label"><span data-lang="ru">Следующий кейс</span><span data-lang="en">Next case</span></span><img class="case-nav-icon next-icon" src="./assets/icon-external.svg" alt=""></a>
+    </nav>
+    <script src="./script.js"></script>
+  </body>
+</html>

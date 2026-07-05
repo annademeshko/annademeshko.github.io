@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Кейс Анны Демешко: Alwa MVP — результаты анализов и профиль здоровья.">
+    <title>Alwa MVP: результаты анализов и профиль здоровья</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (l === "en" || l === "ru") document.documentElement.setAttribute("lang", l);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button class="lang-btn" type="button" data-lang-set="ru">RU</button>
+        <button class="lang-btn" type="button" data-lang-set="en">EN</button>
+      </div>
+    </div>
+
+    <main class="page case-page" aria-label="Кейс Alwa MVP: результаты анализов и профиль здоровья">
+      <article class="case-study">
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Context</p>
+            <p><span data-lang="ru">MVP должен был проверить базовую продуктовую гипотезу: пользователь готов дать немного личного контекста, если сразу понимает, как это улучшит интерпретацию анализов.</span><span data-lang="en">The MVP had to test a basic product hypothesis: users are willing to give a bit of personal context if they immediately understand how it improves the interpretation of their lab results.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Design challenge</p>
+            <p><span data-lang="ru">Нужно было связать два чувствительных сценария — health data consent и сбор профиля — с полезным результатом: понятным review лабораторных маркеров. При этом flow должен оставаться коротким, спокойным и выглядеть достаточно завершённым для MVP-презентации.</span><span data-lang="en">I had to connect two sensitive scenarios — health data consent and profile collection — with a useful result: a clear review of lab markers. At the same time, the flow had to stay short, calm and look complete enough for an MVP presentation.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" src="./assets/alwa-case/overview.png" alt="Обзор MVP Alwa: обещание продукта и экран согласий">
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Моя роль</span><span data-lang="en">My role</span></p>
+            <p><span data-lang="ru">Проектировала MVP-flow от первого знакомства до review результатов: ценностное обещание, consent, сбор health profile, состояния форм, progress, выбор цели и визуальную логику карточек маркеров. Фокус был на том, чтобы продукт выглядел достаточно цельным для первой проверки гипотезы, но не пытался решить всё сразу.</span><span data-lang="en">I designed the MVP flow from the first touch to results review: the value promise, consent, health-profile collection, form states, progress, goal selection and the visual logic of the marker cards. The focus was on making the product feel whole enough for a first hypothesis check without trying to solve everything at once.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Задачи</span><span data-lang="en">Goals</span></p>
+            <ul>
+              <li><span data-lang="ru">Собрать первый сценарий MVP: от value proposition до review lab results</span><span data-lang="en">Build the first MVP scenario: from value proposition to reviewing lab results</span></li>
+              <li><span data-lang="ru">Показать пользователю пользу до запроса sensitive health data</span><span data-lang="en">Show users the value before requesting sensitive health data</span></li>
+              <li><span data-lang="ru">Разложить профиль на короткие шаги с понятным progress и skip</span><span data-lang="en">Break the profile into short steps with clear progress and skip</span></li>
+              <li><span data-lang="ru">Спроектировать состояния consent, input, selected options и biomarker cards</span><span data-lang="en">Design the states for consent, input, selected options and biomarker cards</span></li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
+            <p><span data-lang="ru">MVP начинается с простого обещания: Alwa помогает объяснить каждый маркер, собрать персональный план, найти лабораторию и подготовиться к визиту к врачу. Только после этого пользователь попадает на экран согласий.</span><span data-lang="en">The MVP starts with a simple promise: Alwa helps explain every marker, build a personal plan, find a lab and prepare for a doctor's visit. Only after that does the user reach the consent screen.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" src="./assets/alwa-case/profile-intro.png" alt="Экраны создания профиля здоровья в Alwa">
+
+        <section class="study-note">
+          <p><span data-lang="ru">Имя и возраст вынесены в короткие экраны с понятным progress, клавиатурой нужного типа и disabled/active CTA. После ввода продукт возвращает небольшой персональный отклик, а не просто ведёт дальше по форме.</span><span data-lang="en">Name and age are split into short screens with clear progress, the right keyboard type and a disabled/active CTA. After input, the product gives a small personal response instead of just pushing further through the form.</span></p>
+        </section>
+
+        <img class="study-image" src="./assets/alwa-case/name-age.png" alt="Экраны ввода имени и возраста в Alwa">
+
+        <section class="study-note">
+          <p><span data-lang="ru">Следующий блок объясняет, что профиль нужен для более точных reference ranges и lifestyle-aware recommendations. Вопросы разбиты на отдельные шаги: biological sex, рост, вес, активность, smoking, alcohol и menstrual cycle.</span><span data-lang="en">The next block explains that the profile is needed for more accurate reference ranges and lifestyle-aware recommendations. The questions are split into separate steps: biological sex, height, weight, activity, smoking, alcohol and menstrual cycle.</span></p>
+        </section>
+
+        <img class="study-image" src="./assets/alwa-case/body-profile.png" alt="Экраны сбора параметров тела и образа жизни в Alwa">
+
+        <section class="study-note">
+          <p><span data-lang="ru">Хронические состояния, nervous-system симптомы и hormonal симптомы собраны в chip-based screens с множественным выбором. Выбранные пункты сразу получают контрастную заливку и check-mark, а финальный экран закрывает профиль понятным «done»-состоянием.</span><span data-lang="en">Chronic conditions, nervous-system symptoms and hormonal symptoms are grouped into chip-based screens with multiple choice. Selected items instantly get a contrast fill and a check-mark, and the final screen closes the profile with a clear “done” state.</span></p>
+        </section>
+
+        <img class="study-image" src="./assets/alwa-case/symptoms.png" alt="Экраны выбора хронических состояний и симптомов в Alwa">
+
+        <section class="study-block result-block">
+          <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+          <ul>
+            <li><strong><span data-lang="ru">MVP не начинается с анкеты:</span><span data-lang="en">The MVP doesn't start with a form:</span></strong> <span data-lang="ru">пользователь сначала видит обещание продукта и только потом переходит к consent и профилю.</span><span data-lang="en">the user first sees the product's promise and only then moves to consent and the profile.</span></li>
+            <li><strong><span data-lang="ru">Приложение собирает только нужный контекст:</span><span data-lang="en">The app collects only the context it needs:</span></strong> <span data-lang="ru">возраст, параметры тела, lifestyle и симптомы помогают объяснять маркеры точнее, но подаются короткими шагами.</span><span data-lang="en">age, body metrics, lifestyle and symptoms help explain markers more accurately, but are presented in short steps.</span></li>
+            <li><strong><span data-lang="ru">Review делает цифры понятнее:</span><span data-lang="en">Review makes the numbers clearer:</span></strong> <span data-lang="ru">карточки маркеров показывают статус, референсный диапазон и предупреждают, что рекомендации строятся только на подтверждённых данных.</span><span data-lang="en">marker cards show status, reference range and warn that recommendations are based only on confirmed data.</span></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Навигация по кейсам">
+      <a class="case-nav-link case-nav-prev" href="./copilot.html" aria-label="Предыдущий кейс" data-aria-ru="Предыдущий кейс" data-aria-en="Previous case"><img class="case-nav-icon prev-icon" src="./assets/icon-external.svg" alt=""><span class="case-nav-label"><span data-lang="ru">Предыдущий кейс</span><span data-lang="en">Previous case</span></span></a>
+      <a class="case-nav-link case-nav-home" href="./index.html"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+      <a class="case-nav-link case-nav-next" href="./track.html" aria-label="Следующий кейс" data-aria-ru="Следующий кейс" data-aria-en="Next case"><span class="case-nav-label"><span data-lang="ru">Следующий кейс</span><span data-lang="en">Next case</span></span><img class="case-nav-icon next-icon" src="./assets/icon-external.svg" alt=""></a>
+    </nav>
+    <script src="./script.js"></script>
+  </body>
+</html>

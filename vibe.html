@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru" data-vibe-page>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Vibe Check Анны Демешко: личный архив вайба, мемов и случайных смыслов.">
+    <title>Vibe Check — Анна Демешко</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+      (function () {
+        try {
+          var l = localStorage.getItem("lang");
+          if (l === "en" || l === "ru") document.documentElement.setAttribute("lang", l);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="vibe-page">
+    <main class="vibe-world neverlandViewport" aria-label="Vibe Check">
+      <div class="neverlandBackdrop" aria-hidden="true"></div>
+      <header class="neverlandTitle" aria-labelledby="vibe-title">
+        <h1 id="vibe-title"><span data-lang="ru">Мой Neverland</span><span data-lang="en">My Neverland</span></h1>
+        <p><span data-lang="ru">личный архив вайба, мемов и случайных смыслов</span><span data-lang="en">personal archive of vibes, memes and accidental meaning</span></p>
+        <span class="neverlandScrollHint">scroll</span>
+      </header>
+
+      <section class="neverlandScene" aria-label="Meme flight"></section>
+      <section class="neverlandMobile" aria-label="Neverland mobile"></section>
+      <div class="neverlandEnd">
+        <span>vibe check passed</span>
+        <a href="https://t.me/annademeshko" target="_blank" rel="noreferrer">Написать в Telegram</a>
+      </div>
+    </main>
+
+    <nav class="case-nav vibe-nav" aria-label="Навигация">
+      <a class="case-nav-link case-nav-home" href="./index.html"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+    </nav>
+    <div class="vibe-progress neverlandDepth" aria-hidden="true">0%</div>
+    <script src="./vibe.js"></script>
+  </body>
+</html>
