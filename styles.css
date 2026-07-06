@@ -1843,6 +1843,7 @@ h3,
   gap: 14px;
   justify-items: center;
   padding: 38px 42px 34px;
+  transform: translate(-50%, -50%);
   border-radius: 34px;
   background:
     radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.1), transparent 28%),
