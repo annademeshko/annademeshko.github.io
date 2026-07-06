@@ -699,7 +699,7 @@ h3,
   flex-direction: column;
   align-items: center;
   gap: 28px;
-  padding-bottom: 56px;
+  padding-bottom: 96px;
 }
 
 .study-stack {
@@ -741,6 +741,232 @@ h3,
 .study-block strong,
 .study-note strong {
   font-weight: 600;
+}
+
+.process-block {
+  gap: 20px;
+}
+
+.process-board,
+.process-insights {
+  display: grid;
+  gap: 8px;
+}
+
+.process-board {
+  grid-template-columns: 0.95fr 1.1fr 0.95fr;
+  margin-top: 8px;
+}
+
+.process-lane,
+.process-insight,
+.process-meter {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.process-lane {
+  min-height: 252px;
+  overflow: visible;
+  padding: 18px 18px 88px;
+}
+
+.process-lane::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  bottom: 24px;
+  width: 64px;
+  height: 1px;
+  background: color-mix(in srgb, var(--muted) 34%, transparent);
+}
+
+.process-lane-output::after {
+  display: none;
+}
+
+.process-kicker {
+  display: block;
+  margin-bottom: 38px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 18px;
+  text-transform: lowercase;
+}
+
+.process-lane strong,
+.process-lane p,
+.process-insight p {
+  display: block;
+}
+
+.process-lane p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.process-tags {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.process-tags span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.ai-loop {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-loop span {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.ai-loop i {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: color-mix(in srgb, var(--muted) 34%, transparent);
+}
+
+.process-mini-map {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 0.72fr;
+  gap: 6px;
+  height: 52px;
+}
+
+.process-mini-map span {
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.process-mini-map span:nth-child(2) {
+  background: var(--heading);
+}
+
+.process-insights {
+  grid-template-columns: minmax(0, 1fr) 220px;
+}
+
+.process-insight,
+.process-meter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 176px;
+  padding: 18px;
+}
+
+.process-insight-large {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.process-insight .process-kicker,
+.process-meter .process-kicker {
+  margin-bottom: auto;
+}
+
+.process-insight p {
+  color: var(--heading);
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.meter-row {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.meter-row:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.meter-row span {
+  color: var(--muted);
+}
+
+.meter-row i {
+  position: relative;
+  display: block;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+.meter-row i::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--value);
+  border-radius: inherit;
+  background: var(--heading);
+}
+
+@media (max-width: 760px) {
+  .process-board,
+  .process-insights {
+    grid-template-columns: 1fr;
+  }
+
+  .process-lane {
+    min-height: 230px;
+  }
+
+  .process-lane::after {
+    right: 22px;
+    bottom: -13px;
+    width: 1px;
+    height: 34px;
+  }
+
+  .process-lane-output::after {
+    display: none;
+  }
+
+  .process-kicker {
+    margin-bottom: 30px;
+  }
+
+  .process-insight p {
+    font-size: 19px;
+    line-height: 27px;
+  }
 }
 
 .study-note {
@@ -1344,7 +1570,7 @@ h3,
 
   .case-study {
     gap: 28px;
-    padding-bottom: 44px;
+    padding-bottom: 92px;
   }
 
   .study-stack {
