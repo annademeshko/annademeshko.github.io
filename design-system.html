@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Кейс Анны Демешко: дизайн-система — библиотека компонентов с состояниями, размерами и правилами использования.">
+    <title>Design System: библиотека компонентов</title>
+    <link rel="icon" type="image/png" href="./assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="./assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+          var q = new URLSearchParams(location.search).get("lang");
+          var l = (q === "en" || q === "ru") ? q : localStorage.getItem("lang");
+          if (l === "en" || l === "ru") {
+            document.documentElement.setAttribute("lang", l);
+            if (q === "en" || q === "ru") localStorage.setItem("lang", l);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button class="lang-btn" type="button" data-lang-set="ru">RU</button>
+        <button class="lang-btn" type="button" data-lang-set="en">EN</button>
+      </div>
+    </div>
+
+    <main class="page case-page" aria-label="Кейс Design System: библиотека компонентов">
+      <article class="case-study">
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Context</p>
+            <p><span data-lang="ru">У компании было много продуктов, и все они должны выглядеть и работать одинаково консистентно. При этом новые интерфейсы нужно выпускать быстро. Без единой библиотеки каждый продукт собирал базовые элементы вроде кнопок, тегов и уведомлений по-своему. Из-за этого расхождения в интерфейсах копились, а разработка шла медленнее. Дизайн-система была нужна, чтобы ускорить разработку и убрать проблему консистентности сразу на всех продуктах.</span><span data-lang="en">The company had many products, and all of them had to look and behave consistently. At the same time, new interfaces had to ship fast. Without a shared library, every product built basic elements like buttons, tags and notifications in its own way. Because of that, inconsistencies piled up and development got slower. The design system was needed to speed up development and remove the consistency problem across all products at once.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Design challenge</p>
+            <p><span data-lang="ru">Компоненты нужно было описать не как картинки, а как систему: все состояния, размеры и правила использования, одинаково понятные дизайнеру и разработчику, чтобы библиотека росла вместе с продуктом, а не пересобиралась заново.</span><span data-lang="en">Components had to be described not as pictures but as a system: every state, size and usage rule, equally clear to a designer and a developer, so the library could grow with the product instead of being rebuilt from scratch.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/design-system-case/screens-1.png" alt="Компоненты дизайн-системы: Multiselect segmented button, Inner Button, Notification Button и Pills со всеми состояниями и размерами">
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Моя роль</span><span data-lang="en">My role</span></p>
+            <p><span data-lang="ru">Проектировала и документировала базовые компоненты дизайн-системы: варианты, состояния, размеры и правила применения. Собрала спеки, готовые к handoff, и согласовала их с разработкой.</span><span data-lang="en">I designed and documented the core components of the design system: variants, states, sizes and usage rules. I put together handoff-ready specs and aligned them with engineering.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Задачи</span><span data-lang="en">Goals</span></p>
+            <ul>
+              <li><span data-lang="ru">Описать каждый компонент во всех состояниях: default, hover, active, focus, disabled, loading</span><span data-lang="en">Describe every component in all its states: default, hover, active, focus, disabled, loading</span></li>
+              <li><span data-lang="ru">Задать варианты и размеры — Primary / Secondary / Outlined / Ghost, S / M / L</span><span data-lang="en">Define variants and sizes — Primary / Secondary / Outlined / Ghost, S / M / L</span></li>
+              <li><span data-lang="ru">Зафиксировать правила: когда и как использовать компонент</span><span data-lang="en">Capture the rules: when and how to use each component</span></li>
+              <li><span data-lang="ru">Сделать спеки, по которым интерфейс собирается без пересборки базовых элементов</span><span data-lang="en">Ship specs that let interfaces be assembled without rebuilding the basic elements</span></li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
+            <p><strong><span data-lang="ru">Компонент как спека, а не картинка:</span><span data-lang="en">A component as a spec, not a picture:</span></strong> <span data-lang="ru">каждый компонент описан по единой структуре: назначение, когда использовать, все состояния и примеры. Ниже показана часть библиотеки.</span><span data-lang="en">each component is documented in the same structure: purpose, when to use, all states and examples. Below is part of the library.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/design-system-case/screens-2.png" alt="Компоненты дизайн-системы: Notification toast, Breadcrumbs, Segmented control и Modal window с правилами использования">
+
+        <section class="study-block result-block">
+          <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+          <ul>
+            <li><strong><span data-lang="ru">Консистентность:</span><span data-lang="en">Consistency:</span></strong> <span data-lang="ru">одинаковые элементы выглядят и ведут себя одинаково во всём продукте.</span><span data-lang="en">the same elements look and behave the same across the whole product.</span></li>
+            <li><strong><span data-lang="ru">Быстрый handoff:</span><span data-lang="en">Faster handoff:</span></strong> <span data-lang="ru">разработка получает состояния, размеры и правила в одном месте, без уточнений «а как должно быть».</span><span data-lang="en">engineering gets states, sizes and rules in one place, without asking “how is this supposed to work?”</span></li>
+            <li><strong><span data-lang="ru">Масштабируемость:</span><span data-lang="en">Scalability:</span></strong> <span data-lang="ru">новые компоненты добавляются по единым правилам и не ломают уже готовые.</span><span data-lang="en">new components are added by the same rules and don't break the ones already in place.</span></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Навигация по кейсам">
+      <a class="case-nav-link case-nav-prev" href="./wave.html" aria-label="Предыдущий кейс" data-aria-ru="Предыдущий кейс" data-aria-en="Previous case"><img class="case-nav-icon prev-icon" src="./assets/icon-external.svg" alt=""><span class="case-nav-label"><span data-lang="ru">Предыдущий кейс</span><span data-lang="en">Previous case</span></span></a>
+      <a class="case-nav-link case-nav-home" href="./index.html"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+      <span class="case-nav-spacer" aria-hidden="true"></span>
+    </nav>
+    <script src="./script.js"></script>
+  </body>
+</html>
