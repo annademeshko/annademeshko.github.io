@@ -2033,20 +2033,14 @@ h3,
   transition: opacity 180ms linear, transform 180ms linear;
 }
 
-.neverlandEnd span,
-.neverlandMobileEnd span {
+.neverlandEnd > span,
+.neverlandMobileEnd > span {
   display: inline-block;
   font-size: 15px;
   font-weight: 750;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  background: linear-gradient(90deg, #ff8a4c, #ff5fb0, #a06bff, #5aa6ff, #ff8a4c);
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: vibesShimmer 5s linear infinite;
+  color: #fff;
 }
 
 .neverlandEnd p,
@@ -2122,8 +2116,8 @@ h3,
   .neverlandScrollHint::after,
   .neverlandItem::before,
   .neverlandMobileItem::before,
-  .neverlandEnd span,
-  .neverlandMobileEnd span {
+  .neverlandEnd > span,
+  .neverlandMobileEnd > span {
     animation: none;
   }
 }
@@ -2229,7 +2223,7 @@ h3,
     text-align: center;
   }
 
-  .neverlandMobileEnd span {
+  .neverlandMobileEnd > span {
     font-size: 13px;
     letter-spacing: 0.14em;
   }
