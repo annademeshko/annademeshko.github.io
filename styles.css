@@ -2040,7 +2040,13 @@ h3,
   font-weight: 750;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #fff;
+  background: linear-gradient(90deg, #ff8a4c, #ff5fb0, #a06bff, #5aa6ff, #ff8a4c);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: vibesShimmer 5s linear infinite;
 }
 
 .neverlandEnd p,
