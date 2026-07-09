@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Кейс Анны Демешко: VAULT Wallet — криптокошелёк, понятный новичку.">
+    <title>VAULT Wallet: криптокошелёк</title>
+    <link rel="icon" type="image/png" href="./assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="./assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+          var q = new URLSearchParams(location.search).get("lang");
+          var l = (q === "en" || q === "ru") ? q : localStorage.getItem("lang");
+          if (l === "en" || l === "ru") {
+            document.documentElement.setAttribute("lang", l);
+            if (q === "en" || q === "ru") localStorage.setItem("lang", l);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button class="lang-btn" type="button" data-lang-set="ru">RU</button>
+        <button class="lang-btn" type="button" data-lang-set="en">EN</button>
+      </div>
+    </div>
+
+    <main class="page case-page" aria-label="Кейс VAULT Wallet: криптокошелёк">
+      <article class="case-study">
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Context</p>
+            <p><span data-lang="ru">Почти все криптокошельки выглядят одинаково: тёмный интерфейс, плотные графики и термины, из-за которых экран напоминает панель управления космическим кораблём. Для опытного пользователя это ок, для новичка это стоп. Я хотела сделать кошелёк, в котором создать или импортировать его, купить первую монету и следить за курсами не страшнее, чем завести обычное банковское приложение.</span><span data-lang="en">Almost every crypto wallet looks the same: a dark interface, dense charts and jargon that turn the screen into a spaceship cockpit. Fine if you're experienced, a wall if you're not. I wanted a wallet where creating or importing it, buying your first coin and tracking prices feels no scarier than setting up a normal banking app.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Design challenge</p>
+            <p><span data-lang="ru">Главная ставка была на визуальный язык. Вместо привычной крипто-эстетики я оттолкнулась от азиатского дизайна: много воздуха, крупная типографика, мягкие скругления, живые иллюстрации и акцентный цвет вместо тёмной технологичности. Сложность была в том, чтобы удержать этот лёгкий, почти дружелюбный тон даже на самых нервных шагах, будь то seed-фраза, подтверждение покупки или безопасность, и при этом не превратить кошелёк в игрушку, из которой выпал функционал.</span><span data-lang="en">The core bet was the visual language. Instead of the usual crypto aesthetic, I leaned on Asian design: lots of air, large type, soft rounded shapes, lively illustrations and an accent color instead of dark techiness. The hard part was holding that light, almost friendly tone even on the most nerve-racking steps, be it the seed phrase, a purchase confirmation or security, without turning the wallet into a toy that lost its power.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/vault-case/cover.png" alt="Ключевые экраны VAULT Wallet: онбординг, активы, детальный экран монеты и главная с watchlist">
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Моя роль</span><span data-lang="en">My role</span></p>
+            <p><span data-lang="ru">Отвечала за эти сценарии целиком: логика флоу, состояния, UI и тон. Собрала онбординг и импорт кошелька, главную с активами и трендами, покупку монеты и watchlist, и держала единый визуальный язык на всех экранах.</span><span data-lang="en">I owned these scenarios end to end: flow logic, states, UI and tone. I built onboarding and wallet import, the home with assets and trends, buying a coin and the watchlist, and kept one visual language across every screen.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Задачи</span><span data-lang="en">Goals</span></p>
+            <ul>
+              <li><span data-lang="ru">Уйти от крипто-космолёта к спокойному, человечному интерфейсу</span><span data-lang="en">Move from a crypto spaceship to a calm, human interface</span></li>
+              <li><span data-lang="ru">Провести новичка через создание и импорт кошелька без страха</span><span data-lang="en">Walk a newcomer through creating and importing a wallet without fear</span></li>
+              <li><span data-lang="ru">Сделать покупку первой монеты коротким и предсказуемым флоу</span><span data-lang="en">Make buying the first coin a short, predictable flow</span></li>
+              <li><span data-lang="ru">Собрать главную, которая работает и как обзор, и как точка входа</span><span data-lang="en">Build a home that works as both an overview and an entry point</span></li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
+            <p><strong><span data-lang="ru">Онбординг без давления:</span><span data-lang="en">Onboarding without pressure:</span></strong> <span data-lang="ru">создание кошелька я разложила на спокойные шаги: приветствие, генерация, Face ID и пустая главная, которая сразу подсказывает первое действие. Никакой стены из терминов на старте, сложное появляется только тогда, когда до него дошёл черёд.</span><span data-lang="en">I broke wallet creation into calm steps: welcome, generation, Face ID and an empty home that points to the first action. No wall of terms up front; complexity shows up only when it's actually its turn.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/vault-case/onboarding.png" alt="Онбординг VAULT Wallet: сплэш, приветствие, генерация кошелька, Face ID и пустая главная">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Импорт существующего кошелька:</span><span data-lang="en">Importing an existing wallet:</span></strong> <span data-lang="ru">человек выбирает способ входа и источник, а предупреждение о скам-фразах я вынесла прямо во флоу, в момент решения, а не спрятала в справку. Безопасность здесь часть разговора, а не мелкий шрифт.</span><span data-lang="en">the person picks a sign-in method and a source, and I put the seed-phrase scam warning right into the flow, at the moment of the decision, instead of hiding it in help. Here safety is part of the conversation, not fine print.</span></p>
+        </section>
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/vault-case/import-1.png" alt="Импорт кошелька VAULT: выбор способа входа, источника и предупреждение о скамах">
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/vault-case/import-2.png" alt="Ввод seed-фразы с состояниями, выбор имени пользователя и заполненный кошелёк">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Главная, которая не давит количеством:</span><span data-lang="en">A home that doesn't overwhelm:</span></strong> <span data-lang="ru">баланс сверху, ниже watchlist, трендовые свопы, onchain-миниаппы и NFT-минты. Всё выстроено по приоритету и читается спокойно, сверху вниз, а к любому действию можно перейти в один тап.</span><span data-lang="en">balance on top, then the watchlist, trending swaps, onchain mini-apps and NFT mints. Everything is ordered by priority and reads calmly from top to bottom, with any action one tap away.</span></p>
+        </section>
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/vault-case/home.png" alt="Главная VAULT Wallet: баланс, watchlist, trending swaps, onchain и NFT-минты">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Покупка без сюрпризов:</span><span data-lang="en">Buying without surprises:</span></strong> <span data-lang="ru">это самый нервный момент, поэтому флоу максимально предсказуемый: сумма, способ оплаты, честный итог с комиссиями до подтверждения, затем processing и понятный экран успеха с новым балансом. Пользователь всё время понимает, за что платит и что будет дальше.</span><span data-lang="en">this is the most nerve-racking moment, so the flow is as predictable as possible: amount, payment method, an honest total with fees before you confirm, then processing and a clear success screen with the new balance. You always know what you're paying for and what happens next.</span></p>
+        </section>
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/vault-case/buy.png" alt="Покупка Bitcoin в VAULT Wallet: ввод суммы, способ оплаты, подтверждение с комиссиями, processing и success">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Watchlist прямо с главной:</span><span data-lang="en">A watchlist straight from home:</span></strong> <span data-lang="ru">отметил монеты звёздочкой, и список сразу закреплён и вынесен в отдельный экран с алертами по важным движениям цены. Минимум шагов между «интересно» и «слежу».</span><span data-lang="en">star a few coins and the list is instantly pinned and opens as its own screen with alerts on important price moves. As few steps as possible between “interesting” and “watching”.</span></p>
+        </section>
+
+        <img class="study-image" loading="lazy" decoding="async" src="./assets/vault-case/watchlist.png" alt="Создание watchlist в VAULT Wallet из главной и отдельный экран watchlist">
+
+        <section class="study-block result-block">
+          <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+          <ul>
+            <li><strong><span data-lang="ru">Понятно с первого экрана:</span><span data-lang="en">Clear from the first screen:</span></strong> <span data-lang="ru">даже без опыта в крипте человек понимает, что делать, и доходит до первой монеты сам, без помощи со стороны.</span><span data-lang="en">even with no crypto experience, the person knows what to do and reaches their first coin on their own, without outside help.</span></li>
+            <li><strong><span data-lang="ru">Доверие через прозрачность:</span><span data-lang="en">Trust through transparency:</span></strong> <span data-lang="ru">комиссии, seed-фразы и риски показаны честно и в нужный момент, поэтому кошелёк не ощущается «чёрным ящиком».</span><span data-lang="en">fees, seed phrases and risks are shown honestly and at the right moment, so the wallet never feels like a black box.</span></li>
+            <li><strong><span data-lang="ru">Выделяется на фоне рынка:</span><span data-lang="en">Stands apart from the market:</span></strong> <span data-lang="ru">спокойный, тёплый визуальный язык отличает продукт от тёмных техно-кошельков и расширяет аудиторию за пределы крипто-энтузиастов.</span><span data-lang="en">a calm, warm visual language sets the product apart from dark techy wallets and widens the audience beyond crypto enthusiasts.</span></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Навигация по кейсам">
+      <a class="case-nav-link case-nav-prev" href="./copilot.html" aria-label="Предыдущий кейс" data-aria-ru="Предыдущий кейс" data-aria-en="Previous case"><img class="case-nav-icon prev-icon" src="./assets/icon-external.svg" alt=""><span class="case-nav-label"><span data-lang="ru">Предыдущий кейс</span><span data-lang="en">Previous case</span></span></a>
+      <a class="case-nav-link case-nav-home" href="./index.html"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+      <a class="case-nav-link case-nav-next" href="./track.html" aria-label="Следующий кейс" data-aria-ru="Следующий кейс" data-aria-en="Next case"><span class="case-nav-label"><span data-lang="ru">Следующий кейс</span><span data-lang="en">Next case</span></span><img class="case-nav-icon next-icon" src="./assets/icon-external.svg" alt=""></a>
+    </nav>
+    <script src="./script.js"></script>
+  </body>
+</html>
