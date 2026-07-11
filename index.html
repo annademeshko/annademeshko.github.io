@@ -72,7 +72,7 @@
         </a>
 
         <a class="case-card case-link" href="./vault.html" aria-label="VAULT Wallet">
-          <img class="case-image is-loading" width="3800" height="1921" loading="lazy" decoding="async" src="./assets/vault-case/cover.png" alt="Экраны криптокошелька VAULT Wallet: онбординг, активы, монета и главная">
+          <img class="case-image is-loading" width="12003" height="5994" loading="lazy" decoding="async" src="./assets/vault-case/cover.png" alt="Экраны криптокошелька VAULT Wallet: онбординг, активы, монета и главная">
           <span class="case-copy">
             <span class="case-title"><span data-lang="ru">VAULT Wallet: криптокошелёк</span><span data-lang="en">VAULT Wallet: crypto wallet</span></span>
             <span class="case-description"><span data-lang="ru">Криптокошелёк, который не отпугивает новичков привычной тёмной крипто-эстетикой. Спроектировала спокойный интерфейс на азиатском визуальном языке: онбординг, импорт кошелька, покупка и watchlist остаются простыми и понятными.</span><span data-lang="en">A crypto wallet that doesn't scare newcomers off with the usual dark crypto aesthetic. I designed a calm interface in an Asian visual language: onboarding, wallet import, buying and the watchlist all stay simple and clear.</span></span>
@@ -140,5 +140,24 @@
     </a>
     <div class="cursor-tooltip" role="status" aria-hidden="true"><span data-lang="ru">Смотреть кейс</span><span data-lang="en">View case</span></div>
     <script src="./script.js"></script>
+    <script>
+      // Interactive fluid background — desktop only, and never when the user
+      // prefers reduced motion. Injected here so mobile never loads the WebGL sim.
+      (function () {
+        try {
+          var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+          var wide = window.matchMedia("(min-width: 900px)").matches;
+          var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (!fine || !wide || reduce) return;
+          var c = document.createElement("canvas");
+          c.id = "fluid";
+          c.setAttribute("aria-hidden", "true");
+          document.body.insertBefore(c, document.body.firstChild);
+          var s = document.createElement("script");
+          s.src = "./fluid.js";
+          document.body.appendChild(s);
+        } catch (e) {}
+      })();
+    </script>
   </body>
 </html>
