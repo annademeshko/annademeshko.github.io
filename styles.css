@@ -575,17 +575,17 @@ h2 {
 .case-copy {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   padding: 16px 0;
 }
 
 h3,
 .case-title {
   width: min(392px, 100%);
-  color: var(--muted);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
+  color: var(--heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24.5px;
 }
 
 #alwa .case-title {
@@ -596,7 +596,7 @@ h3,
 .case-copy p,
 .case-description {
   width: 100%;
-  color: var(--text);
+  color: var(--intro-text);
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
