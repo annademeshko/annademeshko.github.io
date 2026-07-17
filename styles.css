@@ -666,6 +666,8 @@ h3,
 
 .home-page {
   --page-width: 897px;
+  /* Match the case pages (119px) so the intro appears at the same level. */
+  padding-top: 119px;
 }
 
 .home-page .intro,
