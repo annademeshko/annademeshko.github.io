@@ -312,10 +312,17 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: min(680px, calc(100% - 35px));
+  /* The divider spans the screenshot-container width (897px), while the
+     footer text stays on the 680px text column via the child rule below. */
+  width: min(897px, calc(100% - 35px));
   margin: 0 auto;
   padding: 44px 0 96px;
   border-top: 1px solid var(--control-border);
+}
+
+.site-footer > * {
+  width: min(680px, 100%);
+  margin: 0 auto;
 }
 
 .footer-cta {
