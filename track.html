@@ -117,6 +117,22 @@
       <a class="case-nav-link case-nav-next" href="./design-system.html" aria-label="Следующий кейс" data-aria-ru="Следующий кейс" data-aria-en="Next case"><span class="case-nav-label"><span data-lang="ru">Следующий кейс</span><span data-lang="en">Next case</span></span><img class="case-nav-icon next-icon" src="./assets/icon-external.svg" alt=""></a>
     </nav>
     <script src="./script.js"></script>
-    <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e99ab9de70814c0e9089a11ad2a2fd46"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
+    <script>
+      (function () {
+        try {
+          var p = new URLSearchParams(location.search);
+          if (p.get("noanalytics") === "1") localStorage.setItem("cf-noanalytics", "1");
+          if (p.get("noanalytics") === "0") localStorage.removeItem("cf-noanalytics");
+          if (localStorage.getItem("cf-noanalytics") === "1") return;
+        } catch (e) {}
+        var s = document.createElement("script");
+        s.defer = true;
+        s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        s.setAttribute("data-cf-beacon", '{"token": "e99ab9de70814c0e9089a11ad2a2fd46"}');
+        document.head.appendChild(s);
+      })();
+    </script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
