@@ -149,6 +149,17 @@
     });
   }
 
+  const titleEl = document.querySelector("title[data-ru]");
+  function updateTitle(lang) {
+    if (!titleEl) {
+      return;
+    }
+    const value = titleEl.getAttribute("data-" + lang);
+    if (value) {
+      document.title = value;
+    }
+  }
+
   const cvLinks = document.querySelectorAll("[data-cv]");
   function updateCV(lang) {
     const href = lang === "en"
@@ -161,6 +172,7 @@
   applyAria(initialLang);
   updateLangControls(initialLang);
   updateCV(initialLang);
+  updateTitle(initialLang);
   updateThemeControl();
 
   const themeToggle = document.querySelector(".theme-toggle");
@@ -182,6 +194,7 @@
       applyAria(lang);
       updateLangControls(lang);
       updateCV(lang);
+      updateTitle(lang);
     });
   });
 
