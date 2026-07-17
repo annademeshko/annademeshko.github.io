@@ -1815,13 +1815,18 @@ h3,
 }
 
 [data-theme="dark"] .vibe-button.vibesCheck {
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  background:
-    linear-gradient(135deg, rgba(255, 140, 90, 0.26), rgba(235, 110, 200, 0.22) 46%, rgba(120, 155, 255, 0.28)),
-    linear-gradient(rgba(64, 66, 78, 0.94), rgba(44, 46, 58, 0.94));
+  /* Mirror the light version's restraint: clean dark glass in the same tone
+     as the theme/language controls; the colorful shimmer stays on hover. */
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(rgba(26, 28, 32, 0.92), rgba(26, 28, 32, 0.92));
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.3),
-    inset 0 1px 1px rgba(255, 255, 255, 0.28);
+    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+}
+
+/* The white top sheen reads as grey mud on the dark base — dim it. */
+[data-theme="dark"] .vibe-button.vibesCheck::after {
+  opacity: 0.1;
 }
 
 /* Black label is invisible on the dark button — use a light one. */
@@ -1831,7 +1836,7 @@ h3,
 
 [data-theme="dark"] .vibe-button.vibesCheck:hover,
 [data-theme="dark"] .vibe-button.vibesCheck:focus-visible {
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.32);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
 }
 
