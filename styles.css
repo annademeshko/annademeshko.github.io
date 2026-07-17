@@ -308,6 +308,33 @@ h1 {
   outline-offset: 4px;
 }
 
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(680px, calc(100% - 35px));
+  margin: 0 auto;
+  padding: 44px 0 96px;
+  border-top: 1px solid var(--control-border);
+}
+
+.footer-cta {
+  color: var(--heading);
+  font-weight: 600;
+}
+
+.footer-note {
+  color: var(--intro-text);
+}
+
+.site-footer .text-links {
+  margin-top: 18px;
+}
+
+.site-footer--case {
+  padding-bottom: 170px;
+}
+
 /* Cases / Concepts switcher */
 .works {
   padding-top: 91px;
