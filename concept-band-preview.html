@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Портфолио Анны Демешко, Middle Product Designer.">
+    <title data-ru="Анна Демешко — превью" data-en="Anna Demeshko — preview">Анна Демешко — превью</title>
+    <link rel="icon" type="image/png" href="./assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="./assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+      /* ---- Local preview only: full-width concept marquee ---- */
+
+      /* Full-bleed band that breaks out of the centred .page container. */
+      .concept-band {
+        position: relative;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-top: 56px;
+        padding: 48px 0;
+      }
+
+      .concept-marquee {
+        /* Clip horizontally (no scrollbar) but let a hovered tile grow
+           vertically out of the strip. */
+        overflow-x: clip;
+        overflow-y: visible;
+      }
+
+      .concept-track {
+        display: flex;
+        width: max-content;
+        animation: conceptScroll 48s linear infinite;
+        will-change: transform;
+      }
+
+      /* Pause when the visitor wants to look at something. */
+      .concept-marquee:hover .concept-track {
+        animation-play-state: paused;
+      }
+
+      @keyframes conceptScroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+
+      .concept-tile {
+        position: relative;
+        z-index: 0;
+        flex: 0 0 auto;
+        height: 372px;
+        margin: 0 22px 0 0;
+        border-radius: 18px;
+        overflow: hidden;
+        cursor: zoom-in;
+        transform-origin: center center;
+        transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* Hover: gently pop the screen up, above everything else. */
+      .concept-tile:hover {
+        z-index: 5;
+        transform: scale(1.35);
+      }
+
+      /* Tiles opted out of the hover zoom (e.g. the widgets). */
+      .concept-tile.is-static:hover {
+        z-index: 0;
+        transform: none;
+      }
+
+      .concept-tile img {
+        display: block;
+        height: 100%;
+        width: auto;
+        object-fit: cover;
+      }
+
+      .concept-tile figcaption {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        padding: 5px 12px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        font-size: 12.5px;
+        line-height: 1;
+        backdrop-filter: blur(8px);
+        pointer-events: none;
+        transition: opacity 200ms ease;
+      }
+
+      /* Hide the concept label while hovering the tile. */
+      .concept-tile:hover figcaption {
+        opacity: 0;
+      }
+
+      /* Fullscreen concept viewer. */
+      .concept-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 5vmin;
+        background: var(--overlay);
+        cursor: zoom-out;
+      }
+
+      .concept-lightbox.is-open {
+        display: flex;
+      }
+
+      .concept-lightbox img {
+        max-width: 92vw;
+        max-height: 92vh;
+        width: auto;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+        cursor: default;
+      }
+
+      .concept-lightbox__close {
+        position: absolute;
+        top: clamp(16px, 3vw, 28px);
+        right: clamp(16px, 3vw, 28px);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+        cursor: pointer;
+        transition: background 160ms ease;
+      }
+
+      .concept-lightbox__close:hover {
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .concept-lightbox__close svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .concept-track { animation: none; }
+      }
+
+      /* Desktop: the marquee replaces the tabs, so hide the mobile split. */
+      .segmented.mobile-only,
+      .concepts.mobile-only {
+        display: none;
+      }
+
+      /* Mobile: no marquee — fall back to the Cases / Concepts tabs. */
+      @media (max-width: 520px) {
+        .concept-band,
+        .cases-heading {
+          display: none;
+        }
+        .segmented.mobile-only {
+          display: inline-flex;
+        }
+        /* Uniform ~14px gap between every concept screen. */
+        .concepts.mobile-only:not([hidden]) {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .concepts.mobile-only .case-card {
+          gap: 14px;
+          padding-bottom: 0;
+        }
+      }
+
+      /* Keep the full-bleed band from ever pushing a horizontal scrollbar. */
+      body { overflow-x: hidden; }
+    </style>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+          var q = new URLSearchParams(location.search).get("lang");
+          var l = (q === "en" || q === "ru") ? q : localStorage.getItem("lang");
+          if (l === "en" || l === "ru") {
+            document.documentElement.setAttribute("lang", l);
+            if (q === "en" || q === "ru") localStorage.setItem("lang", l);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button class="lang-btn" type="button" data-lang-set="ru">RU</button>
+        <button class="lang-btn" type="button" data-lang-set="en">EN</button>
+      </div>
+    </div>
+
+    <div class="top-fade" aria-hidden="true"></div>
+
+    <main class="page home-page" aria-label="Портфолио Анны Демешко">
+      <section class="intro" aria-labelledby="intro-title">
+        <div class="intro-copy">
+          <h1 id="intro-title"><span data-lang="ru">Анна Демешко</span><span data-lang="en">Anna Demeshko</span></h1>
+          <p><span data-lang="ru">Product Designer с опытом 3+ лет в B2B, B2C, SaaS, data-heavy и design systems</span><span data-lang="en">Product Designer with 3+ years of experience across B2B, B2C, SaaS, data-heavy products and design systems</span></p>
+          <p><span data-lang="ru">Помогаю продукту расти, делаю сложные сценарии понятными и приятными, чтобы люди быстрее доходили до цели, а команда — до результата.</span><span data-lang="en">I help the product grow and make complex flows clear and enjoyable, so people reach their goal faster and the team reaches results.</span></p>
+          <p><span data-lang="ru">Использую AI, чтобы быстро собрать рабочий кликабельный прототип и проверить идею вживую, протестировать гипотезы и оптимизировать процессы.</span><span data-lang="en">I use AI to quickly build a working clickable prototype and test an idea live, validate hypotheses and optimize processes.</span></p>
+        </div>
+
+        <nav class="text-links" aria-label="Контакты">
+          <a class="text-link" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span class="text-link-label">Telegram</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+          <a class="text-link" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><span class="text-link-label">LinkedIn</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+          <button class="text-link" type="button" data-copy-email="aneyta@mail.ru"><span class="text-link-label">Email</span><img class="text-link-icon" src="./assets/Copy thin.svg" alt=""></button>
+          <a class="text-link" data-cv href="./assets/CV%20%E2%80%94%20%D0%94%D0%B5%D0%BC%D0%B5%D1%88%D0%BA%D0%BE%20%D0%90%D0%BD%D0%BD%D0%B0%20%28Product%20designer%29.pdf" target="_blank" rel="noreferrer"><span class="text-link-label">CV</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+        </nav>
+      </section>
+
+      <!-- Full-width auto-scrolling concept strip (replaces the Cases/Concepts tabs) -->
+      <section class="concept-band" aria-label="Концепты / Concepts">
+        <div class="concept-marquee">
+          <div class="concept-track">
+            <figure class="concept-tile is-static">
+              <img width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Концепт с виджетами: скорость, зарядка, пульс">
+              <figcaption>Widgets</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="882" height="1815" loading="lazy" decoding="async" src="./assets/ozon_no_bg_1.png" alt="Концепт мобильного банка">
+              <figcaption>Mobile Bank</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="5040" height="3540" loading="lazy" decoding="async" src="./assets/Smart%20Home%20Dashboard.png" alt="Концепт Smart Home Dashboard">
+              <figcaption>Smart Home Dashboard</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Концепт Crypto Dashboard">
+              <figcaption>Crypto Dashboard</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Концепт Aether">
+              <figcaption>Aether</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Концепт Aether">
+              <figcaption>Aether</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Концепт Lumen">
+              <figcaption>Lumen</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Концепт Lumen">
+              <figcaption>Lumen</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="works">
+        <div class="segmented mobile-only" role="tablist" aria-label="Кейсы и концепты">
+          <span class="segmented__thumb" aria-hidden="true"></span>
+          <button class="segmented-btn is-active" type="button" role="tab" aria-selected="true" data-panel="cases"><span data-lang="ru">Кейсы</span><span data-lang="en">Cases</span></button>
+          <button class="segmented-btn" type="button" role="tab" aria-selected="false" data-panel="concepts"><span data-lang="ru">Концепты</span><span data-lang="en">Concepts</span></button>
+        </div>
+        <h2 class="cases-heading"><span data-lang="ru">Избранные кейсы</span><span data-lang="en">Selected cases</span></h2>
+        <section class="work" data-panel="cases" aria-label="Кейсы">
+
+        <a class="case-card case-link" href="./track.html" aria-label="Track">
+          <img class="case-image is-loading" width="2400" height="1355" loading="lazy" decoding="async" src="./assets/track/dashboard.webp" alt="Дашборд Track с виджетами безопасности">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">Track: security dashboard</span></span>
+            <span class="case-description"><span data-lang="ru">Настраиваемый security-дашборд для enterprise AppSec-платформы. Спроектировала widget-based workspace: каждая роль быстро собирает свой обзор и переходит к деталям без потери общей картины</span><span data-lang="en">A customizable security dashboard for an enterprise AppSec platform. I designed a widget-based workspace: each role quickly assembles its own overview and drills into details without losing the big picture.</span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link" href="./vault.html" aria-label="VAULT Wallet">
+          <img class="case-image is-loading" width="12003" height="5994" loading="lazy" decoding="async" src="./assets/vault-case/cover.png" alt="Экраны криптокошелька VAULT Wallet: онбординг, активы, монета и главная">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">VAULT Wallet: криптокошелёк</span><span data-lang="en">VAULT Wallet: crypto wallet</span></span>
+            <span class="case-description"><span data-lang="ru">Криптокошелёк, который не отпугивает новичков привычной тёмной крипто-эстетикой. Спроектировала спокойный интерфейс на азиатском визуальном языке: онбординг, импорт кошелька, покупка и watchlist остаются простыми и понятными.</span><span data-lang="en">A crypto wallet that doesn't scare newcomers off with the usual dark crypto aesthetic. I designed a calm interface in an Asian visual language: onboarding, wallet import, buying and the watchlist all stay simple and clear.</span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link" href="./copilot.html" aria-label="CoPilot">
+          <img class="case-image is-loading" width="2688" height="1518" loading="lazy" decoding="async" src="./assets/copilot-case/overview.webp" alt="Интерфейс CoPilot с отчетами по безопасности">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">CoPilot: отчёты по безопасности</span><span data-lang="en">CoPilot: security reports</span></span>
+            <span class="case-description"><span data-lang="ru">Рабочее пространство для AppSec-аналитиков, которые разбирают отчёты сканирования и принимают решения по уязвимостям. Спроектировала split-screen workspace: список отчётов, evidence, рекомендации и действия остаются в одном контексте.</span><span data-lang="en">A workspace for AppSec analysts who review scan reports and make decisions on vulnerabilities. I designed a split-screen workspace where the report list, evidence, recommendations and actions stay in one context.</span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link" href="./design-system.html" aria-label="Design System">
+          <img class="case-image is-loading" width="2400" height="1212" loading="lazy" decoding="async" src="./assets/design-system-case/screens-1.png" alt="Компоненты дизайн-системы: варианты и состояния кнопок, тегов и уведомлений">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">Design System: библиотека компонентов</span><span data-lang="en">Design System: component library</span></span>
+            <span class="case-description"><span data-lang="ru">Библиотека компонентов для компании с множеством продуктов, которые должны оставаться консистентными и при этом быстро разрабатываться. Описала базовые компоненты как систему: варианты, состояния, размеры и правила использования, готовые к handoff.</span><span data-lang="en">A component library for a company with many products that need to stay consistent while still shipping fast. I described the core components as a system: variants, states, sizes and usage rules, ready for handoff.</span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link" href="./wave.html" aria-label="Wave">
+          <img class="case-image is-loading" width="2400" height="1355" loading="lazy" decoding="async" src="./assets/wave/scans.webp" alt="Интерфейс Wave для разбора результатов сканирования">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">Wave: разбор результатов сканирования</span><span data-lang="en">Wave: triaging scan results</span></span>
+            <span class="case-description"><span data-lang="ru">AI-модуль для разбора уязвимостей после скана, команда получала сотни находок и тратила часы на ручную проверку. Спроектировала сценарий, где AI показывает статус проверки, вероятность, объяснение и путь к коду, но финальное решение остаётся за аналитиком.</span><span data-lang="en">An AI module for triaging vulnerabilities after a scan, where the team got hundreds of findings and spent hours on manual review. I designed a flow where AI shows the check status, probability, explanation and path to code, while the final decision stays with the analyst.</span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link" id="alwa" href="./alwa.html" aria-label="Alwa MVP">
+          <img class="case-image is-loading" width="2688" height="1405" loading="lazy" decoding="async" src="./assets/alwa-case/overview.webp" alt="Экраны MVP Alwa с результатами анализов и профилем здоровья">
+          <span class="case-copy">
+            <span class="case-title"><span data-lang="ru">Alwa MVP: результаты анализов и профиль здоровья</span><span data-lang="en">Alwa MVP: lab results and health profile</span></span>
+            <span class="case-description"><span data-lang="ru">MVP health-приложения, которое помогает пользователю разобрать результаты анализов, добавить контекст о себе и получить понятный следующий шаг.</span><span data-lang="en">An MVP of a health app that helps users make sense of their lab results, add personal context and get a clear next step.</span></span>
+          </span>
+        </a>
+      </section>
+
+        <section class="concepts mobile-only" data-panel="concepts" aria-label="Концепты" hidden>
+          <article class="case-card">
+            <img class="case-image is-loading" width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Концепт с виджетами: скорость, зарядка, пульс">
+          </article>
+          <article class="case-card">
+            <img class="case-image is-loading" width="882" height="1815" loading="lazy" decoding="async" src="./assets/ozon_no_bg_1.png" alt="Концепт мобильного банка">
+          </article>
+          <article class="case-card">
+            <img class="case-image is-loading" width="5040" height="3540" loading="lazy" decoding="async" src="./assets/Smart%20Home%20Dashboard.png" alt="Концепт Smart Home Dashboard">
+          </article>
+          <article class="case-card">
+            <img class="case-image is-loading" width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Концепт Crypto Dashboard">
+          </article>
+          <article class="case-card">
+            <img class="case-image is-loading" width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Концепт Aether">
+            <img class="case-image is-loading" width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Концепт Aether">
+          </article>
+          <article class="case-card last-card">
+            <img class="case-image is-loading" width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Концепт Lumen">
+            <img class="case-image is-loading" width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Концепт Lumen">
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-cta"><span data-lang="ru">Открыта к предложениям</span><span data-lang="en">Open to opportunities</span></p>
+      <p class="footer-note"><span data-lang="ru">Буду рада обсудить проект или вакансию.</span><span data-lang="en">Happy to talk about a role or a project.</span></p>
+      <nav class="text-links" aria-label="Контакты" data-aria-ru="Контакты" data-aria-en="Contacts">
+        <a class="text-link" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span class="text-link-label">Telegram</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+        <a class="text-link" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><span class="text-link-label">LinkedIn</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+        <button class="text-link" type="button" data-copy-email="aneyta@mail.ru"><span class="text-link-label">Email</span><img class="text-link-icon" src="./assets/Copy thin.svg" alt=""></button>
+        <a class="text-link" data-cv href="./assets/CV%20%E2%80%94%20%D0%94%D0%B5%D0%BC%D0%B5%D1%88%D0%BA%D0%BE%20%D0%90%D0%BD%D0%BD%D0%B0%20%28Product%20designer%29.pdf" target="_blank" rel="noreferrer"><span class="text-link-label">CV</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+      </nav>
+    </footer>
+
+    <a class="vibe-button vibesCheck" href="./vibe.html" aria-label="Vibe Check">
+      <span>Vibe</span>
+      <span>Check</span>
+    </a>
+    <div class="cursor-tooltip" role="status" aria-hidden="true"><span data-lang="ru">Смотреть кейс</span><span data-lang="en">View case</span></div>
+
+    <script>
+      // Duplicate the concept tiles once so the marquee loops seamlessly.
+      (function () {
+        var track = document.querySelector(".concept-track");
+        if (!track) return;
+        Array.prototype.slice.call(track.children).forEach(function (node) {
+          var clone = node.cloneNode(true);
+          clone.setAttribute("aria-hidden", "true");
+          track.appendChild(clone);
+        });
+      })();
+
+      // Click a concept tile -> open it fullscreen. Close via the X button,
+      // a click on the backdrop, or Escape.
+      (function () {
+        var marquee = document.querySelector(".concept-marquee");
+        if (!marquee) return;
+
+        var box = document.createElement("div");
+        box.className = "concept-lightbox";
+        box.setAttribute("role", "dialog");
+        box.setAttribute("aria-modal", "true");
+        box.setAttribute("aria-hidden", "true");
+
+        var close = document.createElement("button");
+        close.type = "button";
+        close.className = "concept-lightbox__close";
+        close.setAttribute("aria-label", "Закрыть / Close");
+        close.innerHTML =
+          '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
+        var img = document.createElement("img");
+        img.alt = "";
+
+        box.appendChild(close);
+        box.appendChild(img);
+        document.body.appendChild(box);
+
+        var savedOverflow = "";
+
+        function open(src, alt) {
+          img.src = src;
+          img.alt = alt || "";
+          box.classList.add("is-open");
+          box.setAttribute("aria-hidden", "false");
+          savedOverflow = document.body.style.overflow;
+          document.body.style.overflow = "hidden";
+        }
+
+        function hide() {
+          box.classList.remove("is-open");
+          box.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = savedOverflow;
+        }
+
+        marquee.addEventListener("click", function (event) {
+          var picture = event.target.closest(".concept-tile img");
+          if (!picture) return;
+          open(picture.currentSrc || picture.src, picture.alt);
+        });
+
+        close.addEventListener("click", hide);
+        // Click anywhere on the backdrop (but not on the image itself) closes.
+        box.addEventListener("click", function (event) {
+          if (event.target !== img) hide();
+        });
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && box.classList.contains("is-open")) hide();
+        });
+      })();
+    </script>
+    <script src="./script.js"></script>
+    <script>
+      // Interactive fluid background — desktop only, and never when the user
+      // prefers reduced motion. Injected here so mobile never loads the WebGL sim.
+      (function () {
+        try {
+          var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+          var wide = window.matchMedia("(min-width: 900px)").matches;
+          var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (!fine || !wide || reduce) return;
+          var c = document.createElement("canvas");
+          c.id = "fluid";
+          c.setAttribute("aria-hidden", "true");
+          c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;";
+          document.body.insertBefore(c, document.body.firstChild);
+          var s = document.createElement("script");
+          s.src = "./fluid.js";
+          document.body.appendChild(s);
+        } catch (e) {}
+      })();
+    </script>
+  </body>
+</html>
