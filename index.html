@@ -8,6 +8,182 @@
     <link rel="icon" type="image/png" href="./assets/fav_black.png" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/png" href="./assets/fav_white.png" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="./styles.css">
+    <style>
+      /* ---- Full-width concept marquee (desktop) ---- */
+
+      /* Full-bleed band that breaks out of the centred .page container. */
+      .concept-band {
+        position: relative;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-top: 56px;
+        padding: 48px 0;
+      }
+
+      .concept-marquee {
+        /* Clip horizontally (no scrollbar) but let a hovered tile grow
+           vertically out of the strip. */
+        overflow-x: clip;
+        overflow-y: visible;
+      }
+
+      .concept-track {
+        display: flex;
+        width: max-content;
+        animation: conceptScroll 48s linear infinite;
+        will-change: transform;
+      }
+
+      /* Pause when the visitor wants to look at something. */
+      .concept-marquee:hover .concept-track {
+        animation-play-state: paused;
+      }
+
+      @keyframes conceptScroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+
+      .concept-tile {
+        position: relative;
+        z-index: 0;
+        flex: 0 0 auto;
+        height: 372px;
+        margin: 0 22px 0 0;
+        border-radius: 18px;
+        overflow: hidden;
+        cursor: zoom-in;
+        transform-origin: center center;
+        transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* Hover: gently pop the screen up, above everything else. */
+      .concept-tile:hover {
+        z-index: 5;
+        transform: scale(1.35);
+      }
+
+      /* Tiles opted out of the hover zoom (e.g. the widgets). */
+      .concept-tile.is-static:hover {
+        z-index: 0;
+        transform: none;
+      }
+
+      .concept-tile img {
+        display: block;
+        height: 100%;
+        width: auto;
+        object-fit: cover;
+      }
+
+      .concept-tile figcaption {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        padding: 5px 12px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        font-size: 12.5px;
+        line-height: 1;
+        backdrop-filter: blur(8px);
+        pointer-events: none;
+        transition: opacity 200ms ease;
+      }
+
+      /* Hide the concept label while hovering the tile. */
+      .concept-tile:hover figcaption {
+        opacity: 0;
+      }
+
+      /* Fullscreen concept viewer. */
+      .concept-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 5vmin;
+        background: var(--overlay);
+        cursor: zoom-out;
+      }
+
+      .concept-lightbox.is-open {
+        display: flex;
+      }
+
+      .concept-lightbox img {
+        max-width: 92vw;
+        max-height: 92vh;
+        width: auto;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+        cursor: default;
+      }
+
+      .concept-lightbox__close {
+        position: absolute;
+        top: clamp(16px, 3vw, 28px);
+        right: clamp(16px, 3vw, 28px);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+        cursor: pointer;
+        transition: background 160ms ease;
+      }
+
+      .concept-lightbox__close:hover {
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .concept-lightbox__close svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .concept-track { animation: none; }
+      }
+
+      /* Desktop: the marquee replaces the tabs, so hide the mobile split. */
+      .segmented.mobile-only,
+      .concepts.mobile-only {
+        display: none;
+      }
+
+      /* Mobile: no marquee — fall back to the Cases / Concepts tabs. */
+      @media (max-width: 520px) {
+        .concept-band,
+        .cases-heading {
+          display: none;
+        }
+        .segmented.mobile-only {
+          display: inline-flex;
+        }
+        /* Uniform ~14px gap between every concept screen. */
+        .concepts.mobile-only:not([hidden]) {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .concepts.mobile-only .case-card {
+          gap: 14px;
+          padding-bottom: 0;
+        }
+      }
+
+      /* Keep the full-bleed band from ever pushing a horizontal scrollbar. */
+      body { overflow-x: hidden; }
+    </style>
     <script>
       (function () {
         try {
@@ -54,20 +230,60 @@
         </nav>
       </section>
 
+      <!-- Full-width auto-scrolling concept strip (desktop; tabs on mobile) -->
+      <section class="concept-band" aria-label="Концепты / Concepts">
+        <div class="concept-marquee">
+          <div class="concept-track">
+            <figure class="concept-tile is-static">
+              <img width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Концепт с виджетами: скорость, зарядка, пульс">
+              <figcaption>Widgets</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="882" height="1815" loading="lazy" decoding="async" src="./assets/ozon_no_bg_1.png" alt="Концепт мобильного банка">
+              <figcaption>Mobile Bank</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="5040" height="3540" loading="lazy" decoding="async" src="./assets/Smart%20Home%20Dashboard.png" alt="Концепт Smart Home Dashboard">
+              <figcaption>Smart Home Dashboard</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Концепт Crypto Dashboard">
+              <figcaption>Crypto Dashboard</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Концепт Aether">
+              <figcaption>Aether</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Концепт Aether">
+              <figcaption>Aether</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Концепт Lumen">
+              <figcaption>Lumen</figcaption>
+            </figure>
+            <figure class="concept-tile">
+              <img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Концепт Lumen">
+              <figcaption>Lumen</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
       <div class="works">
-        <div class="segmented" role="tablist" aria-label="Кейсы и концепты">
+        <div class="segmented mobile-only" role="tablist" aria-label="Кейсы и концепты">
           <span class="segmented__thumb" aria-hidden="true"></span>
           <button class="segmented-btn is-active" type="button" role="tab" aria-selected="true" data-panel="cases"><span data-lang="ru">Кейсы</span><span data-lang="en">Cases</span></button>
           <button class="segmented-btn" type="button" role="tab" aria-selected="false" data-panel="concepts"><span data-lang="ru">Концепты</span><span data-lang="en">Concepts</span></button>
         </div>
-
+        <h2 class="cases-heading"><span data-lang="ru">Избранные кейсы</span><span data-lang="en">Selected cases</span></h2>
         <section class="work" data-panel="cases" aria-label="Кейсы">
 
-        <a class="case-card case-link" href="./copilot.html" aria-label="CoPilot">
-          <img class="case-image is-loading" width="2688" height="1518" loading="lazy" decoding="async" src="./assets/copilot-case/overview.webp" alt="Интерфейс CoPilot с отчетами по безопасности">
+        <a class="case-card case-link" href="./track.html" aria-label="Track">
+          <img class="case-image is-loading" width="2400" height="1355" loading="lazy" decoding="async" src="./assets/track/dashboard.webp" alt="Дашборд Track с виджетами безопасности">
           <span class="case-copy">
-            <span class="case-title"><span data-lang="ru">CoPilot: отчёты по безопасности</span><span data-lang="en">CoPilot: security reports</span></span>
-            <span class="case-description"><span data-lang="ru">Рабочее пространство для AppSec-аналитиков, которые разбирают отчёты сканирования и принимают решения по уязвимостям. Спроектировала split-screen workspace: список отчётов, evidence, рекомендации и действия остаются в одном контексте.</span><span data-lang="en">A workspace for AppSec analysts who review scan reports and make decisions on vulnerabilities. I designed a split-screen workspace where the report list, evidence, recommendations and actions stay in one context.</span></span>
+            <span class="case-title"><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">Track: security dashboard</span></span>
+            <span class="case-description"><span data-lang="ru">Настраиваемый security-дашборд для enterprise AppSec-платформы. Спроектировала widget-based workspace: каждая роль быстро собирает свой обзор и переходит к деталям без потери общей картины</span><span data-lang="en">A customizable security dashboard for an enterprise AppSec platform. I designed a widget-based workspace: each role quickly assembles its own overview and drills into details without losing the big picture.</span></span>
           </span>
         </a>
 
@@ -79,11 +295,11 @@
           </span>
         </a>
 
-        <a class="case-card case-link" href="./track.html" aria-label="Track">
-          <img class="case-image is-loading" width="2400" height="1355" loading="lazy" decoding="async" src="./assets/track/dashboard.webp" alt="Дашборд Track с виджетами безопасности">
+        <a class="case-card case-link" href="./copilot.html" aria-label="CoPilot">
+          <img class="case-image is-loading" width="2688" height="1518" loading="lazy" decoding="async" src="./assets/copilot-case/overview.webp" alt="Интерфейс CoPilot с отчетами по безопасности">
           <span class="case-copy">
-            <span class="case-title"><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">Track: security dashboard</span></span>
-            <span class="case-description"><span data-lang="ru">Настраиваемый security-дашборд для enterprise AppSec-платформы. Спроектировала widget-based workspace: каждая роль быстро собирает свой обзор и переходит к деталям без потери общей картины</span><span data-lang="en">A customizable security dashboard for an enterprise AppSec platform. I designed a widget-based workspace: each role quickly assembles its own overview and drills into details without losing the big picture.</span></span>
+            <span class="case-title"><span data-lang="ru">CoPilot: отчёты по безопасности</span><span data-lang="en">CoPilot: security reports</span></span>
+            <span class="case-description"><span data-lang="ru">Рабочее пространство для AppSec-аналитиков, которые разбирают отчёты сканирования и принимают решения по уязвимостям. Спроектировала split-screen workspace: список отчётов, evidence, рекомендации и действия остаются в одном контексте.</span><span data-lang="en">A workspace for AppSec analysts who review scan reports and make decisions on vulnerabilities. I designed a split-screen workspace where the report list, evidence, recommendations and actions stay in one context.</span></span>
           </span>
         </a>
 
@@ -112,33 +328,27 @@
         </a>
       </section>
 
-        <section class="concepts" data-panel="concepts" aria-label="Концепты" hidden>
-
-        <article class="case-card">
-          <img class="case-image is-loading" width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Экраны концепта Crypto Dashboard: портфель, маркет, график и ордербук">
-          <div class="case-copy">
-            <h3>Crypto Dashboard</h3>
-            <p><span data-lang="ru">Концепт мобильного крипто-приложения с фокусом на ясность и спокойное чтение цифр. Собрала ключевые модули в единую систему карточек: портфель с балансом и быстрыми действиями, маркет с котировками, интерактивный график цены и ордербук с покупкой и продажей — на монохромной сетке с моноширинным шрифтом и одним акцентным цветом.</span><span data-lang="en">A concept for a mobile crypto app focused on clarity and calm reading of numbers. I brought the key modules into one card system: a portfolio with balance and quick actions, a market with quotes, an interactive price chart and an order book with buy and sell — on a monochrome grid with a monospaced typeface and a single accent color.</span></p>
-          </div>
-        </article>
-
-        <article class="case-card">
-          <img class="case-image is-loading" width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Экраны концепта Aether для изучения космоса">
-          <div class="case-copy">
-            <h3>Aether</h3>
-            <p><span data-lang="ru">Фокус концепта — не просто набор образовательных экранов, а атмосферный продуктовый мир, приложение помогает изучать космос через уроки, наблюдения ночного неба, sky map и персональный прогресс.</span><span data-lang="en">The concept focuses not just on a set of educational screens but on an atmospheric product world; the app helps explore space through lessons, night-sky observations, a sky map and personal progress.</span></p>
-          </div>
-          <img class="case-image is-loading" width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Дополнительные экраны концепта Aether">
-        </article>
-
-        <article class="case-card last-card">
-          <img class="case-image is-loading" width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Экраны концепта Lumen для управления финансами">
-          <div class="case-copy">
-            <h3>Lumen</h3>
-            <p><span data-lang="ru">Концепт fintech-приложения с AI-ассистентом для управления личными финансами. Продукт объединяет счета, расходы, переводы, инвестиции и персональные рекомендации, помогая пользователю лучше понимать бюджет, планировать траты и принимать финансовые решения.</span><span data-lang="en">A concept for a fintech app with an AI assistant for managing personal finances. It brings together accounts, expenses, transfers, investments and personal recommendations, helping users understand their budget, plan spending and make financial decisions.</span></p>
-          </div>
-          <img class="case-image is-loading" width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Дополнительные экраны концепта Lumen">
-        </article>
+        <section class="concepts mobile-only" data-panel="concepts" aria-label="Концепты" hidden>
+          <article class="case-card">
+            <img class="case-image is-loading" width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Концепт с виджетами: скорость, зарядка, пульс">
+          </article>
+          <article class="case-card">
+            <img class="case-image is-loading" width="882" height="1815" loading="lazy" decoding="async" src="./assets/ozon_no_bg_1.png" alt="Концепт мобильного банка">
+          </article>
+          <article class="case-card">
+            <img class="case-image is-loading" width="5040" height="3540" loading="lazy" decoding="async" src="./assets/Smart%20Home%20Dashboard.png" alt="Концепт Smart Home Dashboard">
+          </article>
+          <article class="case-card">
+            <img class="case-image is-loading" width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Концепт Crypto Dashboard">
+          </article>
+          <article class="case-card">
+            <img class="case-image is-loading" width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Концепт Aether">
+            <img class="case-image is-loading" width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Концепт Aether">
+          </article>
+          <article class="case-card last-card">
+            <img class="case-image is-loading" width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Концепт Lumen">
+            <img class="case-image is-loading" width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Концепт Lumen">
+          </article>
         </section>
       </div>
     </main>
@@ -159,6 +369,78 @@
       <span>Check</span>
     </a>
     <div class="cursor-tooltip" role="status" aria-hidden="true"><span data-lang="ru">Смотреть кейс</span><span data-lang="en">View case</span></div>
+
+    <script>
+      // Duplicate the concept tiles once so the marquee loops seamlessly.
+      (function () {
+        var track = document.querySelector(".concept-track");
+        if (!track) return;
+        Array.prototype.slice.call(track.children).forEach(function (node) {
+          var clone = node.cloneNode(true);
+          clone.setAttribute("aria-hidden", "true");
+          track.appendChild(clone);
+        });
+      })();
+
+      // Click a concept tile -> open it fullscreen. Close via the X button,
+      // a click on the backdrop, or Escape.
+      (function () {
+        var marquee = document.querySelector(".concept-marquee");
+        if (!marquee) return;
+
+        var box = document.createElement("div");
+        box.className = "concept-lightbox";
+        box.setAttribute("role", "dialog");
+        box.setAttribute("aria-modal", "true");
+        box.setAttribute("aria-hidden", "true");
+
+        var close = document.createElement("button");
+        close.type = "button";
+        close.className = "concept-lightbox__close";
+        close.setAttribute("aria-label", "Закрыть / Close");
+        close.innerHTML =
+          '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
+        var img = document.createElement("img");
+        img.alt = "";
+
+        box.appendChild(close);
+        box.appendChild(img);
+        document.body.appendChild(box);
+
+        var savedOverflow = "";
+
+        function open(src, alt) {
+          img.src = src;
+          img.alt = alt || "";
+          box.classList.add("is-open");
+          box.setAttribute("aria-hidden", "false");
+          savedOverflow = document.body.style.overflow;
+          document.body.style.overflow = "hidden";
+        }
+
+        function hide() {
+          box.classList.remove("is-open");
+          box.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = savedOverflow;
+        }
+
+        marquee.addEventListener("click", function (event) {
+          var picture = event.target.closest(".concept-tile img");
+          if (!picture) return;
+          open(picture.currentSrc || picture.src, picture.alt);
+        });
+
+        close.addEventListener("click", hide);
+        // Click anywhere on the backdrop (but not on the image itself) closes.
+        box.addEventListener("click", function (event) {
+          if (event.target !== img) hide();
+        });
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && box.classList.contains("is-open")) hide();
+        });
+      })();
+    </script>
     <script src="./script.js"></script>
     <script>
       // Interactive fluid background — desktop only, and never when the user
