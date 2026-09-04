@@ -183,6 +183,71 @@
 
       /* Keep the full-bleed band from ever pushing a horizontal scrollbar. */
       body { overflow-x: hidden; }
+
+      /* Year · status label above each case title. */
+      .case-eyebrow {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .case-eyebrow .shipped {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: #3f9e6a;
+      }
+      [data-theme="dark"] .case-eyebrow .shipped {
+        color: #5cc389;
+      }
+      .case-eyebrow .shipped::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      /* Two–three headline metrics under each case card, pulled from its
+         Outcome block, so numbers are visible before the click. Rendered as
+         quiet pill chips that match the site's controls. */
+      .case-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .case-stats .stat {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 22px;
+        background: #191919;
+        font-size: 12.5px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: -0.0366211px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .case-stats .stat b {
+        font-weight: 600;
+        color: #ffffff;
+      }
+      /* Dark theme: mirror the pill so it stays visible on the dark ground. */
+      [data-theme="dark"] .case-stats .stat {
+        background: #f4f5f6;
+        color: rgba(18, 19, 21, 0.72);
+      }
+      [data-theme="dark"] .case-stats .stat b {
+        color: #121315;
+      }
     </style>
     <script>
       (function () {
@@ -283,51 +348,59 @@
         <h2 class="cases-heading"><span data-lang="ru">Избранные кейсы</span><span data-lang="en">Selected cases</span></h2>
         <section class="work" data-panel="cases" aria-label="Кейсы">
 
+        <a class="case-card case-link" href="./wave.html" aria-label="Wave">
+          <img class="case-image is-loading" width="2400" height="1355" loading="lazy" decoding="async" src="./assets/wave/scans.webp" alt="Интерфейс Wave для разбора результатов сканирования">
+          <span class="case-copy">
+            <span class="case-eyebrow"><span data-lang="ru">2025 · <span class="shipped">В проде</span></span><span data-lang="en">2025 · <span class="shipped">Shipped</span></span></span>
+            <span class="case-title"><span data-lang="ru">Wave: разбор результатов сканирования</span><span data-lang="en">Wave: triaging scan results</span></span>
+            <span class="case-description"><span data-lang="ru">AI-модуль для разбора уязвимостей после скана, команда получала сотни находок и тратила часы на ручную проверку. Спроектировала сценарий, где AI показывает статус проверки, вероятность, объяснение и путь к коду, но финальное решение остаётся за аналитиком.</span><span data-lang="en">An AI module for triaging vulnerabilities after a scan, where the team got hundreds of findings and spent hours on manual review. I designed a flow where AI shows the check status, probability, explanation and path to code, while the final decision stays with the analyst.</span></span>
+            <span class="case-stats">
+              <span class="stat"><b>≈ −60%</b> <span data-lang="ru">времени разбора</span><span data-lang="en">triage time</span></span>
+              <span class="stat"><b>≈ 2 из 3</b> <span data-lang="ru">находок без кода</span><span data-lang="en">findings without code</span></span>
+              <span class="stat"><b>100%</b> <span data-lang="ru">прослеживаемость</span><span data-lang="en">traceable</span></span>
+            </span>
+          </span>
+        </a>
+
         <a class="case-card case-link" href="./track.html" aria-label="Track">
           <img class="case-image is-loading" width="2400" height="1355" loading="lazy" decoding="async" src="./assets/track/dashboard.webp" alt="Дашборд Track с виджетами безопасности">
           <span class="case-copy">
+            <span class="case-eyebrow"><span data-lang="ru">2025 · <span class="shipped">В проде</span></span><span data-lang="en">2025 · <span class="shipped">Shipped</span></span></span>
             <span class="case-title"><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">Track: security dashboard</span></span>
             <span class="case-description"><span data-lang="ru">Настраиваемый security-дашборд для enterprise AppSec-платформы. Спроектировала widget-based workspace: каждая роль быстро собирает свой обзор и переходит к деталям без потери общей картины</span><span data-lang="en">A customizable security dashboard for an enterprise AppSec platform. I designed a widget-based workspace: each role quickly assembles its own overview and drills into details without losing the big picture.</span></span>
+            <span class="case-stats">
+              <span class="stat"><b>≈ 1 мин</b> <span data-lang="ru">на обзор под роль</span><span data-lang="en">to a role overview</span></span>
+              <span class="stat"><b>3 роли</b> <span data-lang="ru">один дашборд</span><span data-lang="en">one dashboard</span></span>
+              <span class="stat"><b>5 уровней</b> <span data-lang="ru">severity</span><span data-lang="en">severity</span></span>
+            </span>
           </span>
         </a>
 
         <a class="case-card case-link" href="./vault.html" aria-label="VAULT Wallet">
           <img class="case-image is-loading" width="12003" height="5994" loading="lazy" decoding="async" src="./assets/vault-case/cover.png" alt="Экраны криптокошелька VAULT Wallet: онбординг, активы, монета и главная">
           <span class="case-copy">
+            <span class="case-eyebrow"><span data-lang="ru">2026 · Клиентский проект</span><span data-lang="en">2026 · Client project</span></span>
             <span class="case-title"><span data-lang="ru">VAULT Wallet: криптокошелёк</span><span data-lang="en">VAULT Wallet: crypto wallet</span></span>
             <span class="case-description"><span data-lang="ru">Криптокошелёк, который не отпугивает новичков привычной тёмной крипто-эстетикой. Спроектировала спокойный интерфейс на азиатском визуальном языке: онбординг, импорт кошелька, покупка и watchlist остаются простыми и понятными.</span><span data-lang="en">A crypto wallet that doesn't scare newcomers off with the usual dark crypto aesthetic. I designed a calm interface in an Asian visual language: onboarding, wallet import, buying and the watchlist all stay simple and clear.</span></span>
-          </span>
-        </a>
-
-        <a class="case-card case-link" href="./copilot.html" aria-label="CoPilot">
-          <img class="case-image is-loading" width="2688" height="1518" loading="lazy" decoding="async" src="./assets/copilot-case/overview.webp" alt="Интерфейс CoPilot с отчетами по безопасности">
-          <span class="case-copy">
-            <span class="case-title"><span data-lang="ru">CoPilot: отчёты по безопасности</span><span data-lang="en">CoPilot: security reports</span></span>
-            <span class="case-description"><span data-lang="ru">Рабочее пространство для AppSec-аналитиков, которые разбирают отчёты сканирования и принимают решения по уязвимостям. Спроектировала split-screen workspace: список отчётов, evidence, рекомендации и действия остаются в одном контексте.</span><span data-lang="en">A workspace for AppSec analysts who review scan reports and make decisions on vulnerabilities. I designed a split-screen workspace where the report list, evidence, recommendations and actions stay in one context.</span></span>
+            <span class="case-stats">
+              <span class="stat"><b>4 шага</b> <span data-lang="ru">онбординга</span><span data-lang="en">onboarding</span></span>
+              <span class="stat"><b>5 сценариев</b> <span data-lang="ru">end-to-end</span><span data-lang="en">end-to-end</span></span>
+              <span class="stat"><b>1 тап</b> <span data-lang="ru">до любого действия</span><span data-lang="en">to any action</span></span>
+            </span>
           </span>
         </a>
 
         <a class="case-card case-link" href="./design-system.html" aria-label="Design System">
           <img class="case-image is-loading" width="2400" height="1212" loading="lazy" decoding="async" src="./assets/design-system-case/screens-1.png" alt="Компоненты дизайн-системы: варианты и состояния кнопок, тегов и уведомлений">
           <span class="case-copy">
+            <span class="case-eyebrow"><span data-lang="ru">2025 · <span class="shipped">В проде</span></span><span data-lang="en">2025 · <span class="shipped">Shipped</span></span></span>
             <span class="case-title"><span data-lang="ru">Design System: библиотека компонентов</span><span data-lang="en">Design System: component library</span></span>
             <span class="case-description"><span data-lang="ru">Библиотека компонентов для компании с множеством продуктов, которые должны оставаться консистентными и при этом быстро разрабатываться. Описала базовые компоненты как систему: варианты, состояния, размеры и правила использования, готовые к handoff.</span><span data-lang="en">A component library for a company with many products that need to stay consistent while still shipping fast. I described the core components as a system: variants, states, sizes and usage rules, ready for handoff.</span></span>
-          </span>
-        </a>
-
-        <a class="case-card case-link" href="./wave.html" aria-label="Wave">
-          <img class="case-image is-loading" width="2400" height="1355" loading="lazy" decoding="async" src="./assets/wave/scans.webp" alt="Интерфейс Wave для разбора результатов сканирования">
-          <span class="case-copy">
-            <span class="case-title"><span data-lang="ru">Wave: разбор результатов сканирования</span><span data-lang="en">Wave: triaging scan results</span></span>
-            <span class="case-description"><span data-lang="ru">AI-модуль для разбора уязвимостей после скана, команда получала сотни находок и тратила часы на ручную проверку. Спроектировала сценарий, где AI показывает статус проверки, вероятность, объяснение и путь к коду, но финальное решение остаётся за аналитиком.</span><span data-lang="en">An AI module for triaging vulnerabilities after a scan, where the team got hundreds of findings and spent hours on manual review. I designed a flow where AI shows the check status, probability, explanation and path to code, while the final decision stays with the analyst.</span></span>
-          </span>
-        </a>
-
-        <a class="case-card case-link" id="alwa" href="./alwa.html" aria-label="Alwa MVP">
-          <img class="case-image is-loading" width="2688" height="1405" loading="lazy" decoding="async" src="./assets/alwa-case/overview.webp" alt="Экраны MVP Alwa с результатами анализов и профилем здоровья">
-          <span class="case-copy">
-            <span class="case-title"><span data-lang="ru">Alwa MVP: результаты анализов и профиль здоровья</span><span data-lang="en">Alwa MVP: lab results and health profile</span></span>
-            <span class="case-description"><span data-lang="ru">MVP health-приложения, которое помогает пользователю разобрать результаты анализов, добавить контекст о себе и получить понятный следующий шаг.</span><span data-lang="en">An MVP of a health app that helps users make sense of their lab results, add personal context and get a clear next step.</span></span>
+            <span class="case-stats">
+              <span class="stat"><b>6 состояний</b> <span data-lang="ru">на компонент</span><span data-lang="en">per component</span></span>
+              <span class="stat"><b>4 × 3</b> <span data-lang="ru">варианта × размера</span><span data-lang="en">variants × sizes</span></span>
+              <span class="stat"><b>≈ −40%</b> <span data-lang="ru">уточнений на handoff</span><span data-lang="en">handoff questions</span></span>
+            </span>
           </span>
         </a>
       </section>

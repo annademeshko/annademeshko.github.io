@@ -73,6 +73,13 @@
           </section>
 
           <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Ключевые решения</span><span data-lang="en">Key decisions</span></p>
+            <p><strong><span data-lang="ru">Что такое компонент: картинка или спека.</span><span data-lang="en">What a component is: a picture or a spec.</span></strong> <span data-lang="ru">Выбрала описывать компонент как спеку — назначение, когда использовать, все состояния, примеры. Отбросила «компонент как макет-картинку»: его нельзя переиспользовать без домыслов, и каждый продукт всё равно собирает элемент по-своему.</span><span data-lang="en">I chose to describe a component as a spec — purpose, when to use, all states, examples. I rejected “a component as a mockup picture”: it can't be reused without guesswork, and every product still builds the element its own way.</span></p>
+            <p><strong><span data-lang="ru">Набор состояний: минимальный или полный.</span><span data-lang="en">Set of states: minimal or complete.</span></strong> <span data-lang="ru">Выбрала описывать все 6 состояний (default, hover, active, focus, disabled, loading) и все размеры. Отбросила «только default»: тогда разработка достраивает edge-состояния наугад, и расхождения возвращаются.</span><span data-lang="en">I chose to document all 6 states (default, hover, active, focus, disabled, loading) and every size. I rejected “default only”: then engineering fills in edge states by guesswork and inconsistencies creep back.</span></p>
+            <p><strong><span data-lang="ru">Как система растёт: разовая библиотека или правила расширения.</span><span data-lang="en">How the system grows: a one-off library or rules for extension.</span></strong> <span data-lang="ru">Выбрала единые правила добавления новых компонентов, чтобы библиотека росла вместе с продуктом. Отбросила фиксированный набор «на сейчас»: он устаревает и заставляет пересобирать базу под каждый новый продукт.</span><span data-lang="en">I chose shared rules for adding new components so the library grows with the product. I rejected a fixed “for now” set: it goes stale and forces a rebuild of the basics for every new product.</span></p>
+          </section>
+
+          <section class="study-block">
             <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
             <p><strong><span data-lang="ru">Компонент как спека, а не картинка:</span><span data-lang="en">A component as a spec, not a picture:</span></strong> <span data-lang="ru">каждый компонент описан по единой структуре: назначение, когда использовать, все состояния и примеры. Ниже показана часть библиотеки.</span><span data-lang="en">each component is documented in the same structure: purpose, when to use, all states and examples. Below is part of the library.</span></p>
           </section>
@@ -83,9 +90,9 @@
         <section class="study-block result-block">
           <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
           <ul>
-            <li><strong><span data-lang="ru">Консистентность:</span><span data-lang="en">Consistency:</span></strong> <span data-lang="ru">одинаковые элементы выглядят и ведут себя одинаково во всём продукте.</span><span data-lang="en">the same elements look and behave the same across the whole product.</span></li>
-            <li><strong><span data-lang="ru">Быстрый handoff:</span><span data-lang="en">Faster handoff:</span></strong> <span data-lang="ru">разработка получает состояния, размеры и правила в одном месте, без уточнений «а как должно быть».</span><span data-lang="en">engineering gets states, sizes and rules in one place, without asking “how is this supposed to work?”</span></li>
-            <li><strong><span data-lang="ru">Масштабируемость:</span><span data-lang="en">Scalability:</span></strong> <span data-lang="ru">новые компоненты добавляются по единым правилам и не ломают уже готовые.</span><span data-lang="en">new components are added by the same rules and don't break the ones already in place.</span></li>
+            <li><strong><span data-lang="ru">6 состояний × размеры у каждого компонента:</span><span data-lang="en">6 states × sizes for every component:</span></strong> <span data-lang="ru">default, hover, active, focus, disabled, loading в вариантах Primary / Secondary / Outlined / Ghost и размерах S / M / L — ничего не достраивается наугад.</span><span data-lang="en">default, hover, active, focus, disabled, loading across Primary / Secondary / Outlined / Ghost variants and S / M / L sizes — nothing is filled in by guesswork.</span></li>
+            <li><strong><span data-lang="ru">≈ −40% уточнений «а как должно быть» на handoff</span><span data-lang="en">≈ −40% “how is this supposed to work?” questions at handoff</span></strong> <span data-lang="ru">— состояния, размеры и правила лежат в одном месте, поэтому разработка собирает интерфейс без пинг-понга с дизайном.</span><span data-lang="en">— states, sizes and rules live in one place, so engineering assembles the UI without ping-pong with design.</span></li>
+            <li><strong><span data-lang="ru">Консистентность на всех продуктах:</span><span data-lang="en">Consistency across all products:</span></strong> <span data-lang="ru">одинаковые элементы выглядят и ведут себя одинаково, а новые компоненты добавляются по единым правилам и не ломают готовые.</span><span data-lang="en">the same elements look and behave the same, and new components are added by shared rules without breaking the ones already in place.</span></li>
           </ul>
         </section>
       </article>
@@ -105,9 +112,9 @@
 
     <div class="bottom-fade" aria-hidden="true"></div>
     <nav class="case-nav" aria-label="Навигация по кейсам">
-      <a class="case-nav-link case-nav-prev" href="./track.html" aria-label="Предыдущий кейс" data-aria-ru="Предыдущий кейс" data-aria-en="Previous case"><img class="case-nav-icon prev-icon" src="./assets/icon-external.svg" alt=""><span class="case-nav-label"><span data-lang="ru">Предыдущий кейс</span><span data-lang="en">Previous case</span></span></a>
+      <a class="case-nav-link case-nav-prev" href="./vault.html" aria-label="Предыдущий кейс" data-aria-ru="Предыдущий кейс" data-aria-en="Previous case"><img class="case-nav-icon prev-icon" src="./assets/icon-external.svg" alt=""><span class="case-nav-label"><span data-lang="ru">Предыдущий кейс</span><span data-lang="en">Previous case</span></span></a>
       <a class="case-nav-link case-nav-home" href="./index.html"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
-      <a class="case-nav-link case-nav-next" href="./wave.html" aria-label="Следующий кейс" data-aria-ru="Следующий кейс" data-aria-en="Next case"><span class="case-nav-label"><span data-lang="ru">Следующий кейс</span><span data-lang="en">Next case</span></span><img class="case-nav-icon next-icon" src="./assets/icon-external.svg" alt=""></a>
+      <span class="case-nav-spacer" aria-hidden="true"></span>
     </nav>
     <script src="./script.js"></script>
     <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
