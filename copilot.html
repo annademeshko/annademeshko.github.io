@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Кейс Анны Демешко: CoPilot — AI-разбор security-проверок с решением эксперта.">
+    <title data-ru="CoPilot: AI-разбор security-проверок" data-en="CoPilot: AI-assisted security review">CoPilot: AI-разбор security-проверок</title>
+    <link rel="icon" type="image/png" href="./assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="./assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+          var q = new URLSearchParams(location.search).get("lang");
+          var l = (q === "en" || q === "ru") ? q : localStorage.getItem("lang");
+          if (l === "en" || l === "ru") {
+            document.documentElement.setAttribute("lang", l);
+            if (q === "en" || q === "ru") localStorage.setItem("lang", l);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button class="lang-btn" type="button" data-lang-set="ru">RU</button>
+        <button class="lang-btn" type="button" data-lang-set="en">EN</button>
+      </div>
+    </div>
+
+    <main class="page case-page copilot-case" aria-label="Кейс CoPilot: AI-разбор security-проверок">
+      <article class="case-study">
+
+        <header class="case-hero">
+          <h1>
+            <span data-lang="ru">CoPilot: AI-разбор security-проверок</span>
+            <span data-lang="en">CoPilot: AI-assisted security review workflow</span>
+          </h1>
+          <p class="case-hero-lead">
+            <span data-lang="ru">Спроектировала рабочий процесс, который делает многоэтапный AI-анализ понятным: от запуска проверки и отслеживания обработки до разбора evidence и финального решения эксперта.</span>
+            <span data-lang="en">I designed a workflow that makes multi-stage AI analysis understandable — from configuring a check and monitoring processing to reviewing evidence and making the final expert decision.</span>
+          </p>
+          <p class="case-meta">
+            <span data-lang="ru">Product Designer · Product UX · Interaction Design · State modeling · UI system</span>
+            <span data-lang="en">Product Designer · Product UX · Interaction Design · State modeling · UI system</span>
+          </p>
+        </header>
+
+        <img
+          class="study-image copilot-fullscreen copilot-hero-image"
+          loading="lazy" decoding="async"
+          src="./assets/copilot/copilot-01-hero.png"
+          alt="CoPilot security analysis interface"
+        >
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Контекст</span><span data-lang="en">Overview</span></p>
+            <p>
+              <span data-lang="ru">Security analysis редко даёт простой ответ «да / нет». Одна проверка проходит несколько этапов обработки, возвращает вероятностные сигналы и может создать большой список потенциальных проблем. Даже после завершения автоматического анализа финальное решение остаётся за специалистом.</span>
+              <span data-lang="en">Security analysis rarely produces a simple yes-or-no answer. A check can pass through several processing stages, return probabilistic signals and create a large set of potential issues. Even after automated analysis is complete, the final decision still belongs to a specialist.</span>
+            </p>
+            <p>
+              <span data-lang="ru">Моя задача была не просто показать больше данных, а сделать систему понятной в трёх ключевых моментах:</span>
+              <span data-lang="en">My task was not to expose more data, but to make the system understandable at three critical moments:</span>
+            </p>
+            <div class="copilot-question-lines" aria-label="Core product questions">
+              <div class="copilot-question-line"><span>01</span><strong><span data-lang="ru">Что сейчас происходит?</span><span data-lang="en">What is happening?</span></strong></div>
+              <div class="copilot-question-line"><span>02</span><strong><span data-lang="ru">Насколько результату можно доверять?</span><span data-lang="en">Can I trust this result?</span></strong></div>
+              <div class="copilot-question-line"><span>03</span><strong><span data-lang="ru">Что мне делать дальше?</span><span data-lang="en">What should I do next?</span></strong></div>
+            </div>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Проблема</span><span data-lang="en">The problem</span></p>
+            <p>
+              <span data-lang="ru">Автоматический анализ уязвимостей асинхронный и вероятностный. Пользователю нужно понимать, на каком этапе находится проверка, что именно уже обработано, где произошёл сбой и чем автоматическая prediction отличается от подтверждённой человеком уязвимости.</span>
+              <span data-lang="en">Automated vulnerability analysis is asynchronous and probabilistic. Users need to understand where a check is, what has already been processed, where something failed and how a machine prediction differs from a vulnerability validated by a human.</span>
+            </p>
+            <ul>
+              <li><span data-lang="ru">Показать долгий процесс без «магического» loading state.</span><span data-lang="en">Communicate a long-running process without a magical loading state.</span></li>
+              <li><span data-lang="ru">Разделить машинный прогноз и человеческий verdict.</span><span data-lang="en">Separate machine prediction from a human verdict.</span></li>
+              <li><span data-lang="ru">Помочь быстро просматривать и приоритизировать большое число находок.</span><span data-lang="en">Help experts scan and prioritise a large number of findings.</span></li>
+              <li><span data-lang="ru">Безопасно оформить действия, которые влияют на будущие сканы.</span><span data-lang="en">Make actions that affect future scans explicit and safe.</span></li>
+              <li><span data-lang="ru">Спроектировать failed, skipped, empty и partial states как часть основного продукта.</span><span data-lang="en">Treat failed, skipped, empty and partial states as part of the core product.</span></li>
+            </ul>
+          </section>
+        </div>
+
+        <section class="study-block copilot-flow-wrap">
+          <p class="eyebrow"><span data-lang="ru">Модель сценария</span><span data-lang="en">Mapping the workflow</span></p>
+          <p>
+            <span data-lang="ru">Я строила опыт вокруг реального decision flow, а не вокруг отдельных экранов. Это разделило продукт на два режима: monitoring — понять состояние системы; reviewing — оценить результат и принять решение.</span>
+            <span data-lang="en">I structured the experience around the actual decision flow rather than individual screens. This separated two modes: monitoring — understanding the system state; reviewing — evaluating the result and making a decision.</span>
+          </p>
+
+          <div class="copilot-workflow-phases" aria-label="CoPilot workflow">
+            <div class="copilot-workflow-phase">
+              <div class="copilot-phase-label">
+                <span data-lang="ru">Monitoring</span><span data-lang="en">Monitoring</span>
+              </div>
+              <div class="copilot-phase-steps">
+                <div class="copilot-phase-step"><span class="step-index">01</span><strong><span data-lang="ru">Выбрать отчёт</span><span data-lang="en">Select report</span></strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">02</span><strong><span data-lang="ru">Настроить анализ</span><span data-lang="en">Configure analysis</span></strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">03</span><strong><span data-lang="ru">Запустить processing</span><span data-lang="en">Start processing</span></strong></div>
+              </div>
+            </div>
+            <div class="copilot-workflow-phase">
+              <div class="copilot-phase-label">
+                <span data-lang="ru">Reviewing</span><span data-lang="en">Reviewing</span>
+              </div>
+              <div class="copilot-phase-steps">
+                <div class="copilot-phase-step"><span class="step-index">04</span><strong><span data-lang="ru">Оценить результат</span><span data-lang="en">Review result</span></strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">05</span><strong><span data-lang="ru">Изучить finding</span><span data-lang="en">Inspect finding</span></strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">06</span><strong><span data-lang="ru">Принять решение</span><span data-lang="en">Make decision</span></strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">01</span><strong class="copilot-section-title">
+              <span data-lang="ru">Контроль до запуска проверки</span>
+              <span data-lang="en">Giving users control before processing starts</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Разные форматы данных и режимы анализа влияют на результат. Вместо того чтобы прятать эти параметры в настройках, я собрала значимые решения в один понятный setup: выбрать исходный отчёт, определить режим проверки и запустить анализ.</span>
+              <span data-lang="en">Different data formats and analysis modes affect the result. Instead of hiding those options in settings, I grouped the meaningful choices into one setup step: select the source report, choose the check mode and start the analysis.</span>
+            </p>
+          </section>
+        </div>
+
+        <img
+          class="study-image copilot-fullscreen"
+          loading="lazy" decoding="async"
+          src="./assets/copilot/copilot-02-setup.png"
+          alt="CoPilot overview and setup"
+        >
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">02</span><strong class="copilot-section-title">
+              <span data-lang="ru">Прозрачный asynchronous processing</span>
+              <span data-lang="en">Making asynchronous processing visible</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Обычный progress bar скрывал бы слишком много. Если обработка замедлится или остановится, эксперт не поймёт, нужно ждать или вмешаться. Поэтому я представила pipeline явно и определила семантические состояния для каждого этапа.</span>
+              <span data-lang="en">A generic progress bar would hide too much. If processing slowed down or stopped, an expert would not know whether to wait or intervene. I represented the pipeline explicitly and defined semantic states for every stage.</span>
+            </p>
+            <p class="copilot-state-line">
+              <strong>Waiting</strong> · <strong>In progress</strong> · <strong>Completed</strong> · <strong>Skipped</strong> · <strong>Failed</strong> · <strong>Broken</strong>
+            </p>
+          </section>
+        </div>
+
+        <img
+          class="study-image copilot-fullscreen"
+          loading="lazy" decoding="async"
+          src="./assets/copilot/copilot-03-processing.png"
+          alt="CoPilot report list and processing states"
+        >
+
+        <figure class="copilot-detail-figure">
+          <img
+            class="copilot-detail-image"
+            loading="lazy" decoding="async"
+            src="./assets/copilot/copilot-detail-processing-states.png"
+            alt="CoPilot waiting, RL, LLM, advice service and completed processing states"
+          >
+          <figcaption>
+            <span data-lang="ru">Один state model показывает и текущий этап, и состояние каждой стадии.</span>
+            <span data-lang="en">One state model communicates both the current stage and the status of each processing step.</span>
+          </figcaption>
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">03</span><strong class="copilot-section-title">
+              <span data-lang="ru">От результата к investigation</span>
+              <span data-lang="en">Moving from a result to an investigation</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Summary помогает сориентироваться, но решение требует evidence. В detailed view я выстроила иерархию между тем, что предполагает система, что реально найдено, какой статус уже присвоен и какое действие доступно дальше.</span>
+              <span data-lang="en">A summary helps with orientation, but a decision requires evidence. In the detailed view I created a hierarchy between what the system predicts, what was actually found, the current review status and the action available next.</span>
+            </p>
+            <ul>
+              <li><span data-lang="ru">system prediction</span><span data-lang="en">system prediction</span></li>
+              <li><span data-lang="ru">finding + technical parameters</span><span data-lang="en">finding + technical parameters</span></li>
+              <li><span data-lang="ru">review state and context</span><span data-lang="en">review state and context</span></li>
+              <li><span data-lang="ru">next expert action</span><span data-lang="en">next expert action</span></li>
+            </ul>
+          </section>
+        </div>
+
+        <img
+          class="study-image copilot-fullscreen"
+          loading="lazy" decoding="async"
+          src="./assets/copilot/copilot-04-details.png"
+          alt="CoPilot split workspace"
+        >
+
+        <figure class="copilot-detail-figure copilot-detail-figure--wide">
+          <img
+            class="copilot-detail-image copilot-detail-image--surface"
+            loading="lazy" decoding="async"
+            src="./assets/copilot/copilot-detail-parameters.png"
+            alt="Detailed vulnerability parameters and rule information"
+          >
+          <figcaption>
+            <span data-lang="ru">Evidence и review context собраны в одном месте: source, severity, rule, status и decision history.</span>
+            <span data-lang="en">Evidence and review context stay together: source, severity, rule, status and decision history.</span>
+          </figcaption>
+        </figure>
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">AI предлагает. Эксперт решает.</span><span data-lang="en">AI suggests. The expert decides.</span></strong></p>
+        </section>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">04</span><strong class="copilot-section-title">
+              <span data-lang="ru">Human in the loop</span>
+              <span data-lang="en">Keeping the human in the loop</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Автоматическая классификация не должна выглядеть как окончательный verdict. Я разделила prediction и человеческое решение как два разных объекта: система помогает сузить внимание и собрать evidence, но confirm / decline / ignore делает эксперт.</span>
+              <span data-lang="en">Automated classification should not look like a final verdict. I treated prediction and the human decision as two different objects: the system narrows attention and assembles evidence, while an expert confirms, declines or ignores the finding.</span>
+            </p>
+          </section>
+        </div>
+
+        <img
+          class="study-image copilot-fullscreen"
+          loading="lazy" decoding="async"
+          src="./assets/copilot/copilot-05-human-decision.png"
+          alt="CoPilot vulnerability review with expert decision controls"
+        >
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">05</span><strong class="copilot-section-title">
+              <span data-lang="ru">Действия с последствиями для будущих сканов</span>
+              <span data-lang="en">Designing for actions with future consequences</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Ignore влияет не только на текущий экран: объект может быть исключён из последующих проверок. Поэтому я отделила такое действие от обычного dismiss, добавила явное подтверждение последствий и отдельный feedback state после применения.</span>
+              <span data-lang="en">Ignore affects more than the current screen: an object may be excluded from later checks. I therefore treated it differently from a simple dismiss, added explicit confirmation of the consequence and a separate feedback state after the action is applied.</span>
+            </p>
+            <p class="copilot-state-line"><strong>Intent → Confirmation → System feedback</strong></p>
+          </section>
+        </div>
+
+        <img
+          class="study-image copilot-fullscreen"
+          loading="lazy" decoding="async"
+          src="./assets/copilot/copilot-06-ignore-flow.png"
+          alt="CoPilot ignore confirmation shown in the full product context"
+        >
+
+        <div class="study-stack">
+          <div class="copilot-sequence copilot-sequence--actions">
+            <figure>
+              <div class="copilot-detail-card">
+                <img
+                  loading="lazy" decoding="async"
+                  src="./assets/copilot/copilot-detail-ignore-modal.png"
+                  alt="Ignore for next scan confirmation modal"
+                >
+              </div>
+              <figcaption><span data-lang="ru">Confirmation · последствие показано до применения действия.</span><span data-lang="en">Confirmation · the consequence is explicit before the action is applied.</span></figcaption>
+            </figure>
+            <figure>
+              <div class="copilot-detail-card">
+                <img
+                  loading="lazy" decoding="async"
+                  src="./assets/copilot/copilot-detail-ignore-success.png"
+                  alt="Success notification after ignoring an object in future scans"
+                >
+              </div>
+              <figcaption><span data-lang="ru">Feedback · продукт подтверждает, что правило повлияет на следующие сканы.</span><span data-lang="en">Feedback · the product confirms that the rule will affect following scans.</span></figcaption>
+            </figure>
+          </div>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Beyond the happy path</span><span data-lang="en">Beyond the happy path</span></p>
+            <p>
+              <span data-lang="ru">Для асинхронного security-продукта edge cases — это основной опыт, а не редкие исключения. Я описала состояния active, waiting, completed, skipped, failed, broken, empty и zero-value и использовала одну логику на уровне pipeline, отчёта и отдельной находки.</span>
+              <span data-lang="en">For an asynchronous security product, edge cases are part of the primary experience. I defined active, waiting, completed, skipped, failed, broken, empty and zero-value states and reused the same logic across the pipeline, the report and an individual finding.</span>
+            </p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">System thinking</span><span data-lang="en">System thinking</span></p>
+            <p>
+              <span data-lang="ru">Количество комбинаций состояний быстро делает screen-by-screen подход неуправляемым. Поэтому я проектировала не отдельные экраны, а набор семантических patterns для processing stages, connectors, counters, severity и validation states.</span>
+              <span data-lang="en">The number of state combinations quickly makes a screen-by-screen approach unmanageable. I designed semantic patterns for processing stages, connectors, counters, severity and validation states instead of solving every screen independently.</span>
+            </p>
+            <p><strong><span data-lang="ru">Состояние должно не просто выглядеть иначе — у него должно быть однозначное продуктовое значение.</span><span data-lang="en">A state should not just look different — it needs a clear product meaning.</span></strong></p>
+          </section>
+        </div>
+
+        <figure class="copilot-system-figure">
+          <div class="copilot-system-surface">
+            <img
+              loading="lazy" decoding="async"
+              src="./assets/copilot/copilot-detail-state-system.png"
+              alt="Reusable CoPilot connector, breakpoint, issue counter, severity and point states"
+            >
+          </div>
+          <figcaption>
+            <span data-lang="ru">Набор переиспользуемых состояний вместо отдельных визуальных решений для каждого сценария.</span>
+            <span data-lang="en">Reusable semantic states instead of one-off visual solutions for every scenario.</span>
+          </figcaption>
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Что показывает этот кейс</span><span data-lang="en">What this case demonstrates</span></p>
+            <div class="copilot-takeaways">
+              <div class="copilot-takeaway">
+                <h3><span data-lang="ru">Делаю сложные системы понятными</span><span data-lang="en">Making complex systems understandable</span></h3>
+                <p><span data-lang="ru">Перевела многоэтапный backend process в state model, который пользователь может читать и контролировать.</span><span data-lang="en">I translated a multi-stage backend process into a state model users can understand and monitor.</span></p>
+              </div>
+              <div class="copilot-takeaway">
+                <h3><span data-lang="ru">Проектирую для экспертных решений</span><span data-lang="en">Designing for expert decisions</span></h3>
+                <p><span data-lang="ru">Разделила автоматические сигналы и человеческую валидацию, построив flow вокруг evidence и последствий действий.</span><span data-lang="en">I separated automated signals from human validation and structured the flow around evidence and the consequences of actions.</span></p>
+              </div>
+              <div class="copilot-takeaway">
+                <h3><span data-lang="ru">Думаю системами, а не отдельными экранами</span><span data-lang="en">Thinking in systems</span></h3>
+                <p><span data-lang="ru">Определила reusable states и interaction patterns, чтобы сложность продукта масштабировалась без новых визуальных правил для каждого сценария.</span><span data-lang="en">I defined reusable states and interaction patterns so product complexity could scale without inventing a new visual rule for every scenario.</span></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="study-block result-block">
+            <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+            <p>
+              <span data-lang="ru">Дизайн описывает end-to-end CoPilot workflow: от настройки анализа и чтения processing states до investigation отдельной находки и экспертного решения. Параллельно был сформирован переиспользуемый state model для реализации интерфейса.</span>
+              <span data-lang="en">The design defines the end-to-end CoPilot workflow — from configuring analysis and reading processing states to investigating an individual finding and making the expert decision — together with a reusable state model for implementation.</span>
+            </p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Что я вынесла</span><span data-lang="en">What I learned</span></p>
+            <p>
+              <span data-lang="ru">Сложность не исчезает, когда мы упрощаем интерфейс — её нужно структурировать. Самая важная часть этой работы была не в том, чтобы уменьшить число состояний, а в том, чтобы определить их смысл, связи и последствия достаточно чётко для уверенного решения пользователя.</span>
+              <span data-lang="en">Complexity does not disappear when we simplify an interface — it has to be structured. The most useful design work was not reducing the number of states, but defining their meaning, relationships and consequences clearly enough for users to make confident decisions.</span>
+            </p>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer site-footer--case">
+      <p class="footer-cta"><span data-lang="ru">Открыта к предложениям</span><span data-lang="en">Open to opportunities</span></p>
+      <p class="footer-note"><span data-lang="ru">Буду рада обсудить проект или вакансию.</span><span data-lang="en">Happy to talk about a role or a project.</span></p>
+      <nav class="text-links" aria-label="Контакты" data-aria-ru="Контакты" data-aria-en="Contacts">
+        <a class="text-link" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span class="text-link-label">Telegram</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+        <a class="text-link" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><span class="text-link-label">LinkedIn</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+        <button class="text-link" type="button" data-copy-email="aneyta@mail.ru"><span class="text-link-label">Email</span><img class="text-link-icon" src="./assets/Copy thin.svg" alt=""></button>
+        <a class="text-link" data-cv href="./assets/CV%20%E2%80%94%20%D0%94%D0%B5%D0%BC%D0%B5%D1%88%D0%BA%D0%BE%20%D0%90%D0%BD%D0%BD%D0%B0%20%28Product%20designer%29.pdf" target="_blank" rel="noreferrer"><span class="text-link-label">CV</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
+      </nav>
+    </footer>
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Навигация по кейсам">
+      <span class="case-nav-spacer" aria-hidden="true"></span>
+      <a class="case-nav-link case-nav-home" href="./index.html"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+      <a class="case-nav-link case-nav-next" href="./vault.html" aria-label="Следующий кейс" data-aria-ru="Следующий кейс" data-aria-en="Next case"><span class="case-nav-label"><span data-lang="ru">Следующий кейс</span><span data-lang="en">Next case</span></span><img class="case-nav-icon next-icon" src="./assets/icon-external.svg" alt=""></a>
+    </nav>
+    <script src="./script.js"></script>
+    <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
+    <script>
+      (function () {
+        try {
+          var p = new URLSearchParams(location.search);
+          if (p.get("noanalytics") === "1") localStorage.setItem("cf-noanalytics", "1");
+          if (p.get("noanalytics") === "0") localStorage.removeItem("cf-noanalytics");
+          if (localStorage.getItem("cf-noanalytics") === "1") return;
+        } catch (e) {}
+        var s = document.createElement("script");
+        s.defer = true;
+        s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        s.setAttribute("data-cf-beacon", '{"token": "e99ab9de70814c0e9089a11ad2a2fd46"}');
+        document.head.appendChild(s);
+      })();
+    </script>
+    <!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

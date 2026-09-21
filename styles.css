@@ -750,7 +750,7 @@ h3,
 }
 
 .case-page {
-  --page-width: 897px;
+  --page-width: 1080px;
   padding-top: 119px;
 }
 
@@ -2322,5 +2322,268 @@ h3,
     top: 28px;
     left: auto;
     right: 28px;
+  }
+}
+
+/* ===== CoPilot case study ===== */
+.copilot-case .case-hero {
+  gap: 10px;
+}
+
+/* Intro framing: typography and rules rather than UI cards. */
+.copilot-question-lines {
+  margin-top: 10px;
+  border-top: 1px solid var(--control-border);
+}
+
+.copilot-question-line {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--control-border);
+}
+
+.copilot-question-line > span {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.copilot-question-line strong {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+/* Workflow: two compact product phases instead of a stretched timeline. */
+.copilot-flow-wrap {
+  width: min(680px, 100%);
+}
+
+.copilot-workflow-phases {
+  display: grid;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.copilot-workflow-phase {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding-top: 14px;
+  border-top: 1px solid var(--control-border);
+}
+
+.copilot-phase-label {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.copilot-phase-steps {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.copilot-phase-step {
+  min-width: 0;
+}
+
+.copilot-phase-step .step-index {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.copilot-phase-step strong {
+  display: block;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.copilot-step-arrow {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 20px;
+}
+
+/* Numbered section titles follow the shared case typography. */
+.copilot-section-heading {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  margin: 0;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.copilot-section-number,
+.copilot-section-title {
+  color: var(--text);
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 600;
+}
+
+.copilot-state-line {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.copilot-state-line strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Detail crops follow one quiet treatment. */
+.copilot-detail-figure {
+  width: min(680px, 100%);
+  margin: 0;
+}
+
+.copilot-system-figure {
+  width: min(760px, 100%);
+  margin: 0;
+}
+
+.copilot-detail-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.copilot-detail-image--surface,
+.copilot-detail-card,
+.copilot-system-surface {
+  overflow: hidden;
+  border: 1px solid var(--control-border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.copilot-detail-figure figcaption,
+.copilot-system-figure figcaption,
+.copilot-sequence figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* Two-step consequential action sequence. */
+.copilot-sequence {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(680px, 100%);
+}
+
+.copilot-sequence figure {
+  margin: 0;
+}
+
+.copilot-detail-card {
+  display: flex;
+  min-height: 180px;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.copilot-detail-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.copilot-system-surface {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  /* The diagram is a transparent PNG drawn for a light canvas, so we pin a
+     light background in both themes to keep its labels legible in dark mode. */
+  background: #f7f7f5;
+  border-color: rgba(17, 17, 17, 0.08);
+}
+
+.copilot-system-surface img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.copilot-takeaways {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.copilot-takeaway h3 {
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.copilot-takeaway p {
+  color: var(--text);
+}
+
+@media (max-width: 700px) {
+  .copilot-workflow-phase {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .copilot-phase-steps {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .copilot-step-arrow {
+    display: none;
+  }
+
+  .copilot-phase-step {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .copilot-phase-step .step-index {
+    margin: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .copilot-section-heading {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .copilot-question-line {
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+  }
+
+  .copilot-sequence {
+    grid-template-columns: 1fr;
   }
 }
