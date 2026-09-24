@@ -93,7 +93,7 @@
   const NEVERLAND_MAX_DEPTH = NEVERLAND_END_DEPTH + 1100;
 
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-  const memePath = "./assets/мемы/";
+  const memePath = "/assets/мемы/";
   const isMobile = window.matchMedia("(max-width: 760px)").matches;
   const NEVERLAND_IMAGE_SIZES = {
     "0515c18df7001b1f96a5434b58a6441b.jpg": [1200, 897],
