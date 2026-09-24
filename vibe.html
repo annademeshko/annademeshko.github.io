@@ -9,9 +9,56 @@
     <link rel="icon" type="image/png" href="./assets/fav_white.png" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="./styles.css">
     
+  
+    <style>
+      .lang-switch--conditional { display: none; }
+      html.lang-switch-enabled .lang-switch--conditional { display: inline-flex; }
+    </style>
+    <script>
+      (function () {
+        try {
+          var params = new URLSearchParams(location.search);
+          var state = history.state || {};
+          var enabled = params.get("langswitch") === "1" || state.langSwitchFromRu === true;
+
+          if (!enabled) return;
+
+          document.documentElement.classList.add("lang-switch-enabled");
+
+          var nextState = Object.assign({}, state, { langSwitchFromRu: true });
+          if (params.get("langswitch") === "1") {
+            params.delete("langswitch");
+            var cleanUrl =
+              location.pathname +
+              (params.toString() ? "?" + params.toString() : "") +
+              location.hash;
+            history.replaceState(nextState, "", cleanUrl);
+          } else {
+            history.replaceState(nextState, "", location.href);
+          }
+
+          var preconnect = document.createElement("link");
+          preconnect.rel = "preconnect";
+          preconnect.href = "https://ru.annademeshko.com";
+          document.head.appendChild(preconnect);
+
+          var prefetch = document.createElement("link");
+          prefetch.rel = "prefetch";
+          prefetch.href = "https://ru.annademeshko.com/vibe.html";
+          document.head.appendChild(prefetch);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="vibe-page">
-    <main class="vibe-world neverlandViewport" aria-label="Vibe Check">
+    
+    <div class="site-controls">
+<div class="lang-switch lang-switch--conditional" role="group" aria-label="Language">
+        <a class="lang-btn" href="https://ru.annademeshko.com/vibe.html" data-lang-set="ru" aria-pressed="false">RU</a>
+        <a class="lang-btn" href="/vibe.html" data-lang-set="en" aria-pressed="true">EN</a>
+      </div>
+    </div>
+<main class="vibe-world neverlandViewport" aria-label="Vibe Check">
       <div class="neverlandBackdrop" aria-hidden="true"></div>
       <header class="neverlandTitle" aria-labelledby="vibe-title">
         <h1 id="vibe-title"><span data-lang="ru">Мой Neverland</span><span data-lang="en">My Neverland</span></h1>
@@ -49,5 +96,26 @@
       })();
     </script>
     <!-- End Cloudflare Web Analytics -->
+  
+    <script>
+      (function () {
+        if (!document.documentElement.classList.contains("lang-switch-enabled")) return;
+
+        document.addEventListener("click", function (event) {
+          var link = event.target.closest && event.target.closest("a[href]");
+          if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+          try {
+            var url = new URL(link.href, location.href);
+            if (url.origin !== location.origin) return;
+            if (url.pathname.indexOf("/assets/") === 0) return;
+            if (url.pathname === location.pathname && url.hash) return;
+
+            url.searchParams.set("langswitch", "1");
+            link.href = url.href;
+          } catch (e) {}
+        }, true);
+      })();
+    </script>
   </body>
 </html>
