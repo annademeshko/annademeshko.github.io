@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Кейс Анны Демешко: Wave — AI-триаж результатов сканирования.">
+    <title data-ru="Wave: разбор результатов сканирования" data-en="Wave: triaging scan results">Wave: разбор результатов сканирования</title>
+  <link rel="canonical" href="https://ru.annademeshko.com/wave/">
+    <link rel="icon" type="image/png" href="../assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="../assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="../styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+  
+    <link rel="preconnect" href="https://annademeshko.com">
+    <link rel="dns-prefetch" href="//annademeshko.com">
+    <link rel="prefetch" href="https://annademeshko.com/wave/?langswitch=1">
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <a class="lang-btn" href="/wave/" data-lang-set="ru" aria-pressed="true">RU</a>
+        <a class="lang-btn" href="https://annademeshko.com/wave/?langswitch=1" data-lang-set="en" aria-pressed="false">EN</a>
+      </div>
+    </div>
+
+    <main class="page case-page" aria-label="Кейс Wave: разбор результатов сканирования">
+      <article class="case-study">
+        <header class="case-hero">
+          <h1><span data-lang="ru">Wave: разбор результатов сканирования</span><span data-lang="en">Wave: triaging scan results</span></h1>
+          <p class="case-hero-lead"><span data-lang="ru">AI-модуль триажа уязвимостей: статус проверки, вероятность и объяснение — финальное решение остаётся за аналитиком.</span><span data-lang="en">An AI triage module for vulnerabilities: check status, probability and explanation — the final decision stays with the analyst.</span></p>
+          <p class="case-meta"><span data-lang="ru">2025 · Product Designer · В проде · Корпоративная AppSec-платформа</span><span data-lang="en">2025 · Product Designer · Shipped · Enterprise AppSec platform</span></p>
+        </header>
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Context</p>
+            <p><span data-lang="ru">В enterprise AppSec после каждого скана аналитик получал сотни находок — реальные уязвимости вперемешку с false positive. Каждую нужно было открыть, проверить компонент, paths и контекст в коде. На больших проектах разбор одного скана растягивался на часы, и с ростом объёма росла цена ошибки: пропустить реальную уязвимость или потратить день на ложную.</span><span data-lang="en">In enterprise AppSec, every scan left the analyst with hundreds of findings — real vulnerabilities mixed with false positives. Each one had to be opened and checked against its component, paths and context in the code. On large projects, triaging a single scan stretched into hours, and as the volume grew so did the cost of a mistake: miss a real vulnerability, or burn a day on a false one.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Design challenge</p>
+            <p><span data-lang="ru">Главный риск — превратить AI в ещё один «чёрный ящик». Интерфейс должен был ускорять triage, но показывать, что проверено, почему AI так решил и где вывод можно подтвердить.</span><span data-lang="en">The main risk was turning AI into yet another “black box.” The interface had to speed up triage while showing what was checked, why AI decided so and where the conclusion can be confirmed.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/wave/scans.webp" alt="Таблица сканов Wave со статусами AI-проверки">
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Моя роль</span><span data-lang="en">My role</span></p>
+            <p><span data-lang="ru">Проектировала UX AI-триажа: статусы проверки на уровне проекта, скана и находки, выбор режима анализа и карточку AI-вердикта. Работала с ML-командой, PM и аналитиками безопасности, чтобы перевести модельные сигналы в понятный рабочий интерфейс.</span><span data-lang="en">I designed the UX of AI triage: check statuses at the project, scan and finding level, the analysis-mode choice and the AI verdict card. I worked with the ML team, PM and security analysts to translate model signals into a clear working interface.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Задачи</span><span data-lang="en">Goals</span></p>
+            <ul>
+              <li><span data-lang="ru">Разложить AI-проверку на состояния для проекта, скана и отдельной находки</span><span data-lang="en">Break the AI check into states for the project, the scan and an individual finding</span></li>
+              <li><span data-lang="ru">Спроектировать режимы Full scan, Prediction only и Explanation only</span><span data-lang="en">Design the Full scan, Prediction only and Explanation only modes</span></li>
+              <li><span data-lang="ru">Собрать карточку AI-вердикта с prediction, explanation и конфликтом сигналов</span><span data-lang="en">Build the AI verdict card with prediction, explanation and signal conflict</span></li>
+              <li><span data-lang="ru">Встроить triage-действие в существующие статусы, историю решений и проверку кода</span><span data-lang="en">Embed the triage action into existing statuses, decision history and code review</span></li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Ключевые решения</span><span data-lang="en">Key decisions</span></p>
+            <p><strong><span data-lang="ru">Как показать AI-вердикт: один бейдж или два сигнала.</span><span data-lang="en">How to show the AI verdict: one badge or two signals.</span></strong> <span data-lang="ru">Выбрала показывать вероятность и объяснение раздельно, а расхождение между ними оставлять видимым, — так аналитик проверяет логику, а не принимает вывод на веру. Отбросила единый бейдж «уязвимость / не уязвимость»: он прячет неопределённость, превращает AI в чёрный ящик и провоцирует слепое согласие.</span><span data-lang="en">I chose to show probability and explanation separately and to keep any conflict between them visible, so the analyst checks the logic instead of taking the conclusion on faith. I rejected a single “vulnerable / not vulnerable” badge: it hides uncertainty, turns AI into a black box and invites blind agreement.</span></p>
+            <p><strong><span data-lang="ru">Глубина AI-проверки: всегда полный анализ или выбор режима.</span><span data-lang="en">AI check depth: always a full analysis or a choice of mode.</span></strong> <span data-lang="ru">Выбрала три режима — Full scan, Prediction only, Explanation only — прямо из строки скана, потому что быстрый triage и глубокий разбор это разные задачи. Отбросила обязательный full scan для каждой находки: на сотнях находок это дорого по времени и избыточно для очевидных случаев.</span><span data-lang="en">I chose three modes — Full scan, Prediction only, Explanation only — right from the scan row, because fast triage and deep review are different jobs. I rejected a mandatory full scan for every finding: across hundreds of findings it is expensive in time and redundant for obvious cases.</span></p>
+            <p><strong><span data-lang="ru">Кто принимает финальное решение: AI или человек.</span><span data-lang="en">Who makes the final call: AI or a human.</span></strong> <span data-lang="ru">Выбрала оставить решение за аналитиком: AI готовит вердикт и evidence, но подтверждает, отклоняет или игнорирует находку человек, и это фиксируется в истории решений. Отбросила авто-закрытие находок по порогу вероятности: его нельзя защитить на аудите, а один false negative — это пропущенная реальная уязвимость.</span><span data-lang="en">I chose to keep the decision with the analyst: AI prepares the verdict and evidence, but a human confirms, rejects or ignores the finding, and that is recorded in the decision history. I rejected auto-closing findings by a probability threshold: it can't be defended in an audit, and a single false negative is a missed real vulnerability.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
+            <p><strong><span data-lang="ru">Единая платформа — split-screen workspace вместо переходов между страницами:</span><span data-lang="en">One platform — a split-screen workspace instead of page-to-page navigation:</span></strong> <span data-lang="ru">список отчётов остаётся слева, детали и действия открываются справа, поэтому аналитик разбирает находки, не теряя общий контекст. Слева видно прогресс, прогноз, число проблем и дату по каждому отчёту; справа собраны рекомендации, severity, список уязвимостей, evidence и triage-действия.</span><span data-lang="en">the report list stays on the left while details and actions open on the right, so the analyst triages findings without losing the overall context. The left panel shows progress, prediction, issue count and date per report; the right panel brings together recommendations, severity, the vulnerability list, evidence and triage actions.</span></p>
+            <p><strong><span data-lang="ru">Статус AI-проверки на уровне проекта и каждого скана:</span><span data-lang="en">AI check status at the project and per-scan level:</span></strong> <span data-lang="ru">в таблице сканов сразу видно, где AI-проверка не запускалась, где идёт анализ, что завершено и где проверка прервалась.</span><span data-lang="en">the scans table immediately shows where the AI check hasn't run, where analysis is in progress, what is completed and where the check was interrupted.</span></p>
+          </section>
+        </div>
+
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/wave/scans.webp" alt="Таблица сканов Wave со статусами AI-проверки на уровне проекта и скана">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Выбор глубины проверки: Full scan, Prediction only, Explanation only:</span><span data-lang="en">Choosing the check depth: Full scan, Prediction only, Explanation only:</span></strong> <span data-lang="ru">из строки скана команда выбирает полную проверку, только prediction или только explanation. Так интерфейс поддерживает и быстрый triage, и глубокую проверку.</span><span data-lang="en">from a scan row the team picks a full check, prediction only or explanation only. This way the interface supports both fast triage and deep review.</span></p>
+        </section>
+
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/wave/modes.webp" alt="Выбор режима AI-проверки Wave: Full scan, Prediction only, Explanation only">
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Prediction и explanation: два сигнала вместо одного вердикта:</span><span data-lang="en">Prediction and explanation: two signals instead of one verdict:</span></strong> <span data-lang="ru">во вкладке CoPilot вердикт не спрятан в один бейдж: аналитик видит вероятность, объяснение и paths к коду. Если сигналы расходятся, конфликт остаётся видимым.</span><span data-lang="en">in the CoPilot tab the verdict isn't hidden in a single badge — the analyst sees the probability, the explanation and paths to code. If the signals diverge, the conflict stays visible.</span></p>
+        </section>
+
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/wave/verdict-1.webp" alt="Карточка AI-вердикта Wave с вероятностью и объяснением">
+
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/wave/verdict-2.webp" alt="Карточка AI-вердикта Wave с paths к коду">
+
+        <section class="study-block result-block">
+          <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+          <ul>
+            <li><strong><span data-lang="ru">≈ −60% времени на разбор большого скана</span><span data-lang="en">≈ −60% time to triage a large scan</span></strong> <span data-lang="ru">— с ~6–8 ч до ~2–3 ч: prediction и explanation отсеивают false positive до открытия кода.</span><span data-lang="en">— from ~6–8 h to ~2–3 h: prediction and explanation filter out false positives before opening the code.</span></li>
+            <li><strong><span data-lang="ru">≈ 2 из 3 находок закрываются без открытия кода</span><span data-lang="en">≈ 2 in 3 findings closed without opening the code</span></strong> <span data-lang="ru">— вероятность, объяснение и paths стоят рядом, поэтому очевидные закрываются прямо по вердикту.</span><span data-lang="en">— probability, explanation and paths sit side by side, so the obvious ones are closed straight on the verdict.</span></li>
+            <li><strong><span data-lang="ru">100% решений прослеживаемы:</span><span data-lang="en">100% of decisions are traceable:</span></strong> <span data-lang="ru">каждый вердикт подтверждается, отклоняется или игнорируется человеком с опорой на explanation, paths и общий след решений — разбор можно защитить на аудите.</span><span data-lang="en">every verdict is confirmed, rejected or ignored by a human based on the explanation, paths and the overall decision trail — the triage can be defended in an audit.</span></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer site-footer--case">
+      <p class="footer-cta"><span data-lang="ru">Открыта к предложениям</span><span data-lang="en">Open to opportunities</span></p>
+      <p class="footer-note"><span data-lang="ru">Буду рада обсудить проект или вакансию.</span><span data-lang="en">Happy to talk about a role or a project.</span></p>
+      <nav class="text-links" aria-label="Контакты" data-aria-ru="Контакты" data-aria-en="Contacts">
+        <a class="text-link" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span class="text-link-label">Telegram</span><img class="text-link-icon" src="../assets/icon-external.svg" alt=""></a>
+        <a class="text-link" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><span class="text-link-label">LinkedIn</span><img class="text-link-icon" src="../assets/icon-external.svg" alt=""></a>
+        <button class="text-link" type="button" data-copy-email="aneyta@mail.ru"><span class="text-link-label">Email</span><img class="text-link-icon" src="../assets/Copy thin.svg" alt=""></button>
+        <a class="text-link" data-cv href="../assets/CV%20%E2%80%94%20%D0%94%D0%B5%D0%BC%D0%B5%D1%88%D0%BA%D0%BE%20%D0%90%D0%BD%D0%BD%D0%B0%20%28Product%20designer%29%20ru.pdf" target="_blank" rel="noreferrer"><span class="text-link-label">CV</span><img class="text-link-icon" src="../assets/icon-external.svg" alt=""></a>
+      </nav>
+    </footer>
+
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Навигация по кейсам">
+      <span class="case-nav-spacer" aria-hidden="true"></span>
+      <a class="case-nav-link case-nav-home" href="/"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+      <span class="case-nav-spacer" aria-hidden="true"></span>
+    </nav>
+    <script src="../script.js"></script>
+    <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
+    <script>
+      (function () {
+        try {
+          var p = new URLSearchParams(location.search);
+          if (p.get("noanalytics") === "1") localStorage.setItem("cf-noanalytics", "1");
+          if (p.get("noanalytics") === "0") localStorage.removeItem("cf-noanalytics");
+          if (localStorage.getItem("cf-noanalytics") === "1") return;
+        } catch (e) {}
+        var s = document.createElement("script");
+        s.defer = true;
+        s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        s.setAttribute("data-cf-beacon", '{"token": "e99ab9de70814c0e9089a11ad2a2fd46"}');
+        document.head.appendChild(s);
+      })();
+    </script>
+    <!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

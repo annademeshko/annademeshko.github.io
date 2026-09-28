@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" data-vibe-page>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Anna Demeshko's Vibe Check: a personal archive of vibes, memes, and accidental meaning.">
+    <title>Vibe Check — Anna Demeshko</title>
+  <link rel="canonical" href="https://annademeshko.com/vibe/">
+    <link rel="icon" type="image/png" href="../assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="../assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="../styles.css">
+    
+  
+    <style>
+      .lang-switch--conditional { display: none; }
+      html.lang-switch-enabled .lang-switch--conditional { display: inline-flex; }
+    </style>
+    <script>
+      (function () {
+        try {
+          var params = new URLSearchParams(location.search);
+          var state = history.state || {};
+          var enabled = params.get("langswitch") === "1" || state.langSwitchFromRu === true;
+
+          if (!enabled) return;
+
+          document.documentElement.classList.add("lang-switch-enabled");
+
+          var nextState = Object.assign({}, state, { langSwitchFromRu: true });
+          if (params.get("langswitch") === "1") {
+            params.delete("langswitch");
+            var cleanUrl =
+              location.pathname +
+              (params.toString() ? "?" + params.toString() : "") +
+              location.hash;
+            history.replaceState(nextState, "", cleanUrl);
+          } else {
+            history.replaceState(nextState, "", location.href);
+          }
+
+          var preconnect = document.createElement("link");
+          preconnect.rel = "preconnect";
+          preconnect.href = "https://ru.annademeshko.com";
+          document.head.appendChild(preconnect);
+
+          var prefetch = document.createElement("link");
+          prefetch.rel = "prefetch";
+          prefetch.href = "https://ru.annademeshko.com/vibe/";
+          document.head.appendChild(prefetch);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="vibe-page">
+    
+    <div class="site-controls">
+<div class="lang-switch lang-switch--conditional" role="group" aria-label="Language">
+        <a class="lang-btn" href="https://ru.annademeshko.com/vibe/" data-lang-set="ru" aria-pressed="false">RU</a>
+        <a class="lang-btn" href="/vibe/" data-lang-set="en" aria-pressed="true">EN</a>
+      </div>
+    </div>
+<main class="vibe-world neverlandViewport" aria-label="Vibe Check">
+      <div class="neverlandBackdrop" aria-hidden="true"></div>
+      <header class="neverlandTitle" aria-labelledby="vibe-title">
+        <h1 id="vibe-title"><span data-lang="ru">Мой Neverland</span><span data-lang="en">My Neverland</span></h1>
+        <p><span data-lang="ru">личный архив вайба, мемов и случайных смыслов</span><span data-lang="en">personal archive of vibes, memes and accidental meaning</span></p>
+        <span class="neverlandScrollHint">scroll</span>
+      </header>
+
+      <section class="neverlandScene" aria-label="Meme flight"></section>
+      <section class="neverlandMobile" aria-label="Neverland mobile"></section>
+      <div class="neverlandEnd">
+        <span>vibe check passed</span>
+        <a href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span data-lang="ru">Написать в Telegram</span><span data-lang="en">Message on Telegram</span></a>
+      </div>
+    </main>
+
+    <nav class="case-nav vibe-nav" aria-label="Навигация">
+      <a class="case-nav-link case-nav-home" href="/"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+    </nav>
+    <div class="vibe-progress neverlandDepth" aria-hidden="true">0%</div>
+    <script src="../vibe.js"></script>
+    <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
+    <script>
+      (function () {
+        try {
+          var p = new URLSearchParams(location.search);
+          if (p.get("noanalytics") === "1") localStorage.setItem("cf-noanalytics", "1");
+          if (p.get("noanalytics") === "0") localStorage.removeItem("cf-noanalytics");
+          if (localStorage.getItem("cf-noanalytics") === "1") return;
+        } catch (e) {}
+        var s = document.createElement("script");
+        s.defer = true;
+        s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        s.setAttribute("data-cf-beacon", '{"token": "e99ab9de70814c0e9089a11ad2a2fd46"}');
+        document.head.appendChild(s);
+      })();
+    </script>
+    <!-- End Cloudflare Web Analytics -->
+  
+    <script>
+      (function () {
+        if (!document.documentElement.classList.contains("lang-switch-enabled")) return;
+
+        document.addEventListener("click", function (event) {
+          var link = event.target.closest && event.target.closest("a[href]");
+          if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+          try {
+            var url = new URL(link.href, location.href);
+            if (url.origin !== location.origin) return;
+            if (url.pathname.indexOf("/assets/") === 0) return;
+            if (url.pathname === location.pathname && url.hash) return;
+
+            url.searchParams.set("langswitch", "1");
+            link.href = url.href;
+          } catch (e) {}
+        }, true);
+      })();
+    </script>
+  </body>
+</html>
