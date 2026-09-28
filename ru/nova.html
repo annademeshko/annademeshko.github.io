@@ -7,6 +7,14 @@
   <title>NOVA · Anna Demeshko</title>
   <link rel="stylesheet" href="https://annademeshko.com/styles.css?v=20260928-3">
   <link rel="stylesheet" href="https://annademeshko.com/nova.css?v=20260928-3">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <div class="site-controls">
