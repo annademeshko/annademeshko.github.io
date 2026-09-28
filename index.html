@@ -18,94 +18,56 @@
     <link rel="icon" type="image/png" href="./assets/fav_white.png" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="./styles.css">
     <style>
-      /* ---- Full-width concept marquee (desktop) ---- */
-
-      /* Full-bleed band that breaks out of the centred .page container. */
-      .concept-band {
-        position: relative;
-        width: 100vw;
-        margin-left: calc(50% - 50vw);
-        margin-top: 56px;
-        padding: 48px 0;
-      }
-
-      .concept-marquee {
-        /* Clip horizontally (no scrollbar) but let a hovered tile grow
-           vertically out of the strip. */
-        overflow-x: clip;
-        overflow-y: visible;
-      }
-
-      .concept-track {
+      /* ---- Cases / concepts switcher + Pinterest-style concept grid ---- */
+      .portfolio-switcher {
         display: flex;
-        width: max-content;
-        animation: conceptScroll 48s linear infinite;
-        will-change: transform;
+        justify-content: center;
+        width: 100%;
+        margin: 56px 0 48px;
       }
 
-      /* Pause when the visitor wants to look at something. */
-      .concept-marquee:hover .concept-track {
-        animation-play-state: paused;
+      .portfolio-switcher .segmented {
+        margin-bottom: 0;
       }
 
-      @keyframes conceptScroll {
-        from { transform: translateX(0); }
-        to { transform: translateX(-50%); }
+      .home-page .works {
+        padding-top: 0;
       }
 
-      .concept-tile {
-        position: relative;
-        z-index: 0;
-        flex: 0 0 auto;
-        height: 372px;
-        margin: 0 22px 0 0;
+      .home-page .concepts {
+        width: 100%;
+      }
+
+      .concepts-grid {
+        width: 100%;
+        column-count: 3;
+        column-gap: 14px;
+      }
+
+      .concept-card {
+        display: block;
+        width: 100%;
+        margin: 0 0 14px;
+        break-inside: avoid;
         border-radius: 18px;
         overflow: hidden;
         cursor: zoom-in;
-        transform-origin: center center;
-        transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+        background: var(--surface);
       }
 
-      /* Hover: gently pop the screen up, above everything else. */
-      .concept-tile:hover {
-        z-index: 5;
-        transform: scale(1.35);
-      }
-
-      /* Tiles opted out of the hover zoom (e.g. the widgets). */
-      .concept-tile.is-static:hover {
-        z-index: 0;
-        transform: none;
-      }
-
-      .concept-tile img {
+      .concept-card img {
         display: block;
-        height: 100%;
-        width: auto;
-        object-fit: cover;
+        width: 100%;
+        height: auto;
+        border-radius: inherit;
+        transition: transform 260ms cubic-bezier(.22,1,.36,1), opacity 180ms ease;
       }
 
-      .concept-tile figcaption {
-        position: absolute;
-        left: 12px;
-        bottom: 12px;
-        padding: 5px 12px;
-        border-radius: 999px;
-        background: rgba(0, 0, 0, 0.55);
-        color: #fff;
-        font-size: 12.5px;
-        line-height: 1;
-        backdrop-filter: blur(8px);
-        pointer-events: none;
-        transition: opacity 200ms ease;
+      .concept-card:hover img {
+        transform: scale(1.012);
+        opacity: .94;
       }
 
-      /* Hide the concept label while hovering the tile. */
-      .concept-tile:hover figcaption {
-        opacity: 0;
-      }
-
-      /* Fullscreen concept viewer. */
       .concept-lightbox {
         position: fixed;
         inset: 0;
@@ -159,34 +121,25 @@
         height: 20px;
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        .concept-track { animation: none; }
+      @media (max-width: 760px) {
+        .concepts-grid {
+          column-count: 2;
+        }
       }
 
-      /* Desktop: the marquee replaces the tabs, so hide the mobile split. */
-      .segmented.mobile-only,
-      .concepts.mobile-only {
-        display: none;
-      }
-
-      /* Mobile: no marquee — fall back to the Cases / Concepts tabs. */
       @media (max-width: 520px) {
-        .concept-band,
-        .cases-heading {
-          display: none;
+        .portfolio-switcher {
+          margin: 44px 0 32px;
         }
-        .segmented.mobile-only {
-          display: inline-flex;
+
+        .concepts-grid {
+          column-count: 2;
+          column-gap: 10px;
         }
-        /* Uniform ~14px gap between every concept screen. */
-        .concepts.mobile-only:not([hidden]) {
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-        }
-        .concepts.mobile-only .case-card {
-          gap: 14px;
-          padding-bottom: 0;
+
+        .concept-card {
+          margin-bottom: 10px;
+          border-radius: 14px;
         }
       }
 
@@ -338,53 +291,15 @@
         </nav>
       </section>
 
-      <!-- Full-width auto-scrolling concept strip (desktop; tabs on mobile) -->
-      <section class="concept-band" aria-label="Концепты / Concepts">
-        <div class="concept-marquee">
-          <div class="concept-track">
-            <figure class="concept-tile is-static">
-              <img width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Концепт с виджетами: скорость, зарядка, пульс">
-              <figcaption>Widgets</figcaption>
-            </figure>
-            <figure class="concept-tile">
-              <img width="882" height="1815" loading="lazy" decoding="async" src="./assets/ozon_no_bg_1.png" alt="Концепт мобильного банка">
-              <figcaption>Mobile Bank</figcaption>
-            </figure>
-            <figure class="concept-tile">
-              <img width="4320" height="2700" loading="lazy" decoding="async" src="./assets/Cargo%20Distribution%20%E2%80%94%20Desktop.png" alt="Концепт Cargo Distribution — Desktop">
-              <figcaption>Cargo Distribution</figcaption>
-            </figure>
-            <figure class="concept-tile">
-              <img width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Концепт Crypto Dashboard">
-              <figcaption>Crypto Dashboard</figcaption>
-            </figure>
-            <figure class="concept-tile">
-              <img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Концепт Aether">
-              <figcaption>Aether</figcaption>
-            </figure>
-            <figure class="concept-tile">
-              <img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Концепт Aether">
-              <figcaption>Aether</figcaption>
-            </figure>
-            <figure class="concept-tile">
-              <img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Концепт Lumen">
-              <figcaption>Lumen</figcaption>
-            </figure>
-            <figure class="concept-tile">
-              <img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Концепт Lumen">
-              <figcaption>Lumen</figcaption>
-            </figure>
-          </div>
+      <!-- Full-width auto-scrolling concept strip (desktop; tabs on mobile) --><div class="portfolio-switcher">
+        <div class="segmented" role="tablist" aria-label="Cases and concepts">
+          <span class="segmented__thumb" aria-hidden="true"></span>
+          <button class="segmented-btn is-active" type="button" role="tab" aria-selected="true" data-panel="cases">Cases</button>
+          <button class="segmented-btn" type="button" role="tab" aria-selected="false" data-panel="concepts">Concepts</button>
         </div>
-      </section>
+      </div>
 
       <div class="works">
-        <div class="segmented mobile-only" role="tablist" aria-label="Кейсы и концепты">
-          <span class="segmented__thumb" aria-hidden="true"></span>
-          <button class="segmented-btn is-active" type="button" role="tab" aria-selected="true" data-panel="cases"><span data-lang="ru">Кейсы</span><span data-lang="en">Cases</span></button>
-          <button class="segmented-btn" type="button" role="tab" aria-selected="false" data-panel="concepts"><span data-lang="ru">Концепты</span><span data-lang="en">Concepts</span></button>
-        </div>
-        <h2 class="cases-heading"><span data-lang="ru">Избранные кейсы</span><span data-lang="en">Selected cases</span></h2>
         <section class="work" data-panel="cases" aria-label="Кейсы">
 
         <a class="case-card case-link nova-card" href="/nova/" aria-label="NOVA">
@@ -414,23 +329,7 @@
               <span class="stat"><b>AI + <span data-lang="ru">человек</span><span data-lang="en">human</span></b> <span data-lang="ru">финальное решение</span><span data-lang="en">final decision</span></span>
             </span>
           </span>
-        </a>
-
-        <a class="case-card case-link" href="/vault/" aria-label="VAULT Wallet">
-          <img class="case-image is-loading" width="12003" height="5994" loading="lazy" decoding="async" src="./assets/vault-case/cover.png" alt="Экраны криптокошелька VAULT Wallet: онбординг, активы, монета и главная">
-          <span class="case-copy">
-            <span class="case-eyebrow"><span data-lang="ru">2026 · Клиентский проект</span><span data-lang="en">2026 · Client project</span></span>
-            <span class="case-title"><span data-lang="ru">VAULT Wallet: криптокошелёк</span><span data-lang="en">VAULT Wallet: crypto wallet</span></span>
-            <span class="case-description"><span data-lang="ru">Криптокошелёк, который не отпугивает новичков привычной тёмной крипто-эстетикой. Спроектировала спокойный интерфейс на азиатском визуальном языке: онбординг, импорт кошелька, покупка и watchlist остаются простыми и понятными.</span><span data-lang="en">A crypto wallet that doesn't scare newcomers off with the usual dark crypto aesthetic. I designed a calm interface in an Asian visual language: onboarding, wallet import, buying and the watchlist all stay simple and clear.</span></span>
-            <span class="case-stats">
-              <span class="stat"><b>4 шага</b> <span data-lang="ru">онбординга</span><span data-lang="en">onboarding</span></span>
-              <span class="stat"><b>5 сценариев</b> <span data-lang="ru">end-to-end</span><span data-lang="en">end-to-end</span></span>
-              <span class="stat"><b>1 тап</b> <span data-lang="ru">до любого действия</span><span data-lang="en">to any action</span></span>
-            </span>
-          </span>
-        </a>
-
-        <a class="case-card case-link" href="/track/" aria-label="Track">
+        </a><a class="case-card case-link" href="/track/" aria-label="Track">
           <img class="case-image is-loading" width="2400" height="1355" loading="lazy" decoding="async" src="./assets/track/dashboard.webp" alt="Дашборд Track с виджетами безопасности">
           <span class="case-copy">
             <span class="case-eyebrow"><span data-lang="ru">2025 · <span class="shipped">В проде</span></span><span data-lang="en">2025 · <span class="shipped">Shipped</span></span></span>
@@ -460,27 +359,18 @@
 
       </section>
 
-        <section class="concepts mobile-only" data-panel="concepts" aria-label="Концепты" hidden>
-          <article class="case-card">
-            <img class="case-image is-loading" width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Концепт с виджетами: скорость, зарядка, пульс">
-          </article>
-          <article class="case-card">
-            <img class="case-image is-loading" width="882" height="1815" loading="lazy" decoding="async" src="./assets/ozon_no_bg_1.png" alt="Концепт мобильного банка">
-          </article>
-          <article class="case-card">
-            <img class="case-image is-loading" width="4320" height="2700" loading="lazy" decoding="async" src="./assets/Cargo%20Distribution%20%E2%80%94%20Desktop.png" alt="Концепт Cargo Distribution — Desktop">
-          </article>
-          <article class="case-card">
-            <img class="case-image is-loading" width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Концепт Crypto Dashboard">
-          </article>
-          <article class="case-card">
-            <img class="case-image is-loading" width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Концепт Aether">
-            <img class="case-image is-loading" width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Концепт Aether">
-          </article>
-          <article class="case-card last-card">
-            <img class="case-image is-loading" width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Концепт Lumen">
-            <img class="case-image is-loading" width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Концепт Lumen">
-          </article>
+        <section class="concepts" data-panel="concepts" aria-label="Concepts" hidden>
+          <div class="concepts-grid">
+            <figure class="concept-card"><img width="640" height="320" loading="lazy" decoding="async" src="./assets/concepts/crypto-wallet-concept.webp" alt="Mobile crypto wallet concept"></figure>
+            <figure class="concept-card"><img width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Widgets concept: speed, charging and heart rate"></figure>
+            <figure class="concept-card"><img width="882" height="1815" loading="lazy" decoding="async" src="./assets/ozon_no_bg_1.png" alt="Mobile banking concept"></figure>
+            <figure class="concept-card"><img width="4320" height="2700" loading="lazy" decoding="async" src="./assets/Cargo%20Distribution%20%E2%80%94%20Desktop.png" alt="Cargo Distribution"></figure>
+            <figure class="concept-card"><img width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Crypto Dashboard"></figure>
+            <figure class="concept-card"><img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Aether"></figure>
+            <figure class="concept-card"><img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Aether"></figure>
+            <figure class="concept-card"><img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Lumen"></figure>
+            <figure class="concept-card"><img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Lumen"></figure>
+          </div>
         </section>
       </div>
     </main>
@@ -503,22 +393,10 @@
     <div class="cursor-tooltip" role="status" aria-hidden="true"><span data-lang="ru">Смотреть кейс</span><span data-lang="en">View case</span></div>
 
     <script>
-      // Duplicate the concept tiles once so the marquee loops seamlessly.
+      // Click any concept tile to view it fullscreen.
       (function () {
-        var track = document.querySelector(".concept-track");
-        if (!track) return;
-        Array.prototype.slice.call(track.children).forEach(function (node) {
-          var clone = node.cloneNode(true);
-          clone.setAttribute("aria-hidden", "true");
-          track.appendChild(clone);
-        });
-      })();
-
-      // Click a concept tile -> open it fullscreen. Close via the X button,
-      // a click on the backdrop, or Escape.
-      (function () {
-        var marquee = document.querySelector(".concept-marquee");
-        if (!marquee) return;
+        var concepts = document.querySelector('.concepts[data-panel="concepts"]');
+        if (!concepts) return;
 
         var box = document.createElement("div");
         box.className = "concept-lightbox";
@@ -529,7 +407,7 @@
         var close = document.createElement("button");
         close.type = "button";
         close.className = "concept-lightbox__close";
-        close.setAttribute("aria-label", "Закрыть / Close");
+        close.setAttribute("aria-label", "Close");
         close.innerHTML =
           '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
 
@@ -557,14 +435,13 @@
           document.body.style.overflow = savedOverflow;
         }
 
-        marquee.addEventListener("click", function (event) {
-          var picture = event.target.closest(".concept-tile img");
+        concepts.addEventListener("click", function (event) {
+          var picture = event.target.closest(".concept-card img");
           if (!picture) return;
           open(picture.currentSrc || picture.src, picture.alt);
         });
 
         close.addEventListener("click", hide);
-        // Click anywhere on the backdrop (but not on the image itself) closes.
         box.addEventListener("click", function (event) {
           if (event.target !== img) hide();
         });
