@@ -300,8 +300,8 @@
     }
   }
 
-  // If an English case was opened from the Russian portfolio via the language
-  // switch, keep the case content in English but return Home to the Russian site.
+  // Preserve the bilingual RU-origin mode while the visitor browses English pages.
+  // Direct visits to annademeshko.com stay English-only with no language switch.
   try {
     const params = new URLSearchParams(window.location.search);
     const state = window.history.state || {};
@@ -322,10 +322,21 @@
         window.history.replaceState(nextState, "", window.location.href);
       }
 
-      const caseHome = document.querySelector(".case-nav-home");
-      if (caseHome) {
-        caseHome.href = "https://ru.annademeshko.com/";
-      }
+      document.documentElement.classList.add("lang-switch-enabled");
+
+      const keepBilingualMode = (link) => {
+        if (!link || !link.href) return;
+        try {
+          const url = new URL(link.href, window.location.href);
+          if (url.origin !== window.location.origin) return;
+          url.searchParams.set("langswitch", "1");
+          link.href = url.pathname + url.search + url.hash;
+        } catch (e) {}
+      };
+
+      document.querySelectorAll(
+        ".case-link, .case-nav-home, .case-nav-prev, .case-nav-next, .lang-btn[data-lang-set='en']"
+      ).forEach(keepBilingualMode);
     }
   } catch (e) {}
 
