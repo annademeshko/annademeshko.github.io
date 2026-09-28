@@ -300,6 +300,35 @@
     }
   }
 
+  // If an English case was opened from the Russian portfolio via the language
+  // switch, keep the case content in English but return Home to the Russian site.
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const state = window.history.state || {};
+    const fromRussianPortfolio =
+      params.get("langswitch") === "1" || state.langSwitchFromRu === true;
+
+    if (document.documentElement.lang === "en" && fromRussianPortfolio) {
+      const nextState = Object.assign({}, state, { langSwitchFromRu: true });
+
+      if (params.get("langswitch") === "1") {
+        params.delete("langswitch");
+        const cleanUrl =
+          window.location.pathname +
+          (params.toString() ? "?" + params.toString() : "") +
+          window.location.hash;
+        window.history.replaceState(nextState, "", cleanUrl);
+      } else if (state.langSwitchFromRu !== true) {
+        window.history.replaceState(nextState, "", window.location.href);
+      }
+
+      const caseHome = document.querySelector(".case-nav-home");
+      if (caseHome) {
+        caseHome.href = "https://ru.annademeshko.com/";
+      }
+    }
+  } catch (e) {}
+
   // Barely-there magnetic pull: buttons drift a couple of px toward the cursor.
   // Applies to every button except the contact links (tg / LinkedIn / email).
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
