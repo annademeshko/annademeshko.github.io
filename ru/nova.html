@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="NOVA — кейс onboarding и первого депозита для UK iGaming.">
+  <title>NOVA · Anna Demeshko</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../nova.css">
+</head>
+<body>
+  <div class="site-controls">
+    <button class="theme-toggle" type="button" aria-label="Тема">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <a class="lang-btn" href="./nova.html" aria-pressed="true">RU</a>
+      <a class="lang-btn" href="https://annademeshko.com/nova.html" aria-pressed="false">EN</a>
+    </div>
+  </div>
+  <div class="top-fade" aria-hidden="true"></div>
+<main class="page case-page nova-case" aria-label="Кейс NOVA — регистрация и первый депозит">
+<article class="case-study">
+  <header class="case-hero nova-reveal" data-motion="scale">
+    <h1>NOVA: от выбора игры до первого запуска</h1>
+    <p class="case-hero-lead">Я проектировала регистрацию и первый депозит для iGaming-продукта на рынке Великобритании под NDA. Нужно было провести нового игрока через обязательные проверки и пополнение, не потеряв главную цель — запустить конкретную игру.</p>
+    <p class="case-meta">Product Designer · UK iGaming · Mobile UX · KYC · Payments · State design</p>
+    <p class="case-meta nova-nda-note"><strong>NOVA — не настоящее название продукта.</strong> Я использую его в кейсе, чтобы не раскрывать клиента по NDA. Сам сценарий, ограничения и дизайн-решения взяты из реального проекта.</p>
+  </header>
+
+  <section class="nova-opening nova-reveal" data-motion="scale" aria-label="Сохранение выбранной игры на протяжении регистрации">
+    <div class="nova-opening-stage">
+      <span class="nova-opening-line" aria-hidden="true"></span>
+      <img class="nova-opening-phone nova-opening-phone--start" src="../assets/nova/play-gate.png" alt="Создание аккаунта для запуска Starborn">
+      <img class="nova-opening-phone nova-opening-phone--end" src="../assets/nova/return-starborn.png" alt="Запуск Starborn после регистрации">
+    </div>
+    <p class="nova-opening-caption">Выбранная игра остаётся частью сценария от первого нажатия Play до момента, когда пользователь возвращается и может её запустить.</p>
+  </section>
+
+  <div class="study-stack">
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Контекст · рынок Великобритании / NDA</p>
+      <p>Название клиента и продукта скрыты NDA. Для портфолио я пересобрала интерфейс с вымышленным брендом, но сохранила реальную логику сценария, ограничения и ключевые решения. Проект был для рынка Великобритании и учитывал требования к проверке личности, защите игрока и платежам.</p>
+      <p>Основная сложность была не в длине регистрации. Нужно было провести пользователя через обязательные шаги так, чтобы они не ощущались отдельной бюрократической воронкой и не заслоняли исходную цель — запустить выбранную игру.</p>
+      <div class="nova-intro-questions">
+        <div class="nova-intro-question"><span>01</span><strong>Как сохранить цель пользователя во время обязательных шагов?</strong></div>
+        <div class="nova-intro-question"><span>02</span><strong>Что происходит, если проверка не заканчивается сразу?</strong></div>
+        <div class="nova-intro-question"><span>03</span><strong>Как продолжить без повторного прохождения уже завершённых шагов?</strong></div>
+      </div>
+    </section>
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Что было важно</p>
+      <ul>
+        <li><strong>Не терять цель пользователя.</strong> Выбранная игра остаётся в контексте и не исчезает после начала регистрации.</li>
+        <li><strong>Не заставлять проходить одно и то же заново.</strong> Если пользователь выходит, он возвращается туда, где остановился.</li>
+        <li><strong>Понятно объяснять статус.</strong> Быстрая проверка, ручная проверка, исправимая ошибка и блокирующий сценарий должны выглядеть и вести себя по-разному.</li>
+        <li><strong>Не подталкивать к пополнению.</strong> Его можно отложить — это отдельное решение пользователя, а не обязательный шаг завершения аккаунта.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="nova-flow nova-reveal">
+    <div class="nova-flow-head study-block">
+      <p class="eyebrow">Основной путь</p>
+      <p>Сначала я собрала самый короткий успешный путь, а затем добавила сценарии на случай ошибок, ожидания и выхода из процесса.</p>
+    </div>
+    <div class="nova-flow-strip">
+      <figure class="nova-flow-card"><img src="../assets/nova/play-gate.png" alt=""><figcaption>Выбрана игра</figcaption></figure>
+      <figure class="nova-flow-card"><img src="../assets/nova/account-ready.png" alt=""><figcaption>Аккаунт</figcaption></figure>
+      <figure class="nova-flow-card"><img src="../assets/nova/identity-details.png" alt=""><figcaption>Проверка личности</figcaption></figure>
+      <figure class="nova-flow-card"><img src="../assets/nova/deposit-limit.png" alt=""><figcaption>Лимит на пополнение</figcaption></figure>
+      <figure class="nova-flow-card"><img src="../assets/nova/deposit-limit.png" alt=""><figcaption>Пополнение счёта</figcaption></figure>
+      <figure class="nova-flow-card"><img src="../assets/nova/deposit-success.png" alt=""><figcaption>Готово к игре</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="study-stack">
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Ключевое решение · Сохранить выбранную игру</p>
+      <p>Сценарий начинается в момент, когда пользователь нажимает Play у Starborn. Поэтому выбранная игра не исчезает после начала регистрации: она всё время напоминает, ради чего человек проходит этот путь.</p>
+      <p>Интерфейс сразу сообщает, что Starborn сохранён, а после завершения регистрации и пополнения возвращает пользователя прямо в игру.</p>
+    </section>
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Вернуться без потери прогресса</p>
+      <p>Я не рассчитывала, что человек обязательно закончит всё за одну сессию. Если он выходит, на главной остаётся понятный статус и следующий шаг — начинать сначала не нужно.</p>
+    </section>
+  </div>
+
+  <section class="nova-pair nova-reveal" data-motion="scale">
+    <figure><img src="../assets/nova/home-resume.png" alt=""><figcaption>На главной видно, что делать дальше.</figcaption></figure>
+    <figure><img src="../assets/nova/account-options.png" alt=""><figcaption>Можно продолжить регистрацию или войти в другой аккаунт.</figcaption></figure>
+  </section>
+
+  <section class="nova-state-story nova-reveal" data-motion="left">
+    <div class="nova-story-copy study-block">
+      <p class="eyebrow">Если проверка личности пошла не по плану</p>
+      <p>Проверка личности не всегда заканчивается сразу. Я отдельно продумала сценарии для неудачной автоматической проверки, загрузки документа, плохого фото, ручной проверки и ситуации, когда продолжить уже нельзя. Каждый экран отвечает на три вопроса: что произошло, нужно ли что-то сделать и что будет дальше.</p>
+    </div>
+    <div class="nova-triple">
+      <figure><img src="../assets/nova/auto-check-failed.png" alt=""><figcaption>Автопроверка не смогла подтвердить данные</figcaption></figure>
+      <figure><img src="../assets/nova/choose-document.png" alt=""><figcaption>Проверка по документу</figcaption></figure>
+      <figure><img src="../assets/nova/document-rejected.png" alt=""><figcaption>Плохое фото — можно сразу переснять</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="nova-asyncline nova-reveal" data-motion="right">
+    <figure><img src="../assets/nova/manual-review.png" alt=""><figcaption>Если проверка затягивается, можно выйти и вернуться позже.</figcaption></figure>
+    <div class="arrow" aria-hidden="true">→</div>
+    <figure><img src="../assets/nova/verification-pending-home.png" alt=""><figcaption>На главной видно, что проверка ещё идёт — без лишней кнопки «Продолжить».</figcaption></figure>
+  </section>
+
+  <section class="nova-pair nova-reveal" data-motion="scale">
+    <figure><img src="../assets/nova/verification-hard-stop.png" alt=""><figcaption>Если продолжить нельзя, сценарий ведёт в поддержку, а не заставляет бесконечно повторять попытку.</figcaption></figure>
+    <figure><img src="../assets/nova/manual-address.png" alt=""><figcaption>Если адрес не находится автоматически, его можно ввести вручную и продолжить.</figcaption></figure>
+  </section>
+
+  <div class="study-stack">
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Ошибки формы без тупиков</p>
+      <p>Разные ошибки требуют разных решений. Если email уже зарегистрирован, сразу предлагаем войти. Если данные просто введены неверно, кнопка продолжения остаётся недоступной до исправления.</p>
+    </section>
+  </div>
+
+  <section class="nova-pair nova-reveal" data-motion="scale">
+    <figure><img src="../assets/nova/existing-email.png" alt=""><figcaption>Email уже зарегистрирован → сразу предложить вход.</figcaption></figure>
+    <figure><img src="../assets/nova/account-ready.png" alt=""><figcaption>Корректные данные → кнопка «Продолжить» становится активной.</figcaption></figure>
+  </section>
+
+  <div class="study-stack">
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Пополнение без давления</p>
+      <p>Пополнение — отдельное решение пользователя, а не обязательный финальный шаг регистрации. Его можно отложить, а ошибки по лимиту или оплате показываются рядом с тем выбором, который их вызвал.</p>
+    </section>
+  </div>
+
+  <section class="nova-kitchen nova-reveal" data-motion="scale">
+    <figure><img src="../assets/nova/deposit-limit.png" alt=""><figcaption>Корректная сумма и способ оплаты</figcaption></figure>
+    <figure><img src="../assets/nova/limit-exceeded.png" alt=""><figcaption>Ошибка лимита появляется рядом с выбранной суммой</figcaption></figure>
+    <figure><img src="../assets/nova/credit-card-blocked.png" alt=""><figcaption>Ограничение по кредитной карте объясняется прямо в платёжной форме</figcaption></figure>
+  </section>
+
+  <div class="study-stack">
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Что получилось</p>
+      <p>Вместо набора отдельных экранов получился связный сценарий активации. Он покрывает обычный путь и ситуации, в которых чаще всего возникает трение: ошибки проверки, прерванные сессии, долгое ожидание, проблемы с данными аккаунта, лимиты и ограничения оплаты.</p>
+    </section>
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Что я вынесла из проекта</p>
+      <p>Главный вывод: хороший onboarding проверяется не на идеальном пути, а в моменты, когда что-то идёт не так. Когда я проработала прерывания, ошибки и ожидание, изменился и основной сценарий: прогресс нужно было сохранять, статусы — объяснять яснее, а выбранную игру — держать в контексте от начала до конца.</p>
+      <p class="case-meta">Реальная продуктовая работа под NDA. Название клиента, внутренние данные и конфиденциальные продуктовые метрики в кейсе не раскрываются.</p>
+    </section>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer site-footer--case">
+  <p class="footer-cta">Открыта к предложениям</p>
+  <p class="footer-note">Буду рада обсудить проект или вакансию.</p>
+  <nav class="text-links" aria-label="Контакты">
+    <a class="text-link" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span class="text-link-label">Telegram</span></a>
+    <a class="text-link" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><span class="text-link-label">LinkedIn</span></a>
+    <button class="text-link" type="button" data-copy-email="aneyta@mail.ru"><span class="text-link-label">Email</span></button>
+  </nav>
+</footer>
+  <div class="bottom-fade" aria-hidden="true"></div>
+  <nav class="case-nav" aria-label="Навигация по кейсам">
+    <span class="case-nav-spacer" aria-hidden="true"></span>
+    <a class="case-nav-link case-nav-home" href="./index.html">На главную</a>
+    <a class="case-nav-link case-nav-next" href="./copilot.html"><span class="case-nav-label">Следующий кейс</span><span aria-hidden="true"> ↗</span></a>
+  </nav>
+  <script src="../script.js"></script>
+  <script src="../nova.js"></script>
+</body>
+</html>
