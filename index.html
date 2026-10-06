@@ -56,7 +56,8 @@
         background: var(--surface);
       }
 
-      .concept-card img {
+      .concept-card img,
+      .concept-card video {
         display: block;
         width: 100%;
         height: auto;
@@ -70,7 +71,8 @@
         margin-right: auto;
       }
 
-      .concept-card:hover img {
+      .concept-card:hover img,
+      .concept-card:hover video {
         transform: scale(1.012);
         opacity: .94;
       }
@@ -91,7 +93,8 @@
         display: flex;
       }
 
-      .concept-lightbox img {
+      .concept-lightbox img,
+      .concept-lightbox video {
         max-width: 92vw;
         max-height: 92vh;
         width: auto;
@@ -376,6 +379,9 @@
 
         <section class="concepts" data-panel="concepts" aria-label="Concepts" hidden>
           <div class="concepts-grid">
+            <figure class="concept-card"><video width="1080" height="1200" autoplay muted loop playsinline preload="metadata" poster="/assets/travel/lucky-poster.webp" aria-label="Lucky flight: animated bonus picker for a travel app, with daily attempts and a locked state"><source src="/assets/travel/lucky.mp4" type="video/mp4"></video></figure>
+            <figure class="concept-card"><img width="1600" height="1500" loading="lazy" decoding="async" src="/assets/travel/trip-chat.webp" alt="Trip planning with friends: travel app concept with group trips, chat and profile"></figure>
+            <figure class="concept-card"><img width="1600" height="1500" loading="lazy" decoding="async" src="/assets/travel/trip-favorites.webp" alt="Saving a favorite ticket to a group trip: travel app concept"></figure>
             <figure class="concept-card"><img width="1940" height="1802" loading="lazy" decoding="async" src="/assets/franglais/cover.jpg" alt="Franglais: French learning app prototype with daily tasks, progress and rewards"></figure>
             <figure class="concept-card"><img width="1200" height="599" loading="lazy" decoding="async" src="https://annademeshko.com/assets/concepts/crypto-wallet-concept.webp?v=20260928-2" alt="Mobile crypto wallet concept"></figure>
             <figure class="concept-card"><img width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Widgets concept: speed, charging and heart rate"></figure>
@@ -430,15 +436,30 @@
         var img = document.createElement("img");
         img.alt = "";
 
+        var video = document.createElement("video");
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.hidden = true;
+
         box.appendChild(close);
         box.appendChild(img);
+        box.appendChild(video);
         document.body.appendChild(box);
 
         var savedOverflow = "";
 
-        function open(src, alt) {
-          img.src = src;
-          img.alt = alt || "";
+        function open(src, alt, isVideo) {
+          img.hidden = !!isVideo;
+          video.hidden = !isVideo;
+          if (isVideo) {
+            video.src = src;
+            video.setAttribute("aria-label", alt || "");
+            video.play().catch(function () {});
+          } else {
+            img.src = src;
+            img.alt = alt || "";
+          }
           box.classList.add("is-open");
           box.setAttribute("aria-hidden", "false");
           savedOverflow = document.body.style.overflow;
@@ -447,11 +468,17 @@
 
         function hide() {
           box.classList.remove("is-open");
+          video.pause();
           box.setAttribute("aria-hidden", "true");
           document.body.style.overflow = savedOverflow;
         }
 
         concepts.addEventListener("click", function (event) {
+          var clip = event.target.closest(".concept-card video");
+          if (clip) {
+            open(clip.currentSrc, clip.getAttribute("aria-label"), true);
+            return;
+          }
           var picture = event.target.closest(".concept-card img");
           if (!picture) return;
           open(picture.currentSrc || picture.src, picture.alt);
@@ -459,7 +486,7 @@
 
         close.addEventListener("click", hide);
         box.addEventListener("click", function (event) {
-          if (event.target !== img) hide();
+          if (event.target !== img && event.target !== video) hide();
         });
         document.addEventListener("keydown", function (event) {
           if (event.key === "Escape" && box.classList.contains("is-open")) hide();
