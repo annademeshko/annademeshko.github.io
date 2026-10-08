@@ -232,6 +232,8 @@
       /* Wider desktop carousel, with scroll and fullscreen preview. */
       .concept-marquee-band { width: 100vw; margin: 48px 0 48px calc(50% - 50vw); overflow: visible; padding: 22px 0; }
       .concept-marquee { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab; }
+      .concept-marquee.is-dragging { cursor: grabbing; }
+      .concept-marquee__tile img, .concept-marquee__tile video { user-select: none; -webkit-user-drag: none; }
       .concept-marquee::-webkit-scrollbar { display: none; }
       .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; }
       .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: zoom-in; }
@@ -304,10 +306,6 @@
             <figure class="concept-marquee__tile"><img width="882" height="1815" loading="lazy" decoding="async" src="../assets/ozon_no_bg_1.png" alt="Концепт мобильного банка"></figure>
             <figure class="concept-marquee__tile"><img width="4320" height="2700" loading="lazy" decoding="async" src="../assets/Cargo%20Distribution%20%E2%80%94%20Desktop.png" alt="Cargo Distribution"></figure>
             <figure class="concept-marquee__tile"><img width="2970" height="2850" loading="lazy" decoding="async" src="../assets/crypto-dashboard.png" alt="Crypto Dashboard"></figure>
-            <figure class="concept-marquee__tile"><img width="2688" height="1962" loading="lazy" decoding="async" src="../assets/aether-1.webp" alt="Aether"></figure>
-            <figure class="concept-marquee__tile"><img width="2688" height="1962" loading="lazy" decoding="async" src="../assets/aether-2.webp" alt="Aether"></figure>
-            <figure class="concept-marquee__tile"><img width="2688" height="1922" loading="lazy" decoding="async" src="../assets/lumen-1.webp" alt="Lumen"></figure>
-            <figure class="concept-marquee__tile"><img width="2688" height="1922" loading="lazy" decoding="async" src="../assets/lumen-2.webp" alt="Lumen"></figure>
           </div>
         </div>
       </section>
@@ -392,10 +390,6 @@
             <figure class="concept-card concept-card--phone"><img width="882" height="1815" loading="lazy" decoding="async" src="../assets/ozon_no_bg_1.png" alt="Концепт мобильного банка"></figure>
             <figure class="concept-card"><img width="4320" height="2700" loading="lazy" decoding="async" src="../assets/Cargo%20Distribution%20%E2%80%94%20Desktop.png" alt="Cargo Distribution"></figure>
             <figure class="concept-card"><img width="2970" height="2850" loading="lazy" decoding="async" src="../assets/crypto-dashboard.png" alt="Crypto Dashboard"></figure>
-            <figure class="concept-card"><img width="2688" height="1962" loading="lazy" decoding="async" src="../assets/aether-1.webp" alt="Aether"></figure>
-            <figure class="concept-card"><img width="2688" height="1962" loading="lazy" decoding="async" src="../assets/aether-2.webp" alt="Aether"></figure>
-            <figure class="concept-card"><img width="2688" height="1922" loading="lazy" decoding="async" src="../assets/lumen-1.webp" alt="Lumen"></figure>
-            <figure class="concept-card"><img width="2688" height="1922" loading="lazy" decoding="async" src="../assets/lumen-2.webp" alt="Lumen"></figure>
           </div>
         </section>
       </div>
@@ -546,28 +540,60 @@
         if (!gallery || !track) return;
         const originals = Array.from(track.children);
         originals.forEach(tile => { const copy = tile.cloneNode(true); copy.setAttribute('aria-hidden', 'true'); track.appendChild(copy); });
-        let hovered = false;
+        let dragging = false;
+        let dragStartX = 0;
+        let dragStartScroll = 0;
+        let moved = false;
+        let suppressClick = false;
         let idleUntil = 0;
         let lastFrame = 0;
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const cycleSize = () => track.scrollWidth / 2;
+        function wrapPosition() {
+          const cycle = cycleSize();
+          if (!cycle) return;
+          if (gallery.scrollLeft >= cycle) gallery.scrollLeft -= cycle;
+          else if (gallery.scrollLeft < 0) gallery.scrollLeft += cycle;
+        }
         function loop(now) {
-          const cycle = track.scrollWidth / 2;
-          if (cycle > 0 && gallery.scrollLeft >= cycle) gallery.scrollLeft -= cycle;
-          if (!hovered && !reducedMotion.matches && now > idleUntil && lastFrame) gallery.scrollLeft += Math.min(now - lastFrame, 64) * 0.045;
+          wrapPosition();
+          if (!dragging && !reducedMotion.matches && now > idleUntil && lastFrame) {
+            gallery.scrollLeft += Math.min(now - lastFrame, 64) * 0.035;
+            wrapPosition();
+          }
           lastFrame = now;
           requestAnimationFrame(loop);
         }
         requestAnimationFrame(loop);
-        gallery.addEventListener('mouseenter', () => hovered = true);
-        gallery.addEventListener('mouseleave', () => { hovered = false; idleUntil = performance.now() + 1200; });
-        gallery.addEventListener('wheel', event => {
-          if (window.innerWidth <= 520 || !event.cancelable) return;
-          if (Math.abs(event.deltaY) >= Math.abs(event.deltaX)) {
-            gallery.scrollLeft += event.deltaY;
-            event.preventDefault();
-          }
-          idleUntil = performance.now() + 2000;
-        }, { passive: false });
+        gallery.addEventListener('pointerdown', event => {
+          if (event.button !== 0 || event.pointerType === 'touch') return;
+          dragging = true;
+          moved = false;
+          dragStartX = event.clientX;
+          dragStartScroll = gallery.scrollLeft;
+          gallery.classList.add('is-dragging');
+          gallery.setPointerCapture(event.pointerId);
+          idleUntil = performance.now() + 1500;
+        });
+        gallery.addEventListener('pointermove', event => {
+          if (!dragging) return;
+          const delta = event.clientX - dragStartX;
+          if (Math.abs(delta) > 5) moved = true;
+          gallery.scrollLeft = dragStartScroll - delta;
+          wrapPosition();
+          idleUntil = performance.now() + 1500;
+        });
+        const stopDrag = () => {
+          if (!dragging) return;
+          dragging = false;
+          suppressClick = moved;
+          gallery.classList.remove('is-dragging');
+          idleUntil = performance.now() + 1500;
+        };
+        gallery.addEventListener('pointerup', stopDrag);
+        gallery.addEventListener('pointercancel', stopDrag);
+        gallery.addEventListener('lostpointercapture', stopDrag);
+        gallery.addEventListener('dragstart', event => event.preventDefault());
 
         const lightbox = document.createElement('div');
         lightbox.className = 'concept-fullscreen';
@@ -579,6 +605,7 @@
         lightbox.appendChild(close); document.body.appendChild(lightbox);
         function hide() { lightbox.classList.remove('is-open'); lightbox.querySelectorAll('img,video').forEach(el => el.remove()); document.body.style.overflow = ''; }
         gallery.addEventListener('click', event => {
+          if (suppressClick) { suppressClick = false; event.preventDefault(); return; }
           const media = event.target.closest('.concept-marquee__tile img, .concept-marquee__tile video');
           if (!media) return;
           const full = media.cloneNode(true);
