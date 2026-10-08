@@ -237,7 +237,7 @@
       .concept-marquee::-webkit-scrollbar { display: none; }
       .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; }
       .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: zoom-in; }
-      .concept-marquee__tile::after { content: '⌕'; position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: rgba(15,17,21,.75); color: #fff; font-size: 32px; line-height: 1; opacity: 0; transition: opacity .2s; pointer-events: none; }
+      .concept-marquee__tile::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; border-radius: 50%; background-color: rgba(15,17,21,.78); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.8' cy='10.8' r='6.8'/%3E%3Cpath d='m16 16 5 5'/%3E%3C/svg%3E"); background-size: 24px 24px; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
       .concept-marquee__tile:hover::after, .concept-marquee__tile:focus-within::after { opacity: 1; }
       .concept-marquee__tile img, .concept-marquee__tile video { display: block; width: auto; max-width: none; height: 100%; object-fit: cover; }
       .concept-fullscreen { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 5vmin; background: rgba(12,13,16,.93); cursor: zoom-out; }
@@ -615,7 +615,7 @@
         function loop(now) {
           wrapPosition();
           if (!dragging && !reducedMotion.matches && now > idleUntil && lastFrame) {
-            gallery.scrollLeft += Math.min(now - lastFrame, 64) * 0.035;
+            gallery.scrollLeft += Math.min(now - lastFrame, 64) * 0.055;
             wrapPosition();
           }
           lastFrame = now;
