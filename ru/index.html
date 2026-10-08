@@ -236,7 +236,7 @@
       .concept-marquee__tile img, .concept-marquee__tile video { user-select: none; -webkit-user-drag: none; }
       .concept-marquee::-webkit-scrollbar { display: none; }
       .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; }
-      .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: zoom-in; }
+      .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: pointer; }
       .concept-marquee__tile::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; border-radius: 50%; background-color: rgba(15,17,21,.78); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.8' cy='10.8' r='6.8'/%3E%3Cpath d='m16 16 5 5'/%3E%3C/svg%3E"); background-size: 24px 24px; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
       .concept-marquee__tile:hover::after, .concept-marquee__tile:focus-within::after { opacity: 1; }
       .concept-marquee__tile img, .concept-marquee__tile video { display: block; width: auto; max-width: none; height: 100%; object-fit: cover; }
@@ -558,7 +558,7 @@
         function loop(now) {
           wrapPosition();
           if (!dragging && !reducedMotion.matches && now > idleUntil && lastFrame) {
-            gallery.scrollLeft += Math.min(now - lastFrame, 64) * 0.055;
+            gallery.scrollLeft += Math.min(now - lastFrame, 64) * 0.095;
             wrapPosition();
           }
           lastFrame = now;
@@ -569,16 +569,16 @@
           if (event.button !== 0 || event.pointerType === 'touch') return;
           dragging = true;
           moved = false;
+          suppressClick = false;
           dragStartX = event.clientX;
           lastPointerX = event.clientX;
           gallery.classList.add('is-dragging');
-          gallery.setPointerCapture(event.pointerId);
           idleUntil = performance.now() + 1500;
         });
         gallery.addEventListener('pointermove', event => {
           if (!dragging) return;
           const delta = event.clientX - dragStartX;
-          if (Math.abs(delta) > 5) moved = true;
+          if (Math.abs(delta) > 5 && !moved) { moved = true; gallery.setPointerCapture(event.pointerId); }
           gallery.scrollLeft -= event.clientX - lastPointerX;
           lastPointerX = event.clientX;
           wrapPosition();
@@ -607,7 +607,9 @@
         function hide() { lightbox.classList.remove('is-open'); lightbox.querySelectorAll('img,video').forEach(el => el.remove()); document.body.style.overflow = ''; }
         gallery.addEventListener('click', event => {
           if (suppressClick) { suppressClick = false; event.preventDefault(); return; }
-          const media = event.target.closest('.concept-marquee__tile img, .concept-marquee__tile video');
+          const tile = event.target.closest('.concept-marquee__tile');
+          if (!tile) return;
+          const media = tile.querySelector('img, video');
           if (!media) return;
           const full = media.cloneNode(true);
           full.removeAttribute('autoplay'); full.removeAttribute('loading');
