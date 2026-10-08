@@ -542,7 +542,7 @@
         originals.forEach(tile => { const copy = tile.cloneNode(true); copy.setAttribute('aria-hidden', 'true'); track.appendChild(copy); });
         let dragging = false;
         let dragStartX = 0;
-        let dragStartScroll = 0;
+        let lastPointerX = 0;
         let moved = false;
         let suppressClick = false;
         let idleUntil = 0;
@@ -570,7 +570,7 @@
           dragging = true;
           moved = false;
           dragStartX = event.clientX;
-          dragStartScroll = gallery.scrollLeft;
+          lastPointerX = event.clientX;
           gallery.classList.add('is-dragging');
           gallery.setPointerCapture(event.pointerId);
           idleUntil = performance.now() + 1500;
@@ -579,7 +579,8 @@
           if (!dragging) return;
           const delta = event.clientX - dragStartX;
           if (Math.abs(delta) > 5) moved = true;
-          gallery.scrollLeft = dragStartScroll - delta;
+          gallery.scrollLeft -= event.clientX - lastPointerX;
+          lastPointerX = event.clientX;
           wrapPosition();
           idleUntil = performance.now() + 1500;
         });
