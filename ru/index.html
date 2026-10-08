@@ -229,14 +229,19 @@
         color: #121315;
       }
     
-      /* Desktop concepts marquee before the case list. */
-      .concept-marquee-band { width: 100vw; margin: 48px 0 48px calc(50% - 50vw); overflow: clip; padding: 22px 0; }
-      .concept-marquee { overflow: clip; }
-      .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; animation: concepts-marquee-scroll 64s linear infinite; }
-      .concept-marquee__tile { flex: none; display: block; height: 320px; width: auto; margin: 0; border-radius: 16px; overflow: hidden; }
+      /* Wider desktop carousel, with scroll and fullscreen preview. */
+      .concept-marquee-band { width: 100vw; margin: 48px 0 48px calc(50% - 50vw); overflow: visible; padding: 22px 0; }
+      .concept-marquee { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab; }
+      .concept-marquee::-webkit-scrollbar { display: none; }
+      .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; }
+      .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: zoom-in; }
+      .concept-marquee__tile::after { content: '⌕'; position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: rgba(15,17,21,.75); color: #fff; font-size: 32px; line-height: 1; opacity: 0; transition: opacity .2s; pointer-events: none; }
+      .concept-marquee__tile:hover::after, .concept-marquee__tile:focus-within::after { opacity: 1; }
       .concept-marquee__tile img, .concept-marquee__tile video { display: block; width: auto; max-width: none; height: 100%; object-fit: cover; }
-      .concept-marquee:hover .concept-marquee__track { animation-play-state: paused; }
-      @keyframes concepts-marquee-scroll { to { transform: translateX(calc(-50% - 10px)); } }
+      .concept-fullscreen { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 5vmin; background: rgba(12,13,16,.93); cursor: zoom-out; }
+      .concept-fullscreen.is-open { display: flex; }
+      .concept-fullscreen img, .concept-fullscreen video { max-width: 94vw; max-height: 90vh; width: auto; height: auto; object-fit: contain; border-radius: 12px; cursor: default; }
+      .concept-fullscreen__close { position: absolute; top: 20px; right: 24px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #34363a; color: white; font-size: 30px; cursor: pointer; }
       @media (min-width: 521px) { .home-page .portfolio-switcher, .home-page .concepts[data-panel="concepts"] { display: none !important; } .home-page .work[data-panel="cases"] { display: block !important; } }
       @media (max-width: 520px) { .concept-marquee-band { display: none; } }
       @media (prefers-reduced-motion: reduce) { .concept-marquee__track { animation: none; } }
@@ -290,12 +295,12 @@
       <section class="concept-marquee-band" aria-label="Concepts">
         <div class="concept-marquee" aria-label="Scrolling concepts gallery">
           <div class="concept-marquee__track">
+            <figure class="concept-marquee__tile"><img width="4023" height="1584" loading="lazy" decoding="async" src="../assets/Frame%208.png" alt="Концепт с виджетами: скорость, зарядка, пульс"></figure>
             <figure class="concept-marquee__tile"><video width="1080" height="1200" autoplay muted loop playsinline preload="metadata" poster="/assets/travel/lucky-poster.webp" aria-label="Удача на связи: анимированная механика бонусов для приложения путешествий с попытками на день"><source src="/assets/travel/lucky.mp4" type="video/mp4"></video></figure>
             <figure class="concept-marquee__tile"><img width="1600" height="1500" loading="lazy" decoding="async" src="/assets/travel/trip-chat.webp" alt="Поездки с друзьями: концепт приложения путешествий — из чата в реальное путешествие"></figure>
             <figure class="concept-marquee__tile"><img width="1600" height="1500" loading="lazy" decoding="async" src="/assets/travel/trip-favorites.webp" alt="Билет из избранного в поездку: концепт приложения путешествий"></figure>
             <figure class="concept-marquee__tile"><img width="1940" height="1802" loading="lazy" decoding="async" src="/assets/franglais/cover.jpg" alt="Franglais: прототип приложения для изучения французского — задания, прогресс и награды"></figure>
             <figure class="concept-marquee__tile"><img width="1200" height="599" loading="lazy" decoding="async" src="https://annademeshko.com/assets/concepts/crypto-wallet-concept.webp?v=20260928-2" alt="Концепт мобильного криптокошелька"></figure>
-            <figure class="concept-marquee__tile"><img width="4023" height="1584" loading="lazy" decoding="async" src="../assets/Frame%208.png" alt="Концепт с виджетами: скорость, зарядка, пульс"></figure>
             <figure class="concept-marquee__tile"><img width="882" height="1815" loading="lazy" decoding="async" src="../assets/ozon_no_bg_1.png" alt="Концепт мобильного банка"></figure>
             <figure class="concept-marquee__tile"><img width="4320" height="2700" loading="lazy" decoding="async" src="../assets/Cargo%20Distribution%20%E2%80%94%20Desktop.png" alt="Cargo Distribution"></figure>
             <figure class="concept-marquee__tile"><img width="2970" height="2850" loading="lazy" decoding="async" src="../assets/crypto-dashboard.png" alt="Crypto Dashboard"></figure>
@@ -534,15 +539,59 @@
     <!-- End Cloudflare Web Analytics -->
   
     <script>
-      // Duplicate one cycle for a continuous desktop-only carousel.
+      // Looping desktop gallery: vertical wheel moves horizontally; click opens fullscreen.
       (function () {
-        var track = document.querySelector('.concept-marquee__track');
-        if (!track) return;
-        Array.from(track.children).forEach(function (tile) {
-          var clone = tile.cloneNode(true);
-          clone.setAttribute('aria-hidden', 'true');
-          track.appendChild(clone);
+        const gallery = document.querySelector('.concept-marquee');
+        const track = document.querySelector('.concept-marquee__track');
+        if (!gallery || !track) return;
+        const originals = Array.from(track.children);
+        originals.forEach(tile => { const copy = tile.cloneNode(true); copy.setAttribute('aria-hidden', 'true'); track.appendChild(copy); });
+        let hovered = false;
+        let idleUntil = 0;
+        let lastFrame = 0;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        function loop(now) {
+          const cycle = track.scrollWidth / 2;
+          if (cycle > 0 && gallery.scrollLeft >= cycle) gallery.scrollLeft -= cycle;
+          if (!hovered && !reducedMotion.matches && now > idleUntil && lastFrame) gallery.scrollLeft += Math.min(now - lastFrame, 64) * 0.045;
+          lastFrame = now;
+          requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+        gallery.addEventListener('mouseenter', () => hovered = true);
+        gallery.addEventListener('mouseleave', () => { hovered = false; idleUntil = performance.now() + 1200; });
+        gallery.addEventListener('wheel', event => {
+          if (window.innerWidth <= 520 || !event.cancelable) return;
+          if (Math.abs(event.deltaY) >= Math.abs(event.deltaX)) {
+            gallery.scrollLeft += event.deltaY;
+            event.preventDefault();
+          }
+          idleUntil = performance.now() + 2000;
+        }, { passive: false });
+        gallery.addEventListener('scroll', () => { idleUntil = Math.max(idleUntil, performance.now() + 350); }, { passive: true });
+
+        const lightbox = document.createElement('div');
+        lightbox.className = 'concept-fullscreen';
+        lightbox.setAttribute('role', 'dialog');
+        lightbox.setAttribute('aria-modal', 'true');
+        lightbox.setAttribute('aria-label', 'Concept preview');
+        const close = document.createElement('button');
+        close.type = 'button'; close.className = 'concept-fullscreen__close'; close.setAttribute('aria-label', 'Close'); close.textContent = '×';
+        lightbox.appendChild(close); document.body.appendChild(lightbox);
+        function hide() { lightbox.classList.remove('is-open'); lightbox.querySelectorAll('img,video').forEach(el => el.remove()); document.body.style.overflow = ''; }
+        gallery.addEventListener('click', event => {
+          const media = event.target.closest('.concept-marquee__tile img, .concept-marquee__tile video');
+          if (!media) return;
+          const full = media.cloneNode(true);
+          full.removeAttribute('autoplay'); full.removeAttribute('loading');
+          if (full.tagName === 'VIDEO') { full.controls = true; full.autoplay = true; }
+          lightbox.insertBefore(full, close); lightbox.classList.add('is-open'); document.body.style.overflow = 'hidden';
+          if (full.tagName === 'VIDEO') full.play().catch(() => {});
+          close.focus();
         });
+        close.addEventListener('click', hide);
+        lightbox.addEventListener('click', event => { if (event.target === lightbox) hide(); });
+        document.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); });
       })();
     </script>
   </body>
