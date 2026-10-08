@@ -228,6 +228,18 @@
       [data-theme="dark"] .case-stats .stat b {
         color: #121315;
       }
+    
+      /* Desktop concepts marquee before the case list. */
+      .concept-marquee-band { width: 100vw; margin: 48px 0 48px calc(50% - 50vw); overflow: clip; padding: 22px 0; }
+      .concept-marquee { overflow: clip; }
+      .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; animation: concepts-marquee-scroll 64s linear infinite; }
+      .concept-marquee__tile { flex: none; display: block; height: 320px; width: auto; margin: 0; border-radius: 16px; overflow: hidden; }
+      .concept-marquee__tile img, .concept-marquee__tile video { display: block; width: auto; max-width: none; height: 100%; object-fit: cover; }
+      .concept-marquee:hover .concept-marquee__track { animation-play-state: paused; }
+      @keyframes concepts-marquee-scroll { to { transform: translateX(calc(-50% - 10px)); } }
+      @media (min-width: 521px) { .home-page .portfolio-switcher, .home-page .concepts[data-panel="concepts"] { display: none !important; } .home-page .work[data-panel="cases"] { display: flex !important; } }
+      @media (max-width: 520px) { .concept-marquee-band { display: none; } }
+      @media (prefers-reduced-motion: reduce) { .concept-marquee__track { animation: none; } }
     </style>
     <script>
       (function () {
@@ -307,6 +319,28 @@
           <button class="text-link" type="button" data-copy-email="aneyta@mail.ru"><span class="text-link-label">Email</span><img class="text-link-icon" src="./assets/Copy thin.svg" alt=""></button>
           <a class="text-link" data-cv href="./assets/CV%20%D0%90%D0%BD%D0%BD%D0%B0%20%D0%94%D0%B5%D0%BC%D0%B5%D1%88%D0%BA%D0%BE%20Product%20Designer.pdf" target="_blank" rel="noreferrer"><span class="text-link-label">CV</span><img class="text-link-icon" src="./assets/icon-external.svg" alt=""></a>
         </nav>
+      </section>
+
+
+      <!-- Desktop-only continuous concepts gallery; mobile retains its original tab. -->
+      <section class="concept-marquee-band" aria-label="Concepts">
+        <div class="concept-marquee" aria-label="Scrolling concepts gallery">
+          <div class="concept-marquee__track">
+            <figure class="concept-marquee__tile"><video width="1080" height="1200" autoplay muted loop playsinline preload="metadata" poster="/assets/travel/lucky-poster.webp" aria-label="Lucky flight: animated bonus picker for a travel app, with daily attempts and a locked state"><source src="/assets/travel/lucky.mp4" type="video/mp4"></video></figure>
+            <figure class="concept-marquee__tile"><img width="1600" height="1500" loading="lazy" decoding="async" src="/assets/travel/trip-chat.webp" alt="Trip planning with friends: travel app concept with group trips, chat and profile"></figure>
+            <figure class="concept-marquee__tile"><img width="1600" height="1500" loading="lazy" decoding="async" src="/assets/travel/trip-favorites.webp" alt="Saving a favorite ticket to a group trip: travel app concept"></figure>
+            <figure class="concept-marquee__tile"><img width="1940" height="1802" loading="lazy" decoding="async" src="/assets/franglais/cover.jpg" alt="Franglais: French learning app prototype with daily tasks, progress and rewards"></figure>
+            <figure class="concept-marquee__tile"><img width="1200" height="599" loading="lazy" decoding="async" src="https://annademeshko.com/assets/concepts/crypto-wallet-concept.webp?v=20260928-2" alt="Mobile crypto wallet concept"></figure>
+            <figure class="concept-marquee__tile"><img width="4023" height="1584" loading="lazy" decoding="async" src="./assets/Frame%208.png" alt="Widgets concept: speed, charging and heart rate"></figure>
+            <figure class="concept-marquee__tile"><img width="882" height="1815" loading="lazy" decoding="async" src="./assets/ozon_no_bg_1.png" alt="Mobile banking concept"></figure>
+            <figure class="concept-marquee__tile"><img width="4320" height="2700" loading="lazy" decoding="async" src="./assets/Cargo%20Distribution%20%E2%80%94%20Desktop.png" alt="Cargo Distribution"></figure>
+            <figure class="concept-marquee__tile"><img width="2970" height="2850" loading="lazy" decoding="async" src="./assets/crypto-dashboard.png" alt="Crypto Dashboard"></figure>
+            <figure class="concept-marquee__tile"><img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-1.webp" alt="Aether"></figure>
+            <figure class="concept-marquee__tile"><img width="2688" height="1962" loading="lazy" decoding="async" src="./assets/aether-2.webp" alt="Aether"></figure>
+            <figure class="concept-marquee__tile"><img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-1.webp" alt="Lumen"></figure>
+            <figure class="concept-marquee__tile"><img width="2688" height="1922" loading="lazy" decoding="async" src="./assets/lumen-2.webp" alt="Lumen"></figure>
+          </div>
+        </div>
       </section>
 
       <!-- Cases / Concepts switcher --><div class="portfolio-switcher">
@@ -553,6 +587,19 @@
             link.href = url.href;
           } catch (e) {}
         }, true);
+      })();
+    </script>
+  
+    <script>
+      // Duplicate one cycle for a continuous desktop-only carousel.
+      (function () {
+        var track = document.querySelector('.concept-marquee__track');
+        if (!track) return;
+        Array.from(track.children).forEach(function (tile) {
+          var clone = tile.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          track.appendChild(clone);
+        });
       })();
     </script>
   </body>
