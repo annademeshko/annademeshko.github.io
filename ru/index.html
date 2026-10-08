@@ -568,7 +568,6 @@
           }
           idleUntil = performance.now() + 2000;
         }, { passive: false });
-        gallery.addEventListener('scroll', () => { idleUntil = Math.max(idleUntil, performance.now() + 350); }, { passive: true });
 
         const lightbox = document.createElement('div');
         lightbox.className = 'concept-fullscreen';
