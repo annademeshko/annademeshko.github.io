@@ -609,23 +609,44 @@
         const close = document.createElement('button');
         close.type = 'button'; close.className = 'concept-fullscreen__close'; close.setAttribute('aria-label', 'Close'); close.textContent = '×';
         lightbox.appendChild(close); document.body.appendChild(lightbox);
-        function hide() { lightbox.classList.remove('is-open'); lightbox.querySelectorAll('img,video').forEach(el => el.remove()); document.body.style.overflow = ''; }
+        let currentIndex = 0;
+        function showConcept(index) {
+          currentIndex = (index + originals.length) % originals.length;
+          const media = originals[currentIndex].querySelector('img, video');
+          if (!media) return;
+          lightbox.querySelectorAll('img,video').forEach(el => { if (el.tagName === 'VIDEO') el.pause(); el.remove(); });
+          const full = media.cloneNode(true);
+          full.removeAttribute('loading');
+          full.removeAttribute('autoplay');
+          if (full.tagName === 'VIDEO') { full.controls = true; full.autoplay = true; }
+          lightbox.insertBefore(full, close);
+          lightbox.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+          if (full.tagName === 'VIDEO') full.play().catch(() => {});
+          close.focus();
+        }
+        function hide() {
+          lightbox.classList.remove('is-open');
+          lightbox.querySelectorAll('img,video').forEach(el => { if (el.tagName === 'VIDEO') el.pause(); el.remove(); });
+          document.body.style.overflow = '';
+        }
         gallery.addEventListener('click', event => {
           if (suppressClick) { suppressClick = false; event.preventDefault(); return; }
           const tile = event.target.closest('.concept-marquee__tile');
           if (!tile) return;
-          const media = tile.querySelector('img, video');
-          if (!media) return;
-          const full = media.cloneNode(true);
-          full.removeAttribute('autoplay'); full.removeAttribute('loading');
-          if (full.tagName === 'VIDEO') { full.controls = true; full.autoplay = true; }
-          lightbox.insertBefore(full, close); lightbox.classList.add('is-open'); document.body.style.overflow = 'hidden';
-          if (full.tagName === 'VIDEO') full.play().catch(() => {});
-          close.focus();
+          const index = Array.from(track.children).indexOf(tile) % originals.length;
+          if (index >= 0) showConcept(index);
         });
         close.addEventListener('click', hide);
         lightbox.addEventListener('click', event => { if (event.target === lightbox) hide(); });
-        document.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); });
+        document.addEventListener('keydown', event => {
+          if (!lightbox.classList.contains('is-open')) return;
+          if (event.key === 'Escape') hide();
+          else if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+            event.preventDefault();
+            showConcept(currentIndex + (event.key === 'ArrowRight' ? 1 : -1));
+          }
+        });
       })();
     </script>
   </body>
