@@ -2587,3 +2587,48 @@ h3,
     grid-template-columns: 1fr;
   }
 }
+
+/* Layered covers (CoPilot, Track): base screenshot + design-system parts that float on hover */
+.case-cover {
+  position: relative;
+  display: block;
+  width: 100%;
+  transition: transform 180ms ease;
+}
+.case-cover .case-image { display: block; }
+.case-link:hover .case-cover .case-image { opacity: 1; transform: none; }
+.case-link:hover .case-cover { transform: translateY(-2px); }
+.cover-float {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  transition: transform 700ms cubic-bezier(.2, .8, .2, 1);
+}
+.cover-float img { display: block; width: 100%; height: auto; }
+.cf-states { left: -0.259%; top: 23.715%; width: 13.276%; }
+.cf-severity { left: 74.828%; top: -0.856%; width: 25.69%; }
+.cf-connectors { left: -0.259%; top: 79.908%; width: 37.069%; }
+.cf-toast { left: 40.862%; top: 79.908%; width: 59.655%; }
+.cf-vuln { left: 71.724%; top: 15.02%; width: 28.793%; }
+.cf-widgets { left: 68.448%; top: 45.718%; width: 32.069%; }
+.case-link:hover .cf-states, .case-link:focus-visible .cf-states { transform: translate(-8px, -3px); }
+.case-link:hover .cf-severity, .case-link:focus-visible .cf-severity { transform: translate(6px, -8px); }
+.case-link:hover .cf-connectors, .case-link:focus-visible .cf-connectors { transform: translate(-6px, 7px); }
+.case-link:hover .cf-toast, .case-link:focus-visible .cf-toast { transform: translate(7px, 6px); }
+.case-link:hover .cf-vuln, .case-link:focus-visible .cf-vuln { transform: translate(7px, -7px); }
+.case-link:hover .cf-widgets, .case-link:focus-visible .cf-widgets { transform: translate(8px, 6px); }
+@keyframes cover-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.case-link:hover .cover-float img,
+.case-link:focus-visible .cover-float img { animation: cover-bob 3.2s ease-in-out infinite; }
+.case-link:hover .cf-severity img, .case-link:hover .cf-widgets img { animation-delay: -0.8s; animation-duration: 3.6s; }
+.case-link:hover .cf-connectors img { animation-delay: -1.6s; animation-duration: 3.4s; }
+.case-link:hover .cf-toast img { animation-delay: -2.4s; animation-duration: 3.8s; }
+@media (prefers-reduced-motion: reduce) {
+  .cover-float, .case-cover { transition: none; }
+  .case-link:hover .cover-float,
+  .case-link:hover .cover-float img,
+  .case-link:hover .case-cover { transform: none; animation: none; }
+}
