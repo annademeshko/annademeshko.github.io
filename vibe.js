@@ -185,11 +185,11 @@
   const neverlandItems = NEVERLAND_MEDIA.map((file, index) => {
     const column = index % 6;
     const row = Math.floor(index / 7);
-    const drift = row % 2 ? -52 : 52;
+    const drift = row % 2 ? -36 : 36;
     return {
       file,
       src: memePath + file,
-      x: (column - 2.5) * 184 + drift,
+      x: (column - 2.5) * 148 + drift,
       y: ((index * 5) % 8 - 3.5) * 68 + (row % 3) * 30,
       z: -NEVERLAND_FIRST_ITEM_Z - index * NEVERLAND_Z_STEP,
       rotate: ((index * 37) % 24) - 12,
