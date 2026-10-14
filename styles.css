@@ -2632,3 +2632,22 @@ h3,
   .case-link:hover .cover-float img,
   .case-link:hover .case-cover { transform: none; animation: none; }
 }
+
+/* Hide the tiny vendor copyright printed into the Wave scan screenshot.
+   The sidebar remains visible; both language pages share this presentation. */
+.wave-scan-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+.wave-scan-frame::after {
+  content: "";
+  position: absolute;
+  left: 0.55%;
+  bottom: 0.8%;
+  width: 11.5%;
+  height: 2.05%;
+  background: #eef3f7;
+  pointer-events: none;
+}
