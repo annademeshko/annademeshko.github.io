@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="ru">
 <head>
+    <script>
+      // The legacy Worker cannot serve every shared asset; use the direct site.
+      if (location.hostname === 'ru.annademeshko.com') {
+        var path = location.pathname;
+        if (!path.startsWith('/ru/')) path = '/ru' + path;
+        location.replace('https://annademeshko.com' + path + location.search + location.hash);
+      }
+    </script>
   <meta charset="utf-8">
   <meta name="robots" content="noindex">
   <link rel="canonical" href="https://annademeshko.com/ru/wave/">
