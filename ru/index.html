@@ -9,6 +9,16 @@
         location.replace('https://annademeshko.com' + path + location.search + location.hash);
       }
     </script>
+    <script>
+      // Возвращаемся из Мемзея: прячем страницу под темнотой галереи, пока она не рассыплется пикселями.
+      try {
+        if (sessionStorage.getItem('memzey-back') === '1' && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('mz-back');
+          document.write('<style>html.mz-back{background:#0e0f16}html.mz-back body{visibility:hidden}</style>');
+        }
+        sessionStorage.removeItem('memzey-back');
+      } catch (e) {}
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Портфолио Анны Демешко, Product Designer.">
@@ -531,6 +541,27 @@
             location.href = href;
           })(performance.now());
         });
+        // Вернулись из Мемзея: темнота рассыпается пиксельными блоками от двери.
+        if (document.documentElement.classList.contains('mz-back')) {
+          var W = innerWidth, H = innerHeight, B = 24, dr = d.getBoundingClientRect();
+          var ox = dr.width ? dr.left + dr.width / 2 : W / 2, oy = dr.height ? dr.top + dr.height / 2 : H / 2;
+          var cv2 = document.createElement('canvas'); cv2.width = W; cv2.height = H;
+          cv2.style.cssText = 'position:fixed;inset:0;z-index:100;pointer-events:none';
+          document.body.appendChild(cv2);
+          var g2 = cv2.getContext('2d'); g2.fillStyle = '#0e0f16'; g2.fillRect(0, 0, W, H);
+          document.documentElement.classList.remove('mz-back');
+          var cl = [], dg = Math.hypot(W, H);
+          for (var yy = 0; yy < H; yy += B) for (var xx = 0; xx < W; xx += B)
+            cl.push({ x: xx, y: yy, t: Math.hypot(xx - ox, yy - oy) / dg + Math.random() * .35 });
+          cl.sort(function (a, b) { return a.t - b.t; });
+          var s0 = performance.now() + 120, cleared = 0;
+          (function out(t) {
+            var k = Math.max(0, Math.min(1, (t - s0) / 850)), n = Math.floor(cl.length * k);
+            for (; cleared < n; cleared++) g2.clearRect(cl[cleared].x, cl[cleared].y, B, B);
+            if (k < 1) requestAnimationFrame(out); else cv2.remove();
+          })(performance.now());
+        }
+
         // Вернулись кнопкой «назад»: убираем занавес.
         addEventListener('pageshow', function () {
           if (overlay) { overlay.remove(); overlay = null; }

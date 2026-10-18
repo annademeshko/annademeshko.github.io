@@ -76,7 +76,8 @@ a{color:inherit}
 /* audio guide */
 .guide{margin-left:auto;align-self:flex-start;background:var(--panel);border:2px solid var(--gold);box-shadow:4px 4px 0 #000;padding:10px 12px 12px;display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;font-family:var(--pix);width:min(380px,calc(100vw - 32px));box-sizing:border-box}
 .guide .gtxt{flex:1;min-width:0}
-.guide iframe{flex-basis:100%;width:100%;height:80px;border:0;border-radius:12px;background:#111}
+.guide .gslot{flex-basis:100%;width:100%;min-height:80px}
+.guide iframe{display:block;width:100%;height:80px;border:0;border-radius:12px;background:#111}
 .disc{width:38px;height:38px;border-radius:50%;flex:none;background:repeating-radial-gradient(#111 0 2px,#222 2px 4px);position:relative;animation:spin 2.4s linear infinite}
 .disc::after{content:"";position:absolute;inset:13px;border-radius:50%;background:var(--gold)}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -112,7 +113,7 @@ a{color:inherit}
 <div class="wrap">
   <header class="head">
     <h1><span>Мем</span>зей</h1>
-    <p>Постоянная экспозиция · <a class="home" href="/ru/">← вернуться в реальность</a></p>
+    <p>Постоянная экспозиция · <a class="home" href="/ru/" data-leave>вернуться в реальность →</a></p>
   </header>
 
   <div class="stage" id="stage" aria-label="Зал галереи: иди вдоль стены и рассматривай картины">
@@ -136,7 +137,7 @@ a{color:inherit}
       <div class="disc" aria-hidden="true"></div>
       <div class="gtxt"><small>аудиогид к картине</small><b id="gTrack"></b><a id="gLink" href="https://open.spotify.com/" target="_blank" rel="noopener">открыть в Spotify ↗</a> · <a href="https://open.spotify.com/playlist/14TdC0nbL1qSOms0uueJ5V" target="_blank" rel="noopener">весь плейлист ↗</a></div>
       <button type="button" id="gClose" aria-label="Закрыть аудиогид">×</button>
-      <iframe id="gPlayer" title="Плейлист Мемзея в Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      <div class="gslot" id="gSlot"><div id="gPlayer"></div></div>
     </div>
   </div>
 </div>
@@ -163,7 +164,7 @@ a{color:inherit}
     { id: 'mcc', sp: '5I9zIwGB6f0edpjO5oX2b9', x: 1990, img: '/ru/memzey/img/m04.jpg', r: 571 / 700, title: '', author: 'Бывший сотрудник', meta: 'кабриолет · солнце, свобода, удалённый LinkedIn', text: 'Портрет человека через пять минут после фразы «я, пожалуй, всё». Единственная работа в зале, у которой нет дедлайна.', track: 'Rupert Holmes — Escape (The Piña Colada Song)' },
     { id: 'dream', sp: '10nyNJ6zNy2YVYLrcwLccB', x: 2180, img: '/ru/memzey/img/m37.jpg', r: 1, title: '', author: 'Мечты сбываются', meta: 'офис мечты · плед, кондиционер на +16', text: 'Онбординг прошёл успешно.', track: 'Radiohead — No Surprises' },
     { id: 'dog', sp: '5W3cjX2J3tjhG8zb6u0qHn', x: 2335, img: '/ru/memzey/img/m34.jpg', r: 700 / 663, title: '', author: 'Team Lead', meta: '2020-е · очки, иммунитет к созвонам', text: 'Честная версия мотивационного плаката. Если не смотреть на проблемы, они перестают смотреть на тебя.', track: 'Daft Punk — Harder, Better, Faster, Stronger' },
-    { id: 'witcher', sp: '0C4qTRblY16wi3HVy3vlGX', x: 1240, img: '/ru/memzey/img/m59.jpg', r: 394 / 493, title: 'Хмм', author: 'Геральт из Ривии', meta: 'Туссент · подсолнухи, сталь, серебро, ещё раз хмм', text: 'Хмм.', track: 'Priscilla — The Wolven Storm', secret: true }
+    { id: 'witcher', sp: '2Rq9drbvJsmyucs7d9x04g', x: 1240, img: '/ru/memzey/img/m59.jpg', r: 394 / 493, title: 'Хмм', author: 'Геральт из Ривии', meta: 'Туссент · подсолнухи, сталь, серебро, ещё раз хмм', text: 'Хмм.', track: 'Percival Schuttenbach, Marcin Przybyłowicz — Silver For Monsters...', secret: true }
   ];
   const WALL_Y = 120, FEET = 172, ART_CY = 62, ART_H = 54;
   ART.forEach(a => { a.h = a.big ? 66 : a.r < .6 ? 62 : ART_H; a.w = Math.round(Math.min(78, a.h * a.r)); a.h = Math.round(a.w / a.r); a.top = Math.round(ART_CY - a.h / 2); a.left = Math.round(a.x - a.w / 2); });
@@ -683,7 +684,31 @@ a{color:inherit}
     { area: HALL, x: 895, title: 'Рок-зал', sub: 'Скоро откроется. Пока там настраивают гитары.' },
     { area: DL, x: 1372, title: 'Вернуться в реальность', sub: 'За дверью сайт-портфолио. Там всё серьёзно.', btn: 'Вернуться', href: '/ru/' }
   ];
-  function usePortal(p) { if (p.href) location.href = p.href; else if (p.to) teleport(p.to, p.tx, p.toast); }
+  function usePortal(p) {
+    if (p.href) { const r = stage.getBoundingClientRect(); leave(p.href, r.left + (me.x - camX) * S, r.top + (FEET - 20) * S); }
+    else if (p.to) teleport(p.to, p.tx, p.toast);
+  }
+  /* back to reality: the gallery's dark fills the screen block by block from the exit, then the site dissolves in */
+  let curtain = null;
+  function leave(href, cx, cy) {
+    try { sessionStorage.setItem('memzey-back', '1'); } catch {}
+    if (reduce) { location.href = href; return; }
+    const cv = curtain = document.createElement('canvas'), B = 24, W = innerWidth, H = innerHeight;
+    cv.width = W; cv.height = H; cv.style.cssText = 'position:fixed;inset:0;z-index:100;pointer-events:none';
+    document.body.appendChild(cv); const g = cv.getContext('2d'), diag = Math.hypot(W, H), cells = [];
+    for (let y = 0; y < H; y += B) for (let x = 0; x < W; x += B) cells.push({ x, y, t: Math.hypot(x - cx, y - cy) / diag + Math.random() * .3 });
+    cells.sort((a, b) => a.t - b.t);
+    const t0 = performance.now(), D = 750; let done = 0;
+    (function step(t) { const k = Math.max(0, Math.min(1, (t - t0) / D)), n = Math.floor(cells.length * k);
+      for (; done < n; done++) { const c = cells[done]; g.fillStyle = c.t < .1 ? '#e2bd5c' : '#0e0f16'; g.fillRect(c.x, c.y, B, B); }
+      if (k < 1) return requestAnimationFrame(step);
+      g.fillStyle = '#0e0f16'; g.fillRect(0, 0, W, H); location.href = href; })(t0);
+  }
+  addEventListener('pageshow', () => { if (curtain) { curtain.remove(); curtain = null; } });
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-leave]'); if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault(); const r = a.getBoundingClientRect(); leave(a.href, r.left + r.width / 2, r.top + r.height / 2);
+  });
   function teleport(ar, x, msg) {
     stage.animate([{ opacity: 1 }, { opacity: 0, offset: .45 }, { opacity: 0, offset: .55 }, { opacity: 1 }], { duration: reduce ? 1 : 600 });
     setTimeout(() => { area = ar; me.x = x; me.target = null; shown = null; mask(); camera(true); if (msg) toast(msg); }, reduce ? 0 : 280);
@@ -706,11 +731,40 @@ a{color:inherit}
   function guide(a) {
     $('#gTrack').textContent = a.track;
     $('#gLink').href = a.sp ? 'https://open.spotify.com/track/' + a.sp : 'https://open.spotify.com/playlist/14TdC0nbL1qSOms0uueJ5V';
-    const src = a.sp ? 'https://open.spotify.com/embed/track/' + a.sp + '?utm_source=generator&theme=0' : 'https://open.spotify.com/embed/playlist/14TdC0nbL1qSOms0uueJ5V?utm_source=generator&theme=0';
-    const pl = $('#gPlayer'); if (pl.getAttribute('src') !== src) pl.src = src;
     $('#guide').hidden = false;
+    spPlay(a.sp ? 'spotify:track:' + a.sp : 'spotify:playlist:14TdC0nbL1qSOms0uueJ5V');
   }
-  $('#gClose').onclick = () => $('#guide').hidden = true;
+  $('#gClose').onclick = () => { $('#guide').hidden = true; if (spCtl) spCtl.pause(); else $('#gSlot iframe')?.remove(); };
+
+  /* Spotify: the official iFrame API lets the track start right away; if it can't load, a plain embed shows instead */
+  let spCtl = null, spApi = null, spWant = null, spFail = false, spLoading = false;
+  function spLoad() {
+    if (spLoading) return; spLoading = true;
+    window.onSpotifyIframeApiReady = api => { spApi = api; if (!spFail && spWant) spMake(spWant); };
+    const sc = document.createElement('script'); sc.src = 'https://open.spotify.com/embed/iframe-api/v1'; sc.async = true;
+    sc.onerror = () => { spFail = true; if (spWant) spPlain(spWant); };
+    document.head.appendChild(sc);
+    setTimeout(() => { if (!spApi) { spFail = true; if (spWant) spPlain(spWant); } }, 4000);
+  }
+  function spMake(uri) {
+    if (!$('#gPlayer')) $('#gSlot').replaceChildren(Object.assign(document.createElement('div'), { id: 'gPlayer' }));
+    spApi.createController($('#gPlayer'), { uri, width: '100%', height: 80 }, c => {
+      spCtl = c; c.addListener('ready', () => c.play());
+    });
+  }
+  function spPlain(uri) {
+    const [, kind, id] = uri.split(':'), src = `https://open.spotify.com/embed/${kind}/${id}?utm_source=generator&theme=0`;
+    let f = $('#gSlot iframe');
+    if (!f) { f = document.createElement('iframe'); f.title = 'Трек аудиогида в Spotify'; f.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'; $('#gSlot').replaceChildren(f); }
+    if (f.getAttribute('src') !== src) f.src = src;
+  }
+  function spPlay(uri) {
+    spWant = uri;
+    if (spCtl) { spCtl.loadUri(uri); spCtl.play(); setTimeout(() => spCtl.play(), 500); return; }
+    if (spFail) return spPlain(uri);
+    if (spApi) return spMake(uri);
+    spLoad();
+  }
 
   /* touching the art */
   const alarm = $('#alarm');
@@ -728,7 +782,7 @@ a{color:inherit}
   /* ---------- input ---------- */
   const held = { l: false, r: false };
   addEventListener('keydown', e => {
-    if (!lookEl.hidden) { if (e.key === 'Escape') lookEl.hidden = true; return; }
+    if (!lookEl.hidden) { if (['Escape', 'ArrowDown', 's', 'S', 'ы', 'Ы'].includes(e.key)) { lookEl.hidden = true; e.preventDefault(); } return; }
     if (['ArrowLeft', 'a', 'A', 'ф', 'Ф'].includes(e.key)) { held.l = true; me.target = null; e.preventDefault(); }
     if (['ArrowRight', 'd', 'D', 'в', 'В'].includes(e.key)) { held.r = true; me.target = null; e.preventDefault(); }
     if (['e', 'E', 'у', 'У', 'Enter'].includes(e.key) && document.activeElement?.tagName !== 'BUTTON') { const n = nearest(); if (n?.a) look(n.a); }
