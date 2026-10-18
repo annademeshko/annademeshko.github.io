@@ -88,10 +88,8 @@ header.head h1{margin-right:auto}
 .touch .pad{display:flex;justify-content:space-between;gap:14px}
 .touch .pad button{flex:1;max-width:160px;height:64px;font-size:26px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .touch .hint-touch{display:block;text-align:center;color:var(--dim);font-size:13px}
-.touch .guide{margin-left:0;width:100%;order:-1;flex-wrap:nowrap;padding:6px;gap:6px}
-.touch .guide .disc,.touch .guide .gtxt{display:none}
-.touch .guide .gslot{flex:1 1 auto;min-height:80px}
-.touch .guide button{order:2;align-self:stretch;width:34px;font-size:22px}
+.touch .guide{margin-left:0;width:100%;order:-1;margin-top:10px}
+.touch .guide .gslot,.touch .guide iframe{height:80px;min-height:80px}
 .touch .pbtn{padding:10px 14px;touch-action:manipulation}
 @media (orientation:landscape) and (max-height:540px){
   .touch .head h1,.touch .head p,.touch .hint-touch{display:none}
@@ -99,6 +97,10 @@ header.head h1{margin-right:auto}
   .touch .wrap{position:relative;padding-top:6px}
   .touch .box{position:absolute;top:14px;left:max(26px,env(safe-area-inset-left,0px));right:auto;max-width:min(560px,calc(100% - 52px));margin:0;min-height:0;padding:6px 10px;gap:8px;border-width:2px;background:rgba(14,15,22,.86);z-index:5}
   .touch .box b{font-size:14px}.touch .box span{font-size:11px}
+  .touch .box{flex-wrap:nowrap;width:min(640px,calc(100% - 110px));max-width:none}
+  .touch .box .txt{flex:1 1 auto}
+  .touch .box b,.touch .box span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .touch .box .btns{flex:none;flex-wrap:nowrap}
   .touch .box .pbtn{padding:6px 10px;font-size:13px}
   .touch .ctrl{margin:0}
   .touch .pad{position:fixed;left:max(14px,env(safe-area-inset-left,0px));right:max(14px,env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;pointer-events:none}
@@ -107,17 +109,15 @@ header.head h1{margin-right:auto}
 }
 
 /* audio guide */
-.guide{margin-left:auto;align-self:flex-start;background:var(--panel);border:2px solid var(--gold);box-shadow:4px 4px 0 #000;padding:10px 12px 12px;display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;font-family:var(--pix);width:min(380px,calc(100vw - 32px));box-sizing:border-box}
-.guide .gtxt{flex:1;min-width:0}
-.guide .gslot{flex-basis:100%;width:100%;min-height:80px}
-.guide iframe{display:block;width:100%;height:80px;border:0;border-radius:12px;background:#111}
+.guide{margin-left:auto;align-self:flex-start;position:relative;width:min(380px,calc(100vw - 32px));margin-top:10px}
+.guide .disc,.guide .gtxt{display:none}
+.guide .gslot{width:100%;min-height:152px;border-radius:12px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06)}
+.guide iframe{display:block;width:100%;height:152px;border:0;background:#181818}
+.guide button{position:absolute;z-index:2;top:-11px;right:-11px;width:28px;height:28px;display:grid;place-items:center;padding:0;border:2px solid var(--ink);background:var(--panel);color:var(--ink);font-family:var(--pix);font-size:18px;line-height:1;box-shadow:2px 2px 0 #000}
+@media (hover:hover){.guide button:hover{background:var(--gold);color:#1a1405;border-color:var(--gold)}}
 .disc{width:38px;height:38px;border-radius:50%;flex:none;background:repeating-radial-gradient(#111 0 2px,#222 2px 4px);position:relative;animation:spin 2.4s linear infinite}
 .disc::after{content:"";position:absolute;inset:13px;border-radius:50%;background:var(--gold)}
 @keyframes spin{to{transform:rotate(360deg)}}
-.guide small{display:block;color:var(--dim);font-size:12px}
-.guide b{display:block;font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.guide a{font-size:13px;color:var(--gold)}
-.guide button{background:none;border:0;color:var(--dim);font-size:18px;padding:0 2px}
 
 /* look closer */
 .look{position:fixed;inset:0;z-index:60;background:rgba(6,6,10,.88);display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));overflow:auto}
@@ -480,6 +480,7 @@ header.head h1{margin-right:auto}
       if (s.card) { d.style.background = '#e9e4d6'; d.style.border = '0'; d.style.color = '#2a2822'; d.style.padding = '.2em .4em'; } });
     mask();
     camera(true);
+    if (typeof sizeBox === 'function' && PORTALS_READY) sizeBox();
   }
   function mask() { const l = $('#maskL'), r = $('#maskR'); l.style.width = area.from * S + 'px'; r.style.left = area.to * S + 'px'; r.style.width = (WORLD_W - area.to) * S + 'px'; }
 
@@ -693,18 +694,27 @@ header.head h1{margin-right:auto}
     if (area === HALL && Math.abs(me.x - GUARD.x) < 18) return { kind: 'guard' };
     return null;
   }
+  function boxHTML(n, ar) {
+    if (!n) return `<div class="txt"><b>${ar === SECRET ? 'Тайная комната' : ar === DL ? 'Зал дедлайнов' : 'Зал экзистенциального кризиса'}</b><span>Подойди к картине или нажми на табличку под ней.</span></div>`;
+    if (n.kind === 'art') { const a = n.a;
+      return `<div class="txt"><b>${a.title ? a.title : a.author}</b><span>${a.title && a.author ? a.author + ' · ' : ''}${a.meta}</span></div><div class="btns"><button class="pbtn primary" type="button" data-act="look">Рассмотреть</button><button class="pbtn" type="button" data-act="guide">♪ Аудиогид</button></div>`; }
+    if (n.kind === 'portal') return `<div class="txt"><b>${n.p.title}</b><span>${n.p.sub}</span></div>${n.p.to || n.p.href ? `<div class="btns"><button class="pbtn primary" type="button" data-act="portal">${n.p.btn}</button></div>` : ''}`;
+    return `<div class="txt"><b>Смотритель зала</b><span>${n.awake ? '«Я всё видел. Руками не трогать!»' : 'Спит. Лучше не будить.'}</span></div>`;
+  }
   function updateBox() {
     const n = nearest(), key = n ? n.kind + (n.a ? n.a.id : '') + (n.p ? n.p.x : '') + area.from : 'none' + area.from;
     if (key === shown) return; shown = key;
-    if (!n) { box.innerHTML = `<div class="txt"><b>${area === SECRET ? 'Тайная комната' : area === DL ? 'Зал дедлайнов' : 'Зал экзистенциального кризиса'}</b><span>Подойди к картине или нажми на табличку под ней.</span></div>`; return; }
-    if (n.kind === 'art') {
-      const a = n.a;
-      box.innerHTML = `<div class="txt"><b>${a.title ? a.title : a.author}</b><span>${a.title && a.author ? a.author + ' · ' : ''}${a.meta}</span></div><div class="btns"><button class="pbtn primary" type="button" data-act="look">Рассмотреть</button><button class="pbtn" type="button" data-act="guide">♪ Аудиогид</button></div>`;
-    } else if (n.kind === 'portal') {
-      box.innerHTML = `<div class="txt"><b>${n.p.title}</b><span>${n.p.sub}</span></div>${n.p.to || n.p.href ? `<div class="btns"><button class="pbtn primary" type="button" data-act="portal">${n.p.btn}</button></div>` : ''}`;
-    } else {
-      box.innerHTML = `<div class="txt"><b>Смотритель зала</b><span>${GUARD.awake > 0 ? '«Я всё видел. Руками не трогать!»' : 'Спит. Лучше не будить.'}</span></div>`;
-    }
+    box.innerHTML = boxHTML(n && n.kind === 'guard' ? { kind: 'guard', awake: GUARD.awake > 0 } : n, area);
+  }
+  /* the plaque box keeps one height: the tallest of everything it can show, so it never jumps */
+  function sizeBox() {
+    if (!box.offsetWidth) return;
+    const probe = box.cloneNode(false); probe.removeAttribute('id');
+    probe.style.cssText = `position:absolute;visibility:hidden;pointer-events:none;left:-9999px;top:0;width:${box.offsetWidth}px;min-height:0;margin:0`;
+    box.parentNode.appendChild(probe);
+    const all = [...ART.map(a => ({ kind: 'art', a })), ...PORTALS.map(p => ({ kind: 'portal', p })), { kind: 'guard', awake: true }, { kind: 'guard' }, null];
+    let h = 0; all.forEach(n => [HALL, DL, SECRET].forEach(ar => { if (n && ar !== HALL) return; probe.innerHTML = boxHTML(n, ar); h = Math.max(h, probe.offsetHeight); }));
+    probe.remove(); box.style.minHeight = Math.ceil(h) + 'px';
   }
   box.addEventListener('click', e => {
     const b = e.target.closest('[data-act]'); if (!b) return;
@@ -713,6 +723,7 @@ header.head h1{margin-right:auto}
     if (act === 'guide' && n?.a) guide(n.a);
     if (act === 'portal' && n?.p) usePortal(n.p);
   });
+  let PORTALS_READY = false;
   const PORTALS = [
     { area: HALL, x: DOOR.x, to: SECRET, tx: 1120, title: 'Посторонним вход воспрещён', sub: 'За дверью кто-то тихо говорит «хмм».', btn: 'Войти', toast: 'Ты нашёл(а) тайную комнату' },
     { area: SECRET, x: DOOR_BACK.x, to: HALL, tx: 1000, title: 'Обратно в зал', sub: 'Никому не говори, что ты здесь был(а).', btn: 'Выйти' },
@@ -785,7 +796,7 @@ header.head h1{margin-right:auto}
   }
   function spMake(uri) {
     if (!$('#gPlayer')) $('#gSlot').replaceChildren(Object.assign(document.createElement('div'), { id: 'gPlayer' }));
-    spApi.createController($('#gPlayer'), { uri, width: '100%', height: 80 }, c => {
+    spApi.createController($('#gPlayer'), { uri, width: '100%', height: touch ? 80 : 152 }, c => {
       spCtl = c; c.addListener('ready', () => c.play());
     });
   }
@@ -881,8 +892,10 @@ header.head h1{margin-right:auto}
       for (let i = step.i || 0; i < n; i++) g.clearRect(cells[i].x, cells[i].y, B, B); step.i = n;
       if (k < 1) requestAnimationFrame(step); else { cv.remove(); toast('Добро пожаловать в Мемзей'); } })(t0);
   })();
+  PORTALS_READY = true;
   drawBackground();
   layout();
+  if (document.fonts) document.fonts.ready.then(sizeBox);
   addEventListener('resize', layout);
   requestAnimationFrame(tick);
   window.__m = { me, look, ART, go: (a, x) => { area = a === 'dl' ? DL : HALL; me.x = x; mask(); camera(true); } };
