@@ -57,6 +57,8 @@ header.head h1{margin-right:auto}
 .plq{position:absolute;padding:0;border:0;background:none;cursor:pointer}
 .plq:hover,.plq:focus-visible{outline:2px solid var(--gold);outline-offset:1px;background:rgba(255,230,160,.12)}
 .sheen{position:absolute;pointer-events:none;background:linear-gradient(180deg,rgba(255,240,200,.16),rgba(255,240,200,0) 45%)}
+.sign.neon{color:#ffd6f5;border:2px solid #ff4fd8;border-radius:.3em;text-shadow:0 0 .15em #ff4fd8,0 0 .5em #ff2fb8,0 0 1em #ff2fb8;box-shadow:0 0 .4em #ff2fb8,inset 0 0 .4em rgba(255,47,184,.6);animation:neonFlick 7s infinite}
+@keyframes neonFlick{0%,91%,93%,95%,100%{opacity:1}92%,94%{opacity:.35}}
 .sign{position:absolute;font-family:var(--pix);font-weight:600;color:#2a1f08;background:linear-gradient(#f0d27a,#c9a24a);border:2px solid #6b4f1d;text-align:center;line-height:1.1;padding:.25em .5em;white-space:nowrap}
 .alarm{position:absolute;inset:0;pointer-events:none;background:rgba(217,53,63,.0);display:grid;place-items:center;font-family:var(--pix);font-weight:700;color:#fff;text-shadow:0 2px 0 #000;font-size:clamp(18px,3vw,30px);opacity:0;transition:opacity .15s}
 .alarm.on{opacity:1;animation:siren .4s steps(2) infinite}
@@ -153,9 +155,9 @@ header.head h1{margin-right:auto}
 
   <div class="stage" id="stage" aria-label="Зал галереи: иди вдоль стены и рассматривай картины">
     <div class="world" id="world">
-      <canvas id="bg" width="2460" height="180"></canvas>
+      <canvas id="bg" width="3600" height="180"></canvas>
       <div id="arts"></div>
-      <canvas id="fx" width="2460" height="180"></canvas>
+      <canvas id="fx" width="3600" height="180"></canvas>
       <div id="maskL" style="position:absolute;top:0;bottom:0;left:0;background:#07080c"></div><div id="maskR" style="position:absolute;top:0;bottom:0;background:#07080c"></div><div id="bubble" class="bubble" hidden></div>
     </div>
     <div class="alarm" id="alarm">ТРЕВОГА · РУКАМИ НЕ ТРОГАТЬ</div>
@@ -188,7 +190,7 @@ header.head h1{margin-right:auto}
   const touch = matchMedia('(hover: none), (pointer: coarse)').matches; if (touch) document.documentElement.classList.add('touch');
 
   /* ---------- the collection ---------- */
-  const HALL = { from: 0, to: 1060 }, SECRET = { from: 1090, to: 1320 }, DL = { from: 1350, to: 2460 }, WORLD_W = 2460;
+  const HALL = { from: 0, to: 1060 }, SECRET = { from: 1090, to: 1320 }, DL = { from: 1350, to: 2460 }, ROCK = { from: 2490, to: 3600 }, WORLD_W = 3600;
   const ART = [
     { id: 'cillian', sp: '70LcF31zb1H0PyJoS1Sx1r', x: 150, img: '/ru/memzey/img/m19.jpg', r: 672 / 700, title: 'Взгляд человека, которому сказали „там небольшие правки“', author: '', meta: '2023 · масло, тревога, 0 часов сна', text: 'Одни искусствоведы считают, что он смотрит в бездну, а другие уверены, что в 47 комментариев в Figma.', track: 'Radiohead — Creep' },
     { id: 'corner', sp: '53rVYwGiKUC3gYX8SQQYYU', x: 300, img: '/ru/memzey/img/m05.jpg', r: 682 / 700, title: 'Интроверт на тимбилдинге', author: 'Аноним, сохранивший душевное равновесие', meta: '2000-е · ковролин, соцбатарейка 2%', text: 'Единственная работа коллекции, которую можно повесить в угол, и она будет на своём месте. Герой провёл здесь весь корпоратив и называет его лучшим в карьере.', track: 'Nirvana — Something in the Way' },
@@ -201,6 +203,12 @@ header.head h1{margin-right:auto}
     { id: 'mcc', sp: '5I9zIwGB6f0edpjO5oX2b9', x: 1990, img: '/ru/memzey/img/m04.jpg', r: 571 / 700, title: '', author: 'Бывший сотрудник', meta: 'кабриолет · солнце, свобода, удалённый LinkedIn', text: 'Портрет человека через пять минут после фразы «я, пожалуй, всё». Единственная работа в зале, у которой нет дедлайна.', track: 'Rupert Holmes — Escape (The Piña Colada Song)' },
     { id: 'dream', sp: '10nyNJ6zNy2YVYLrcwLccB', x: 2180, img: '/ru/memzey/img/m37.jpg', r: 1, title: '', author: 'Мечты сбываются', meta: 'офис мечты · плед, кондиционер на +16', text: 'Онбординг прошёл успешно.', track: 'Radiohead — No Surprises' },
     { id: 'dog', sp: '5W3cjX2J3tjhG8zb6u0qHn', x: 2335, img: '/ru/memzey/img/m34.jpg', r: 700 / 663, title: '', author: 'Team Lead', meta: '2020-е · очки, иммунитет к созвонам', text: 'Честная версия мотивационного плаката. Если не смотреть на проблемы, они перестают смотреть на тебя.', track: 'Daft Punk — Harder, Better, Faster, Stronger' },
+    { id: 'smoke', sp: '2zYzyRzz6pRmhPzyfMEC8s', x: 2600, img: '/ru/memzey/img/r_smoke.jpg', r: 518 / 700, title: '', author: 'Правила для других', meta: '1970-е · школьная форма, гитара, сигарета', text: 'Табличка «Не курить» висит для тех, кто не на сцене. Охрана Мемзея до сих пор не решилась подойти.', track: 'AC/DC — Highway to Hell' },
+    { id: 'zep', sp: '78lgmZwycJ3nzsdgmPPGNx', x: 2760, img: '/ru/memzey/img/r_zep.jpg', r: 700 / 546, title: '', author: 'Музыкальный критик', meta: 'подвал, 1977 · водолазка, очки, одно мнение', text: 'Как дела? Play more Zeppelin. Что подарить на день рождения? Play more Zeppelin. Как пройти в библиотеку? Ну ты понял.', track: 'Led Zeppelin — Immigrant Song' },
+    { id: 'taste', sp: '2HZLXBOnaSRhXStMLrq9fD', x: 2935, img: '/ru/memzey/img/r_taste.jpg', r: 700 / 632, big: 1, title: '', author: 'Мой плейлист', meta: 'парковая скамейка · грим, мороженое, раздвоение вкуса', text: 'Утром блэк-метал, вечером песни про любовь. Алгоритм Spotify давно сдался и просто включает тишину.', track: 'Ghost — Mary On A Cross' },
+    { id: 'rnr', sp: '1wAMtjW7zqZSSAvlwEUFgh', x: 3110, img: '/ru/memzey/img/r_rnr.jpg', r: 560 / 700, title: '', author: 'Рок-н-ролл', meta: 'диптих · гастроли, кожанка, нервы', text: 'Слева первая неделя тура, справа последняя. Вместе это называется карьерой.', track: 'Ozzy Osbourne — Crazy Train' },
+    { id: 'wine', sp: '3L8WgDYS5TtwbyxOPSAiFf', x: 3270, img: '/ru/memzey/img/r_wine.jpg', r: 445 / 700, title: '', author: 'Обещание себе', meta: 'кухня · вино, честность', text: 'Сказал вслух, чтобы точно услышать. Услышал. Налил.', track: 'Black Sabbath — Paranoid' },
+    { id: 'tea', sp: '0g57GquUXTUomV83JPScZD', x: 3430, img: '/ru/memzey/img/r_tea.jpg', r: 700 / 601, title: '', author: 'Принц тьмы на выходных', meta: 'гостиная · чай, подушки, летучих мышей не обнаружено', text: 'Даже у Принца тьмы бывает воскресенье. Чай с ромашкой, мягкий диван и ни одного концерта до понедельника.', track: 'Ozzy Osbourne — Mama, I’m Coming Home' },
     { id: 'witcher', sp: '773n5N7v7ZFhqpIc6vy7Wz', x: 1240, img: '/ru/memzey/img/m59.jpg', r: 394 / 493, title: 'Хмм', author: 'Геральт из Ривии', meta: 'Туссент · подсолнухи, сталь, серебро, ещё раз хмм', text: 'Хмм.', track: 'Percival Schuttenbach — Drink Up, There’s More!', secret: true }
   ];
   const WALL_Y = 120, FEET = 172, ART_CY = 62, ART_H = 54;
@@ -263,8 +271,8 @@ header.head h1{margin-right:auto}
     P(c, 397, 151, 9, 3, '#c4252f'); P(c, 398, 152, 7, 1, '#fff'); P(c, 397, 156, 9, 1, '#2a2822'); P(c, 397, 158, 7, 1, '#6b675d'); P(c, 397, 160, 8, 1, '#6b675d');
     /* next hall plate */
     P(c, 858, 26, 74, 16, '#1b2135'); P(c, 858, 26, 74, 1, '#a48a4e'); P(c, 858, 41, 74, 1, '#a48a4e');
-    P(c, 873, 50, 44, 95, '#4a3324'); P(c, 873, 50, 44, 2, '#6b4a33'); P(c, 876, 53, 38, 92, '#3d4a50'); P(c, 876, 53, 38, 6, '#c9cfcd'); P(c, 882, 55, 26, 2, '#f2fff8');
-    for (let y = 59; y < 120; y += 3) P(c, 876, y, 38, 1, '#5e6e74'); P(c, 876, 120, 38, 25, '#4f5a66'); P(c, 880, 128, 8, 14, '#e2e4e6'); P(c, 900, 112, 6, 30, '#3a3f46');
+    P(c, 873, 50, 44, 95, '#4a3324'); P(c, 873, 50, 44, 2, '#6b4a33'); P(c, 876, 53, 38, 92, '#2b1a1f'); P(c, 876, 53, 38, 6, '#0c0a0e'); P(c, 880, 57, 6, 2, '#ff4fd8'); P(c, 900, 57, 6, 2, '#4fe0ff');
+    for (let y = 61; y < 120; y += 4) for (let x = 876 + (y % 8 ? 0 : 4); x < 914; x += 8) P(c, x, y, 7, 3, '#3a2228'); P(c, 876, 120, 38, 25, '#262226'); P(c, 882, 116, 9, 26, '#141214'); P(c, 883, 118, 7, 7, '#2a2a2a'); P(c, 899, 70, 12, 16, '#d9353f'); P(c, 901, 73, 8, 1, '#ffd23f'); P(c, 901, 76, 6, 1, '#f3efe6');
     /* guard corner: chair, coffee, dropped newspaper, bin */
     const g = GUARD.x;
     P(c, g - 10, SEAT, 24, 4, '#3a2a20'); P(c, g - 10, SEAT, 24, 1, '#5a4030'); P(c, g + 10, SEAT - 30, 4, 34, '#3a2a20'); P(c, g + 10, SEAT - 30, 4, 1, '#5a4030');
@@ -296,6 +304,7 @@ header.head h1{margin-right:auto}
     P(c, 1175, 132, 4, 6, 'rgba(255,255,255,.35)'); P(c, 1175, 135, 4, 3, '#7a1030'); P(c, 1176, 138, 2, 2, 'rgba(255,255,255,.4)'); P(c, 1175, 140, 4, 0, '#fff');
     P(c, DOOR_BACK.x - 17, 68, 34, 77, '#2a2418'); P(c, DOOR_BACK.x - 14, 71, 28, 74, '#4a3a22'); P(c, DOOR_BACK.x + 8, 108, 3, 4, '#c9a24a');
     drawDeadlines(c);
+    drawRock(c);
   }
   /* ================= ЗАЛ ДЕДЛАЙНОВ ================= */
   function drawDeadlines(c) {
@@ -366,6 +375,105 @@ header.head h1{margin-right:auto}
     P(c, 2424, 112, 29, 3, '#6b4a33'); P(c, 2424, 115, 29, 30, '#3f2a1f'); P(c, 2424, 138, 29, 7, '#7a5134');
     /* plate to the next hall */
     P(c, 2400, 26, 56, 14, '#1b2135'); P(c, 2400, 26, 56, 1, '#a48a4e'); P(c, 2400, 39, 56, 1, '#a48a4e');
+  }
+  /* ================= РОК-ЗАЛ ================= */
+  function frameRock(c, a) {
+    const L = a.left - 7, T = a.top - 7, W = a.w + 14, H = a.h + 14;
+    P(c, L + 3, T + 4, W, H, 'rgba(0,0,0,.45)'); P(c, L, T, W, H, '#0d0d10'); P(c, L + 1, T + 1, W - 2, 1, '#3a3a44'); P(c, L + 1, T + H - 2, W - 2, 1, '#000');
+    P(c, L + 3, T + 3, W - 6, H - 6, '#1c1c22');
+    for (let x = L + 3; x < L + W - 3; x += 5) { P(c, x, T + 1, 2, 2, '#c9cdd6'); P(c, x, T + 1, 1, 1, '#fff'); P(c, x, T + H - 3, 2, 2, '#9aa0ac'); }
+    for (let y = T + 6; y < T + H - 4; y += 5) { P(c, L + 1, y, 2, 2, '#c9cdd6'); P(c, L + W - 3, y, 2, 2, '#9aa0ac'); }
+  }
+  function poster(c, x, y, k) {
+    const pal = [['#ffd23f', '#d9353f', '#141414'], ['#4fe0ff', '#ff4fd8', '#141414'], ['#f3efe6', '#141414', '#d9353f'], ['#7bd88f', '#141414', '#ffd23f'], ['#ff8a3d', '#2a1a40', '#f3efe6']][k % 5];
+    P(c, x + 1, y + 1, 24, 32, 'rgba(0,0,0,.4)'); P(c, x, y, 24, 32, pal[0]);
+    if (k % 3 === 0) { for (let i = 0; i < 9; i++) P(c, x + 12 - (i % 3) * 2 + (i > 4 ? 3 : 0), y + 5 + i * 2, 4, 2, pal[1]); }
+    else if (k % 3 === 1) { for (let r = 0; r < 6; r++) P(c, x + 12 - r, y + 6 + r, r * 2 + 1, 1, pal[1]); for (let r = 0; r < 4; r++) P(c, x + 9 + r, y + 12 + r, 7 - r * 2, 1, pal[1]); }
+    else { P(c, x + 6, y + 6, 12, 12, pal[1]); P(c, x + 8, y + 9, 3, 3, pal[0]); P(c, x + 13, y + 9, 3, 3, pal[0]); P(c, x + 9, y + 15, 6, 1, pal[0]); }
+    P(c, x + 3, y + 23, 18, 2, pal[2]); P(c, x + 5, y + 27, 14, 1, pal[2]); P(c, x + 7, y + 29, 10, 1, pal[2]);
+    P(c, x - 1, y - 1, 4, 2, 'rgba(240,235,220,.7)'); P(c, x + 21, y - 1, 4, 2, 'rgba(240,235,220,.7)');
+  }
+  function amp(c, x) {
+    for (let k = 0; k < 2; k++) { const y = 125 + k * 22;
+      P(c, x, y, 30, 22, '#121214'); P(c, x, y, 30, 1, '#3a3a40'); P(c, x + 2, y + 4, 26, 16, '#26262c');
+      for (let gy = y + 5; gy < y + 19; gy += 2) for (let gx = x + 3 + (gy % 4 ? 1 : 0); gx < x + 27; gx += 2) P(c, gx, gy, 1, 1, '#34343c');
+      P(c, x + 9, y + 1, 12, 2, '#d9d4c4'); }
+    P(c, x, 123, 30, 2, '#1a1a1e'); for (let i = 0; i < 5; i++) P(c, x + 4 + i * 5, 123, 2, 2, '#c9a24a');
+    P(c, x + 2, 169, 4, 3, '#000'); P(c, x + 24, 169, 4, 3, '#000');
+  }
+  function drawRock(c) {
+    const X0 = ROCK.from, X1 = ROCK.to;
+    P(c, X0 - 30, 0, 30, 180, '#07080c');
+    /* black ceiling and a lighting truss */
+    P(c, X0, 0, X1 - X0, 18, '#0c0a0e');
+    P(c, X0, 6, X1 - X0, 1, '#4a4a52'); P(c, X0, 11, X1 - X0, 1, '#4a4a52');
+    for (let x = X0; x < X1; x += 6) { P(c, x, 7 + ((x / 6 | 0) % 2 ? 0 : 3), 1, 1, '#6a6a74'); P(c, x + 1, 8, 1, 2, '#3a3a42'); }
+    /* brick walls */
+    P(c, X0, 18, X1 - X0, WALL_Y - 18, '#2b1a1f');
+    for (let y = 18, row = 0; y < WALL_Y - 3; y += 5, row++) for (let x = X0 - (row % 2) * 6; x < X1; x += 12) {
+      const sh = ['#3a2228', '#35202a', '#402630', '#33201f'][RN() * 4 | 0]; P(c, Math.max(X0, x), y, 11 - (x < X0 ? X0 - x : 0), 4, sh); if (RN() < .2) P(c, Math.max(X0, x) + 2, y + 1, 3, 1, 'rgba(255,255,255,.05)'); }
+    for (let i = 0; i < 6; i++) P(c, X0, 18 + i, X1 - X0, 1, `rgba(0,0,0,${.5 - i * .08})`);
+    /* black wainscot covered with stickers */
+    P(c, X0, WALL_Y - 3, X1 - X0, 3, '#3a3a40'); P(c, X0, WALL_Y, X1 - X0, 22, '#151215'); P(c, X0, WALL_Y + 22, X1 - X0, 3, '#0a080a');
+    const st = ['#ffd23f', '#ff4fd8', '#4fe0ff', '#f3efe6', '#d9353f', '#7bd88f'];
+    for (let i = 0; i < 70; i++) { const sx = X0 + 8 + RN() * (X1 - X0 - 16), sy = WALL_Y + 2 + RN() * 16, w = 3 + (RN() * 5 | 0), h = 2 + (RN() * 4 | 0); P(c, sx, sy, w, h, st[RN() * st.length | 0]); if (RN() < .5) P(c, sx + 1, sy + 1, w - 2, 1, '#141414'); }
+    floor(c, X0, X1, ['#2a2629', '#262226', '#2e2a2e', '#231f22'], '#353035');
+    for (let i = 0; i < 7; i++) { const fx0 = X0 + 60 + RN() * (X1 - X0 - 120); P(c, fx0, 160 + RN() * 12, 7 + RN() * 6, 1, 'rgba(255,200,120,.10)'); }
+    /* doorway back to the crisis hall */
+    P(c, X0 + 4, 40, 36, 105, '#140c0f'); P(c, X0 + 7, 43, 30, 102, '#2b3858'); P(c, X0 + 7, 43, 30, 2, '#a48a4e');
+    for (let y = 50; y < 112; y += 7) for (let x = X0 + 10 + (y % 2) * 3; x < X0 + 35; x += 7) P(c, x, y, 2, 2, '#3a4a70');
+    P(c, X0 + 7, 112, 30, 3, '#6b4a33'); P(c, X0 + 7, 115, 30, 30, '#3f2a1f');
+    /* posters between the paintings */
+    [[2652, 0], [2830, 1], [3018, 2], [3180, 3], [3336, 4], [3505, 1]].forEach(([x, k], i) => poster(c, x, 34 + (i % 2) * 8, k));
+    /* paintings in studded frames, coloured stage glow */
+    ART.filter(a => a.x > X0 && a.x < X1).forEach((a, i) => { glow(c, a, i % 2 ? '79,224,255' : '255,79,216'); frameRock(c, a); P(c, a.x - 3, 20, 6, 5, '#1a1a1e'); P(c, a.x - 2, 24, 4, 1, i % 2 ? '#4fe0ff' : '#ff4fd8'); plaque(c, a); reflection(c, a); });
+    const posts = []; ART.filter(a => a.x > X0 && a.x < X1).forEach(a => posts.push(a.left - 16, a.left + a.w + 16));
+    for (let i = 0; i < posts.length; i += 2) rope(c, posts[i], posts[i + 1]); posts.forEach(x => post(c, x));
+    /* amp stacks */
+    amp(c, 2656); amp(c, 3328);
+    /* mic stand by the drums */
+    P(c, 3072, 128, 1, 44, '#8a8a92'); P(c, 3068, 171, 9, 1, '#5a5a62'); P(c, 3065, 126, 8, 1, '#8a8a92'); P(c, 3063, 124, 3, 4, '#222'); P(c, 3063, 124, 3, 1, '#9a9aa2');
+    /* plate to the next hall */
+    P(c, 3544, 26, 54, 14, '#1b2135'); P(c, 3544, 26, 54, 1, '#a48a4e'); P(c, 3544, 39, 54, 1, '#a48a4e');
+  }
+  /* rock hall: moving lights, the drummer, a headbanger and the guy with a guitar */
+  function drawRockFx(c, t) {
+    if (area !== ROCK) return;
+    /* three moving stage lights */
+    [[2700, '#ff4fd8', 0], [3030, '#4fe0ff', 2], [3360, '#ffd23f', 4]].forEach(([lx, col, ph]) => {
+      const a = reduce ? 0 : Math.sin(t / 1300 + ph) * .55, fx0 = lx + Math.tan(a) * 150;
+      c.globalAlpha = .13; c.fillStyle = col; c.beginPath(); c.moveTo(lx - 2, 14); c.lineTo(lx + 2, 14); c.lineTo(fx0 + 26, 172); c.lineTo(fx0 - 26, 172); c.closePath(); c.fill();
+      c.globalAlpha = .22; c.beginPath(); c.ellipse(fx0, 170, 26, 4, 0, 0, 7); c.fill(); c.globalAlpha = 1;
+      P(c, lx - 3, 12, 6, 5, '#222'); P(c, lx - 2, 16, 4, 1, col);
+    });
+    /* the drummer behind his kit */
+    const dx = 3030, hit = reduce ? 0 : (t / 140 | 0) % 2;
+    sitter(c, dx - 6, 1, { ...LOOK_DRUM, hair: null }, t, reduce ? 0 : hit);
+    P(c, dx - 11, SEAT - 32 + hit, 11, 3, '#e8c45a'); P(c, dx - 12, SEAT - 30 + hit, 3, 12, '#e8c45a'); P(c, dx - 1, SEAT - 30 + hit, 2, 9, '#e8c45a'); P(c, dx - 10, SEAT - 32 + hit, 4, 1, '#fff0a0');
+    P(c, dx - 1, SEAT - 12, 8, 2, LOOK_DRUM.top); P(c, dx + 6, SEAT - 13 - (hit ? 3 : 0), 2, 2, LOOK_DRUM.skin);
+    P(c, dx + 7, SEAT - 22 - (hit ? 3 : 0), 1, 10, '#f3e3b0'); P(c, dx + 3, SEAT - 22 - (hit ? 0 : 3), 1, 10, '#f3e3b0');
+    for (let y = -10; y <= 10; y++) for (let x = -10; x <= 10; x++) { const d = Math.hypot(x, y); if (d <= 10) P(c, dx + 8 + x, 158 + y, 1, 1, d > 9 ? '#b0262f' : d > 8 ? '#f3efe6' : '#1c1c22'); }
+    P(c, dx + 4, 154, 8, 2, '#d9353f'); P(c, dx + 2, 140, 10, 5, '#b0262f'); P(c, dx + 2, 140, 10, 1, '#f3efe6'); P(c, dx - 8, 146, 9, 4, '#c9cdd6'); P(c, dx - 4, 150, 1, 20, '#8a8a92');
+    const cy = reduce ? 0 : (hit ? 1 : 0); P(c, dx + 14, 128 + cy, 14, 1, '#e2bd5c'); P(c, dx + 20, 129, 1, 41, '#8a8a92');
+    /* headbanger: head goes down on every beat */
+    const bang = reduce ? 0 : (t / 280 | 0) % 2;
+    person(c, 2862, FEET + bang * 2, 1, LOOK_BANG, 0, t);
+    if (bang) { P(c, 2862 + 2, FEET - 40, 6, 9, LOOK_BANG.hair); P(c, 2862 + 5, FEET - 33, 3, 4, LOOK_BANG.hair); }
+    if (!reduce && bang) { P(c, 2872, FEET - 50, 2, 1, '#ffd23f'); P(c, 2875, FEET - 46, 1, 2, '#ffd23f'); }
+    /* the guy with an acoustic guitar */
+    person(c, WONDER.x, FEET, WONDER.dir, LOOK_WALL, WONDER.moving ? (t / (WONDER.state === 'approach' ? 90 : 150) | 0) : 0, t);
+  }
+  function updateRock(dt, sp) {
+    const M = WONDER; M.t += dt; if (M.cd > 0) M.cd -= dt;
+    const dist = me.x - M.x;
+    if (area === ROCK && M.state === 'patrol' && M.cd <= 0 && Math.abs(dist) < 130) M.state = 'approach';
+    if (M.state === 'patrol') { if (Math.abs(M.goal - M.x) < 2) M.goal = M.goal > 3000 ? 2700 : 3400; M.dir = Math.sign(M.goal - M.x); M.x += M.dir * sp * .4; M.moving = true; }
+    if (M.state === 'approach') { M.dir = Math.sign(dist) || 1; if (Math.abs(dist) > 22) { M.x += M.dir * sp * 1.1; M.moving = true; } else { M.state = 'ask'; M.t = 0; M.moving = false; } }
+    if (M.state === 'ask') { M.dir = Math.sign(dist) || 1; M.say = M.t < 2400 ? 'Сыграть Wonderwall?' : 'Ладно, сыграю у костра'; if (M.t > 4200) { M.state = 'leave'; M.t = 0; M.say = ''; } }
+    if (M.state === 'leave') { M.dir = -Math.sign(dist) || 1; M.x += M.dir * sp * .7; M.moving = true; M.x = Math.max(ROCK.from + 60, Math.min(ROCK.to - 60, M.x)); if (M.t > 2200) { M.state = 'patrol'; M.cd = 15000; } }
+    if (area !== ROCK) { if (M.state !== 'patrol') { M.state = 'patrol'; M.say = ''; } if (area !== DL) $('#bubble').hidden = true; return; }
+    const b = $('#bubble');
+    if (M.say) { b.hidden = false; b.textContent = M.say; b.style.left = M.x * S + 'px'; b.style.top = (FEET - 54) * S + 'px'; b.style.fontSize = Math.max(11, 4.4 * S) + 'px'; } else b.hidden = true;
   }
   function frameModern(c, a) {
     const L = a.left - 8, T = a.top - 8, W = a.w + 16, H = a.h + 16;
@@ -446,13 +554,16 @@ header.head h1{margin-right:auto}
   });
   const signs = [
     { x: 300, y: 1, text: 'ЗАЛ ЭКЗИСТЕНЦИАЛЬНОГО КРИЗИСА', fs: 7 },
-    { x: 901, y: 12.5, text: 'РОК-ЗАЛ → скоро', fs: 4.6, dark: 1 },
+    { x: 901, y: 12.5, text: 'РОК-ЗАЛ →', fs: 4.6, dark: 1 },
     { x: 1205, y: 1, text: 'ТАЙНАЯ КОМНАТА', fs: 6 },
     { x: 25, y: 13, text: '← ДЕДЛАЙНЫ', fs: 3.4, plain: 1 },
     { x: 1010, y: 76, text: 'ТОЛЬКО ДЛЯ ПЕРСОНАЛА', fs: 2.4, card: 1 },
     { x: 1890, y: 3, text: 'ЗАЛ ДЕДЛАЙНОВ', fs: 7 },
     { x: 1372, y: 14, text: '← РЕАЛЬНОСТЬ', fs: 3, plain: 1 },
     { x: 2431, y: 13, text: 'КРИЗИС →', fs: 3.6, dark: 1 },
+    { x: 2935, y: 0, text: 'РОК-ЗАЛ', fs: 8, neon: 1 },
+    { x: 2512, y: 14, text: '← КРИЗИС', fs: 3.4, plain: 1 },
+    { x: 3571, y: 13, text: 'УЮТ → скоро', fs: 3.4, dark: 1 },
     { x: 1526, y: 24.6, text: 'TO DO', fs: 2.4, ink: 1 },
     { x: 1556, y: 24.6, text: 'В РАБОТЕ', fs: 2.4, ink: 1 },
     { x: 1584, y: 24.6, text: 'ГОТОВО', fs: 2.4, ink: 1 }
@@ -476,6 +587,7 @@ header.head h1{margin-right:auto}
     });
     signs.forEach((s, i) => { const d = signEls[i]; d.style.fontSize = s.fs * S + 'px'; d.style.top = (s.y + 16) * S + 'px'; d.style.left = s.x * S + 'px'; d.style.transform = 'translateX(-50%)'; if (s.dark) { d.style.background = 'none'; d.style.border = '0'; d.style.color = '#e2bd5c'; d.style.padding = '0'; d.style.left = (s.x - 6) * S + 'px'; }
       if (s.plain) { d.style.background = 'none'; d.style.border = '0'; d.style.color = '#c9a24a'; d.style.padding = '0'; }
+      if (s.neon) { d.classList.add('neon'); d.style.background = 'none'; d.style.padding = '.05em .45em'; }
       if (s.ink) { d.style.background = 'none'; d.style.border = '0'; d.style.color = '#2a2e33'; d.style.padding = '0'; }
       if (s.card) { d.style.background = '#e9e4d6'; d.style.border = '0'; d.style.color = '#2a2822'; d.style.padding = '.2em .4em'; } });
     mask();
@@ -527,6 +639,7 @@ header.head h1{margin-right:auto}
     else if (o.selfie) { r(2, top + 6, 3, 9, o.top); r(2, top + 8, 3, 3, o.skin); r(1, top + 14, 3, 6, '#141418'); r(1, top + 14, 3, 1, '#333'); }
     else if (o.tablet) { r(1, top - 1, 3, 7, o.top); r(3, top - 6, 4, 3, o.skin); r(5, top - 1, 6, 9, '#222'); r(6, top - 2, 4, 7, '#5fa8ff'); }
     else if (o.laptop) { r(1, top - 1, 3, 8, o.top); r(3, top - 7, 4, 3, o.skin); r(4, top - 6, 10, 2, '#b8bcc4'); r(13, top + 2, 1, 8, '#5fa8ff'); }
+    else if (o.guitar) { r(-4, top - 9, 11, 7, '#b5651d'); r(-3, top - 8, 9, 5, '#d98a3a'); r(0, top - 10, 4, 1, '#b5651d'); r(1, top - 7, 2, 2, '#2a1608'); r(7, top - 6, 9, 2, '#5a3a22'); r(16, top - 7, 3, 4, '#3a2416'); r(-1, top - 1, 3, 9, o.top); r(1, top - 7, 3, 3, o.skin); r(9, top - 4, 3, 3, o.skin); }
     else if (o.cup) { r(1, top - 1, 3, 6, o.top); r(3, top - 4, 3, 3, o.skin); r(5, top - 1, 4, 5, '#f2f2f2'); r(9, top - 2, 1, 2, '#f2f2f2'); }
     else { r(1 + a, top - 1, 3, TO - 4, o.top); r(1 + a, top - TO + 3, 3, 3, o.skin); }
     /* head */
@@ -572,6 +685,10 @@ header.head h1{margin-right:auto}
     } else { r(1, sy - 18, 3, 11, o.top); r(2, sy - 8, 3, 3, o.skin); }
   }
   const SKIN = { skin: '#f1c7a5', skinD: '#d9a684' }, SKIN2 = { skin: '#d9a07a', skinD: '#b98060' }, SKIN3 = { skin: '#8a5a3c', skinD: '#6e452c' };
+  const WONDER = { x: 3200, dir: -1, state: 'patrol', goal: 2700, t: 0, cd: 0, say: '' };
+  const LOOK_BANG = { ...SKIN, hair: '#2a1a12', hairStyle: 'long', top: '#141418', top2: '#0b0b0d', legs: '#2a3550', legs2: '#1f2840', shoe: '#0a0a0a', belt: '#8a8a92', seed: 11 };
+  const LOOK_DRUM = { ...SKIN2, hair: '#141414', top: '#d9353f', top2: '#b0262f', legs: '#1a1a1e', legs2: '#121214', shoe: '#0a0a0a' };
+  const LOOK_WALL = { ...SKIN, hair: '#8a5a2a', hairStyle: 'curly', top: '#3f6a8a', top2: '#2f5470', legs: '#2a2a32', legs2: '#1e1e26', shoe: '#5a3a22', guitar: 1, beard: '#6a4420', seed: 6 };
   const LOOK_ME = { ...SKIN, hair: '#241812', hairH: '#3a2a20', hairStyle: 'bob', top: '#ff4fa3', top2: '#d93a86', topH: '#ff86c0', legs: '#2f3a5a', legs2: '#263048', legsH: '#3d4a70', shoe: '#f2f2f2', sole: '#9a9aa2', hood: 1, blush: 1, seed: 3 };
   const LOOK_GUARD = { ...SKIN2, top: '#1f2a52', top2: '#162042', legs: '#1a1f36', legs2: '#121628', shoe: '#0a0a0a', cap: '#141b38', badge: 1, radio: 1, mustache: '#5a4030' };
   const NPCS = [
@@ -592,6 +709,7 @@ header.head h1{margin-right:auto}
   function drawFx(t) {
     const c = fx; c.clearRect(0, 0, WORLD_W, 180);
     drawDeadlineFx(c, t);
+    drawRockFx(c, t);
     /* blinking camera led, steam from the guard's coffee */
     if ((t / 600 | 0) % 2) P(c, 1028, 24, 1, 1, '#ff3030');
     if (!reduce) for (let i = 0; i < 3; i++) { const p = ((t / 900) + i / 3) % 1; P(c, GUARD.x - 31 + Math.round(Math.sin(p * 6 + i) * 1.5), 162 - p * 14, 1, 2, `rgba(255,255,255,${(.5 * (1 - p)).toFixed(2)})`); }
@@ -677,6 +795,7 @@ header.head h1{margin-right:auto}
     if (M.state === 'ask') { M.dir = Math.sign(dist) || 1; M.say = M.t < 2400 ? 'Есть минутка?' : 'Ладно, позже подойду'; if (M.t > 4000) { M.state = 'leave'; M.t = 0; M.say = ''; } }
     if (M.state === 'leave') { M.dir = -Math.sign(dist) || 1; M.x += M.dir * sp * .7; M.moving = true; M.x = Math.max(DL.from + 50, Math.min(DL.to - 40, M.x)); if (M.t > 2200) { M.state = 'patrol'; M.cd = 14000; } }
     if (area !== DL && M.state !== 'patrol') { M.state = 'patrol'; M.say = ''; }
+    if (area !== DL) return;
     const b = $('#bubble');
     if (M.say) { b.hidden = false; b.textContent = M.say; b.style.left = M.x * S + 'px'; b.style.top = (FEET - 54) * S + 'px'; b.style.fontSize = Math.max(11, 4.4 * S) + 'px'; } else b.hidden = true;
   }
@@ -695,7 +814,7 @@ header.head h1{margin-right:auto}
     return null;
   }
   function boxHTML(n, ar) {
-    if (!n) return `<div class="txt"><b>${ar === SECRET ? 'Тайная комната' : ar === DL ? 'Зал дедлайнов' : 'Зал экзистенциального кризиса'}</b><span>Подойди к картине или нажми на табличку под ней.</span></div>`;
+    if (!n) return `<div class="txt"><b>${ar === SECRET ? 'Тайная комната' : ar === DL ? 'Зал дедлайнов' : ar === ROCK ? 'Рок-зал' : 'Зал экзистенциального кризиса'}</b><span>Подойди к картине или нажми на табличку под ней.</span></div>`;
     if (n.kind === 'art') { const a = n.a;
       return `<div class="txt"><b>${a.title ? a.title : a.author}</b><span>${a.title && a.author ? a.author + ' · ' : ''}${a.meta}</span></div><div class="btns"><button class="pbtn primary" type="button" data-act="look">Рассмотреть</button><button class="pbtn" type="button" data-act="guide">♪ Аудиогид</button></div>`; }
     if (n.kind === 'portal') return `<div class="txt"><b>${n.p.title}</b><span>${n.p.sub}</span></div>${n.p.to || n.p.href ? `<div class="btns"><button class="pbtn primary" type="button" data-act="portal">${n.p.btn}</button></div>` : ''}`;
@@ -713,7 +832,7 @@ header.head h1{margin-right:auto}
     probe.style.cssText = `position:absolute;visibility:hidden;pointer-events:none;left:-9999px;top:0;width:${box.offsetWidth}px;min-height:0;margin:0`;
     box.parentNode.appendChild(probe);
     const all = [...ART.map(a => ({ kind: 'art', a })), ...PORTALS.map(p => ({ kind: 'portal', p })), { kind: 'guard', awake: true }, { kind: 'guard' }, null];
-    let h = 0; all.forEach(n => [HALL, DL, SECRET].forEach(ar => { if (n && ar !== HALL) return; probe.innerHTML = boxHTML(n, ar); h = Math.max(h, probe.offsetHeight); }));
+    let h = 0; all.forEach(n => [HALL, DL, SECRET, ROCK].forEach(ar => { if (n && ar !== HALL) return; probe.innerHTML = boxHTML(n, ar); h = Math.max(h, probe.offsetHeight); }));
     probe.remove(); box.style.minHeight = Math.ceil(h) + 'px';
   }
   box.addEventListener('click', e => {
@@ -729,7 +848,9 @@ header.head h1{margin-right:auto}
     { area: SECRET, x: DOOR_BACK.x, to: HALL, tx: 1000, title: 'Обратно в зал', sub: 'Никому не говори, что ты здесь был(а).', btn: 'Выйти' },
     { area: DL, x: 2438, to: HALL, tx: 40, title: 'Зал экзистенциального кризиса', sub: 'Дедлайны позади. Самое время спросить себя «зачем это всё».', btn: 'Перейти', toast: 'Зал экзистенциального кризиса. Тут можно не торопиться' },
     { area: HALL, x: 25, to: DL, tx: 2405, title: 'Зал дедлайнов', sub: 'Оттуда слышно, как кто-то спрашивает «есть минутка?».', btn: 'Вернуться' },
-    { area: HALL, x: 895, title: 'Рок-зал', sub: 'Скоро откроется. Пока там настраивают гитары.' },
+    { area: HALL, x: 895, to: ROCK, tx: 2545, title: 'Рок-зал', sub: 'Оттуда доносится гитарное соло и запах кожаных курток.', btn: 'Перейти', toast: 'Рок-зал. Громкость на максимум' },
+    { area: ROCK, x: 2512, to: HALL, tx: 870, title: 'Зал экзистенциального кризиса', sub: 'Там тихо. Даже слишком.', btn: 'Вернуться' },
+    { area: ROCK, x: 3571, title: 'Зал уюта', sub: 'Скоро откроется. Там пледы, какао и ни одного дедлайна.' },
     { area: DL, x: 1372, title: 'Вернуться в реальность', sub: 'За дверью сайт-портфолио. Там всё серьёзно.', btn: 'Вернуться', href: '/ru/' }
   ];
   function usePortal(p) {
@@ -871,6 +992,7 @@ header.head h1{margin-right:auto}
     if (PIGEON.moving) { PIGEON.x += PIGEON.dir * sp * .25; if (PIGEON.x < 80 || PIGEON.x > 200) PIGEON.dir *= -1; }
     if (GUARD.awake > 0) GUARD.awake -= dt;
     updateDeadlines(dt, sp);
+    updateRock(dt, sp);
     camera();
     drawFx(t);
     updateBox();
@@ -898,7 +1020,7 @@ header.head h1{margin-right:auto}
   if (document.fonts) document.fonts.ready.then(sizeBox);
   addEventListener('resize', layout);
   requestAnimationFrame(tick);
-  window.__m = { me, look, ART, go: (a, x) => { area = a === 'dl' ? DL : HALL; me.x = x; mask(); camera(true); } };
+  window.__m = { me, look, ART, go: (a, x) => { area = a === 'dl' ? DL : a === 'rock' ? ROCK : HALL; me.x = x; mask(); camera(true); } };
 })();
 </script>
 </body>
