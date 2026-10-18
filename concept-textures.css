@@ -329,6 +329,7 @@
 [data-palette='bank-blue'] { --concept-base:#234ebd; --concept-deep:#172f7e; --concept-light:#7098f1; }
 [data-palette='cargo-sand'] { --concept-base:#ece7dd; --concept-deep:#cec6b7; --concept-light:#faf5e9; }
 [data-palette='crypto-orange'] { --concept-base:#ed501b; --concept-deep:#bc3915; --concept-light:#ff8950; }
+[data-palette='spotify-vibe'] { --concept-base:#11140f; --concept-deep:#050606; --concept-light:#14d96b; }
 [data-palette='wallet-lime']::before,
 [data-palette='cargo-sand']::before { mix-blend-mode:multiply; opacity:.24; }
 /* Keep the card height steady while giving the five- and six-screen artwork more room. */
