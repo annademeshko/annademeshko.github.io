@@ -437,10 +437,20 @@
       </nav>
     </footer>
 
-    <a class="vibe-button vibesCheck" href="/ru/vibe/" aria-label="Vibe Check">
-      <span>Vibe</span>
-      <span>Check</span>
+    <a class="vibe-button vibesCheck" href="/ru/memzey/" aria-label="Мемзей" data-memzey>
+      <span>Мем</span>
+      <span>зей</span>
     </a>
+    <script>
+      // Мемзей пока только для десктопа: на телефонах и планшетах кнопка ведёт в старый Vibe Check.
+      (function () {
+        var b = document.querySelector('[data-memzey]');
+        if (!b || !window.matchMedia('(max-width: 1024px), (hover: none)').matches) return;
+        b.href = '/ru/vibe/';
+        b.setAttribute('aria-label', 'Vibe Check');
+        b.innerHTML = '<span>Vibe</span><span>Check</span>';
+      })();
+    </script>
     <div class="cursor-tooltip" role="status" aria-hidden="true"><span data-lang="ru">Смотреть кейс</span><span data-lang="en">View case</span></div>
 
     <script>
