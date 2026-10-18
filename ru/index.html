@@ -457,45 +457,53 @@
       <span class="memzey-shadow" aria-hidden="true"></span>
     </a>
     <style>
-      /* Мемзей: парящая пиксельная дверь вместо Vibe Check, только на десктопе с мышью. */
-      .memzey-door { display: none; }
-      @media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
-        .vibe-button.vibesCheck { display: none; }
-        .memzey-door {
-          position: fixed; z-index: 24;
-          right: clamp(24px, 5vw, 72px); bottom: clamp(24px, 6vw, 64px);
-          display: block; width: 64px; height: 91px;
-          color: #111; text-decoration: none;
-        }
-        [data-theme="dark"] .memzey-door { color: #fff; }
-        .memzey-door svg { display: block; image-rendering: pixelated; }
-        .memzey-float { display: block; animation: memzeyFloat 3.2s ease-in-out infinite; }
-        .memzey-door-svg { filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .14)); transition: transform 200ms ease-out; }
-        .memzey-shadow {
-          position: absolute; left: 50%; bottom: -14px; width: 46px; height: 7px; margin-left: -23px;
-          border-radius: 50%; background: rgba(0, 0, 0, .14); filter: blur(2px);
-          animation: memzeyShadow 3.2s ease-in-out infinite;
-        }
-        [data-theme="dark"] .memzey-shadow { background: rgba(0, 0, 0, .5); }
-        .memzey-leaf { transform-box: fill-box; transform-origin: left center; transition: transform 260ms steps(4, end); }
-        .memzey-tag {
-          position: absolute; left: 50%; bottom: calc(100% + 14px);
-          padding: 7px 9px; border-radius: 999px; pointer-events: none;
-          background: rgba(255, 255, 255, .72); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-          box-shadow: 0 8px 24px rgba(0, 0, 0, .06), inset 0 1px 1px rgba(255, 255, 255, .9);
-          opacity: 0; transform: translate(-50%, 6px); transition: opacity 180ms ease, transform 180ms ease;
-        }
-        [data-theme="dark"] .memzey-tag {
-          background: rgba(26, 28, 32, .92); box-shadow: 0 8px 24px rgba(0, 0, 0, .3), inset 0 0 0 1px rgba(255, 255, 255, .16);
-        }
+      /* Мемзей: парящая пиксельная дверь вместо Vibe Check. */
+      .vibe-button.vibesCheck { display: none; }
+      .memzey-door {
+        position: fixed; z-index: 24;
+        right: clamp(24px, 5vw, 72px); bottom: clamp(24px, 6vw, 64px);
+        display: block; width: 64px; height: 91px;
+        color: #111; text-decoration: none; -webkit-tap-highlight-color: transparent;
+      }
+      [data-theme="dark"] .memzey-door { color: #fff; }
+      .memzey-door svg { display: block; image-rendering: pixelated; }
+      .memzey-float { display: block; animation: memzeyFloat 3.2s ease-in-out infinite; }
+      .memzey-door-svg { filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .14)); transition: transform 200ms ease-out; }
+      .memzey-shadow {
+        position: absolute; left: 50%; bottom: -14px; width: 46px; height: 7px; margin-left: -23px;
+        border-radius: 50%; background: rgba(0, 0, 0, .14); filter: blur(2px);
+        animation: memzeyShadow 3.2s ease-in-out infinite;
+      }
+      [data-theme="dark"] .memzey-shadow { background: rgba(0, 0, 0, .5); }
+      .memzey-leaf { transform-box: fill-box; transform-origin: left center; transition: transform 260ms steps(4, end); }
+      .memzey-tag {
+        position: absolute; left: 50%; bottom: calc(100% + 14px);
+        padding: 7px 9px; border-radius: 999px; pointer-events: none;
+        background: rgba(255, 255, 255, .72); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .06), inset 0 1px 1px rgba(255, 255, 255, .9);
+        transform: translate(-50%, 0); transition: opacity 180ms ease, transform 180ms ease;
+      }
+      [data-theme="dark"] .memzey-tag {
+        background: rgba(26, 28, 32, .92); box-shadow: 0 8px 24px rgba(0, 0, 0, .3), inset 0 0 0 1px rgba(255, 255, 255, .16);
+      }
+      .memzey-door.is-entering .memzey-leaf { transform: scaleX(.08); }
+      .memzey-door.is-entering .memzey-door-svg { transform: scale(1.2); transition-duration: 500ms; }
+      .memzey-door.is-entering .memzey-tag { opacity: 0; }
+      .memzey-door:focus-visible { outline: none; }
+      .memzey-door:focus-visible .memzey-door-svg { outline: 2px solid currentColor; outline-offset: 4px; }
+      /* С мышью надпись появляется только при наведении, и дверь приоткрывается. */
+      @media (hover: hover) and (pointer: fine) {
+        .memzey-tag { opacity: 0; transform: translate(-50%, 6px); }
         .memzey-door:hover .memzey-tag, .memzey-door:focus-visible .memzey-tag { opacity: 1; transform: translate(-50%, 0); }
         .memzey-door:hover .memzey-leaf, .memzey-door:focus-visible .memzey-leaf { transform: scaleX(.3); }
         .memzey-door:hover .memzey-door-svg { transform: scale(1.04); }
-        .memzey-door.is-entering .memzey-leaf { transform: scaleX(.08); }
-        .memzey-door.is-entering .memzey-door-svg { transform: scale(1.2); transition-duration: 500ms; }
-        .memzey-door.is-entering .memzey-tag { opacity: 0; }
-        .memzey-door:focus-visible { outline: none; }
-        .memzey-door:focus-visible .memzey-door-svg { outline: 2px solid currentColor; outline-offset: 4px; }
+      }
+      /* На телефоне дверь стоит в самом конце страницы, как раньше Vibe Check; надпись видна всегда. */
+      @media (max-width: 520px) {
+        .memzey-door {
+          position: relative; right: auto !important; bottom: auto;
+          margin: 70px auto calc(40px + env(safe-area-inset-bottom, 0px));
+        }
       }
       @keyframes memzeyFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
       @keyframes memzeyShadow { 0%, 100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(.78); opacity: .6; } }

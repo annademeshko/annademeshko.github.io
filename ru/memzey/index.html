@@ -61,7 +61,7 @@ a{color:inherit}
 .box span{display:block;font-size:13px;color:var(--dim);margin-top:2px}
 .box .btns{display:flex;gap:8px;flex-wrap:wrap}
 .pbtn{border:2px solid var(--ink);background:transparent;padding:7px 12px;font-family:var(--pix);font-size:14px;box-shadow:3px 3px 0 #000}
-.pbtn:hover{background:var(--gold);color:#1a1405;border-color:var(--gold)}
+@media (hover:hover){.pbtn:hover{background:var(--gold);color:#1a1405;border-color:var(--gold)}}
 .pbtn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #000}
 .pbtn.primary{background:var(--gold);color:#1a1405;border-color:var(--gold)}
 
@@ -72,6 +72,28 @@ a{color:inherit}
 .pad button:active,.pad button.down{transform:translate(2px,2px);box-shadow:1px 1px 0 #000;background:var(--panel-2)}
 .keys{color:var(--dim);font-size:14px}
 .keys kbd{font-family:var(--pix);border:1px solid #555;border-bottom-width:3px;padding:0 6px;border-radius:3px;color:var(--ink)}
+
+/* phones and tablets: big hold-to-walk arrows; in landscape the hall takes the whole screen like a game */
+.hint-touch{display:none}
+.touch .keys{display:none}
+.touch .ctrl{flex-direction:column;align-items:stretch;gap:10px}
+.touch .pad{display:flex;justify-content:space-between;gap:14px}
+.touch .pad button{flex:1;max-width:160px;height:64px;font-size:26px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.touch .hint-touch{display:block;text-align:center;color:var(--dim);font-size:13px}
+.touch .guide{margin-left:0;width:100%}
+.touch .pbtn{padding:10px 14px;touch-action:manipulation}
+@media (orientation:landscape) and (max-height:540px){
+  .touch .head,.touch .hint-touch{display:none}
+  .touch .wrap{position:relative;padding-top:6px}
+  .touch .box{position:absolute;top:14px;left:max(26px,env(safe-area-inset-left,0px));right:auto;max-width:min(560px,calc(100% - 52px));margin:0;min-height:0;padding:6px 10px;gap:8px;border-width:2px;background:rgba(14,15,22,.86);z-index:5}
+  .touch .box b{font-size:14px}.touch .box span{font-size:11px}
+  .touch .box .pbtn{padding:6px 10px;font-size:13px}
+  .touch .ctrl{margin:0}
+  .touch .pad{position:fixed;left:max(14px,env(safe-area-inset-left,0px));right:max(14px,env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;pointer-events:none}
+  .touch .pad button{pointer-events:auto;flex:0 0 76px;height:60px;background:rgba(27,28,39,.72)}
+  .touch .guide{position:fixed;z-index:45;left:50%;bottom:calc(8px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(360px,calc(100vw - 200px));padding:6px 8px 8px}
+  .touch .guide .disc{display:none}
+}
 
 /* audio guide */
 .guide{margin-left:auto;align-self:flex-start;background:var(--panel);border:2px solid var(--gold);box-shadow:4px 4px 0 #000;padding:10px 12px 12px;display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;font-family:var(--pix);width:min(380px,calc(100vw - 32px));box-sizing:border-box}
@@ -104,6 +126,7 @@ a{color:inherit}
 .bubble::after{content:"";position:absolute;left:50%;bottom:-7px;border:5px solid transparent;border-top-color:#111;transform:translateX(-50%)}
 .toast{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:70;background:#000;border:2px solid var(--gold);font-family:var(--pix);padding:8px 14px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
+.touch .toast{font-size:13px;max-width:calc(100vw - 32px);text-align:center}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 .guide[hidden]{display:none}
 </style>
@@ -133,6 +156,7 @@ a{color:inherit}
       <button type="button" id="right" aria-label="Идти вправо">▶</button>
     </div>
     <div class="keys"><kbd>←</kbd> <kbd>→</kbd> идти · <kbd>↑</kbd> открыть дверь или рассмотреть картину</div>
+    <div class="hint-touch">Держи ◀ ▶ или нажми на пол, чтобы идти</div>
     <div class="guide" id="guide" hidden>
       <div class="disc" aria-hidden="true"></div>
       <div class="gtxt"><small>аудиогид к картине</small><b id="gTrack"></b><a id="gLink" href="https://open.spotify.com/" target="_blank" rel="noopener">открыть в Spotify ↗</a> · <a href="https://open.spotify.com/playlist/14TdC0nbL1qSOms0uueJ5V" target="_blank" rel="noopener">весь плейлист ↗</a></div>
@@ -149,6 +173,7 @@ a{color:inherit}
 (() => {
   const $ = s => document.querySelector(s);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = matchMedia('(hover: none), (pointer: coarse)').matches; if (touch) document.documentElement.classList.add('touch');
 
   /* ---------- the collection ---------- */
   const HALL = { from: 0, to: 1060 }, SECRET = { from: 1090, to: 1320 }, DL = { from: 1350, to: 2460 }, WORLD_W = 2460;
@@ -793,7 +818,7 @@ a{color:inherit}
     if (['ArrowRight', 'd', 'D', 'в', 'В'].includes(e.key)) held.r = false;
   });
   const hold = (id, k) => { const b = $(id);
-    b.addEventListener('pointerdown', e => { e.preventDefault(); held[k] = true; me.target = null; b.classList.add('down'); b.setPointerCapture(e.pointerId); });
+    b.addEventListener('pointerdown', e => { e.preventDefault(); held[k] = true; me.target = null; b.classList.add('down'); try { b.setPointerCapture(e.pointerId); } catch {} });
     const up = () => { held[k] = false; b.classList.remove('down'); };
     b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
   };
