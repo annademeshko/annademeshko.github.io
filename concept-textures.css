@@ -1,0 +1,333 @@
+/* Local design preview: textured frames around the original concept artwork. */
+.concept-marquee__tile,
+.concept-card {
+  --ink: #101923;
+  --glow: #607885;
+  --accent: #bac8be;
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  padding: 32px;
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse at 5% 100%, var(--accent), transparent 58%),
+    radial-gradient(ellipse at 95% 0%, var(--glow), transparent 65%),
+    var(--ink);
+  box-shadow: inset 0 0 0 1px #ffffff30, inset 0 1px 2px #ffffff35;
+}
+.concept-marquee__tile::before,
+.concept-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: .23;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23n)' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
+}
+.concept-marquee__tile[data-texture='violet'], .concept-card[data-texture='violet'] { --ink:#140b29; --glow:#532c85; --accent:#ad6a97; }
+.concept-marquee__tile[data-texture='ocean'], .concept-card[data-texture='ocean'] { --ink:#052c53; --glow:#137cf0; --accent:#61d8e7; }
+.concept-marquee__tile[data-texture='ember'], .concept-card[data-texture='ember'] { --ink:#330b12; --glow:#d13516; --accent:#ffb84b; }
+.concept-marquee__tile[data-texture='moss'], .concept-card[data-texture='moss'] { --ink:#10231c; --glow:#4d6633; --accent:#b8ba6a; }
+.concept-marquee__tile[data-texture='ice'], .concept-card[data-texture='ice'] { --ink:#426079; --glow:#9bcbd7; --accent:#e5eee2; }
+.concept-marquee__tile { height: 400px; }
+.concept-marquee__tile img,
+.concept-marquee__tile video,
+.concept-card img,
+.concept-card video {
+  border-radius: 13px;
+  box-shadow: 0 12px 32px #00000038, 0 0 0 1px #ffffff20;
+}
+.concept-marquee__tile::after { z-index: 2; }
+@media (max-width: 520px) {
+  .concept-card { padding: 18px; border-radius: 23px; }
+  .concept-card--phone { width: 100%; }
+  .concept-card--phone img { width: 65%; margin: auto; }
+}
+/* Revised material: dark, granular pigment with luminous edges and veins. */
+.concept-marquee__tile,
+.concept-card {
+  --ink: #08050c; --glow: #64209b; --accent: #c22f4b;
+  background:
+    radial-gradient(ellipse at 42% 32%, #020105f2 0%, #06030bbc 27%, transparent 68%),
+    radial-gradient(ellipse at 0% 90%, var(--accent), transparent 58%),
+    radial-gradient(ellipse at 100% 0%, var(--glow), transparent 65%),
+    linear-gradient(145deg, var(--glow), var(--ink) 65%);
+  box-shadow: inset 0 0 0 1px #ffffff22, inset 0 1px 2px #ffffff38, inset 0 -2px 5px #ffffff18;
+}
+.concept-marquee__tile::before,
+.concept-card::before {
+  opacity: .68;
+  mix-blend-mode: screen;
+  background-size: 100% 100%, 180px 180px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008 .014' numOctaves='2' seed='12' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='85' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Cg fill='none' stroke='%23d698d5' stroke-opacity='.18' filter='url(%23v)'%3E%3Cpath d='M330-50C480 70 170 90 310 230S610 270 360 550M337-50C487 70 177 90 317 230S617 270 367 550M346-50C496 70 186 90 326 230S626 270 376 550M360-50C510 70 200 90 340 230S640 270 390 550M385-50C535 70 225 90 365 230S665 270 415 550'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch' seed='8'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='gamma' amplitude='.45' exponent='2.6' offset='0'/%3E%3CfeFuncG type='gamma' amplitude='.35' exponent='2.6' offset='0'/%3E%3CfeFuncB type='gamma' amplitude='.5' exponent='2.6' offset='0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23g)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+.concept-marquee__tile[data-texture='violet'], .concept-card[data-texture='violet'] { --ink:#08030f; --glow:#67219b; --accent:#b52246; }
+.concept-marquee__tile[data-texture='ocean'], .concept-card[data-texture='ocean'] { --ink:#020c18; --glow:#075be2; --accent:#009cb8; }
+.concept-marquee__tile[data-texture='ember'], .concept-card[data-texture='ember'] { --ink:#150100; --glow:#f01800; --accent:#ff9500; }
+.concept-marquee__tile[data-texture='moss'], .concept-card[data-texture='moss'] { --ink:#030a02; --glow:#345e05; --accent:#739614; }
+.concept-marquee__tile[data-texture='ice'], .concept-card[data-texture='ice'] { --ink:#07080f; --glow:#4a2580; --accent:#9b365f; }
+
+/* Transparent device exports sit directly on the textured surface. */
+[data-cutout="true"] img { box-shadow: none; border-radius: 0; }
+/* Coordinate the textured frame with artwork that retains its own backdrop. */
+.concept-marquee__tile[data-surface], .concept-card[data-surface] {
+  background:
+    radial-gradient(ellipse at 5% 100%, var(--surface-light), transparent 65%),
+    radial-gradient(ellipse at 95% 0%, var(--surface-dark), transparent 70%),
+    var(--surface-base);
+}
+[data-surface='blue'] { --surface-base:#1175ff; --surface-dark:#0842b2; --surface-light:#238dff; }
+[data-surface='orange'] { --surface-base:#ef501b; --surface-dark:#b73512; --surface-light:#ff8a35; }
+[data-surface='sand'] { --surface-base:#eeece6; --surface-dark:#b7b0a4; --surface-light:#fff8e9; }
+[data-surface='charcoal'] { --surface-base:#080a09; --surface-dark:#020403; --surface-light:#272d23; }
+[data-surface='sand']::before { mix-blend-mode:multiply; opacity:.25; }
+[data-surface] img, [data-surface] video { box-shadow:0 8px 24px #00000012; }
+/* One continuous colour field, revealed through each individual card. */
+.concept-marquee__tile,
+.concept-card,
+.concept-marquee__tile[data-surface],
+.concept-card[data-surface] {
+  background-image: linear-gradient(110deg,
+    #0734b5 0%, #123bcc 12%, #2921ad 24%, #46109a 36%,
+    #680fc2 48%, #460986 62%, #242b2e 77%, #242b2e 88%, #0734b5 100%);
+  background-size: var(--ribbon-width, 1200px) 100%;
+  background-position: var(--ribbon-offset, 0px) 0;
+  background-repeat: no-repeat;
+  background-color: #242b2e;
+}
+[data-surface='sand']::before { mix-blend-mode:screen; opacity:.68; }
+
+/* Fine grain and broad, irregular satin-like folds from the new reference. */
+.concept-marquee__tile::before,
+.concept-card::before,
+.concept-card[data-surface]::before,
+.concept-marquee__tile[data-surface]::before {
+  opacity: .48;
+  mix-blend-mode: soft-light;
+  background-size: 100% 100%, 150px 150px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Cfilter id='f' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeTurbulence baseFrequency='.006 .011' numOctaves='3' seed='17' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='145' xChannelSelector='R' yChannelSelector='G'/%3E%3CfeGaussianBlur stdDeviation='8'/%3E%3C/filter%3E%3Cg fill='none' filter='url(%23f)'%3E%3Cpath d='M130-100C330 140-70 240 200 600M510-100C700 80 220 320 510 600M800-100C970 90 560 340 800 600' stroke='%23eee3ff' stroke-opacity='.55' stroke-width='24'/%3E%3Cpath d='M210-100C410 140 10 240 280 600M590-100C780 80 300 320 590 600' stroke='%23000000' stroke-opacity='.75' stroke-width='70'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23n)' d='M0 0h150v150H0z'/%3E%3C/svg%3E");
+}
+/* Detailed fibrous grain; shared file is cached once for the whole gallery. */
+.concept-marquee__tile::before,
+.concept-card::before,
+.concept-card[data-surface]::before,
+.concept-marquee__tile[data-surface]::before {
+  background-image: url('/assets/textures/fibrous-grain.webp');
+  background-size: 640px 640px;
+  background-position: var(--ribbon-offset, 0px) 0;
+  background-repeat: repeat;
+  mix-blend-mode: screen;
+  opacity: .52;
+}
+/* Continuous concept ribbon: no gaps or individual card outlines. */
+.concept-marquee__track { gap: 0; }
+.concept-marquee__tile,
+.concept-card {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+}
+.concept-marquee__tile::before,
+.concept-card::before { border-radius: 0; }
+.concepts-grid { column-gap: 0; }
+@media (max-width: 520px) {
+  .concept-card { margin: 0; border-radius: 0; }
+}
+/* Featured CoPilot and Track covers share the concept ribbon's material. */
+.case-texture-frame {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  padding: 36px;
+  border-radius: 22px;
+  background: linear-gradient(115deg, #0734b5, #2921ad 40%, #680fc2 75%, #242b2e);
+}
+.case-texture-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: url('/assets/textures/fibrous-grain.webp') repeat;
+  background-size: 640px 640px;
+  mix-blend-mode: screen;
+  opacity: .52;
+  pointer-events: none;
+}
+.case-link[aria-label='Track'] .case-texture-frame {
+  background: linear-gradient(115deg, #390a72, #680fc2 30%, #242b2e 90%);
+}
+.case-texture-frame .case-cover { z-index: 0; }
+@media(max-width: 520px) {
+  .case-texture-frame { padding: 18px; border-radius: 16px; }
+}
+/* Remove the baked-in exterior backdrop, retaining the original UI pixels. */
+.case-texture-frame { padding: 0; }
+.case-texture-frame .case-cover > .case-image {
+  clip-path: inset(9.75% 6.38% 9.75% 6.38% round 1.1%);
+  border-radius: 0;
+  background: transparent;
+}
+@media(max-width: 520px) {
+  .case-texture-frame { padding: 0; }
+}
+/* Soft tones for the security cases; purple material behind NOVA's phones. */
+.case-link[aria-label='CoPilot'] .case-texture-frame {
+  background: linear-gradient(120deg, #eee5d8, #e5d5c6 48%, #f5eee4);
+}
+.case-link[aria-label='Track'] .case-texture-frame {
+  background: linear-gradient(120deg, #dfedfa, #bdd9f0 48%, #e5f2fb);
+}
+.case-link[aria-label='CoPilot'] .case-texture-frame::before,
+.case-link[aria-label='Track'] .case-texture-frame::before {
+  mix-blend-mode: soft-light;
+  opacity: .24;
+}
+.nova-texture-frame {
+  background: linear-gradient(115deg, #210b43, #680fc2 55%, #340968);
+  overflow: hidden;
+}
+.nova-texture-frame > .case-image {
+  mask: url('/assets/nova/cover-phone-mask.svg') center / 100% 100% no-repeat;
+  border-radius: 0;
+  background: transparent;
+}
+.case-link:hover .nova-texture-frame > .case-image { transform: none; opacity: 1; }
+/* Keep black screen elements intact; hide only the space outside the devices. */
+[data-wallet-cutout='true'] img {
+  mask: url('/assets/concepts/crypto-wallet-phone-mask.svg') center / 100% 100% no-repeat;
+  box-shadow: none;
+  border-radius: 0;
+}
+/* Keep the fibrous material readable on the two pale backgrounds. */
+.case-link[aria-label='CoPilot'] .case-texture-frame::before,
+.case-link[aria-label='Track'] .case-texture-frame::before {
+  mix-blend-mode: multiply;
+  opacity: .30;
+}
+/* Reintroduce the original connections outside the cropped NOVA devices. */
+.nova-texture-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: url('/assets/nova/cover-connectors.svg') center / 100% 100% no-repeat;
+}
+/* Wave uses the same canvas and screenshot width as the Track cover. */
+.wave-texture-frame {
+  aspect-ratio: 2320 / 1518;
+  background: linear-gradient(120deg, #dcece8, #c1d9dc 48%, #e9f1eb);
+}
+.wave-texture-frame::before {
+  mix-blend-mode: multiply;
+  opacity: .30;
+}
+.wave-browser {
+  position: absolute;
+  width: 87.24%;
+  left: 6.38%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 28px #28404426;
+}
+.wave-browser-bar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #f3f2ef;
+  border-bottom: 1px solid #e7e5e0;
+  font-size: 10px;
+  color: #757575;
+}
+.wave-browser-dots { position: absolute; left: 12px; display: flex; gap: 5px; }
+.wave-browser-dots i { width: 7px; height: 7px; border-radius: 50%; background: #ff625a; }
+.wave-browser-dots i:nth-child(2) { background: #ffbf35; }
+.wave-browser-dots i:nth-child(3) { background: #2dcc48; }
+.wave-browser-url { background: #e6e5e1; border-radius: 5px; width: 34%; text-align: center; line-height: 20px; }
+.wave-browser .case-image { display: block; width: 100%; height: auto; margin: 0; border-radius: 0; }
+.case-link:hover .wave-browser .case-image { transform: none; opacity: 1; }
+@media(max-width: 520px) {
+  .wave-browser { border-radius: 5px; }
+  .wave-browser-bar { height: 17px; font-size: 6px; }
+  .wave-browser-url { line-height: 12px; }
+  .wave-browser-dots { left: 6px; gap: 3px; }
+  .wave-browser-dots i { width: 4px; height: 4px; }
+}
+.wave-texture-frame { width: 100%; min-height: 0; }
+/* Separate concept surfaces while keeping their shared gradient coordinates. */
+.concept-marquee__track { gap: 20px; }
+.concept-marquee__tile,
+.concept-card {
+  border-radius: 28px;
+  box-shadow: inset 0 0 0 1px #ffffff22, inset 0 1px 2px #ffffff30;
+}
+.concept-marquee__tile::before,
+.concept-card::before { border-radius: inherit; }
+.concepts-grid { column-gap: 18px; }
+.concept-card { margin: 0 0 14px; }
+@media (max-width: 520px) {
+  .concept-card { margin: 0 0 14px; border-radius: 23px; }
+}
+/* Each NOVA phone floats independently while hovering the case. */
+.nova-texture-frame > .case-image { visibility: hidden; }
+.nova-phone {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  transition: translate .6s ease;
+}
+.nova-phone img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  mask: var(--phone-mask) center / 100% 100% no-repeat;
+}
+.nova-phone-1 { --phone-mask:url('/assets/nova/phone-1-mask.svg'); --lift:-4px; --drift:-1px; }
+.nova-phone-2 { --phone-mask:url('/assets/nova/phone-2-mask.svg'); --lift:-7px; --drift:1px; }
+.nova-phone-3 { --phone-mask:url('/assets/nova/phone-3-mask.svg'); --lift:-5px; --drift:-1px; }
+.nova-phone-4 { --phone-mask:url('/assets/nova/phone-4-mask.svg'); --lift:-6px; --drift:1px; }
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  .nova-card:hover .nova-phone,
+  .nova-card:focus-visible .nova-phone {
+    translate: 0 var(--lift);
+  }
+  .nova-card:hover .nova-phone img,
+  .nova-card:focus-visible .nova-phone img { animation: nova-phone-hover 3.6s ease-in-out infinite; }
+  .nova-card:hover .nova-phone-2 img { animation-delay:-.8s; }
+  .nova-card:hover .nova-phone-3 img { animation-delay:-1.6s; }
+  .nova-card:hover .nova-phone-4 img { animation-delay:-2.4s; }
+}
+@keyframes nova-phone-hover {
+  0%,100% { transform:translate(0,0); }
+  50% { transform:translate(var(--drift),-3px); }
+}
+/* Independent surfaces chosen from each concept's own interface colours. */
+.concept-marquee__tile[data-palette], .concept-card[data-palette] {
+  background:
+    radial-gradient(ellipse at 10% 95%, var(--concept-light), transparent 70%),
+    linear-gradient(125deg, var(--concept-base), var(--concept-deep));
+  --ribbon-offset: 0px;
+}
+[data-palette='travel-blue'] { --concept-base:#0b6cf1; --concept-deep:#0846bb; --concept-light:#3690ff; }
+[data-palette='franglais-cyan'] { --concept-base:#05b9ed; --concept-deep:#0788b9; --concept-light:#80dffa; }
+[data-palette='wallet-lime'] { --concept-base:#dce98b; --concept-deep:#9eaf42; --concept-light:#f0f7bd; }
+[data-palette='bank-blue'] { --concept-base:#234ebd; --concept-deep:#172f7e; --concept-light:#7098f1; }
+[data-palette='cargo-sand'] { --concept-base:#ece7dd; --concept-deep:#cec6b7; --concept-light:#faf5e9; }
+[data-palette='crypto-orange'] { --concept-base:#ed501b; --concept-deep:#bc3915; --concept-light:#ff8950; }
+[data-palette='wallet-lime']::before,
+[data-palette='cargo-sand']::before { mix-blend-mode:multiply; opacity:.24; }

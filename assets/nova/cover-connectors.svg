@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 961">
+<defs><filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="7"/></filter></defs>
+<g fill="none" stroke="#b976ff" stroke-width="9" filter="url(#glow)">
+<path d="M369 262C390 264 405 282 425 296M725 336C746 333 767 309 787 296M1108 342C1126 333 1147 309 1167 299"/>
+</g>
+<g fill="none" stroke="#eacbff" stroke-width="2">
+<path d="M369 262C390 264 405 282 425 296M725 336C746 333 767 309 787 296M1108 342C1126 333 1147 309 1167 299"/>
+</g>
+<g fill="#ac4dff" filter="url(#glow)"><circle cx="369" cy="262" r="13"/><circle cx="725" cy="336" r="13"/><circle cx="1167" cy="299" r="13"/></g>
+<g fill="#fff" stroke="#cf9aff" stroke-width="3"><circle cx="369" cy="262" r="6"/><circle cx="725" cy="336" r="6"/><circle cx="1167" cy="299" r="6"/></g>
+</svg>
