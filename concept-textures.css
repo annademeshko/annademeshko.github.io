@@ -331,3 +331,24 @@
 [data-palette='crypto-orange'] { --concept-base:#ed501b; --concept-deep:#bc3915; --concept-light:#ff8950; }
 [data-palette='wallet-lime']::before,
 [data-palette='cargo-sand']::before { mix-blend-mode:multiply; opacity:.24; }
+/* Keep the card height steady while giving the five- and six-screen artwork more room. */
+.concept-marquee__tile[data-large-screens] {
+  height: 400px;
+  padding: 16px;
+}
+@media (max-width: 520px) {
+  .concept-card[data-large-screens] { padding: 8px; }
+}
+/* Transparent exports should not cast a rectangular canvas shadow or outline. */
+.concept-marquee__tile[data-palette='wallet-lime'] img,
+.concept-card[data-palette='wallet-lime'] img,
+.concept-marquee__tile[data-palette='bank-blue'] img,
+.concept-card[data-palette='bank-blue'] img,
+.concept-marquee__tile[data-palette='crypto-orange'] img,
+.concept-card[data-palette='crypto-orange'] img {
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  opacity: 1;
+}
