@@ -112,7 +112,7 @@ a{color:inherit}
 <div class="wrap">
   <header class="head">
     <h1><span>Мем</span>зей</h1>
-    <p>Постоянная экспозиция · <a class="home" href="/ru/">выйти на сайт</a></p>
+    <p>Постоянная экспозиция · <a class="home" href="/ru/">← вернуться в реальность</a></p>
   </header>
 
   <div class="stage" id="stage" aria-label="Зал галереи: иди вдоль стены и рассматривай картины">
@@ -413,7 +413,7 @@ a{color:inherit}
     { x: 25, y: 13, text: '← ДЕДЛАЙНЫ', fs: 3.4, plain: 1 },
     { x: 1010, y: 76, text: 'ТОЛЬКО ДЛЯ ПЕРСОНАЛА', fs: 2.4, card: 1 },
     { x: 1890, y: 3, text: 'ЗАЛ ДЕДЛАЙНОВ', fs: 7 },
-    { x: 1372, y: 14, text: '← ФОЙЕ', fs: 3.6, plain: 1 },
+    { x: 1372, y: 14, text: '← РЕАЛЬНОСТЬ', fs: 3, plain: 1 },
     { x: 2431, y: 13, text: 'КРИЗИС →', fs: 3.6, dark: 1 },
     { x: 1526, y: 24.6, text: 'TO DO', fs: 2.4, ink: 1 },
     { x: 1556, y: 24.6, text: 'В РАБОТЕ', fs: 2.4, ink: 1 },
@@ -663,7 +663,7 @@ a{color:inherit}
       const a = n.a;
       box.innerHTML = `<div class="txt"><b>${a.title ? a.title : a.author}</b><span>${a.title && a.author ? a.author + ' · ' : ''}${a.meta}</span></div><div class="btns"><button class="pbtn primary" type="button" data-act="look">Рассмотреть</button><button class="pbtn" type="button" data-act="guide">♪ Аудиогид</button></div>`;
     } else if (n.kind === 'portal') {
-      box.innerHTML = `<div class="txt"><b>${n.p.title}</b><span>${n.p.sub}</span></div>${n.p.to ? `<div class="btns"><button class="pbtn primary" type="button" data-act="portal">${n.p.btn}</button></div>` : ''}`;
+      box.innerHTML = `<div class="txt"><b>${n.p.title}</b><span>${n.p.sub}</span></div>${n.p.to || n.p.href ? `<div class="btns"><button class="pbtn primary" type="button" data-act="portal">${n.p.btn}</button></div>` : ''}`;
     } else {
       box.innerHTML = `<div class="txt"><b>Смотритель зала</b><span>${GUARD.awake > 0 ? '«Я всё видел. Руками не трогать!»' : 'Спит. Лучше не будить.'}</span></div>`;
     }
@@ -673,7 +673,7 @@ a{color:inherit}
     const n = nearest(); const act = b.dataset.act;
     if (act === 'look' && n?.a) look(n.a);
     if (act === 'guide' && n?.a) guide(n.a);
-    if (act === 'portal' && n?.p) teleport(n.p.to, n.p.tx, n.p.toast);
+    if (act === 'portal' && n?.p) usePortal(n.p);
   });
   const PORTALS = [
     { area: HALL, x: DOOR.x, to: SECRET, tx: 1120, title: 'Посторонним вход воспрещён', sub: 'За дверью кто-то тихо говорит «хмм».', btn: 'Войти', toast: 'Ты нашёл(а) тайную комнату' },
@@ -681,8 +681,9 @@ a{color:inherit}
     { area: DL, x: 2438, to: HALL, tx: 40, title: 'Зал экзистенциального кризиса', sub: 'Дедлайны позади. Самое время спросить себя «зачем это всё».', btn: 'Перейти', toast: 'Зал экзистенциального кризиса. Тут можно не торопиться' },
     { area: HALL, x: 25, to: DL, tx: 2405, title: 'Зал дедлайнов', sub: 'Оттуда слышно, как кто-то спрашивает «есть минутка?».', btn: 'Вернуться' },
     { area: HALL, x: 895, title: 'Рок-зал', sub: 'Скоро откроется. Пока там настраивают гитары.' },
-    { area: DL, x: 1372, title: 'Фойе', sub: 'Выход там же, где вход. Но ты же только пришёл(а).' }
+    { area: DL, x: 1372, title: 'Вернуться в реальность', sub: 'За дверью сайт-портфолио. Там всё серьёзно.', btn: 'Вернуться', href: '/ru/' }
   ];
+  function usePortal(p) { if (p.href) location.href = p.href; else if (p.to) teleport(p.to, p.tx, p.toast); }
   function teleport(ar, x, msg) {
     stage.animate([{ opacity: 1 }, { opacity: 0, offset: .45 }, { opacity: 0, offset: .55 }, { opacity: 1 }], { duration: reduce ? 1 : 600 });
     setTimeout(() => { area = ar; me.x = x; me.target = null; shown = null; mask(); camera(true); if (msg) toast(msg); }, reduce ? 0 : 280);
@@ -731,7 +732,7 @@ a{color:inherit}
     if (['ArrowLeft', 'a', 'A', 'ф', 'Ф'].includes(e.key)) { held.l = true; me.target = null; e.preventDefault(); }
     if (['ArrowRight', 'd', 'D', 'в', 'В'].includes(e.key)) { held.r = true; me.target = null; e.preventDefault(); }
     if (['e', 'E', 'у', 'У', 'Enter'].includes(e.key) && document.activeElement?.tagName !== 'BUTTON') { const n = nearest(); if (n?.a) look(n.a); }
-    if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { const n = nearest(); if (n?.kind === 'portal' && n.p.to) teleport(n.p.to, n.p.tx, n.p.toast); e.preventDefault(); }
+    if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { const n = nearest(); if (n?.kind === 'portal') usePortal(n.p); e.preventDefault(); }
   });
   addEventListener('keyup', e => {
     if (['ArrowLeft', 'a', 'A', 'ф', 'Ф'].includes(e.key)) held.l = false;
