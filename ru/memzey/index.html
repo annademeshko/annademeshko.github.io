@@ -37,7 +37,13 @@ a{color:inherit}
 .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-block:18px 14px;flex-wrap:wrap}
 .head h1{margin:0;font-family:var(--pix);font-weight:700;font-size:clamp(22px,3.2vw,34px);letter-spacing:.02em}
 .head h1 span{color:var(--gold)}
-.head p a.home{color:var(--gold);text-decoration:none}.head p a.home:hover{text-decoration:underline}
+.head{align-items:center;justify-content:flex-start;gap:16px}
+header.head h1{margin-right:auto}
+.home-x{flex:none;display:grid;place-items:center;width:38px;height:38px;border:2px solid var(--ink);background:var(--panel);color:var(--ink);text-decoration:none;font-family:var(--pix);font-size:24px;line-height:1;box-shadow:3px 3px 0 #000}
+.home-x:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #000}
+@media (hover:hover){.home-x:hover{background:var(--gold);color:#1a1405;border-color:var(--gold)}}
+@media (max-width:520px){.head p{display:none}}
+@media (orientation:landscape) and (max-height:540px){.touch .head{display:block;height:0;padding:0}.touch .head h1,.touch .head p{display:none}.touch .home-x{position:fixed;z-index:50;top:14px;right:max(26px,env(safe-area-inset-right,0px));width:34px;height:34px;font-size:20px}}
 .head p{margin:0;font-family:var(--pix);color:var(--dim);font-size:14px}
 
 /* stage */
@@ -86,7 +92,8 @@ a{color:inherit}
 .touch .guide button{order:2;align-self:stretch;width:34px;font-size:22px}
 .touch .pbtn{padding:10px 14px;touch-action:manipulation}
 @media (orientation:landscape) and (max-height:540px){
-  .touch .head,.touch .hint-touch{display:none}
+  .touch .head h1,.touch .head p,.touch .hint-touch{display:none}
+  .touch .head{padding:0;height:0}
   .touch .wrap{position:relative;padding-top:6px}
   .touch .box{position:absolute;top:14px;left:max(26px,env(safe-area-inset-left,0px));right:auto;max-width:min(560px,calc(100% - 52px));margin:0;min-height:0;padding:6px 10px;gap:8px;border-width:2px;background:rgba(14,15,22,.86);z-index:5}
   .touch .box b{font-size:14px}.touch .box span{font-size:11px}
@@ -138,7 +145,8 @@ a{color:inherit}
 <div class="wrap">
   <header class="head">
     <h1><span>Мем</span>зей</h1>
-    <p>Постоянная экспозиция · <a class="home" href="/ru/" data-leave>вернуться в реальность →</a></p>
+    <p>Постоянная экспозиция</p>
+    <a class="home-x" href="/ru/" data-leave aria-label="Вернуться в реальность" title="Вернуться в реальность">×</a>
   </header>
 
   <div class="stage" id="stage" aria-label="Зал галереи: иди вдоль стены и рассматривай картины">
