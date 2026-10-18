@@ -99,6 +99,10 @@ header.head h1{margin-right:auto}
   .touch .wrap{position:relative;padding-top:6px}
   .touch .box{position:absolute;top:14px;left:max(26px,env(safe-area-inset-left,0px));right:auto;max-width:min(560px,calc(100% - 52px));margin:0;min-height:0;padding:6px 10px;gap:8px;border-width:2px;background:rgba(14,15,22,.86);z-index:5}
   .touch .box b{font-size:14px}.touch .box span{font-size:11px}
+  .touch .box{flex-wrap:nowrap;width:min(640px,calc(100% - 110px));max-width:none}
+  .touch .box .txt{flex:1 1 auto}
+  .touch .box b,.touch .box span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .touch .box .btns{flex:none;flex-wrap:nowrap}
   .touch .box .pbtn{padding:6px 10px;font-size:13px}
   .touch .ctrl{margin:0}
   .touch .pad{position:fixed;left:max(14px,env(safe-area-inset-left,0px));right:max(14px,env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;pointer-events:none}
@@ -480,6 +484,7 @@ header.head h1{margin-right:auto}
       if (s.card) { d.style.background = '#e9e4d6'; d.style.border = '0'; d.style.color = '#2a2822'; d.style.padding = '.2em .4em'; } });
     mask();
     camera(true);
+    if (typeof sizeBox === 'function' && PORTALS_READY) sizeBox();
   }
   function mask() { const l = $('#maskL'), r = $('#maskR'); l.style.width = area.from * S + 'px'; r.style.left = area.to * S + 'px'; r.style.width = (WORLD_W - area.to) * S + 'px'; }
 
@@ -693,18 +698,27 @@ header.head h1{margin-right:auto}
     if (area === HALL && Math.abs(me.x - GUARD.x) < 18) return { kind: 'guard' };
     return null;
   }
+  function boxHTML(n, ar) {
+    if (!n) return `<div class="txt"><b>${ar === SECRET ? 'Тайная комната' : ar === DL ? 'Зал дедлайнов' : 'Зал экзистенциального кризиса'}</b><span>Подойди к картине или нажми на табличку под ней.</span></div>`;
+    if (n.kind === 'art') { const a = n.a;
+      return `<div class="txt"><b>${a.title ? a.title : a.author}</b><span>${a.title && a.author ? a.author + ' · ' : ''}${a.meta}</span></div><div class="btns"><button class="pbtn primary" type="button" data-act="look">Рассмотреть</button><button class="pbtn" type="button" data-act="guide">♪ Аудиогид</button></div>`; }
+    if (n.kind === 'portal') return `<div class="txt"><b>${n.p.title}</b><span>${n.p.sub}</span></div>${n.p.to || n.p.href ? `<div class="btns"><button class="pbtn primary" type="button" data-act="portal">${n.p.btn}</button></div>` : ''}`;
+    return `<div class="txt"><b>Смотритель зала</b><span>${n.awake ? '«Я всё видел. Руками не трогать!»' : 'Спит. Лучше не будить.'}</span></div>`;
+  }
   function updateBox() {
     const n = nearest(), key = n ? n.kind + (n.a ? n.a.id : '') + (n.p ? n.p.x : '') + area.from : 'none' + area.from;
     if (key === shown) return; shown = key;
-    if (!n) { box.innerHTML = `<div class="txt"><b>${area === SECRET ? 'Тайная комната' : area === DL ? 'Зал дедлайнов' : 'Зал экзистенциального кризиса'}</b><span>Подойди к картине или нажми на табличку под ней.</span></div>`; return; }
-    if (n.kind === 'art') {
-      const a = n.a;
-      box.innerHTML = `<div class="txt"><b>${a.title ? a.title : a.author}</b><span>${a.title && a.author ? a.author + ' · ' : ''}${a.meta}</span></div><div class="btns"><button class="pbtn primary" type="button" data-act="look">Рассмотреть</button><button class="pbtn" type="button" data-act="guide">♪ Аудиогид</button></div>`;
-    } else if (n.kind === 'portal') {
-      box.innerHTML = `<div class="txt"><b>${n.p.title}</b><span>${n.p.sub}</span></div>${n.p.to || n.p.href ? `<div class="btns"><button class="pbtn primary" type="button" data-act="portal">${n.p.btn}</button></div>` : ''}`;
-    } else {
-      box.innerHTML = `<div class="txt"><b>Смотритель зала</b><span>${GUARD.awake > 0 ? '«Я всё видел. Руками не трогать!»' : 'Спит. Лучше не будить.'}</span></div>`;
-    }
+    box.innerHTML = boxHTML(n && n.kind === 'guard' ? { kind: 'guard', awake: GUARD.awake > 0 } : n, area);
+  }
+  /* the plaque box keeps one height: the tallest of everything it can show, so it never jumps */
+  function sizeBox() {
+    if (!box.offsetWidth) return;
+    const probe = box.cloneNode(false); probe.removeAttribute('id');
+    probe.style.cssText = `position:absolute;visibility:hidden;pointer-events:none;left:-9999px;top:0;width:${box.offsetWidth}px;min-height:0;margin:0`;
+    box.parentNode.appendChild(probe);
+    const all = [...ART.map(a => ({ kind: 'art', a })), ...PORTALS.map(p => ({ kind: 'portal', p })), { kind: 'guard', awake: true }, { kind: 'guard' }, null];
+    let h = 0; all.forEach(n => [HALL, DL, SECRET].forEach(ar => { if (n && ar !== HALL) return; probe.innerHTML = boxHTML(n, ar); h = Math.max(h, probe.offsetHeight); }));
+    probe.remove(); box.style.minHeight = Math.ceil(h) + 'px';
   }
   box.addEventListener('click', e => {
     const b = e.target.closest('[data-act]'); if (!b) return;
@@ -713,6 +727,7 @@ header.head h1{margin-right:auto}
     if (act === 'guide' && n?.a) guide(n.a);
     if (act === 'portal' && n?.p) usePortal(n.p);
   });
+  let PORTALS_READY = false;
   const PORTALS = [
     { area: HALL, x: DOOR.x, to: SECRET, tx: 1120, title: 'Посторонним вход воспрещён', sub: 'За дверью кто-то тихо говорит «хмм».', btn: 'Войти', toast: 'Ты нашёл(а) тайную комнату' },
     { area: SECRET, x: DOOR_BACK.x, to: HALL, tx: 1000, title: 'Обратно в зал', sub: 'Никому не говори, что ты здесь был(а).', btn: 'Выйти' },
@@ -881,8 +896,10 @@ header.head h1{margin-right:auto}
       for (let i = step.i || 0; i < n; i++) g.clearRect(cells[i].x, cells[i].y, B, B); step.i = n;
       if (k < 1) requestAnimationFrame(step); else { cv.remove(); toast('Добро пожаловать в Мемзей'); } })(t0);
   })();
+  PORTALS_READY = true;
   drawBackground();
   layout();
+  if (document.fonts) document.fonts.ready.then(sizeBox);
   addEventListener('resize', layout);
   requestAnimationFrame(tick);
   window.__m = { me, look, ART, go: (a, x) => { area = a === 'dl' ? DL : HALL; me.x = x; mask(); camera(true); } };
