@@ -165,34 +165,7 @@
       /* Keep the full-bleed band from ever pushing a horizontal scrollbar. */
       body { overflow-x: hidden; }
 
-      /* Year · status label above each case title. */
-      .case-eyebrow {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 8px;
-        font-size: 12px;
-        line-height: 16px;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-      .case-eyebrow .shipped {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        color: #3f9e6a;
-      }
-      [data-theme="dark"] .case-eyebrow .shipped {
-        color: #5cc389;
-      }
-      .case-eyebrow .shipped::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: currentColor;
-      }
+      .remate-card-title { white-space: nowrap; }
 
       /* Two–three headline metrics under each case card, pulled from its
          Outcome block, so numbers are visible before the click. Rendered as
@@ -378,7 +351,7 @@
             <video class="case-image remate-cover-video" width="1600" height="900" autoplay muted loop playsinline preload="metadata" poster="./assets/remate/cover-dark-poster.webp" aria-label="remate: welcome animation and key screens of the iOS app"><source src="./assets/remate/cover-dark.mp4" type="video/mp4"></video>
           </span>
           <span class="case-copy">
-            <span class="case-title"><span data-lang="ru">remate: игра своего уровня</span><span data-lang="en">remate: find your game</span></span>
+            <span class="case-title remate-card-title"><span data-lang="ru">remate: игра своего уровня</span><span data-lang="en">remate: find your game</span></span>
             <span class="case-description"><span data-lang="ru">iOS-приложение, которое собирает игру за игрока: партнёры своего уровня, бронь корта и раздельная оплата в одном сценарии. Спроектировала продукт с нуля, от модели данных до дизайн-системы и motion.</span><span data-lang="en">An iOS app that puts the game together for the player: partners at your level, court booking and split payments in one flow. I designed it from zero, from the core model to the design system and motion.</span></span>
           </span>
         </a>
