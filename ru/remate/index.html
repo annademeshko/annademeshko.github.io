@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <script>
+      // The legacy Worker cannot serve every shared asset; use the direct site.
+      if (location.hostname === 'ru.annademeshko.com') {
+        var path = location.pathname;
+        if (!path.startsWith('/ru/')) path = '/ru' + path;
+        location.replace('https://annademeshko.com' + path + location.search + location.hash);
+      }
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Кейс Анны Демешко: remate, iOS-приложение, чтобы найти игру своего уровня, забронировать корт и разделить оплату в паделе, теннисе и пиклболе.">
+    <title data-ru="remate: игра своего уровня в паделе, теннисе и пиклболе" data-en="remate: find your game in padel, tennis and pickleball">remate: игра своего уровня в паделе, теннисе и пиклболе</title>
+  <link rel="canonical" href="https://annademeshko.com/ru/remate/">
+    <link rel="icon" type="image/png" href="/assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="/assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/remate.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+        } catch (e) {}
+      })();
+    </script>
+  
+    <link rel="preconnect" href="https://annademeshko.com">
+    <link rel="dns-prefetch" href="//annademeshko.com">
+    <link rel="prefetch" href="https://annademeshko.com/remate/?langswitch=1">
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <a class="lang-btn" href="/ru/remate/" data-lang-set="ru" aria-pressed="true">RU</a>
+        <a class="lang-btn" href="https://annademeshko.com/remate/?langswitch=1" data-lang-set="en" aria-pressed="false">EN</a>
+      </div>
+    </div>
+
+    <main class="page case-page remate-case" aria-label="remate" data-aria-ru="Кейс remate" data-aria-en="remate case study">
+      <article class="case-study">
+
+        <header class="case-hero">
+          <h1>
+            <span data-lang="ru">remate: найти игру своего уровня в паделе, теннисе и пиклболе</span>
+            <span data-lang="en">remate: find your game in padel, tennis and pickleball</span>
+          </h1>
+          <p class="case-hero-lead">
+            <span data-lang="ru">iOS-приложение для падела, тенниса и пиклбола в Испании: игры своего уровня, бронь кортов и раздельная оплата в одном сценарии.</span>
+            <span data-lang="en">An iOS app for padel, tennis and pickleball in Spain: games at your level, court booking and split payments in one flow.</span>
+          </p>
+          <p class="case-meta">
+            <span data-lang="ru">Product Designer · iOS · 0 → 1 · Interaction design · Дизайн-система · Motion</span>
+            <span data-lang="en">Product Designer · iOS · 0 → 1 · Interaction design · Design system · Motion</span>
+          </p>
+        </header>
+
+        <figure class="remate-film">
+          <video autoplay muted loop playsinline preload="metadata" poster="/assets/remate/hero-poster.webp" aria-label="remate: welcome screen animation and three key screens">
+            <source src="/assets/remate/hero.mp4" type="video/mp4">
+          </video>
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Контекст</span><span data-lang="en">Overview</span></p>
+            <p>
+              <span data-lang="ru">Игра собирается в чатах, корт оплачивает один человек, уровень соперников выясняется на корте. Каждый шаг держится на ручной координации.</span>
+              <span data-lang="en">Games are organised in group chats, one person pays for the court, and opponents' level is discovered on court. Every step relies on manual coordination.</span>
+            </p>
+            <p>
+              <span data-lang="ru">Продукт 0 → 1: стратегия, информационная архитектура, UX/UI, дизайн-система и motion. Цель: снять с игрока всю организацию.</span>
+              <span data-lang="en">A 0 → 1 product: strategy, information architecture, UX/UI, design system and motion. Goal: take all the coordination off the player.</span>
+            </p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Три проблемы, вокруг которых построен продукт</span><span data-lang="en">Three problems the product is built around</span></p>
+            <div class="copilot-question-lines remate-problems" aria-label="Product problems">
+              <div class="copilot-question-line"><span>01</span><strong><span data-lang="ru">Найти людей своего уровня</span><span data-lang="en">Finding people at your level</span></strong><p><span data-lang="ru">Друзья заняты, случайный соперник не того уровня.</span><span data-lang="en">Friends are busy, random opponents are at the wrong level.</span></p></div>
+              <div class="copilot-question-line"><span>02</span><strong><span data-lang="ru">Деньги между игроками</span><span data-lang="en">Money between players</span></strong><p><span data-lang="ru">Один платит за всех, неявка бьёт по его кошельку.</span><span data-lang="en">One person pays for everyone and absorbs no-shows.</span></p></div>
+              <div class="copilot-question-line"><span>03</span><strong><span data-lang="ru">Уровень «на глаз»</span><span data-lang="en">Level by guesswork</span></strong><p><span data-lang="ru">Неравная игра не приводит к повторной.</span><span data-lang="en">An uneven game doesn't lead to a second one.</span></p></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="study-block copilot-flow-wrap">
+          <p class="eyebrow"><span data-lang="ru">Модель сценария</span><span data-lang="en">Mapping the journey</span></p>
+          <p>
+            <span data-lang="ru">Ключевое решение: игра как центральный объект. Корт, оплата, игроки и уровень являются её свойствами, поэтому любой сценарий завершается одним состоянием: ты в составе, место оплачено.</span>
+            <span data-lang="en">Key decision: the game is the core object. Court, payment, players and level are its properties, so every flow resolves into one state: you're in, your spot is paid.</span>
+          </p>
+          <div class="copilot-workflow-phases" aria-label="remate journey">
+            <div class="copilot-workflow-phase">
+              <div class="copilot-phase-label"><span data-lang="ru">Первый запуск</span><span data-lang="en">First launch</span></div>
+              <div class="copilot-phase-steps">
+                <div class="copilot-phase-step"><span class="step-index">01</span><strong><span data-lang="ru">Аккаунт без пароля</span><span data-lang="en">Passwordless sign-up</span></strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">02</span><strong><span data-lang="ru">Спорт и уровень</span><span data-lang="en">Sport and level</span></strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">03</span><strong><span data-lang="ru">Игры рядом</span><span data-lang="en">Games nearby</span></strong></div>
+              </div>
+            </div>
+            <div class="copilot-workflow-phase">
+              <div class="copilot-phase-label"><span data-lang="ru">Каждая игра</span><span data-lang="en">Every game</span></div>
+              <div class="copilot-phase-steps">
+                <div class="copilot-phase-step"><span class="step-index">04</span><strong><span data-lang="ru">Найти игру или корт</span><span data-lang="en">Find a game or a court</span></strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">05</span><strong><span data-lang="ru">Оплатить свою часть</span><span data-lang="en">Pay your part</span></strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">06</span><strong><span data-lang="ru">Позвать друзей</span><span data-lang="en">Bring friends</span></strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 01 · Explore -->
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">01</span><strong class="copilot-section-title">
+              <span data-lang="ru">Игра в центре, а не корт</span>
+              <span data-lang="en">The game, not the court</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Главный экран показывает открытые игры под уровень и район. Карточка содержит всё для решения: время, цену за человека, состав и свободные места.</span>
+              <span data-lang="en">Home shows open games matched by level and area. A card carries everything needed to decide: time, price per person, roster and open spots.</span>
+            </p>
+          </section>
+        </div>
+
+        <div class="remate-phones">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/explore.webp" alt="Explore: open matches at your level">
+            <figcaption><span data-lang="ru">Лента открытых игр под твой уровень</span><span data-lang="en">Open games at your level</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/join.webp" alt="Match card with players on the court and the split price">
+            <figcaption><span data-lang="ru">Кто уже играет и сколько платишь ты</span><span data-lang="en">Who's playing and what you pay</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/youre-in.webp" alt="You're in: 3 of 4 players, payment held">
+            <figcaption><span data-lang="ru">Ты в составе, деньги на холде</span><span data-lang="en">You're in, the money is on hold</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- 02 · Onboarding -->
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">02</span><strong class="copilot-section-title">
+              <span data-lang="ru">Онбординг без лишних вопросов</span>
+              <span data-lang="en">Onboarding without noise</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Вход без паролей: Apple, Google или код на почту. Онбординг спрашивает только то, что влияет на ленту. Геолокация запрашивается в контексте карты, а не на старте.</span>
+              <span data-lang="en">Passwordless sign-in: Apple, Google or an email code. Onboarding asks only what changes the feed. Location is requested in the context of a map, not at launch.</span>
+            </p>
+          </section>
+        </div>
+
+        <figure class="remate-motion">
+          <div class="remate-motion-stage">
+            <video autoplay muted loop playsinline preload="metadata" poster="/assets/remate/welcome-motion-poster.webp" aria-label="Welcome screen animation">
+              <source src="/assets/remate/welcome-motion.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption><span data-lang="ru">Первый запуск: мяч, имя продукта и четыре игрока, которые собираются в одну игру</span><span data-lang="en">First launch: the ball, the name and four players coming together into one game</span></figcaption>
+        </figure>
+
+        <div class="remate-phones remate-phones--4">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/signup.webp" alt="Create your account with Apple, Google or email">
+            <figcaption><span data-lang="ru">Apple, Google или почта</span><span data-lang="en">Apple, Google or email</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/enter-code.webp" alt="6-digit code from email">
+            <figcaption><span data-lang="ru">Код из письма вместо пароля</span><span data-lang="en">A code instead of a password</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/about-you.webp" alt="About you: name and birthday">
+            <figcaption><span data-lang="ru">Имя и возраст, дата рождения скрыта</span><span data-lang="en">Name and age, birthday stays private</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/sport.webp" alt="What do you play: padel or tennis">
+            <figcaption><span data-lang="ru">Вид спорта и город</span><span data-lang="en">Sport and city</span></figcaption>
+          </figure>
+        </div>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p>
+              <span data-lang="ru">Стартовый уровень считается по трём вопросам и помечен как предварительный. Дальше он калибруется по подтверждённым счетам или оценке тренера.</span>
+              <span data-lang="en">A starting level comes from three questions and is marked provisional. It is then calibrated by confirmed scores or a coach assessment.</span>
+            </p>
+          </section>
+        </div>
+
+        <div class="remate-phones remate-phones--4">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/goals.webp" alt="What brings you here">
+            <figcaption><span data-lang="ru">Цели формируют главный экран</span><span data-lang="en">Goals shape the home screen</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/level-experience.webp" alt="How long have you played padel">
+            <figcaption><span data-lang="ru">Опыт без неправильных ответов</span><span data-lang="en">Experience, no wrong answers</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/level-result.webp" alt="Your starting level 3.2">
+            <figcaption><span data-lang="ru">Стартовый уровень и как он меняется</span><span data-lang="en">Starting level and how it changes</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/location.webp" alt="Games near you with a map">
+            <figcaption><span data-lang="ru">Геолокация в контексте</span><span data-lang="en">Location, asked in context</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- 03 · Money -->
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">03</span><strong class="copilot-section-title">
+              <span data-lang="ru">Доверие к оплате</span>
+              <span data-lang="en">Payment trust</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Главный барьер записи к незнакомым людям: риск заплатить за несостоявшуюся игру. Решение: холд вместо списания до полного состава, автоматическая отмена по дедлайну и возврат при дожде. Правила видны на экране оплаты.</span>
+              <span data-lang="en">The main barrier to joining strangers is the risk of paying for a game that never happens. Solution: a hold instead of a charge until the roster is full, auto-cancel at the deadline and a refund for rain. The rules are visible at checkout.</span>
+            </p>
+          </section>
+        </div>
+
+        <div class="remate-phones">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/checkout-hold.webp" alt="Checkout with Apple Pay and a hold">
+            <figcaption><span data-lang="ru">Первая оплата: сначала Apple Pay</span><span data-lang="en">First payment: Apple Pay first</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/add-card.webp" alt="Add a card">
+            <figcaption><span data-lang="ru">Карта как запасной путь</span><span data-lang="en">A card as the fallback</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/pay-with.webp" alt="Pay with: saved cards and Apple Pay">
+            <figcaption><span data-lang="ru">Сохранённый способ меняется в один тап</span><span data-lang="en">Switch the saved method in one tap</span></figcaption>
+          </figure>
+        </div>
+
+        <section class="study-note">
+          <p><strong><span data-lang="ru">Холд вместо списания, пока состав не собран.</span><span data-lang="en">Hold, don't charge, until the game is full.</span></strong></p>
+        </section>
+
+        <!-- 04 · Bring a friend -->
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">04</span><strong class="copilot-section-title">
+              <span data-lang="ru">+1 в один тап</span>
+              <span data-lang="en">+1 in one tap</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Запись на два места в один тап: цена пересчитывается сразу. Если места закрывают состав, оплата списывается мгновенно, а +1 выбирается из команды с фильтром по уровню.</span>
+              <span data-lang="en">Two spots in one tap with instant repricing. If they fill the roster, payment is captured immediately and the +1 is picked from your team, filtered by level.</span>
+            </p>
+          </section>
+        </div>
+
+        <div class="remate-phones remate-phones--4">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/join-friend.webp" alt="Join with a friend: two spots">
+            <figcaption><span data-lang="ru">Два места в одно касание</span><span data-lang="en">Two spots in one tap</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/checkout-2-spots.webp" alt="Checkout for 2 spots">
+            <figcaption><span data-lang="ru">Состав полный, списываем сразу</span><span data-lang="en">Roster full, charged now</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/its-on.webp" alt="It's on: match full">
+            <figcaption><span data-lang="ru">Игра состоится</span><span data-lang="en">The game is on</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/who-is-plus-one.webp" alt="Who is your +1">
+            <figcaption><span data-lang="ru">+1 из своей команды</span><span data-lang="en">Your +1 from your team</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- 05 · Book a court -->
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">05</span><strong class="copilot-section-title">
+              <span data-lang="ru">Бронь корта</span>
+              <span data-lang="en">Court booking</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Для своей компании: свободные слоты прямо в списке клубов, цена и пиковые часы на сетке, выбор корта по фото и покрытию. На оплате выбор модели: каждый за себя или весь корт.</span>
+              <span data-lang="en">For your own group: free slots inline in the club list, prices and peak hours on the grid, courts by photo and surface. At checkout you choose the model: split or the whole court.</span>
+            </p>
+          </section>
+        </div>
+
+        <div class="remate-phones">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/courts.webp" alt="Courts: clubs with free slots tonight">
+            <figcaption><span data-lang="ru">Свободные слоты прямо в списке клубов</span><span data-lang="en">Free slots right in the club list</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/club-slot.webp" alt="Club: pick a day, duration and slot">
+            <figcaption><span data-lang="ru">День, длительность и слот с ценой</span><span data-lang="en">Day, duration and a priced slot</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/choose-court.webp" alt="Choose a court by photo and surface">
+            <figcaption><span data-lang="ru">Корт по фото и покрытию</span><span data-lang="en">A court by photo and surface</span></figcaption>
+          </figure>
+        </div>
+
+        <div class="remate-phones remate-phones--2">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/checkout-court.webp" alt="Checkout: who pays">
+            <figcaption><span data-lang="ru">Кто платит: пополам или весь корт</span><span data-lang="en">Who pays: split or the whole court</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/booked-court.webp" alt="You're booked">
+            <figcaption><span data-lang="ru">Билет, который хочется заскринить</span><span data-lang="en">A ticket worth a screenshot</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- 06 · Growth loop -->
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">06</span><strong class="copilot-section-title">
+              <span data-lang="ru">Встроенный рост</span>
+              <span data-lang="en">Built-in growth</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Каждая запись заканчивается ссылкой. Друг открывает её в App Clip, платит свою часть без установки и только потом получает предложение скачать приложение.</span>
+              <span data-lang="en">Every booking ends with a link. A friend opens it in an App Clip, pays their part without installing and only then is offered the full app.</span>
+            </p>
+          </section>
+        </div>
+
+        <div class="remate-phones remate-phones--2">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/booked-match.webp" alt="You're booked with an invite link">
+            <figcaption><span data-lang="ru">Ссылка-приглашение после записи</span><span data-lang="en">An invite link after booking</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/app-clip.webp" alt="Friend's side: you're in, Marc, inside an App Clip">
+            <figcaption><span data-lang="ru">Сторона друга: App Clip без установки</span><span data-lang="en">The friend's side: an App Clip, no install</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- 07 · Beyond the game -->
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">07</span><strong class="copilot-section-title">
+              <span data-lang="ru">Масштабирование паттернов</span>
+              <span data-lang="en">Scaling the patterns</span>
+            </strong></p>
+            <p>
+              <span data-lang="ru">Турниры, уроки и города используют те же паттерны, что и игры. В день турнира в фокусе следующий матч, check-in и граница выхода из группы.</span>
+              <span data-lang="en">Tournaments, lessons and cities reuse the same patterns as games. On tournament day the focus is the next match, check-in and the qualification line.</span>
+            </p>
+          </section>
+        </div>
+
+        <div class="remate-phones">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/tournaments.webp" alt="Tournaments">
+            <figcaption><span data-lang="ru">Турниры под твой уровень</span><span data-lang="en">Tournaments at your level</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/tournament-day.webp" alt="Tournament day: next match and group table">
+            <figcaption><span data-lang="ru">День турнира: следующий матч и группа</span><span data-lang="en">Tournament day: next match and the group</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="/assets/remate/city-picker.webp" alt="City picker">
+            <figcaption><span data-lang="ru">Одна лента для всей Испании</span><span data-lang="en">One feed for all of Spain</span></figcaption>
+          </figure>
+        </div>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Дизайн-система</span><span data-lang="en">Design system</span></p>
+            <p>
+              <span data-lang="ru">Единая система: токены для светлой и тёмной темы, компоненты и 98 иконок. Иерархия строится на заливках, а не на обводках.</span>
+              <span data-lang="en">One system: tokens for light and dark themes, components and 98 icons. Hierarchy is built with fills, not strokes.</span>
+            </p>
+            <p><strong><span data-lang="ru">Три цвета задают весь язык продукта: синий корт, лаймовый мяч, чёрный текст.</span><span data-lang="en">Three colours define the product language: blue court, lime ball, black type.</span></strong></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Что показывает этот кейс</span><span data-lang="en">What this case demonstrates</span></p>
+            <div class="copilot-takeaways">
+              <div class="copilot-takeaway">
+                <h3><span data-lang="ru">Продукт с нуля вокруг одного объекта</span><span data-lang="en">A product from zero around one object</span></h3>
+                <p><span data-lang="ru">Одна модель данных вместо набора фич: каждый путь заканчивается предсказуемым результатом.</span><span data-lang="en">One data model instead of a set of features: every path ends in a predictable result.</span></p>
+              </div>
+              <div class="copilot-takeaway">
+                <h3><span data-lang="ru">Доверие там, где есть деньги</span><span data-lang="en">Trust where money is involved</span></h3>
+                <p><span data-lang="ru">Холд, прозрачные правила и Apple Pay первым снижают барьер записи к незнакомым людям.</span><span data-lang="en">A hold, visible rules and Apple Pay first lower the barrier to joining strangers.</span></p>
+              </div>
+              <div class="copilot-takeaway">
+                <h3><span data-lang="ru">Рост, встроенный в сценарий</span><span data-lang="en">Growth built into the flow</span></h3>
+                <p><span data-lang="ru">Приглашение и App Clip превращают каждую запись в канал привлечения без лишних шагов для игрока.</span><span data-lang="en">The invite and App Clip turn every booking into an acquisition channel with no extra steps for the player.</span></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow"><span data-lang="ru">Чему я научилась</span><span data-lang="en">What I learned</span></p>
+            <p>
+              <span data-lang="ru">В мультиплеерном продукте интерфейс отвечает за договорённость между людьми. Ценность создают не экраны поиска, а правила в точках риска: деньги, отмены, погода, уровень.</span>
+              <span data-lang="en">In a multiplayer product the interface is responsible for an agreement between people. Value comes not from search screens but from rules at the points of risk: money, cancellations, weather, level.</span>
+            </p>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer site-footer--case">
+      <p class="footer-cta"><span data-lang="ru">Открыта к предложениям</span><span data-lang="en">Open to opportunities</span></p>
+      <p class="footer-note"><span data-lang="ru">Буду рада обсудить проект или вакансию.</span><span data-lang="en">Happy to talk about a role or a project.</span></p>
+      <nav class="text-links" aria-label="Контакты" data-aria-ru="Контакты" data-aria-en="Contacts">
+        <a class="text-link" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><span class="text-link-label">Telegram</span><img class="text-link-icon" src="/assets/icon-external.svg" alt=""></a>
+        <a class="text-link" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><span class="text-link-label">LinkedIn</span><img class="text-link-icon" src="/assets/icon-external.svg" alt=""></a>
+        <button class="text-link" type="button" data-copy-email="aneyta@mail.ru"><span class="text-link-label">Email</span><img class="text-link-icon" src="/assets/Copy thin.svg" alt=""></button>
+        <a class="text-link" data-cv href="/assets/CV%20%E2%80%94%20%D0%94%D0%B5%D0%BC%D0%B5%D1%88%D0%BA%D0%BE%20%D0%90%D0%BD%D0%BD%D0%B0%20%28Product%20designer%29%20ru.pdf" target="_blank" rel="noreferrer"><span class="text-link-label">CV</span><img class="text-link-icon" src="/assets/icon-external.svg" alt=""></a>
+      </nav>
+    </footer>
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Навигация по кейсам">
+      <a class="case-nav-link case-nav-prev" href="/ru/wave/" aria-label="Предыдущий кейс" data-aria-ru="Предыдущий кейс" data-aria-en="Previous case"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label"><span data-lang="ru">Предыдущий кейс</span><span data-lang="en">Previous case</span></span></a>
+      <a class="case-nav-link case-nav-home" href="/ru/"><span data-lang="ru">На главную</span><span data-lang="en">Home</span></a>
+      <a class="case-nav-link case-nav-next" href="/ru/copilot/" aria-label="Следующий кейс" data-aria-ru="Следующий кейс" data-aria-en="Next case"><span class="case-nav-label"><span data-lang="ru">Следующий кейс</span><span data-lang="en">Next case</span></span><img class="case-nav-icon next-icon" src="/assets/icon-external.svg" alt=""></a>
+    </nav>
+    <script src="/script.js"></script>
+    <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
+    <script>
+      (function () {
+        try {
+          var p = new URLSearchParams(location.search);
+          if (p.get("noanalytics") === "1") localStorage.setItem("cf-noanalytics", "1");
+          if (p.get("noanalytics") === "0") localStorage.removeItem("cf-noanalytics");
+          if (localStorage.getItem("cf-noanalytics") === "1") return;
+        } catch (e) {}
+        var s = document.createElement("script");
+        s.defer = true;
+        s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        s.setAttribute("data-cf-beacon", '{"token": "e99ab9de70814c0e9089a11ad2a2fd46"}');
+        document.head.appendChild(s);
+      })();
+    </script>
+    <!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

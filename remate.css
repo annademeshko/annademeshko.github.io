@@ -1,0 +1,173 @@
+/* ===== remate case study =====
+   Page-specific layer on top of styles.css: phone rows, the hero film and the motion card.
+   Reuses the shared case typography and the copilot-* framing blocks from styles.css. */
+
+.remate-case .case-hero {
+  gap: 10px;
+}
+
+/* Hero film: the welcome animation that resolves into the three key screens. */
+.remate-film {
+  width: min(1080px, 100%);
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #0e0e0e;
+  aspect-ratio: 16 / 9;
+}
+
+.remate-film video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Rows of phones. --cols sets how many sit side by side, --row-w the row width. */
+.remate-phones {
+  --cols: 3;
+  --row-w: 960px;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: clamp(12px, 2.4vw, 28px);
+  width: min(var(--row-w), 100%);
+  margin: 0;
+  padding: 0;
+}
+
+.remate-phones--2 { --cols: 2; --row-w: 640px; }
+.remate-phones--4 { --cols: 4; --row-w: 1080px; }
+
+.remate-phone {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+}
+
+.remate-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.remate-phone figcaption,
+.remate-motion figcaption {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+/* Motion: the first-launch animation inside one phone, on the app's own dark backdrop. */
+.remate-motion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: min(1080px, 100%);
+  margin: 0;
+}
+
+.remate-motion-stage {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: clamp(24px, 4vw, 48px) 16px;
+  border-radius: 12px;
+  background: #0e0e0e;
+}
+
+.remate-motion video {
+  display: block;
+  width: min(300px, 70%);
+  height: auto;
+}
+
+/* Small row of facts under a section (pills of the product rules). */
+.remate-rules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 0;
+  list-style: none;
+}
+
+.remate-rules li {
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.study-block .remate-rules {
+  padding-left: 0;
+}
+
+.study-block .remate-rules li:not(:last-child) {
+  margin-bottom: 0;
+}
+
+/* Phones swipe sideways on small screens instead of shrinking to stamps. */
+@media (max-width: 760px) {
+  .remate-phones,
+  .remate-phones--2,
+  .remate-phones--4 {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+
+  .remate-phones::-webkit-scrollbar {
+    display: none;
+  }
+
+  .remate-phone {
+    flex: 0 0 64%;
+    scroll-snap-align: center;
+  }
+
+  .remate-phones--2 .remate-phone {
+    flex-basis: 70%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .remate-film video,
+  .remate-motion video {
+    display: none;
+  }
+
+  .remate-film {
+    background: #0e0e0e url("./assets/remate/hero-poster.webp") center / cover no-repeat;
+  }
+
+  .remate-motion-stage {
+    min-height: 480px;
+    background: #0e0e0e url("./assets/remate/welcome-motion-poster.webp") center / contain no-repeat;
+  }
+}
+
+/* Problems: a short bold title with the explanation underneath, on the CoPilot question lines. */
+.remate-problems .copilot-question-line {
+  grid-template-rows: auto auto;
+  row-gap: 2px;
+}
+
+.remate-problems .copilot-question-line > span {
+  grid-row: 1 / span 2;
+}
+
+.remate-problems .copilot-question-line p {
+  grid-column: 2;
+  color: var(--muted);
+}
