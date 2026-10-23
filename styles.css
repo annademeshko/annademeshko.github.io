@@ -2677,7 +2677,8 @@ h3,
   vertical-align: 2px;
   opacity: .7;
 }
-.case-meta-dates { white-space: nowrap; }
+.case-meta-dates,
+.case-meta-tail { white-space: nowrap; }
 .case-summary {
   display: flex;
   flex-direction: column;
@@ -2696,6 +2697,8 @@ h3,
     justify-content: space-between;
   }
   .case-logo { width: 48px; height: 48px; }
-  .case-meta-dates { display: block; }
-  .case-meta-dates .case-meta-dot { display: none; }
+  .case-meta-dates,
+  .case-meta-tail { display: block; }
+  .case-meta-dates .case-meta-dot,
+  .case-meta-tail .case-meta-dot { display: none; }
 }
