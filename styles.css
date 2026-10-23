@@ -2745,6 +2745,7 @@ h3,
 }
 .home-page .intro-use {
   color: var(--text);
+  font-weight: 600;
 }
 .home-page .intro .text-link {
   font-size: 14px;
