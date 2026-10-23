@@ -2707,51 +2707,43 @@ h3,
 /* Home intro: centred profile block (photo, name, bio, contacts). */
 .home-page .intro {
   align-items: center;
-  gap: 28px;
+  gap: 24px;
   text-align: center;
 }
 .home-page .intro-photo {
   display: block;
-  width: 160px;
-  height: 160px;
+  width: 128px;
+  height: 128px;
   object-fit: cover;
 }
 .home-page .intro-copy {
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding-bottom: 0;
   text-align: center;
 }
 .home-page .intro h1 {
   padding-bottom: 0;
-  font-size: 28px;
-  line-height: 36px;
+  font-size: 20px;
+  line-height: 28px;
 }
 .home-page .intro-facts {
   align-items: center;
 }
 .home-page .intro-copy p {
-  font-size: 17px;
-  line-height: 26px;
+  font-size: 14px;
+  line-height: 20px;
 }
 .home-page .intro .text-links {
   justify-content: center;
+}
+.home-page .intro .text-link {
+  font-size: 14px;
+  line-height: 20px;
 }
 @media (max-width: 520px) {
   .home-page .intro-copy {
     align-items: center;
     text-align: center;
-  }
-  .home-page .intro-photo {
-    width: 128px;
-    height: 128px;
-  }
-  .home-page .intro h1 {
-    font-size: 24px;
-    line-height: 32px;
-  }
-  .home-page .intro-copy p {
-    font-size: 16px;
-    line-height: 24px;
   }
 }
