@@ -2661,19 +2661,20 @@ h3,
 }
 .case-company {
   color: var(--heading);
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 24.5px;
+  line-height: 20px;
 }
 .case-meta-line {
   color: var(--muted);
-  font-size: 15px;
-  line-height: 23px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 .case-meta-dot {
   display: inline-block;
-  margin: 0 7px;
-  font-size: 9px;
+  margin: 0 6px;
+  font-size: 8px;
   vertical-align: 2px;
   opacity: .7;
 }
