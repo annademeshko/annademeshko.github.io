@@ -2712,8 +2712,8 @@ h3,
 }
 .home-page .intro-photo {
   display: block;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
 }
 .home-page .intro-copy {
@@ -2743,8 +2743,8 @@ h3,
     text-align: center;
   }
   .home-page .intro-photo {
-    width: 160px;
-    height: 160px;
+    width: 128px;
+    height: 128px;
   }
   .home-page .intro h1 {
     font-size: 24px;
