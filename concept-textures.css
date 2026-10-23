@@ -356,3 +356,25 @@
   background: transparent;
   opacity: 1;
 }
+/* Unified black surface for every case and concept card; the fibrous grain stays. */
+.concept-marquee__tile,
+.concept-marquee__tile[data-palette],
+.concept-marquee__tile[data-surface],
+.concept-card,
+.concept-card[data-palette],
+.concept-card[data-surface],
+.case-link .case-texture-frame,
+.case-link[aria-label] .case-texture-frame {
+  background: #0a0a0a;
+}
+.concept-marquee__tile::before,
+.concept-marquee__tile[data-palette]::before,
+.concept-marquee__tile[data-surface]::before,
+.concept-card::before,
+.concept-card[data-palette]::before,
+.concept-card[data-surface]::before,
+.case-link .case-texture-frame::before,
+.case-link[aria-label] .case-texture-frame::before {
+  mix-blend-mode: screen;
+  opacity: .52;
+}
