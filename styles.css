@@ -2690,6 +2690,11 @@ h3,
     gap: 16px;
     padding-top: 16px;
   }
+  /* Mobile: company text on the left, logo in the top-right corner. */
+  .case-meta {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
   .case-logo { width: 48px; height: 48px; }
   .case-meta-dates { display: block; }
   .case-meta-dates .case-meta-dot { display: none; }
