@@ -2738,6 +2738,9 @@ h3,
 .home-page .intro .text-links {
   justify-content: center;
 }
+.home-page .intro-use {
+  color: var(--text);
+}
 .home-page .intro .text-link {
   font-size: 14px;
   line-height: 20px;
