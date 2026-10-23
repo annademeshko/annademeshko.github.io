@@ -2715,6 +2715,7 @@ h3,
   width: 128px;
   height: 128px;
   object-fit: cover;
+  margin-bottom: -12px; /* 12px to the name instead of the block's 24px */
 }
 .home-page .intro-copy {
   align-items: center;
