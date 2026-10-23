@@ -2632,3 +2632,65 @@ h3,
   .case-link:hover .cover-float img,
   .case-link:hover .case-cover { transform: none; animation: none; }
 }
+
+/* Home case caption: company block on the left, case summary on the right. */
+.home-page .case-copy--meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: 16px 48px;
+  align-items: start;
+  width: 100%;
+  padding: 24px 0 0;
+}
+.case-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.case-logo {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+.case-meta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.case-company {
+  color: var(--heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24.5px;
+}
+.case-meta-line {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 23px;
+}
+.case-meta-dot {
+  display: inline-block;
+  margin: 0 7px;
+  font-size: 9px;
+  vertical-align: 2px;
+  opacity: .7;
+}
+.case-meta-dates { white-space: nowrap; }
+.case-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.case-copy--meta .case-title { width: 100%; }
+@media (max-width: 760px) {
+  .home-page .case-copy--meta {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-top: 16px;
+  }
+  .case-logo { width: 48px; height: 48px; }
+  .case-meta-dates { display: block; }
+  .case-meta-dates .case-meta-dot { display: none; }
+}
