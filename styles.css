@@ -2697,11 +2697,16 @@ h3,
     flex-direction: row-reverse;
     justify-content: space-between;
   }
-  .case-logo { width: 48px; height: 48px; }
-  .case-meta-dates,
-  .case-meta-tail { display: block; }
-  .case-meta-dates .case-meta-dot,
-  .case-meta-tail .case-meta-dot { display: none; }
+  .case-meta { gap: 12px; }
+  .case-logo { width: 40px; height: 40px; }
+  .case-meta-dot { margin: 0 5px; }
+}
+/* Narrow phones (iPhone mini/SE): keep role • dates and tags on one line. */
+@media (max-width: 384px) {
+  .case-meta { gap: 10px; }
+  .case-logo { width: 36px; height: 36px; }
+  .case-meta-dot { margin: 0 4px; }
+  .case-meta-line { font-size: 13px; }
 }
 
 /* Home intro: centred profile block (photo, name, bio, contacts). */
