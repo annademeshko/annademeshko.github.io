@@ -55,9 +55,9 @@
     <main class="page case-page" aria-label="Кейс Track: дашборд безопасности">
       <article class="case-study">
         <header class="case-hero">
-          <h1><span data-lang="ru">Как я собрала один security-дашборд для трёх ролей: свой обзор за ≈ 1 минуту</span><span data-lang="en">Track: security dashboard</span></h1>
-          <p class="case-hero-lead"><span data-lang="ru">Track — дашборд из виджетов в AppSec-платформе. DevOps, AppSec-аналитик и менеджер собирают на нём каждый свой обзор и уходят в детали, не теряя общей картины.</span><span data-lang="en">A widget-based security dashboard: each role assembles its own overview and drills into details without losing the big picture.</span></p>
-          <p class="case-meta"><span data-lang="ru">2025 · Product Designer · В проде · Корпоративная AppSec-платформа</span><span data-lang="en">2025 · Product Designer · Shipped · Enterprise AppSec platform</span></p>
+          <h1><span data-lang="ru">Как я собрала дашборд безопасности, где каждая из трёх ролей за минуту собирает свою аналитику</span><span data-lang="en">Track: security dashboard</span></h1>
+          <p class="case-hero-lead"><span data-lang="ru">Track состоит из виджетов: DevOps, аналитик безопасности и менеджер собирают на нём аналитику, которая нужна каждому.</span><span data-lang="en">A widget-based security dashboard: each role assembles its own overview and drills into details without losing the big picture.</span></p>
+          <p class="case-meta"><span data-lang="ru">2025 · Product Designer · В проде · Корпоративная платформа AppSec</span><span data-lang="en">2025 · Product Designer · Shipped · Enterprise AppSec platform</span></p>
         </header>
 
         <section class="case-summary" aria-label="Кратко" data-lang="ru">
@@ -65,34 +65,34 @@
             <div class="case-summary-line"><dt>Роль</dt><dd>Единственный дизайнер, от ролевых сценариев до передачи в разработку</dd></div>
             <div class="case-summary-line"><dt>Команда</dt><dd>9 человек: я (дизайнер), PM, аналитик, 2 фронтендера, 2 бэкендера, 2 QA</dd></div>
             <div class="case-summary-line"><dt>Продукт</dt><dd>AppSec Solutions, cybersecurity, B2B SaaS, веб</dd></div>
-            <div class="case-summary-line"><dt>Результат</dt><dd>≈ 1 минута, чтобы собрать персональный обзор под роль; 3 роли работают в одном дашборде</dd></div>
+            <div class="case-summary-line"><dt>Результат</dt><dd>≈ 1 минута, чтобы собрать свою аналитику под роль; 3 роли работают в одном дашборде</dd></div>
           </dl>
         </section>
         <div class="study-stack">
           <section class="study-block">
             <p class="eyebrow">Контекст</p>
-            <p><span data-lang="ru">Security-команды работали с разными первыми вопросами:</span><span data-lang="en">Security teams started from different first questions:</span></p>
+            <p><span data-lang="ru">У команд безопасности были разные первые вопросы:</span><span data-lang="en">Security teams started from different first questions:</span></p>
             <ul>
               <li><span data-lang="ru">DevOps следил за репозиториями;</span><span data-lang="en">DevOps watched the repositories,</span></li>
-              <li><span data-lang="ru">AppSec-аналитик — за критичностью уязвимостей и приложениями;</span><span data-lang="en">the AppSec analyst — severity and applications</span></li>
-              <li><span data-lang="ru">менеджер — за политиками и нарушениями.</span><span data-lang="en">the manager — policies and violations</span></li>
+              <li><span data-lang="ru">аналитик безопасности следил за критичностью уязвимостей и приложениями;</span><span data-lang="en">the AppSec analyst — severity and applications</span></li>
+              <li><span data-lang="ru">менеджер следил за политиками и нарушениями.</span><span data-lang="en">the manager — policies and violations</span></li>
             </ul>
-            <p><span data-lang="ru">Один статичный дашборд не мог обслужить всех: одним ролям он давал шум, другим — слепые зоны, и каждая команда всё равно доставала нужные метрики вручную или шла за ними к соседям.</span><span data-lang="en">A single static dashboard couldn't serve everyone: it gave noise to some roles and blind spots to others, and each team still pulled the metrics it needed by hand or went to a neighbouring team for them.</span></p>
+            <p><span data-lang="ru">Один статичный дашборд одним ролям давал лишний шум, а другим оставлял слепые зоны.</span><span data-lang="en">A single static dashboard couldn't serve everyone: it gave noise to some roles and blind spots to others, and each team still pulled the metrics it needed by hand or went to a neighbouring team for them.</span></p>
           </section>
 
           <section class="study-block">
             <p class="eyebrow">Задача</p>
-            <p><span data-lang="ru">Нужно было дать каждому контроль над своим обзором и не превратить настройку в сложный конфигуратор. Пустой дашборд должен сразу вести к первому действию, а выбор виджетов — показывать, что получится, до применения.</span><span data-lang="en">I had to give users control over their overview without turning setup into a complex configurator. The empty state had to lead to the first action, and the widget picker had to explain the choice before applying it.</span></p>
+            <p><span data-lang="ru">Дать каждому контроль над своей аналитикой и не превратить настройку в конфигуратор.</span><span data-lang="en">I had to give users control over their overview without turning setup into a complex configurator. The empty state had to lead to the first action, and the widget picker had to explain the choice before applying it.</span></p>
           </section>
 
           <section class="study-block" data-lang="ru">
             <p class="eyebrow">Исследование</p>
-            <p>Запросы приходили из двух источников. Аналитики приносили обращения и пожелания пользователей платформы, а внутри компании были свои пользователи — на них мы проверяли решения до релиза.</p>
+            <p>Запросы приносили аналитики, а решения мы проверяли на внутренних пользователях:</p>
             <ul class="research-findings">
-              <li><strong>Кликабельные прототипы.</strong> Проверяли, как разные роли собирают свой обзор с пустого экрана и находят нужные детали.</li>
-              <li><strong>A/B-тесты на внутренних пользователях.</strong> Сравнивали варианты решений, прежде чем выбрать финальный.</li>
+              <li><strong>Кликабельные прототипы:</strong> смотрели, как роли собирают свою аналитику с пустого экрана.</li>
+              <li><strong>A/B-тесты:</strong> сравнивали варианты перед выбором финального.</li>
             </ul>
-            <p>Главное, что стало ясно: у каждой роли свой первый вопрос, поэтому один набор графиков для всех не работает.</p>
+            <p>Вывод: у каждой роли свой первый вопрос.</p>
           </section>
         </div>
 
@@ -103,50 +103,51 @@
 
           <section class="study-block">
             <p class="eyebrow"><span data-lang="ru">Ключевые решения</span><span data-lang="en">Key decisions</span></p>
-            <p><strong><span data-lang="ru">Как организовать дашборд: по типам графиков или по ролевым вопросам.</span><span data-lang="en">How to organize the dashboard: by chart types or by role questions.</span></strong> <span data-lang="ru">Выбрала строить обзор вокруг вопросов роли (критичность, репозитории, политики), потому что у DevOps, аналитика и менеджера первый вопрос разный. Отбросила витрину графиков «на все случаи»: одним ролям она давала шум, другим — слепые зоны.</span><span data-lang="en">I chose to build the overview around role questions (severity, repositories, policies), because DevOps, the analyst and the manager each start from a different first question. I rejected an all-purpose gallery of charts: it gave noise to some roles and blind spots to others.</span></p>
-            <p><strong><span data-lang="ru">Настройка: полноценный конфигуратор или пустой дашборд с выбором виджетов.</span><span data-lang="en">Setup: a full configurator or an empty state with a widget picker.</span></strong> <span data-lang="ru">Выбрала лёгкий выбор виджетов с превью и кнопкой «Select all»: путь от пустого экрана к первому обзору занимает около минуты. Отбросила сложный конфигуратор: он превращает старт в отдельную работу и отпугивает часть ролей ещё до первого обзора.</span><span data-lang="en">I chose a light picker with previews and Select all — the path from an empty screen to the first overview takes a minute. I rejected a complex configurator: it turns the start into a separate job and scares off some roles before their first overview.</span></p>
-            <p><strong><span data-lang="ru">Детали: отдельная страница или раскрытие виджета на месте.</span><span data-lang="en">Detail: a separate page or an expanded view in place.</span></strong> <span data-lang="ru">Выбрала раскрывать виджет в детальный режим прямо в дашборде, с возвратом в один клик. Отбросила уход на отдельную страницу деталей: пользователь терял контекст общего обзора и «где я нахожусь».</span><span data-lang="en">I chose to expand a widget into a detailed mode right inside the dashboard, with a one-click return. I rejected moving to a separate details page: the user lost the context of the overview and a sense of where they were.</span></p>
+            <p><strong><span data-lang="ru">Ролевые вопросы, а не типы графиков.</span><span data-lang="en">How to organize the dashboard: by chart types or by role questions.</span></strong> <span data-lang="ru">У DevOps, аналитика и менеджера разный первый вопрос, а витрина графиков «на все случаи» давала шум.</span><span data-lang="en">I chose to build the overview around role questions (severity, repositories, policies), because DevOps, the analyst and the manager each start from a different first question. I rejected an all-purpose gallery of charts: it gave noise to some roles and blind spots to others.</span></p>
+            <p><strong><span data-lang="ru">Лёгкий выбор виджетов, а не конфигуратор.</span><span data-lang="en">Setup: a full configurator or an empty state with a widget picker.</span></strong> <span data-lang="ru">Свою аналитику можно собрать примерно за минуту, а конфигуратор отпугивал бы ещё до старта.</span><span data-lang="en">I chose a light picker with previews and Select all — the path from an empty screen to the first overview takes a minute. I rejected a complex configurator: it turns the start into a separate job and scares off some roles before their first overview.</span></p>
+            <p><strong><span data-lang="ru">Раскрытие на месте, а не отдельная страница.</span><span data-lang="en">Detail: a separate page or an expanded view in place.</span></strong> <span data-lang="ru">Так пользователь не теряет общую картину.</span><span data-lang="en">I chose to expand a widget into a detailed mode right inside the dashboard, with a one-click return. I rejected moving to a separate details page: the user lost the context of the overview and a sense of where they were.</span></p>
           </section>
 
           <section class="study-block">
             <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
-            <p><strong><span data-lang="ru">Пустой дашборд — точка старта, а не тупик:</span><span data-lang="en">The empty state as a starting point, not a dead end:</span></strong> <span data-lang="ru">экран сразу предлагает действие — добавить виджет. Большая зона с «+» показывает, что здесь появится персональный обзор.</span><span data-lang="en">the empty screen immediately offers an action — add a widget. A large “+” area shows that a personal overview will appear here.</span></p>
+            <p><strong><span data-lang="ru">Пустой дашборд как точка старта:</span><span data-lang="en">The empty state as a starting point, not a dead end:</span></strong> <span data-lang="ru">сразу предлагает добавить виджет.</span><span data-lang="en">the empty screen immediately offers an action — add a widget. A large “+” area shows that a personal overview will appear here.</span></p>
           </section>
         </div>
 
         <img class="study-image" loading="lazy" decoding="async" src="/assets/track/empty-state.webp" alt="Empty state дашборда Track с призывом добавить виджет">
 
         <section class="study-note">
-          <p><strong><span data-lang="ru">Выбор виджетов с пониманием результата:</span><span data-lang="en">Widget picker: an informed choice:</span></strong> <span data-lang="ru">превью виджетов видно до подтверждения. «Select all» ускоряет старт, ручной выбор даёт контроль, а бейджи показывают, что уже добавлено.</span><span data-lang="en">the picker shows widget previews before confirmation. Select all speeds up the start, manual selection gives control, and active badges show the current set.</span></p>
+          <p><strong><span data-lang="ru">Выбор виджетов с превью:</span><span data-lang="en">Widget picker: an informed choice:</span></strong> <span data-lang="ru">видно, что получится, ещё до подтверждения.</span><span data-lang="en">the picker shows widget previews before confirmation. Select all speeds up the start, manual selection gives control, and active badges show the current set.</span></p>
         </section>
 
         <img class="study-image" loading="lazy" decoding="async" src="/assets/track/widget-picker.webp" alt="Widget picker Track с превью виджетов">
 
         <section class="study-note">
-          <p><strong><span data-lang="ru">Заполненный дашборд — единый обзор безопасности:</span><span data-lang="en">Populated dashboard: a single security overview:</span></strong> <span data-lang="ru">в одном месте критичность уязвимостей, уязвимые приложения, заблокированные репозитории и срабатывания политик. Цвета уровней критичности (Critical / High / Medium / Low / Informational) одинаковы во всех виджетах.</span><span data-lang="en">the overview brings together severity, vulnerable applications, blocked repositories and policy triggers. The Critical/High/Medium/Low/Informational color system stays consistent across all widgets.</span></p>
+          <p><strong><span data-lang="ru">Заполненный дашборд:</span><span data-lang="en">Populated dashboard: a single security overview:</span></strong> <span data-lang="ru">критичность, приложения, репозитории и политики в одном месте.</span><span data-lang="en">the overview brings together severity, vulnerable applications, blocked repositories and policy triggers. The Critical/High/Medium/Low/Informational color system stays consistent across all widgets.</span></p>
         </section>
 
         <img class="study-image" loading="lazy" decoding="async" src="/assets/track/dashboard.webp" alt="Заполненный дашборд безопасности Track с единой severity-системой">
 
         <section class="study-note">
-          <p><strong><span data-lang="ru">Раскрытый виджет — детали без потери контекста:</span><span data-lang="en">Expanded view: detail without losing context:</span></strong> <span data-lang="ru">виджет раскрывается в детальный режим: столбчатая диаграмма по уровням критичности, выбор периода и подсказки при наведении. Вернуться к обзору можно одним кликом.</span><span data-lang="en">a widget expands into a detailed mode with a stacked bar chart, time period and severity hover states. You can return to the overview in one click.</span></p>
+          <p><strong><span data-lang="ru">Раскрытый виджет:</span><span data-lang="en">Expanded view: detail without losing context:</span></strong> <span data-lang="ru">подробный график без потери контекста и возврат к дашборду в один клик.</span><span data-lang="en">a widget expands into a detailed mode with a stacked bar chart, time period and severity hover states. You can return to the overview in one click.</span></p>
         </section>
 
         <img class="study-image" loading="lazy" decoding="async" src="/assets/track/expanded.webp" alt="Expanded view виджета Track со stacked bar chart">
+        <div class="study-stack">
+          <section class="study-block result-block">
+            <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+            <ul>
+              <li><strong><span data-lang="ru">≈ 1 минута, чтобы собрать свою аналитику под роль</span><span data-lang="en">≈ 1 minute to assemble a personal overview for your role</span></strong> <span data-lang="ru">без конфигуратора.</span><span data-lang="en">— the empty state and widget picker lead from a blank screen to the first overview without a configurator.</span></li>
+              <li><strong><span data-lang="ru">3 роли в одном дашборде:</span><span data-lang="en">3 roles — one dashboard:</span></strong> <span data-lang="ru">каждый собирает свои метрики в одном месте.</span><span data-lang="en">DevOps, the analyst and the manager assemble the metrics they need in one place and stop arguing over whose dashboard is the “right” one.</span></li>
+              <li><strong><span data-lang="ru">5 уровней критичности в единой системе:</span><span data-lang="en">5 severity levels in one system:</span></strong> <span data-lang="ru">одни цвета во всех виджетах, и новый виджет не ломает остальные.</span><span data-lang="en">Critical / High / Medium / Low / Informational keep colour consistent across every widget, and a new widget is added without breaking the rest.</span></li>
+            </ul>
+          </section>
 
-        <section class="study-block result-block">
-          <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
-          <ul>
-            <li><strong><span data-lang="ru">≈ 1 минута собрать персональный обзор под роль</span><span data-lang="en">≈ 1 minute to assemble a personal overview for your role</span></strong> <span data-lang="ru">— пустой дашборд и выбор виджетов ведут от пустого экрана к первому обзору без конфигуратора.</span><span data-lang="en">— the empty state and widget picker lead from a blank screen to the first overview without a configurator.</span></li>
-            <li><strong><span data-lang="ru">3 роли — один дашборд:</span><span data-lang="en">3 roles — one dashboard:</span></strong> <span data-lang="ru">DevOps, аналитик и менеджер собирают нужные метрики в одном месте и перестают спорить, чей дашборд «правильный».</span><span data-lang="en">DevOps, the analyst and the manager assemble the metrics they need in one place and stop arguing over whose dashboard is the “right” one.</span></li>
-            <li><strong><span data-lang="ru">5 уровней критичности в единой системе:</span><span data-lang="en">5 severity levels in one system:</span></strong> <span data-lang="ru">Critical / High / Medium / Low / Informational держат цвет одинаковым во всех виджетах, а новый виджет добавляется, не ломая остальные.</span><span data-lang="en">Critical / High / Medium / Low / Informational keep colour consistent across every widget, and a new widget is added without breaking the rest.</span></li>
-          </ul>
-        </section>
-
-        <section class="study-block" data-lang="ru">
-          <p class="eyebrow">Чему я научилась</p>
-          <p>Дашборд для нескольких ролей — это не набор графиков, а ответы на первый вопрос каждой роли. Лёгкий старт важнее гибкой настройки: если первый обзор собирается за минуту, люди начинают им пользоваться, а не откладывают «на потом». А единые правила — например, одни цвета критичности во всех виджетах — позволяют добавлять новое, не ломая то, что уже работает.</p>
-        </section>
+          <section class="study-block" data-lang="ru">
+            <p class="eyebrow">Чему я научилась</p>
+            <p>Дашборд для нескольких ролей должен отвечать на первый вопрос каждой роли, а не быть набором графиков. И лёгкий старт важнее гибкой настройки.</p>
+          </section>
+        </div>
       </article>
     </main>
 
