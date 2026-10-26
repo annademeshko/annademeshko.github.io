@@ -317,7 +317,6 @@ h1 {
   width: min(897px, calc(100% - 35px));
   margin: 0 auto;
   padding: 44px 0 96px;
-  border-top: 1px solid var(--control-border);
 }
 
 .site-footer > * {
@@ -340,6 +339,61 @@ h1 {
 
 .site-footer--case {
   padding-bottom: 170px;
+}
+
+/* Footer: big "Let's connect" headline across the content width, pill links below. */
+.site-footer > .footer-title {
+  width: 100%;
+}
+
+.footer-title {
+  margin: 0;
+  padding: 0;
+  color: var(--heading);
+  font-size: clamp(44px, 10.4vw, 112px);
+  line-height: 0.9;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.site-footer .footer-pills {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.footer-pills .text-link {
+  padding: 10px 18px;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  color: var(--heading);
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.footer-pills .text-link:hover {
+  background: var(--control-active-bg);
+  color: var(--control-active-text);
+  border-color: var(--control-active-bg);
+}
+
+.footer-pills .text-link:hover .text-link-icon {
+  filter: invert(1);
+}
+
+.footer-pills .text-link-label {
+  border-bottom: 0;
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .footer-title {
+    white-space: normal;
+    font-size: 15vw;
+  }
 }
 
 .case-hero {
