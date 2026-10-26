@@ -87,7 +87,7 @@
       <article class="case-study">
 
         <header class="case-hero">
-          <h1>How I cut scan triage from 6–8 to 2–3 hours: AI vulnerability triage in Wave and CoPilot</h1>
+          <h1>How I cut scan triage from 6–8 to 2–3 hours with AI in Wave and CoPilot</h1>
           <p class="case-hero-lead">Wave is a product for reviewing scan results, and CoPilot is its AI module: both a tab inside Wave and a standalone product. I designed both.</p>
           <p class="case-meta">2025 · Product Designer · Shipped · Enterprise AppSec platform</p>
         </header>
@@ -130,7 +130,7 @@
             <p class="eyebrow"><span data-lang="ru">Ключевые решения</span><span data-lang="en">Key decisions</span></p>
             <p><strong><span data-lang="ru">Как показать AI-вердикт: один бейдж или два сигнала.</span><span data-lang="en">Two signals, not one badge.</span></strong> <span data-lang="ru">Выбрала показывать вероятность и объяснение раздельно, а расхождение между ними оставлять видимым, — так аналитик проверяет логику, а не принимает вывод на веру. Отбросила единый бейдж «уязвимость / не уязвимость»: он прячет неопределённость, превращает AI в чёрный ящик и провоцирует слепое согласие.</span><span data-lang="en">Probability and explanation are shown separately, so the analyst checks the logic instead of taking the conclusion on faith.</span></p>
             <p><strong><span data-lang="ru">Глубина AI-проверки: всегда полный анализ или выбор режима.</span><span data-lang="en">A choice of mode, not always a full analysis.</span></strong> <span data-lang="ru">Выбрала три режима — Full scan, Prediction only, Explanation only — прямо из строки скана, потому что быстрый triage и глубокий разбор это разные задачи. Отбросила обязательный full scan для каждой находки: на сотнях находок это дорого по времени и избыточно для очевидных случаев.</span><span data-lang="en">Fast triage and deep review are different jobs, and a full analysis of hundreds of findings takes too long.</span></p>
-            <p><strong><span data-lang="ru">Кто принимает финальное решение: AI или человек.</span><span data-lang="en">A human decision, not auto-closing by threshold.</span></strong> <span data-lang="ru">Выбрала оставить решение за аналитиком: AI готовит вердикт и evidence, но подтверждает, отклоняет или игнорирует находку человек, и это фиксируется в истории решений. Отбросила авто-закрытие находок по порогу вероятности: его нельзя защитить на аудите, а один false negative — это пропущенная реальная уязвимость.</span><span data-lang="en">Auto-closing can’t be defended in an audit, and a single false negative is a missed real vulnerability.</span></p>
+            <p><strong><span data-lang="ru">Кто принимает финальное решение: AI или человек.</span><span data-lang="en">A human decision, not auto-closing by threshold.</span></strong> <span data-lang="ru">Выбрала оставить решение за аналитиком: AI готовит вердикт и evidence, но подтверждает, отклоняет или игнорирует находку человек, и это фиксируется в истории решений. Отбросила авто-закрытие находок по порогу вероятности: его нельзя защитить на аудите, а один false negative — это пропущенная реальная уязвимость.</span><span data-lang="en">Auto-closing can’t be defended in an audit, and a single false negative means a missed real vulnerability.</span></p>
           </section>
         </div>
 
@@ -379,7 +379,7 @@
           </div>
           <figcaption>
             <span data-lang="ru">Набор переиспользуемых состояний вместо отдельных визуальных решений для каждого сценария.</span>
-            <span data-lang="en">Reusable states instead of one-off solutions for every screen.</span>
+            <span data-lang="en">Reusable states instead of separate solutions for every screen.</span>
           </figcaption>
         </figure>
 
@@ -387,10 +387,10 @@
           <section class="study-block result-block">
             <p class="eyebrow">Result</p>
             <ul>
-            <li><strong><span data-lang="ru">≈ −60% времени на разбор большого скана</span><span data-lang="en">≈ −60% time to triage a large scan</span></strong> <span data-lang="ru">— с ~6–8 ч до ~2–3 ч: prediction и explanation отсеивают false positive до открытия кода.</span><span data-lang="en">— from 6–8 to 2–3 hours.</span></li>
-            <li><strong><span data-lang="ru">≈ 2 из 3 находок закрываются без открытия кода</span><span data-lang="en">≈ 2 in 3 findings closed without opening the code</span></strong> <span data-lang="ru">— вероятность, объяснение и paths стоят рядом, поэтому очевидные закрываются прямо по вердикту.</span><span data-lang="en">— obvious cases are closed straight from the verdict.</span></li>
+            <li><strong><span data-lang="ru">≈ −60% времени на разбор большого скана</span><span data-lang="en">≈ −60% time to triage a large scan:</span></strong> <span data-lang="ru">— с ~6–8 ч до ~2–3 ч: prediction и explanation отсеивают false positive до открытия кода.</span><span data-lang="en">from 6–8 to 2–3 hours.</span></li>
+            <li><strong><span data-lang="ru">≈ 2 из 3 находок закрываются без открытия кода</span><span data-lang="en">≈ 2 in 3 findings closed without opening the code:</span></strong> <span data-lang="ru">— вероятность, объяснение и paths стоят рядом, поэтому очевидные закрываются прямо по вердикту.</span><span data-lang="en">obvious cases are resolved straight from the verdict.</span></li>
             <li><strong><span data-lang="ru">100% решений прослеживаемы:</span><span data-lang="en">100% of decisions are traceable:</span></strong> <span data-lang="ru">каждый вердикт подтверждается, отклоняется или игнорируется человеком с опорой на explanation, paths и общий след решений — разбор можно защитить на аудите.</span><span data-lang="en">triage can be defended in an audit.</span></li>
-            <li><span data-lang="en"><strong>A single system of 8 states</strong> — one specification for engineering instead of mockups for every case.</span></li>
+            <li><span data-lang="en"><strong>A single system of 8 states:</strong> one specification for engineering instead of mockups for every case.</span></li>
           </ul>
           </section>
 
@@ -398,7 +398,7 @@
             <p class="eyebrow"><span data-lang="ru">Что я вынесла</span><span data-lang="en">What I learned</span></p>
             <p>
               <span data-lang="ru">Сложность не исчезает, когда мы упрощаем интерфейс — её нужно структурировать. Самая важная часть этой работы была не в том, чтобы уменьшить число состояний, а в том, чтобы определить их смысл, связи и последствия достаточно чётко для уверенного решения пользователя.</span>
-              <span data-lang="en">Complexity doesn’t disappear when you simplify an interface — it has to be structured. Triage got faster not because AI decides for people, but because analysts can see what a conclusion is based on.</span>
+              <span data-lang="en">Complexity doesn’t disappear when you simplify an interface. It has to be structured. Triage got faster not because AI decides for people, but because analysts can see what a conclusion is based on.</span>
             </p>
           </section>
         </div>

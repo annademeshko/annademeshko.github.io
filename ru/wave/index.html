@@ -59,9 +59,9 @@
       <article class="case-study">
 
         <header class="case-hero">
-          <h1>Как я сократила разбор скана с 6–8 до 2–3 часов: AI-триаж уязвимостей в Wave и CoPilot</h1>
-          <p class="case-hero-lead">Wave — продукт для разбора результатов сканирования, CoPilot — его AI-модуль: и вкладка внутри Wave, и отдельный продукт. Я спроектировала оба.</p>
-          <p class="case-meta">2025 · Product Designer · В проде · Корпоративная AppSec-платформа</p>
+          <h1>Как я сократила разбор скана с 6–8 до 2–3 часов с помощью AI в Wave и CoPilot</h1>
+          <p class="case-hero-lead">Wave помогает разбирать результаты сканирования, а CoPilot добавляет в него AI. CoPilot работает и как вкладка внутри Wave, и как отдельный продукт. Я спроектировала оба.</p>
+          <p class="case-meta">2025 · Product Designer · В проде · Корпоративная платформа AppSec</p>
         </header>
 
         <section class="case-summary" aria-label="Кратко">
@@ -103,8 +103,8 @@
           <section class="study-block">
             <p class="eyebrow"><span data-lang="ru">Ключевые решения</span><span data-lang="en">Key decisions</span></p>
             <p><strong><span data-lang="ru">Два сигнала, а не один бейдж.</span><span data-lang="en">How to show the AI verdict: one badge or two signals.</span></strong> <span data-lang="ru">Вероятность и объяснение показаны раздельно, чтобы аналитик проверял логику, а не верил выводу на слово.</span><span data-lang="en">I chose to show probability and explanation separately and to keep any conflict between them visible, so the analyst checks the logic instead of taking the conclusion on faith. I rejected a single “vulnerable / not vulnerable” badge: it hides uncertainty, turns AI into a black box and invites blind agreement.</span></p>
-            <p><strong><span data-lang="ru">Выбор режима, а не всегда полный анализ.</span><span data-lang="en">AI check depth: always a full analysis or a choice of mode.</span></strong> <span data-lang="ru">Быстрый разбор и глубокая проверка — разные задачи, а полный анализ сотен находок слишком долгий.</span><span data-lang="en">I chose three modes — Full scan, Prediction only, Explanation only — right from the scan row, because fast triage and deep review are different jobs. I rejected a mandatory full scan for every finding: across hundreds of findings it is expensive in time and redundant for obvious cases.</span></p>
-            <p><strong><span data-lang="ru">Решение за человеком, а не автозакрытие по порогу.</span><span data-lang="en">Who makes the final call: AI or a human.</span></strong> <span data-lang="ru">Автозакрытие нельзя защитить на аудите, а один ложноотрицательный результат — это пропущенная реальная уязвимость.</span><span data-lang="en">I chose to keep the decision with the analyst: AI prepares the verdict and evidence, but a human confirms, rejects or ignores the finding, and that is recorded in the decision history. I rejected auto-closing findings by a probability threshold: it can't be defended in an audit, and a single false negative is a missed real vulnerability.</span></p>
+            <p><strong><span data-lang="ru">Выбор режима, а не всегда полный анализ.</span><span data-lang="en">AI check depth: always a full analysis or a choice of mode.</span></strong> <span data-lang="ru">Быстрый разбор и глубокая проверка решают разные задачи, а полный анализ сотен находок занимает слишком много времени.</span><span data-lang="en">I chose three modes — Full scan, Prediction only, Explanation only — right from the scan row, because fast triage and deep review are different jobs. I rejected a mandatory full scan for every finding: across hundreds of findings it is expensive in time and redundant for obvious cases.</span></p>
+            <p><strong><span data-lang="ru">Решение за человеком, а не автозакрытие по порогу.</span><span data-lang="en">Who makes the final call: AI or a human.</span></strong> <span data-lang="ru">Автозакрытие нельзя защитить на аудите, а один ложноотрицательный результат означает пропущенную реальную уязвимость.</span><span data-lang="en">I chose to keep the decision with the analyst: AI prepares the verdict and evidence, but a human confirms, rejects or ignores the finding, and that is recorded in the decision history. I rejected auto-closing findings by a probability threshold: it can't be defended in an audit, and a single false negative is a missed real vulnerability.</span></p>
           </section>
         </div>
 
@@ -115,8 +115,8 @@
 
         <div class="study-stack">
           <section class="study-block">
-            <p><strong><span data-lang="ru">Один экран вместо переходов.</span><span data-lang="en">One platform — a split-screen workspace instead of page-to-page navigation:</span></strong> <span data-lang="ru">Список отчётов слева, детали и действия справа — аналитик не теряет контекст.</span><span data-lang="en">the report list stays on the left while details and actions open on the right, so the analyst triages findings without losing the overall context. The left panel shows progress, prediction, issue count and date per report; the right panel brings together recommendations, severity, the vulnerability list, evidence and triage actions.</span></p>
-            <p><strong><span data-lang="ru">Статус AI-проверки у каждого скана.</span><span data-lang="en">AI check status at the project and per-scan level:</span></strong> <span data-lang="ru">Видно, где проверка не запускалась, идёт, завершена или прервалась.</span><span data-lang="en">the scans table immediately shows where the AI check hasn't run, where analysis is in progress, what is completed and where the check was interrupted.</span></p>
+            <p><strong><span data-lang="ru">Один экран вместо переходов.</span><span data-lang="en">One platform — a split-screen workspace instead of page-to-page navigation:</span></strong> <span data-lang="ru">Список отчётов слева, детали и действия справа, поэтому аналитик не теряет контекст.</span><span data-lang="en">the report list stays on the left while details and actions open on the right, so the analyst triages findings without losing the overall context. The left panel shows progress, prediction, issue count and date per report; the right panel brings together recommendations, severity, the vulnerability list, evidence and triage actions.</span></p>
+            <p><strong><span data-lang="ru">Статус проверки у каждого скана.</span><span data-lang="en">AI check status at the project and per-scan level:</span></strong> <span data-lang="ru">Видно, где проверка не запускалась, идёт, завершена или прервалась.</span><span data-lang="en">the scans table immediately shows where the AI check hasn't run, where analysis is in progress, what is completed and where the check was interrupted.</span></p>
           </section>
         </div>
 
@@ -137,7 +137,7 @@
 
         <div class="case-part">
           <p class="eyebrow">Часть 2</p>
-          <h2>CoPilot: что происходит внутри AI-проверки</h2>
+          <h2>CoPilot: что происходит внутри проверки</h2>
         </div>
 
         <section class="study-block copilot-flow-wrap">
@@ -238,7 +238,7 @@
               <span data-lang="en">Moving from a result to an investigation</span>
             </strong></p>
             <p>
-              <span data-lang="ru">В детальном просмотре — чёткая иерархия:</span>
+              <span data-lang="ru">В детальном просмотре у информации чёткая иерархия:</span>
               <span data-lang="en">A summary helps with orientation, but a decision requires evidence. In the detailed view I created a hierarchy between what the system predicts, what was actually found, the current review status and the action available next.</span>
             </p>
             <ul>
@@ -265,7 +265,7 @@
             alt="Detailed vulnerability parameters and rule information"
           >
           <figcaption>
-            <span data-lang="ru">Все доказательства и история решений — в одном месте.</span>
+            <span data-lang="ru">Все доказательства и история решений собраны в одном месте.</span>
             <span data-lang="en">Evidence and review context stay together: source, severity, rule, status and decision history.</span>
           </figcaption>
         </figure>
@@ -337,7 +337,7 @@
           <section class="study-block">
             <p class="eyebrow"><span data-lang="ru">Система состояний</span><span data-lang="en">Beyond the happy path</span></p>
             <p>
-              <span data-lang="ru">Я описала 8 состояний — от «ожидает» до «сбой» — и применила одну логику на всех уровнях: обработка, отчёт, находка. Так сложность растёт без новых правил для каждого экрана.</span>
+              <span data-lang="ru">Я описала 8 состояний, от «ожидает» до «сбой», и применила одну логику на всех уровнях: обработка, отчёт, находка. Так сложность растёт без новых правил для каждого экрана.</span>
               <span data-lang="en">For an asynchronous security product, edge cases are part of the primary experience. I defined active, waiting, completed, skipped, failed, broken, empty and zero-value states and reused the same logic across the pipeline, the report and an individual finding.</span>
             </p>
           </section>
@@ -361,18 +361,18 @@
           <section class="study-block result-block">
             <p class="eyebrow">Результат</p>
             <ul>
-            <li><strong><span data-lang="ru">≈ −60% времени на разбор большого скана</span><span data-lang="en">≈ −60% time to triage a large scan</span></strong> <span data-lang="ru">— с 6–8 до 2–3 часов.</span><span data-lang="en">— from ~6–8 h to ~2–3 h: prediction and explanation filter out false positives before opening the code.</span></li>
-            <li><strong><span data-lang="ru">≈ 2 из 3 находок закрываются без открытия кода</span><span data-lang="en">≈ 2 in 3 findings closed without opening the code</span></strong> <span data-lang="ru">— очевидные случаи закрываются прямо по вердикту.</span><span data-lang="en">— probability, explanation and paths sit side by side, so the obvious ones are closed straight on the verdict.</span></li>
+            <li><strong><span data-lang="ru">≈ −60% времени на разбор большого скана:</span><span data-lang="en">≈ −60% time to triage a large scan</span></strong> <span data-lang="ru">с 6–8 до 2–3 часов.</span><span data-lang="en">— from ~6–8 h to ~2–3 h: prediction and explanation filter out false positives before opening the code.</span></li>
+            <li><strong><span data-lang="ru">≈ 2 из 3 находок закрываются без открытия кода:</span><span data-lang="en">≈ 2 in 3 findings closed without opening the code</span></strong> <span data-lang="ru">очевидные случаи решаются прямо по вердикту.</span><span data-lang="en">— probability, explanation and paths sit side by side, so the obvious ones are closed straight on the verdict.</span></li>
             <li><strong><span data-lang="ru">100% решений прослеживаемы:</span><span data-lang="en">100% of decisions are traceable:</span></strong> <span data-lang="ru">разбор можно защитить на аудите.</span><span data-lang="en">every verdict is confirmed, rejected or ignored by a human based on the explanation, paths and the overall decision trail — the triage can be defended in an audit.</span></li>
           
-            <li><strong>Единая система из 8 состояний</strong> — одна спецификация для разработки вместо макетов под каждый случай.</li>
+            <li><strong>Единая система из 8 состояний:</strong> одна спецификация для разработки вместо макетов под каждый случай.</li>
           </ul>
           </section>
 
           <section class="study-block">
             <p class="eyebrow"><span data-lang="ru">Чему я научилась</span><span data-lang="en">What I learned</span></p>
             <p>
-              <span data-lang="ru">Сложность не исчезает, когда упрощаешь интерфейс, — её нужно структурировать. Разбор ускорился не потому, что AI решает за человека, а потому, что аналитик видит, на чём основан вывод.</span>
+              <span data-lang="ru">Сложность не исчезает, когда упрощаешь интерфейс. Её нужно структурировать. Разбор ускорился не потому, что AI решает за человека, а потому, что аналитик видит, на чём основан вывод.</span>
               <span data-lang="en">Complexity does not disappear when we simplify an interface — it has to be structured. The most useful design work was not reducing the number of states, but defining their meaning, relationships and consequences clearly enough for users to make confident decisions.</span>
             </p>
           </section>
