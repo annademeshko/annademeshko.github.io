@@ -9,6 +9,19 @@
     <link rel="icon" type="image/png" href="../assets/fav_black.png" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/png" href="../assets/fav_white.png" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="../styles.css">
+    <style>
+      .case-summary { box-sizing: border-box; width: min(680px, 100%); margin: 8px 0 56px; }
+      .case-summary-table { margin: 0; }
+      .case-summary-line:last-child { border-bottom: 0; }
+      .case-summary-line { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--control-border); }
+      .case-summary-line dt { color: var(--muted); font-size: 16px; line-height: 24px; }
+      .case-summary-line dd { margin: 0; color: var(--text); font-size: 16px; font-weight: 400; line-height: 24px; }
+      .research-findings li { margin-bottom: 10px; }
+      @media (max-width: 640px) { .case-summary-line { grid-template-columns: 1fr; gap: 2px; } }
+      .case-part { box-sizing: border-box; width: min(680px, 100%); margin: 72px 0 8px; padding-top: 24px; border-top: 1px solid var(--control-border); }
+      .case-part .eyebrow { margin: 0 0 6px; }
+      .case-part h2 { margin: 0; color: var(--heading); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
+    </style>
     <script>
       (function () {
         try {
@@ -73,10 +86,19 @@
     <main class="page case-page" aria-label="Кейс Track: дашборд безопасности">
       <article class="case-study">
         <header class="case-hero">
-          <h1><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">Track: security dashboard</span></h1>
-          <p class="case-hero-lead"><span data-lang="ru">Виджетный security-дашборд: каждая роль собирает свой обзор и уходит в детали, не теряя общей картины.</span><span data-lang="en">A widget-based security dashboard: each role assembles its own overview and drills into details without losing the big picture.</span></p>
+          <h1><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">How I built one security dashboard for three roles: your own overview in ≈ 1 minute</span></h1>
+          <p class="case-hero-lead"><span data-lang="ru">Виджетный security-дашборд: каждая роль собирает свой обзор и уходит в детали, не теряя общей картины.</span><span data-lang="en">Track is a widget-based dashboard in an AppSec platform. DevOps engineers, AppSec analysts and managers each build their own overview and drill into details without losing the big picture.</span></p>
           <p class="case-meta"><span data-lang="ru">2025 · Product Designer · В проде · Корпоративная AppSec-платформа</span><span data-lang="en">2025 · Product Designer · Shipped · Enterprise AppSec platform</span></p>
         </header>
+
+        <section class="case-summary" aria-label="Summary">
+          <dl class="case-summary-table">
+            <div class="case-summary-line"><dt>Role</dt><dd>Sole designer, from role scenarios to handoff</dd></div>
+            <div class="case-summary-line"><dt>Team</dt><dd>9 people: me (designer), PM, analyst, 2 frontend developers, 2 backend developers, 2 QA</dd></div>
+            <div class="case-summary-line"><dt>Product</dt><dd>AppSec Solutions, cybersecurity, B2B SaaS, web</dd></div>
+            <div class="case-summary-line"><dt>Result</dt><dd>≈ 1 minute to build a personal overview for your role; 3 roles work from one dashboard</dd></div>
+          </dl>
+        </section>
         <div class="study-stack">
           <section class="study-block">
             <p class="eyebrow">Context</p>
@@ -93,25 +115,24 @@
             <p class="eyebrow">Design challenge</p>
             <p><span data-lang="ru">Нужно было дать пользователю контроль над обзором, но не превращать настройку в сложный конфигуратор. Empty state должен вести к первому действию, а widget picker объяснять выбор до применения.</span><span data-lang="en">I had to give users control over their overview without turning setup into a complex configurator. The empty state had to lead to the first action, and the widget picker had to explain the choice before applying it.</span></p>
           </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Research</p>
+            <p>Requests came from two sources. Analysts brought in support requests and feedback from platform users, and inside the company we had our own users to test solutions on before release.</p>
+            <ul class="research-findings">
+              <li><strong>Clickable prototypes.</strong> We checked how different roles build their overview from an empty screen and find the details they need.</li>
+              <li><strong>A/B tests with internal users.</strong> We compared solution options before choosing the final one.</li>
+            </ul>
+            <p>The key insight: every role starts from a different first question, so one set of charts for everyone doesn’t work.</p>
+          </section>
         </div>
 
         <img class="study-image" loading="lazy" decoding="async" src="../assets/track/dashboard.webp" alt="Настраиваемый дашборд безопасности Track с виджетами severity">
 
         <div class="study-stack">
-          <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Моя роль</span><span data-lang="en">My role</span></p>
-            <p><span data-lang="ru">Проектировала дашборд от ролевых сценариев до handoff: IA, empty state, widget picker, заполненный dashboard, expanded view и severity-визуализацию. Работала с PM, аналитиками безопасности и разработкой.</span><span data-lang="en">I designed the dashboard from role-based scenarios to handoff: IA, empty state, widget picker, the populated dashboard, expanded view and severity visualization. I worked with PM, security analysts and engineering.</span></p>
-          </section>
 
-          <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Задачи</span><span data-lang="en">Goals</span></p>
-            <ul>
-              <li><span data-lang="ru">Разложить дашборд по ролевым вопросам, а не по типам графиков</span><span data-lang="en">Organize the dashboard around role questions, not chart types</span></li>
-              <li><span data-lang="ru">Спроектировать empty state и widget picker как короткий путь к первому обзору</span><span data-lang="en">Design the empty state and widget picker as a short path to the first overview</span></li>
-              <li><span data-lang="ru">Выстроить populated dashboard: иерархия, размеры виджетов и приоритет данных</span><span data-lang="en">Build the populated dashboard: hierarchy, widget sizes and data priority</span></li>
-              <li><span data-lang="ru">Собрать expanded view и severity-систему для разных типов визуализации</span><span data-lang="en">Assemble the expanded view and a severity system for different visualization types</span></li>
-            </ul>
-          </section>
+
+
 
           <section class="study-block">
             <p class="eyebrow"><span data-lang="ru">Ключевые решения</span><span data-lang="en">Key decisions</span></p>
@@ -154,6 +175,11 @@
             <li><strong><span data-lang="ru">5 уровней severity в единой системе:</span><span data-lang="en">5 severity levels in one system:</span></strong> <span data-lang="ru">Critical / High / Medium / Low / Informational держат цвет одинаковым во всех виджетах, а новый виджет добавляется, не ломая остальные.</span><span data-lang="en">Critical / High / Medium / Low / Informational keep colour consistent across every widget, and a new widget is added without breaking the rest.</span></li>
           </ul>
         </section>
+
+        <section class="study-block">
+          <p class="eyebrow">What I learned</p>
+          <p>A dashboard for several roles isn’t a set of charts — it’s an answer to each role’s first question. An easy start matters more than flexible configuration: if the first overview takes a minute to build, people actually use it instead of putting it off. And shared rules, like the same severity colours across every widget, let you add new things without breaking what already works.</p>
+        </section>
       </article>
     </main>
 
@@ -173,7 +199,7 @@
     <nav class="case-nav" aria-label="Case navigation">
       <a class="case-nav-link case-nav-prev" href="/nova/" aria-label="Previous case"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label">Previous case</span></a>
       <a class="case-nav-link case-nav-home" href="/">Home</a>
-      <a class="case-nav-link case-nav-next" href="/wave/" aria-label="Next case"><span class="case-nav-label">Next case</span><img class="case-nav-icon next-icon" src="/assets/icon-external.svg" alt=""></a>
+      <span class="case-nav-spacer" aria-hidden="true"></span>
       </nav>
     <script src="../script.js?v=20261021-cv"></script>
     <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->

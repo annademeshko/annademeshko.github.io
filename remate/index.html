@@ -10,6 +10,19 @@
     <link rel="icon" type="image/png" href="../assets/fav_white.png" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../remate.css">
+    <style>
+      .case-summary { box-sizing: border-box; width: min(680px, 100%); margin: 8px 0 56px; }
+      .case-summary-table { margin: 0; }
+      .case-summary-line:last-child { border-bottom: 0; }
+      .case-summary-line { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--control-border); }
+      .case-summary-line dt { color: var(--muted); font-size: 16px; line-height: 24px; }
+      .case-summary-line dd { margin: 0; color: var(--text); font-size: 16px; font-weight: 400; line-height: 24px; }
+      .research-findings li { margin-bottom: 10px; }
+      @media (max-width: 640px) { .case-summary-line { grid-template-columns: 1fr; gap: 2px; } }
+      .case-part { box-sizing: border-box; width: min(680px, 100%); margin: 72px 0 8px; padding-top: 24px; border-top: 1px solid var(--control-border); }
+      .case-part .eyebrow { margin: 0 0 6px; }
+      .case-part h2 { margin: 0; color: var(--heading); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
+    </style>
     <script>
       (function () {
         try {
@@ -77,7 +90,7 @@
         <header class="case-hero">
           <h1>
             <span data-lang="ru">remate: найти игру своего уровня в паделе, теннисе и пиклболе</span>
-            <span data-lang="en">remate: find your game in padel, tennis and pickleball</span>
+            <span data-lang="en">How I took group chats, IOUs and mismatched opponents out of amateur padel: remate, built from zero</span>
           </h1>
           <p class="case-hero-lead">
             <span data-lang="ru">iOS-приложение для падела, тенниса и пиклбола в Испании: игры своего уровня, бронь кортов и раздельная оплата в одном сценарии.</span>
@@ -85,9 +98,18 @@
           </p>
           <p class="case-meta">
             <span data-lang="ru">Product Designer · iOS · 0 → 1 · Interaction design · Дизайн-система · Motion</span>
-            <span data-lang="en">Product Designer · iOS · 0 → 1 · Interaction design · Design system · Motion</span>
+            <span data-lang="en">Senior Product Designer · iOS · 0 → 1 · Interaction design · Design system · Motion</span>
           </p>
         </header>
+
+        <section class="case-summary" aria-label="Summary">
+          <dl class="case-summary-table">
+            <div class="case-summary-line"><dt>Role</dt><dd>Senior Product Designer, one of two designers, product built from zero</dd></div>
+            <div class="case-summary-line"><dt>Team</dt><dd>7 people: 2 designers (me and one more), PM, analyst, 2 iOS developers, QA</dd></div>
+            <div class="case-summary-line"><dt>Product</dt><dd>iOS app for padel, tennis and pickleball, B2C, Spain</dd></div>
+            <div class="case-summary-line"><dt>Result</dt><dd>All 3 problems from research solved in one flow: games at your level, paying only your share with a hold until the roster is full, and opponents’ level known in advance; handed off to development</dd></div>
+          </dl>
+        </section>
 
         <figure class="remate-film">
           <video autoplay muted loop playsinline preload="metadata" poster="../assets/remate/hero-poster.webp" aria-label="remate: welcome screen animation and three key screens">
@@ -104,8 +126,17 @@
             </p>
             <p>
               <span data-lang="ru">Продукт 0 → 1: стратегия, информационная архитектура, UX/UI, дизайн-система и motion. Цель: снять с игрока всю организацию.</span>
-              <span data-lang="en">A 0 → 1 product: strategy, information architecture, UX/UI, design system and motion. Goal: take all the coordination off the player.</span>
+              <span data-lang="en">The product’s goal: take all the organising off the player — find a game at your level, fill the roster and split the cost fairly.</span>
             </p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Research</p>
+            <p>We gathered the problems from four sources: group chats where players arrange games, reviews of competitor apps, the founders’ conversations with players, and our own interviews.</p>
+            <ul class="research-findings">
+              <li><strong>Interviews with 8 players</strong> — two from each group: beginners, regular players, game organisers and club representatives. We talked about how a game comes together today, who pays and what goes wrong.</li>
+              <li><strong>Reviews of Playtomic</strong>, the main competitor in Spain. We collected recurring complaints. One of the most common: you can’t tell what level the person you’re about to play with is.</li>
+            </ul>
           </section>
 
           <section class="study-block">
@@ -417,22 +448,16 @@
             <p><strong><span data-lang="ru">Три цвета задают весь язык продукта: синий корт, лаймовый мяч, чёрный текст.</span><span data-lang="en">Three colours define the product language: blue court, lime ball, black type.</span></strong></p>
           </section>
 
-          <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Что показывает этот кейс</span><span data-lang="en">What this case demonstrates</span></p>
-            <div class="copilot-takeaways">
-              <div class="copilot-takeaway">
-                <h3><span data-lang="ru">Продукт с нуля вокруг одного объекта</span><span data-lang="en">A product from zero around one object</span></h3>
-                <p><span data-lang="ru">Одна модель данных вместо набора фич: каждый путь заканчивается предсказуемым результатом.</span><span data-lang="en">One data model instead of a set of features: every path ends in a predictable result.</span></p>
-              </div>
-              <div class="copilot-takeaway">
-                <h3><span data-lang="ru">Доверие там, где есть деньги</span><span data-lang="en">Trust where money is involved</span></h3>
-                <p><span data-lang="ru">Холд, прозрачные правила и Apple Pay первым снижают барьер записи к незнакомым людям.</span><span data-lang="en">A hold, visible rules and Apple Pay first lower the barrier to joining strangers.</span></p>
-              </div>
-              <div class="copilot-takeaway">
-                <h3><span data-lang="ru">Рост, встроенный в сценарий</span><span data-lang="en">Growth built into the flow</span></h3>
-                <p><span data-lang="ru">Приглашение и App Clip превращают каждую запись в канал привлечения без лишних шагов для игрока.</span><span data-lang="en">The invite and App Clip turn every booking into an acquisition channel with no extra steps for the player.</span></p>
-              </div>
-            </div>
+
+
+          <section class="study-block result-block">
+            <p class="eyebrow">Result</p>
+            <ul>
+              <li><strong>A product built from zero and handed off to development.</strong> 7 flows — the games feed, onboarding, payment, +1, court booking, invitations and tournaments — share one model with the game at the centre, so every path ends the same way: you’re in, your spot is paid.</li>
+              <li><strong>No money risk for the player.</strong> A hold instead of a charge until the roster is full, automatic cancellation at the deadline and refunds for rain; the rules are visible right on the payment screen.</li>
+              <li><strong>Growth built into booking.</strong> A friend pays their share through an App Clip without installing the app, and only then gets offered the download.</li>
+              <li><strong>Design system:</strong> tokens for light and dark themes, components and 98 icons.</li>
+            </ul>
           </section>
 
           <section class="study-block">
@@ -461,7 +486,7 @@
     <nav class="case-nav" aria-label="Case navigation">
       <span class="case-nav-spacer" aria-hidden="true"></span>
       <a class="case-nav-link case-nav-home" href="/">Home</a>
-      <a class="case-nav-link case-nav-next" href="/copilot/" aria-label="Next case"><span class="case-nav-label">Next case</span><img class="case-nav-icon next-icon" src="/assets/icon-external.svg" alt=""></a>
+      <a class="case-nav-link case-nav-next" href="/wave/" aria-label="Next case"><span class="case-nav-label">Next case</span><img class="case-nav-icon next-icon" src="/assets/icon-external.svg" alt=""></a>
       </nav>
     <script src="../script.js?v=20261021-cv"></script>
     <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->

@@ -10,6 +10,19 @@
   <link rel="icon" type="image/png" href="../assets/fav_white.png" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../nova.css">
+    <style>
+      .case-summary { box-sizing: border-box; width: min(680px, 100%); margin: 8px 0 56px; }
+      .case-summary-table { margin: 0; }
+      .case-summary-line:last-child { border-bottom: 0; }
+      .case-summary-line { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--control-border); }
+      .case-summary-line dt { color: var(--muted); font-size: 16px; line-height: 24px; }
+      .case-summary-line dd { margin: 0; color: var(--text); font-size: 16px; font-weight: 400; line-height: 24px; }
+      .research-findings li { margin-bottom: 10px; }
+      @media (max-width: 640px) { .case-summary-line { grid-template-columns: 1fr; gap: 2px; } }
+      .case-part { box-sizing: border-box; width: min(680px, 100%); margin: 72px 0 8px; padding-top: 24px; border-top: 1px solid var(--control-border); }
+      .case-part .eyebrow { margin: 0 0 6px; }
+      .case-part h2 { margin: 0; color: var(--heading); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
+    </style>
   <script>
     (function () {
       try {
@@ -74,11 +87,20 @@
 <main class="page case-page nova-case" aria-label="NOVA onboarding case study">
 <article class="case-study">
   <header class="case-hero nova-reveal" data-motion="scale">
-    <h1>NOVA: from choosing a game to first play</h1>
+    <h1>How I guided new players through identity checks and a first deposit without losing the game they chose</h1>
     <p class="case-hero-lead">I designed the onboarding and first-deposit flow for a UK iGaming product under NDA. The goal was to get a new player through verification and funding without losing sight of why they came in the first place: to play a specific game.</p>
     <p class="case-meta">Product Designer · UK iGaming · Mobile onboarding · KYC · Payments · UX states</p>
     <p class="case-meta nova-nda-note"><strong>NOVA isn’t the real product name.</strong> I use it here to keep the client anonymous under NDA. The journey, constraints and design decisions come from the real project.</p>
   </header>
+
+        <section class="case-summary" aria-label="Summary">
+          <dl class="case-summary-table">
+            <div class="case-summary-line"><dt>Role</dt><dd>Sole designer, from brief to handoff</dd></div>
+            <div class="case-summary-line"><dt>Team</dt><dd>6 people: me (designer), PM, analyst, 2 iOS developers, QA</dd></div>
+            <div class="case-summary-line"><dt>Product</dt><dd>iGaming, mobile app, UK market, NDA</dd></div>
+            <div class="case-summary-line"><dt>Result</dt><dd>An end-to-end flow with 6 steps and 11 edge cases — from sign-up to launching the chosen game; handed off to development. Metrics are under NDA</dd></div>
+          </dl>
+        </section>
 
   <section class="nova-opening nova-reveal" data-motion="scale" aria-label="Preserving the selected game through onboarding">
     <div class="nova-opening-stage">
@@ -91,8 +113,8 @@
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
-      <p class="eyebrow">Context · UK market / NDA</p>
-      <p>The client and product name are confidential. I rebuilt the screens for this case with fictional branding, while keeping the real journey, constraints and interaction logic. The work was designed for the UK market and had to account for identity verification, player-protection controls and payment rules.</p>
+      <p class="eyebrow">Context</p>
+      <p>In the UK, a player can’t just sign up and play: the law requires identity verification, deposit limits and player-protection rules. Every one of those steps is a point where a new user might drop off.</p>
       <p>The challenge was to handle all of that setup without turning the experience into a detached compliance funnel. The player still needed to feel that they were on the way to the game they had chosen.</p>
       <div class="nova-intro-questions">
         <div class="nova-intro-question"><span>01</span><strong>How do we preserve intent while asking for regulated setup?</strong></div>
@@ -193,8 +215,13 @@
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
-      <p class="eyebrow">What the solution covers</p>
-      <p>The result is one connected activation journey rather than a stack of signup screens. It covers the straightforward path as well as the moments that usually create friction: failed verification, interrupted sessions, long reviews, account errors, deposit limits and payment restrictions.</p>
+      <p class="eyebrow">Result</p>
+      <p>Instead of a stack of separate screens, one connected activation journey, handed off to development:</p>
+      <ul>
+        <li><strong>A core path of 6 steps:</strong> chosen game → account → identity check → deposit limit → deposit → play.</li>
+        <li><strong>11 edge cases, each with its own way out:</strong> 6 during identity checks (automatic check failed, document check, poor photo, long manual review, hard stop with a route to support, manual address entry), 2 in forms (email already registered, invalid data), 2 at payment (limit, credit card restriction), plus returning to an interrupted session without losing progress.</li>
+        <li><strong>The player’s goal is never lost:</strong> the chosen game stays with them throughout, and after the deposit they land straight in it.</li>
+      </ul>
     </section>
     <section class="study-block nova-reveal">
       <p class="eyebrow">What I learned</p>
@@ -216,7 +243,7 @@
 </footer>
   <div class="bottom-fade" aria-hidden="true"></div>
   <nav class="case-nav" aria-label="Case navigation">
-      <a class="case-nav-link case-nav-prev" href="/copilot/" aria-label="Previous case"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label">Previous case</span></a>
+      <a class="case-nav-link case-nav-prev" href="/wave/" aria-label="Previous case"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label">Previous case</span></a>
       <a class="case-nav-link case-nav-home" href="/">Home</a>
       <a class="case-nav-link case-nav-next" href="/track/" aria-label="Next case"><span class="case-nav-label">Next case</span><img class="case-nav-icon next-icon" src="/assets/icon-external.svg" alt=""></a>
       </nav>
