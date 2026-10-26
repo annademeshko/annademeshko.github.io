@@ -11,13 +11,22 @@
     </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="NOVA — кейс onboarding и первого депозита для UK iGaming.">
+  <meta name="description" content="NOVA — кейс онбординга и первого депозита для UK iGaming.">
   <title>NOVA · Anna Demeshko</title>
   <link rel="canonical" href="https://annademeshko.com/ru/nova/">
   <link rel="icon" type="image/png" href="/assets/fav_black.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" href="/assets/fav_white.png" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="https://annademeshko.com/styles.css?v=20260928-3">
   <link rel="stylesheet" href="https://annademeshko.com/nova.css?v=20260928-3">
+  <style>
+      .case-summary { box-sizing: border-box; width: min(680px, 100%); margin: 8px 0 56px; }
+      .case-summary-table { margin: 0; }
+      .case-summary-line:last-child { border-bottom: 0; }
+      .case-summary-line { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--control-border); }
+      .case-summary-line dt { color: var(--muted); font-size: 16px; line-height: 24px; }
+      .case-summary-line dd { margin: 0; color: var(--text); font-size: 16px; font-weight: 400; line-height: 24px; }
+      @media (max-width: 640px) { .case-summary-line { grid-template-columns: 1fr; gap: 2px; } }
+    </style>
   <script>
     (function () {
       try {
@@ -42,11 +51,20 @@
 <main class="page case-page nova-case" aria-label="Кейс NOVA — регистрация и первый депозит">
 <article class="case-study">
   <header class="case-hero nova-reveal" data-motion="scale">
-    <h1>NOVA: от выбора игры до первого запуска</h1>
+    <h1>Как я провела нового игрока через проверку личности и первый депозит, не потеряв выбранную игру</h1>
     <p class="case-hero-lead">Я проектировала регистрацию и первый депозит для iGaming-продукта на рынке Великобритании под NDA. Нужно было провести нового игрока через обязательные проверки и пополнение, не потеряв главную цель — запустить конкретную игру.</p>
     <p class="case-meta">Product Designer · UK iGaming · Mobile UX · KYC · Payments · State design</p>
     <p class="case-meta nova-nda-note"><strong>NOVA — не настоящее название продукта.</strong> Я использую его в кейсе, чтобы не раскрывать клиента по NDA. Сам сценарий, ограничения и дизайн-решения взяты из реального проекта.</p>
   </header>
+
+        <section class="case-summary" aria-label="Кратко">
+          <dl class="case-summary-table">
+            <div class="case-summary-line"><dt>Роль</dt><dd>Единственный дизайнер, от задачи до передачи в разработку</dd></div>
+            <div class="case-summary-line"><dt>Команда</dt><dd>6 человек: я (дизайнер), PM, аналитик, 2 iOS-разработчика, QA</dd></div>
+            <div class="case-summary-line"><dt>Продукт</dt><dd>iGaming, мобильное приложение, рынок Великобритании, NDA</dd></div>
+            <div class="case-summary-line"><dt>Результат</dt><dd>Сквозной сценарий из 6 шагов и 11 нештатных ситуаций — от регистрации до запуска выбранной игры; передан в разработку. Метрики закрыты NDA</dd></div>
+          </dl>
+        </section>
 
   <section class="nova-opening nova-reveal" data-motion="scale" aria-label="Сохранение выбранной игры на протяжении регистрации">
     <div class="nova-opening-stage">
@@ -59,8 +77,8 @@
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
-      <p class="eyebrow">Контекст · рынок Великобритании / NDA</p>
-      <p>Название клиента и продукта скрыты NDA. Для портфолио я пересобрала интерфейс с вымышленным брендом, но сохранила реальную логику сценария, ограничения и ключевые решения. Проект был для рынка Великобритании и учитывал требования к проверке личности, защите игрока и платежам.</p>
+      <p class="eyebrow">Контекст</p>
+      <p>На рынке Великобритании игрок не может просто зарегистрироваться и играть: по закону нужны проверка личности, лимиты на пополнение и правила защиты игрока. Каждый такой шаг — место, где новый пользователь может уйти.</p>
       <p>Основная сложность была не в длине регистрации. Нужно было провести пользователя через обязательные шаги так, чтобы они не ощущались отдельной бюрократической воронкой и не заслоняли исходную цель — запустить выбранную игру.</p>
       <div class="nova-intro-questions">
         <div class="nova-intro-question"><span>01</span><strong>Как сохранить цель пользователя во время обязательных шагов?</strong></div>
@@ -161,12 +179,17 @@
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
-      <p class="eyebrow">Что получилось</p>
-      <p>Вместо набора отдельных экранов получился связный сценарий активации. Он покрывает обычный путь и ситуации, в которых чаще всего возникает трение: ошибки проверки, прерванные сессии, долгое ожидание, проблемы с данными аккаунта, лимиты и ограничения оплаты.</p>
+      <p class="eyebrow">Результат</p>
+      <p>Вместо набора отдельных экранов — связный сценарий активации, переданный в разработку:</p>
+      <ul>
+        <li><strong>Основной путь из 6 шагов:</strong> выбранная игра → аккаунт → проверка личности → лимит на пополнение → пополнение → игра.</li>
+        <li><strong>11 нештатных ситуаций</strong>, у каждой свой выход: 6 при проверке личности (автопроверка не прошла, проверка по документу, плохое фото, долгая ручная проверка, блокировка с переходом в поддержку, ручной ввод адреса), 2 в форме (email уже занят, неверные данные), 2 при оплате (лимит, ограничение по кредитной карте) и возврат в прерванную сессию без потери прогресса.</li>
+        <li><strong>Цель пользователя не теряется:</strong> выбранная игра сопровождает весь путь, и после пополнения человек попадает прямо в неё.</li>
+      </ul>
     </section>
     <section class="study-block nova-reveal">
-      <p class="eyebrow">Что я вынесла из проекта</p>
-      <p>Главный вывод: хороший onboarding проверяется не на идеальном пути, а в моменты, когда что-то идёт не так. Когда я проработала прерывания, ошибки и ожидание, изменился и основной сценарий: прогресс нужно было сохранять, статусы — объяснять яснее, а выбранную игру — держать в контексте от начала до конца.</p>
+      <p class="eyebrow">Чему я научилась</p>
+      <p>Главный вывод: хороший онбординг проверяется не на идеальном пути, а в моменты, когда что-то идёт не так. Когда я проработала прерывания, ошибки и ожидание, изменился и основной сценарий: прогресс нужно было сохранять, статусы — объяснять яснее, а выбранную игру — держать в контексте от начала до конца.</p>
       <p class="case-meta">Реальная продуктовая работа под NDA. Название клиента, внутренние данные и конфиденциальные продуктовые метрики в кейсе не раскрываются.</p>
     </section>
   </div>
@@ -184,7 +207,7 @@
 </footer>
   <div class="bottom-fade" aria-hidden="true"></div>
   <nav class="case-nav" aria-label="Навигация по кейсам">
-      <a class="case-nav-link case-nav-prev" href="/ru/copilot/" aria-label="Предыдущий кейс"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label">Предыдущий кейс</span></a>
+      <a class="case-nav-link case-nav-prev" href="/ru/wave/" aria-label="Предыдущий кейс"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label">Предыдущий кейс</span></a>
       <a class="case-nav-link case-nav-home" href="/ru/">На главную</a>
       <a class="case-nav-link case-nav-next" href="/ru/track/" aria-label="Следующий кейс"><span class="case-nav-label">Следующий кейс</span><img class="case-nav-icon next-icon" src="/assets/icon-external.svg" alt=""></a>
       </nav>
