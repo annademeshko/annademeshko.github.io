@@ -22,6 +22,7 @@
       .case-summary { box-sizing: border-box; width: min(680px, 100%); margin: 8px 0 56px; }
       .case-summary-table { margin: 0; }
       .case-summary-line:last-child { border-bottom: 0; }
+      .research-findings li { margin-bottom: 10px; }
       .case-summary-line { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--control-border); }
       .case-summary-line dt { color: var(--muted); font-size: 16px; line-height: 24px; }
       .case-summary-line dd { margin: 0; color: var(--text); font-size: 16px; font-weight: 400; line-height: 24px; }
@@ -52,17 +53,17 @@
 <article class="case-study">
   <header class="case-hero nova-reveal" data-motion="scale">
     <h1>Как я провела нового игрока через проверку личности и первый депозит, не потеряв выбранную игру</h1>
-    <p class="case-hero-lead">Я проектировала регистрацию и первый депозит для iGaming-продукта на рынке Великобритании под NDA. Нужно было провести нового игрока через обязательные проверки и пополнение, не потеряв главную цель — запустить конкретную игру.</p>
+    <p class="case-hero-lead">Я проектировала регистрацию и первый депозит для продукта в сфере iGaming в Великобритании. Нужно было провести игрока через обязательные проверки и не потерять главную цель: запустить выбранную игру.</p>
     <p class="case-meta">Product Designer · UK iGaming · Mobile UX · KYC · Payments · State design</p>
-    <p class="case-meta nova-nda-note"><strong>NOVA — не настоящее название продукта.</strong> Я использую его в кейсе, чтобы не раскрывать клиента по NDA. Сам сценарий, ограничения и дизайн-решения взяты из реального проекта.</p>
+    <p class="case-meta nova-nda-note"><strong>Название NOVA вымышленное.</strong> Я использую его в кейсе, чтобы не раскрывать клиента по NDA. Сам сценарий, ограничения и решения взяты из реального проекта.</p>
   </header>
 
         <section class="case-summary" aria-label="Кратко">
           <dl class="case-summary-table">
             <div class="case-summary-line"><dt>Роль</dt><dd>Единственный дизайнер, от задачи до передачи в разработку</dd></div>
-            <div class="case-summary-line"><dt>Команда</dt><dd>6 человек: я (дизайнер), PM, аналитик, 2 iOS-разработчика, QA</dd></div>
+            <div class="case-summary-line"><dt>Команда</dt><dd>6 человек: я (дизайнер), PM, аналитик, 2 разработчика iOS, QA</dd></div>
             <div class="case-summary-line"><dt>Продукт</dt><dd>iGaming, мобильное приложение, рынок Великобритании, NDA</dd></div>
-            <div class="case-summary-line"><dt>Результат</dt><dd>Сквозной сценарий из 6 шагов и 11 нештатных ситуаций — от регистрации до запуска выбранной игры; передан в разработку. Метрики закрыты NDA</dd></div>
+            <div class="case-summary-line"><dt>Результат</dt><dd>Сквозной сценарий от регистрации до запуска выбранной игры: 6 шагов и 11 нештатных ситуаций; передан в разработку. Метрики закрыты NDA</dd></div>
           </dl>
         </section>
 
@@ -72,14 +73,14 @@
       <img class="nova-opening-phone nova-opening-phone--start" src="https://annademeshko.com/assets/nova/play-gate.webp" alt="Создание аккаунта для запуска Starborn">
       <img class="nova-opening-phone nova-opening-phone--end" src="https://annademeshko.com/assets/nova/return-starborn.webp" alt="Запуск Starborn после регистрации">
     </div>
-    <p class="nova-opening-caption">Выбранная игра остаётся частью сценария от первого нажатия Play до момента, когда пользователь возвращается и может её запустить.</p>
+    <p class="nova-opening-caption">Выбранная игра остаётся с пользователем от нажатия Play до запуска.</p>
   </section>
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
       <p class="eyebrow">Контекст</p>
-      <p>На рынке Великобритании игрок не может просто зарегистрироваться и играть: по закону нужны проверка личности, лимиты на пополнение и правила защиты игрока. Каждый такой шаг — место, где новый пользователь может уйти.</p>
-      <p>Основная сложность была не в длине регистрации. Нужно было провести пользователя через обязательные шаги так, чтобы они не ощущались отдельной бюрократической воронкой и не заслоняли исходную цель — запустить выбранную игру.</p>
+      <p>На рынке Великобритании игрок не может просто зарегистрироваться и играть: по закону нужны проверка личности, лимиты на пополнение и правила защиты игрока. На каждом таком шаге новый пользователь может уйти.</p>
+      <p>Задача была провести через эти шаги так, чтобы они не ощущались бюрократической воронкой.</p>
       <div class="nova-intro-questions">
         <div class="nova-intro-question"><span>01</span><strong>Как сохранить цель пользователя во время обязательных шагов?</strong></div>
         <div class="nova-intro-question"><span>02</span><strong>Что происходит, если проверка не заканчивается сразу?</strong></div>
@@ -87,20 +88,26 @@
       </div>
     </section>
     <section class="study-block nova-reveal">
-      <p class="eyebrow">Что было важно</p>
-      <ul>
-        <li><strong>Не терять цель пользователя.</strong> Выбранная игра остаётся в контексте и не исчезает после начала регистрации.</li>
-        <li><strong>Не заставлять проходить одно и то же заново.</strong> Если пользователь выходит, он возвращается туда, где остановился.</li>
-        <li><strong>Понятно объяснять статус.</strong> Быстрая проверка, ручная проверка, исправимая ошибка и блокирующий сценарий должны выглядеть и вести себя по-разному.</li>
-        <li><strong>Не подталкивать к пополнению.</strong> Его можно отложить — это отдельное решение пользователя, а не обязательный шаг завершения аккаунта.</li>
+      <p class="eyebrow">Исследование</p>
+      <ul class="research-findings">
+        <li><strong>Требования PM и аналитика.</strong> Вместе разбирали сценарии и ограничения продукта.</li>
+        <li><strong>Правила рынка Великобритании.</strong> Проверка личности, лимиты на пополнение и защита игрока задали обязательные шаги.</li>
+        <li><strong>Разбор конкурентов.</strong> Смотрела, как регистрацию и проверку личности делают другие британские приложения в сфере iGaming.</li>
+        <li><strong>Тест кликабельного прототипа.</strong> Проверяли, проходят ли люди путь от выбранной игры до запуска.</li>
       </ul>
+    </section>
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Ключевые решения</p>
+      <p><strong>Выбранная игра на всём пути, а не отдельная воронка регистрации.</strong> Человек всё время видит, ради чего проходит проверки, а после пополнения сразу попадает в игру.</p>
+      <p><strong>Сохранение прогресса, а не регистрация за один заход.</strong> Если человек вышел, он продолжает с того же места.</p>
+      <p><strong>Пополнение по желанию, а не обязательный шаг.</strong> Регистрацию можно закончить, не внося деньги.</p>
     </section>
   </div>
 
   <section class="nova-flow nova-reveal">
     <div class="nova-flow-head study-block">
       <p class="eyebrow">Основной путь</p>
-      <p>Сначала я собрала самый короткий успешный путь, а затем добавила сценарии на случай ошибок, ожидания и выхода из процесса.</p>
+      <p>Сначала я собрала короткий успешный путь, потом добавила ошибки, ожидание и выход из процесса.</p>
     </div>
     <div class="nova-flow-strip">
       <figure class="nova-flow-card"><img src="https://annademeshko.com/assets/nova/play-gate.webp" alt=""><figcaption>Выбрана игра</figcaption></figure>
@@ -114,13 +121,8 @@
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
-      <p class="eyebrow">Ключевое решение · Сохранить выбранную игру</p>
-      <p>Сценарий начинается в момент, когда пользователь нажимает Play у Starborn. Поэтому выбранная игра не исчезает после начала регистрации: она всё время напоминает, ради чего человек проходит этот путь.</p>
-      <p>Интерфейс сразу сообщает, что Starborn сохранён, а после завершения регистрации и пополнения возвращает пользователя прямо в игру.</p>
-    </section>
-    <section class="study-block nova-reveal">
       <p class="eyebrow">Вернуться без потери прогресса</p>
-      <p>Я не рассчитывала, что человек обязательно закончит всё за одну сессию. Если он выходит, на главной остаётся понятный статус и следующий шаг — начинать сначала не нужно.</p>
+      <p>Если человек выходит, на главной виден статус и следующий шаг, так что начинать заново не нужно.</p>
     </section>
   </div>
 
@@ -132,30 +134,30 @@
   <section class="nova-state-story nova-reveal" data-motion="left">
     <div class="nova-story-copy study-block">
       <p class="eyebrow">Если проверка личности пошла не по плану</p>
-      <p>Проверка личности не всегда заканчивается сразу. Я отдельно продумала сценарии для неудачной автоматической проверки, загрузки документа, плохого фото, ручной проверки и ситуации, когда продолжить уже нельзя. Каждый экран отвечает на три вопроса: что произошло, нужно ли что-то сделать и что будет дальше.</p>
+      <p>Для каждого сбоя проверки свой сценарий, и каждый экран отвечает: что произошло, что сделать и что будет дальше.</p>
     </div>
     <div class="nova-triple">
       <figure><img src="https://annademeshko.com/assets/nova/auto-check-failed.webp" alt=""><figcaption>Автопроверка не смогла подтвердить данные</figcaption></figure>
       <figure><img src="https://annademeshko.com/assets/nova/choose-document.webp" alt=""><figcaption>Проверка по документу</figcaption></figure>
-      <figure><img src="https://annademeshko.com/assets/nova/document-rejected.webp" alt=""><figcaption>Плохое фото — можно сразу переснять</figcaption></figure>
+      <figure><img src="https://annademeshko.com/assets/nova/document-rejected.webp" alt=""><figcaption>Плохое фото можно сразу переснять</figcaption></figure>
     </div>
   </section>
 
   <section class="nova-asyncline nova-reveal" data-motion="right">
     <figure><img src="https://annademeshko.com/assets/nova/manual-review.webp" alt=""><figcaption>Если проверка затягивается, можно выйти и вернуться позже.</figcaption></figure>
     <div class="arrow" aria-hidden="true">→</div>
-    <figure><img src="https://annademeshko.com/assets/nova/verification-pending-home.webp" alt=""><figcaption>На главной видно, что проверка ещё идёт — без лишней кнопки «Продолжить».</figcaption></figure>
+    <figure><img src="https://annademeshko.com/assets/nova/verification-pending-home.webp" alt=""><figcaption>На главной видно, что проверка ещё идёт.</figcaption></figure>
   </section>
 
   <section class="nova-pair nova-reveal" data-motion="scale">
-    <figure><img src="https://annademeshko.com/assets/nova/verification-hard-stop.webp" alt=""><figcaption>Если продолжить нельзя, сценарий ведёт в поддержку, а не заставляет бесконечно повторять попытку.</figcaption></figure>
-    <figure><img src="https://annademeshko.com/assets/nova/manual-address.webp" alt=""><figcaption>Если адрес не находится автоматически, его можно ввести вручную и продолжить.</figcaption></figure>
+    <figure><img src="https://annademeshko.com/assets/nova/verification-hard-stop.webp" alt=""><figcaption>Если продолжить нельзя, сценарий ведёт в поддержку.</figcaption></figure>
+    <figure><img src="https://annademeshko.com/assets/nova/manual-address.webp" alt=""><figcaption>Адрес можно ввести вручную.</figcaption></figure>
   </section>
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
       <p class="eyebrow">Ошибки формы без тупиков</p>
-      <p>Разные ошибки требуют разных решений. Если email уже зарегистрирован, сразу предлагаем войти. Если данные просто введены неверно, кнопка продолжения остаётся недоступной до исправления.</p>
+      <p>Если email уже занят, сразу предлагаем войти. Если данные неверные, кнопка неактивна до исправления.</p>
     </section>
   </div>
 
@@ -167,30 +169,28 @@
   <div class="study-stack">
     <section class="study-block nova-reveal">
       <p class="eyebrow">Пополнение без давления</p>
-      <p>Пополнение — отдельное решение пользователя, а не обязательный финальный шаг регистрации. Его можно отложить, а ошибки по лимиту или оплате показываются рядом с тем выбором, который их вызвал.</p>
+      <p>Ошибки лимита и оплаты показаны рядом с выбором, который их вызвал.</p>
     </section>
   </div>
 
   <section class="nova-kitchen nova-reveal" data-motion="scale">
     <figure><img src="https://annademeshko.com/assets/nova/deposit-limit.webp" alt=""><figcaption>Корректная сумма и способ оплаты</figcaption></figure>
     <figure><img src="https://annademeshko.com/assets/nova/limit-exceeded.webp" alt=""><figcaption>Ошибка лимита появляется рядом с выбранной суммой</figcaption></figure>
-    <figure><img src="https://annademeshko.com/assets/nova/credit-card-blocked.webp" alt=""><figcaption>Ограничение по кредитной карте объясняется прямо в платёжной форме</figcaption></figure>
+    <figure><img src="https://annademeshko.com/assets/nova/credit-card-blocked.webp" alt=""><figcaption>Ограничение по кредитной карте объяснено в форме оплаты</figcaption></figure>
   </section>
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
       <p class="eyebrow">Результат</p>
-      <p>Вместо набора отдельных экранов — связный сценарий активации, переданный в разработку:</p>
+      <p>Вместо набора отдельных экранов получился связный сценарий активации. Он передан в разработку, а метрики продукта закрыты NDA.</p>
       <ul>
-        <li><strong>Основной путь из 6 шагов:</strong> выбранная игра → аккаунт → проверка личности → лимит на пополнение → пополнение → игра.</li>
-        <li><strong>11 нештатных ситуаций</strong>, у каждой свой выход: 6 при проверке личности (автопроверка не прошла, проверка по документу, плохое фото, долгая ручная проверка, блокировка с переходом в поддержку, ручной ввод адреса), 2 в форме (email уже занят, неверные данные), 2 при оплате (лимит, ограничение по кредитной карте) и возврат в прерванную сессию без потери прогресса.</li>
-        <li><strong>Цель пользователя не теряется:</strong> выбранная игра сопровождает весь путь, и после пополнения человек попадает прямо в неё.</li>
+        <li><strong>6 шагов</strong> от выбранной игры до запуска.</li>
+        <li><strong>11 нештатных ситуаций</strong>, у каждой свой выход: 6 при проверке личности, 2 в форме, 2 при оплате и возврат в прерванную сессию.</li>
       </ul>
     </section>
     <section class="study-block nova-reveal">
       <p class="eyebrow">Чему я научилась</p>
-      <p>Главный вывод: хороший онбординг проверяется не на идеальном пути, а в моменты, когда что-то идёт не так. Когда я проработала прерывания, ошибки и ожидание, изменился и основной сценарий: прогресс нужно было сохранять, статусы — объяснять яснее, а выбранную игру — держать в контексте от начала до конца.</p>
-      <p class="case-meta">Реальная продуктовая работа под NDA. Название клиента, внутренние данные и конфиденциальные продуктовые метрики в кейсе не раскрываются.</p>
+      <p>Хороший онбординг проверяется не на идеальном пути, а там, где что-то идёт не так. Когда я проработала ошибки и ожидание, изменился и основной сценарий.</p>
     </section>
   </div>
 </article>

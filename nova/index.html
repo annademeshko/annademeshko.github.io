@@ -88,9 +88,9 @@
 <article class="case-study">
   <header class="case-hero nova-reveal" data-motion="scale">
     <h1>How I guided new players through identity checks and a first deposit without losing the game they chose</h1>
-    <p class="case-hero-lead">I designed the onboarding and first-deposit flow for a UK iGaming product under NDA. The goal was to get a new player through verification and funding without losing sight of why they came in the first place: to play a specific game.</p>
+    <p class="case-hero-lead">I designed sign-up and the first deposit for a UK iGaming product. The goal was to get players through the required checks without losing sight of why they came: to play the game they chose.</p>
     <p class="case-meta">Product Designer · UK iGaming · Mobile onboarding · KYC · Payments · UX states</p>
-    <p class="case-meta nova-nda-note"><strong>NOVA isn’t the real product name.</strong> I use it here to keep the client anonymous under NDA. The journey, constraints and design decisions come from the real project.</p>
+    <p class="case-meta nova-nda-note"><strong>NOVA is a made-up name.</strong> I use it here to keep the client anonymous under NDA. The journey, constraints and design decisions come from the real project.</p>
   </header>
 
         <section class="case-summary" aria-label="Summary">
@@ -98,7 +98,7 @@
             <div class="case-summary-line"><dt>Role</dt><dd>Sole designer, from brief to handoff</dd></div>
             <div class="case-summary-line"><dt>Team</dt><dd>6 people: me (designer), PM, analyst, 2 iOS developers, QA</dd></div>
             <div class="case-summary-line"><dt>Product</dt><dd>iGaming, mobile app, UK market, NDA</dd></div>
-            <div class="case-summary-line"><dt>Result</dt><dd>An end-to-end flow with 6 steps and 11 edge cases — from sign-up to launching the chosen game; handed off to development. Metrics are under NDA</dd></div>
+            <div class="case-summary-line"><dt>Result</dt><dd>An end-to-end flow from sign-up to launching the chosen game: 6 steps and 11 edge cases; handed off to development. Metrics are under NDA</dd></div>
           </dl>
         </section>
 
@@ -108,14 +108,14 @@
       <img class="nova-opening-phone nova-opening-phone--start" src="../assets/nova/play-gate.webp" alt="Create an account to play Starborn">
       <img class="nova-opening-phone nova-opening-phone--end" src="../assets/nova/return-starborn.webp" alt="Launching Starborn after setup">
     </div>
-    <p class="nova-opening-caption">The chosen game stays in sight from the first tap on Play to the moment the player comes back ready to start.</p>
+    <p class="nova-opening-caption">The chosen game stays with the player from tapping Play to launch.</p>
   </section>
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
       <p class="eyebrow">Context</p>
       <p>In the UK, a player can’t just sign up and play: the law requires identity verification, deposit limits and player-protection rules. Every one of those steps is a point where a new user might drop off.</p>
-      <p>The challenge was to handle all of that setup without turning the experience into a detached compliance funnel. The player still needed to feel that they were on the way to the game they had chosen.</p>
+      <p>The challenge was to guide players through these steps without it feeling like a compliance funnel.</p>
       <div class="nova-intro-questions">
         <div class="nova-intro-question"><span>01</span><strong>How do we preserve intent while asking for regulated setup?</strong></div>
         <div class="nova-intro-question"><span>02</span><strong>What happens when verification is not instant?</strong></div>
@@ -123,20 +123,26 @@
       </div>
     </section>
     <section class="study-block nova-reveal">
-      <p class="eyebrow">What guided the flow</p>
-      <ul>
-        <li><strong>Keep the player’s goal visible.</strong> The chosen game stays part of the journey instead of disappearing behind registration.</li>
-        <li><strong>Don’t make people repeat work.</strong> If someone leaves, they can come back and continue from the right place.</li>
-        <li><strong>Say clearly what’s happening.</strong> A quick check, a manual review, a recoverable error and a hard stop should never look like the same state.</li>
-        <li><strong>Don’t force funding.</strong> Players can add money later instead of being pushed through a deposit just to finish setup.</li>
+      <p class="eyebrow">Research</p>
+      <ul class="research-findings">
+        <li><strong>Requirements from the PM and analyst.</strong> We worked through scenarios and product constraints together.</li>
+        <li><strong>UK market rules.</strong> Identity checks, deposit limits and player protection defined the required steps.</li>
+        <li><strong>Competitor review.</strong> I looked at how other UK iGaming apps handle sign-up and identity checks.</li>
+        <li><strong>Clickable prototype test.</strong> We checked whether people could get from the chosen game to launch.</li>
       </ul>
+    </section>
+    <section class="study-block nova-reveal">
+      <p class="eyebrow">Key decisions</p>
+      <p><strong>The chosen game throughout, not a separate sign-up funnel.</strong> Players always see why they’re going through the checks, and after the deposit they land straight in the game.</p>
+      <p><strong>Saved progress, not sign-up in one go.</strong> If someone leaves, they pick up where they left off.</p>
+      <p><strong>Optional deposit, not a required step.</strong> Players can finish sign-up without adding money.</p>
     </section>
   </div>
 
   <section class="nova-flow nova-reveal">
     <div class="nova-flow-head study-block">
       <p class="eyebrow">The core journey</p>
-      <p>I started with the shortest successful path, then designed the recovery states around it.</p>
+      <p>I built the shortest successful path first, then added errors, waiting and leaving mid-flow.</p>
     </div>
     <div class="nova-flow-strip">
       <figure class="nova-flow-card"><img src="../assets/nova/play-gate.webp" alt=""><figcaption>Game selected</figcaption></figure>
@@ -150,13 +156,8 @@
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
-      <p class="eyebrow">Key decision · Keep the chosen game in the journey</p>
-      <p>The flow starts because the player tries to launch Starborn. Instead of dropping that context, I carried the selected game through onboarding so the setup still felt connected to the original goal.</p>
-      <p>The interface tells the player that Starborn is saved, then brings them straight back to it once setup is complete.</p>
-    </section>
-    <section class="study-block nova-reveal">
       <p class="eyebrow">Leaving and coming back</p>
-      <p>I didn’t assume onboarding would happen in one sitting. If the player leaves, Home shows where they are and what to do next instead of sending them back to the beginning.</p>
+      <p>If a player leaves, Home shows their status and next step, so there’s no need to start over.</p>
     </section>
   </div>
 
@@ -168,7 +169,7 @@
   <section class="nova-state-story nova-reveal" data-motion="left">
     <div class="nova-story-copy study-block">
       <p class="eyebrow">When verification doesn’t go smoothly</p>
-      <p>Identity checks don’t always resolve in one step. I designed separate paths for an automatic match failure, document upload, rejected photos, manual review and a true hard stop. Each state answers the same three questions: what happened, do I need to do anything, and what happens next?</p>
+      <p>Every failed check has its own path, and each screen answers: what happened, what to do and what comes next.</p>
     </div>
     <div class="nova-triple">
       <figure><img src="../assets/nova/auto-check-failed.webp" alt=""><figcaption>Automatic check couldn’t match the details</figcaption></figure>
@@ -180,18 +181,18 @@
   <section class="nova-asyncline nova-reveal" data-motion="right">
     <figure><img src="../assets/nova/manual-review.webp" alt=""><figcaption>A longer review becomes a state the player can safely leave.</figcaption></figure>
     <div class="arrow" aria-hidden="true">→</div>
-    <figure><img src="../assets/nova/verification-pending-home.webp" alt=""><figcaption>Home shows that review is still in progress without inventing an action.</figcaption></figure>
+    <figure><img src="../assets/nova/verification-pending-home.webp" alt=""><figcaption>Home shows the review is still in progress.</figcaption></figure>
   </section>
 
   <section class="nova-pair nova-reveal" data-motion="scale">
-    <figure><img src="../assets/nova/verification-hard-stop.webp" alt=""><figcaption>When there’s no meaningful retry, the flow sends the player to support instead of trapping them in a loop.</figcaption></figure>
-    <figure><img src="../assets/nova/manual-address.webp" alt=""><figcaption>Manual address entry keeps an address lookup issue from becoming a dead end.</figcaption></figure>
+    <figure><img src="../assets/nova/verification-hard-stop.webp" alt=""><figcaption>If there’s no way forward, the flow leads to support.</figcaption></figure>
+    <figure><img src="../assets/nova/manual-address.webp" alt=""><figcaption>The address can be entered manually.</figcaption></figure>
   </section>
 
   <div class="study-stack">
     <section class="study-block nova-reveal">
       <p class="eyebrow">Recovering from form errors</p>
-      <p>Not every form error needs the same response. If the email already belongs to an account, the user gets a direct way to log in. If the data is simply invalid, the primary action stays unavailable until the issue is fixed.</p>
+      <p>If the email is already registered, we offer to log in. If the details are invalid, Continue stays disabled until they’re fixed.</p>
     </section>
   </div>
 
@@ -203,7 +204,7 @@
   <div class="study-stack">
     <section class="study-block nova-reveal">
       <p class="eyebrow">Funding without pressure</p>
-      <p>Adding money is a separate decision, not something the player has to do just to finish account setup. They can postpone it, and payment or limit errors are explained next to the choice that caused the problem.</p>
+      <p>Limit and payment errors appear next to the choice that caused them.</p>
     </section>
   </div>
 
@@ -216,17 +217,15 @@
   <div class="study-stack">
     <section class="study-block nova-reveal">
       <p class="eyebrow">Result</p>
-      <p>Instead of a stack of separate screens, one connected activation journey, handed off to development:</p>
+      <p>Instead of a stack of separate screens, one connected activation journey. It was handed off to development; product metrics are under NDA.</p>
       <ul>
-        <li><strong>A core path of 6 steps:</strong> chosen game → account → identity check → deposit limit → deposit → play.</li>
-        <li><strong>11 edge cases, each with its own way out:</strong> 6 during identity checks (automatic check failed, document check, poor photo, long manual review, hard stop with a route to support, manual address entry), 2 in forms (email already registered, invalid data), 2 at payment (limit, credit card restriction), plus returning to an interrupted session without losing progress.</li>
-        <li><strong>The player’s goal is never lost:</strong> the chosen game stays with them throughout, and after the deposit they land straight in it.</li>
+        <li><strong>6 steps</strong> from the chosen game to launch.</li>
+        <li><strong>11 edge cases</strong>, each with its own way out: 6 in identity checks, 2 in forms, 2 at payment, plus returning to an interrupted session.</li>
       </ul>
     </section>
     <section class="study-block nova-reveal">
       <p class="eyebrow">What I learned</p>
-      <p>The biggest lesson was that onboarding is only as good as its recovery paths. Once I designed for interruptions, failed checks and waiting states, the happy path changed too: progress had to persist, statuses had to be clearer, and the chosen game had to stay present from start to finish.</p>
-      <p class="case-meta">Real product work presented under NDA. The client name, internal data and confidential performance figures are intentionally not shown.</p>
+      <p>Good onboarding is tested not on the happy path but where things go wrong. Once I designed for errors and waiting, the main flow changed too.</p>
     </section>
   </div>
 </article>
