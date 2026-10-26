@@ -22,6 +22,8 @@
       .case-part { box-sizing: border-box; width: min(680px, 100%); margin: 72px 0 8px; padding-top: 24px; border-top: 1px solid var(--control-border); }
       .case-part .eyebrow { margin: 0 0 6px; }
       .case-part h2 { margin: 0; color: var(--heading); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
+      html:not([lang="en"]) [data-lang="en"] { display: none !important; }
+      html[lang="en"] [data-lang="ru"] { display: none !important; }
     </style>
     <script>
       (function () {
@@ -89,25 +91,34 @@
 
         <header class="case-hero">
           <h1>
-            <span data-lang="ru">remate: найти игру своего уровня в паделе, теннисе и пиклболе</span>
+            <span data-lang="ru">Как я с нуля спроектировала приложение, где игроки находят соперников своего уровня и честно делят оплату</span>
             <span data-lang="en">How I designed an app from zero where players find opponents at their level and split the cost fairly</span>
           </h1>
           <p class="case-hero-lead">
-            <span data-lang="ru">iOS-приложение для падела, тенниса и пиклбола в Испании: игры своего уровня, бронь кортов и раздельная оплата в одном сценарии.</span>
-            <span data-lang="en">An iOS app for padel, tennis and pickleball in Spain: games at your level, court booking and split payments in one flow.</span>
+            <span data-lang="ru">Приложение для iOS: падел, теннис и пиклбол в Испании.</span>
+            <span data-lang="en">An iOS app for padel, tennis and pickleball in Spain.</span>
           </p>
           <p class="case-meta">
-            <span data-lang="ru">Product Designer · iOS · 0 → 1 · Interaction design · Дизайн-система · Motion</span>
+            <span data-lang="ru">Senior Product Designer · iOS · 0 → 1 · Interaction design · Дизайн-система · Motion</span>
             <span data-lang="en">Senior Product Designer · iOS · 0 → 1 · Interaction design · Design system · Motion</span>
           </p>
         </header>
 
-        <section class="case-summary" aria-label="Summary">
+        <section class="case-summary" aria-label="Кратко" data-lang="ru">
+          <dl class="case-summary-table">
+            <div class="case-summary-line"><dt>Роль</dt><dd>Senior Product Designer, один из двух дизайнеров, продукт с нуля</dd></div>
+            <div class="case-summary-line"><dt>Команда</dt><dd>7 человек: 2 дизайнера (я и ещё один), PM, аналитик, 2 разработчика iOS, QA</dd></div>
+            <div class="case-summary-line"><dt>Продукт</dt><dd>Приложение для iOS: падел, теннис и пиклбол, B2C, Испания</dd></div>
+            <div class="case-summary-line"><dt>Результат</dt><dd>Продукт с нуля передан в разработку; все 3 проблемы из исследования решены в одном сценарии</dd></div>
+          </dl>
+        </section>
+
+        <section class="case-summary" aria-label="Summary" data-lang="en">
           <dl class="case-summary-table">
             <div class="case-summary-line"><dt>Role</dt><dd>Senior Product Designer, one of two designers, product built from zero</dd></div>
             <div class="case-summary-line"><dt>Team</dt><dd>7 people: 2 designers (me and one more), PM, analyst, 2 iOS developers, QA</dd></div>
-            <div class="case-summary-line"><dt>Product</dt><dd>iOS app for padel, tennis and pickleball, B2C, Spain</dd></div>
-            <div class="case-summary-line"><dt>Result</dt><dd>All 3 problems from research solved in one flow: games at your level, paying only your share with a hold until the roster is full, and opponents’ level known in advance; handed off to development</dd></div>
+            <div class="case-summary-line"><dt>Product</dt><dd>iOS app: padel, tennis and pickleball, B2C, Spain</dd></div>
+            <div class="case-summary-line"><dt>Result</dt><dd>Built from zero and handed off to development; all 3 problems from research solved in one flow</dd></div>
           </dl>
         </section>
 
@@ -119,41 +130,64 @@
 
         <div class="study-stack">
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Контекст</span><span data-lang="en">Overview</span></p>
+            <p class="eyebrow"><span data-lang="ru">Контекст</span><span data-lang="en">Context</span></p>
             <p>
-              <span data-lang="ru">Игра собирается в чатах, корт оплачивает один человек, уровень соперников выясняется на корте. Каждый шаг держится на ручной координации.</span>
-              <span data-lang="en">Games are organised in group chats, one person pays for the court, and opponents' level is discovered on court. Every step relies on manual coordination.</span>
+              <span data-lang="ru">Игра собирается в чатах, корт оплачивает один человек, а уровень соперников выясняется только на корте.</span>
+              <span data-lang="en">Games are arranged in group chats, one person pays for the court, and opponents’ level only becomes clear on court.</span>
             </p>
             <p>
-              <span data-lang="ru">Продукт 0 → 1: стратегия, информационная архитектура, UX/UI, дизайн-система и motion. Цель: снять с игрока всю организацию.</span>
-              <span data-lang="en">The product’s goal: take all the organising off the player — find a game at your level, fill the roster and split the cost fairly.</span>
+              <span data-lang="ru">Мы хотели снять с игрока всю организацию: найти игру своего уровня, собрать состав и честно поделить оплату.</span>
+              <span data-lang="en">We wanted to take all the organising off the player: find a game at your level, fill the roster and split the cost fairly.</span>
             </p>
           </section>
 
-          <section class="study-block">
-            <p class="eyebrow">Research</p>
-            <p>We gathered the problems from four sources: group chats where players arrange games, reviews of competitor apps, the founders’ conversations with players, and our own interviews.</p>
+          <section class="study-block" data-lang="ru">
+            <p class="eyebrow">Исследование</p>
+            <p>Источники: чаты игроков, отзывы на приложения конкурентов, разговоры фаундеров с игроками и наши интервью.</p>
             <ul class="research-findings">
-              <li><strong>Interviews with 8 players</strong> — two from each group: beginners, regular players, game organisers and club representatives. We talked about how a game comes together today, who pays and what goes wrong.</li>
-              <li><strong>Reviews of Playtomic</strong>, the main competitor in Spain. We collected recurring complaints. One of the most common: you can’t tell what level the person you’re about to play with is.</li>
+              <li><strong>Интервью с 8 игроками</strong>, по двое из каждой группы: новички, постоянные игроки, организаторы игр и клубы.</li>
+              <li><strong>Отзывы на Playtomic</strong>, главного конкурента в Испании. Частая жалоба: непонятен уровень будущего соперника.</li>
+            </ul>
+          </section>
+
+          <section class="study-block" data-lang="en">
+            <p class="eyebrow">Research</p>
+            <p>Sources: player group chats, reviews of competitor apps, the founders’ conversations with players and our own interviews.</p>
+            <ul class="research-findings">
+              <li><strong>Interviews with 8 players</strong>, two from each group: beginners, regular players, game organisers and clubs.</li>
+              <li><strong>Reviews of Playtomic</strong>, the main competitor in Spain. A common complaint: you can’t tell your future opponent’s level.</li>
             </ul>
           </section>
 
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Три проблемы, вокруг которых построен продукт</span><span data-lang="en">Three problems the product is built around</span></p>
+            <p class="eyebrow"><span data-lang="ru">Три проблемы</span><span data-lang="en">Three problems</span></p>
             <div class="copilot-question-lines remate-problems" aria-label="Product problems">
               <div class="copilot-question-line"><span>01</span><strong><span data-lang="ru">Найти людей своего уровня</span><span data-lang="en">Finding people at your level</span></strong><p><span data-lang="ru">Друзья заняты, случайный соперник не того уровня.</span><span data-lang="en">Friends are busy, random opponents are at the wrong level.</span></p></div>
               <div class="copilot-question-line"><span>02</span><strong><span data-lang="ru">Деньги между игроками</span><span data-lang="en">Money between players</span></strong><p><span data-lang="ru">Один платит за всех, неявка бьёт по его кошельку.</span><span data-lang="en">One person pays for everyone and absorbs no-shows.</span></p></div>
               <div class="copilot-question-line"><span>03</span><strong><span data-lang="ru">Уровень «на глаз»</span><span data-lang="en">Level by guesswork</span></strong><p><span data-lang="ru">Неравная игра не приводит к повторной.</span><span data-lang="en">An uneven game doesn't lead to a second one.</span></p></div>
             </div>
           </section>
+
+          <section class="study-block" data-lang="ru">
+            <p class="eyebrow">Ключевые решения</p>
+            <p><strong>Игра в центре, а не корт.</strong> Корт, оплата и уровень стали свойствами игры, поэтому любой путь заканчивается одинаково: ты в составе, место оплачено.</p>
+            <p><strong>Холд, а не списание сразу.</strong> Пока состав не собран, деньги не списываются, и записаться к незнакомым людям не страшно.</p>
+            <p><strong>App Clip, а не обязательная установка.</strong> Друг платит свою часть по ссылке, а скачать приложение ему предлагают уже потом.</p>
+          </section>
+
+          <section class="study-block" data-lang="en">
+            <p class="eyebrow">Key decisions</p>
+            <p><strong>The game at the centre, not the court.</strong> The court, payment and level became properties of the game, so every path ends the same way: you’re in, your spot is paid.</p>
+            <p><strong>A hold, not an instant charge.</strong> Nothing is charged until the roster is full, so joining strangers feels safe.</p>
+            <p><strong>An App Clip, not a required install.</strong> A friend pays their share from a link and is offered the app only afterwards.</p>
+          </section>
         </div>
 
         <section class="study-block copilot-flow-wrap">
-          <p class="eyebrow"><span data-lang="ru">Модель сценария</span><span data-lang="en">Mapping the journey</span></p>
+          <p class="eyebrow"><span data-lang="ru">Модель сценария</span><span data-lang="en">Flow model</span></p>
           <p>
-            <span data-lang="ru">Ключевое решение: игра как центральный объект. Корт, оплата, игроки и уровень являются её свойствами, поэтому любой сценарий завершается одним состоянием: ты в составе, место оплачено.</span>
-            <span data-lang="en">Key decision: the game is the core object. Court, payment, players and level are its properties, so every flow resolves into one state: you're in, your spot is paid.</span>
+            <span data-lang="ru">Два режима: первый запуск и каждая следующая игра.</span>
+            <span data-lang="en">Two modes: the first launch and every game after that.</span>
           </p>
           <div class="copilot-workflow-phases" aria-label="remate journey">
             <div class="copilot-workflow-phase">
@@ -183,12 +217,12 @@
         <div class="study-stack">
           <section class="study-block">
             <p class="copilot-section-heading"><span class="copilot-section-number">01</span><strong class="copilot-section-title">
-              <span data-lang="ru">Игра в центре, а не корт</span>
-              <span data-lang="en">The game, not the court</span>
+              <span data-lang="ru">Лента игр</span>
+              <span data-lang="en">Games feed</span>
             </strong></p>
             <p>
-              <span data-lang="ru">Главный экран показывает открытые игры под уровень и район. Карточка содержит всё для решения: время, цену за человека, состав и свободные места.</span>
-              <span data-lang="en">Home shows open games matched by level and area. A card carries everything needed to decide: time, price per person, roster and open spots.</span>
+              <span data-lang="ru">На главном экране открытые игры под твой уровень и район. В карточке время, цена за человека и свободные места.</span>
+              <span data-lang="en">Home shows open games for your level and area. Each card has the time, the price per person and the free spots.</span>
             </p>
           </section>
         </div>
@@ -213,11 +247,11 @@
           <section class="study-block">
             <p class="copilot-section-heading"><span class="copilot-section-number">02</span><strong class="copilot-section-title">
               <span data-lang="ru">Онбординг без лишних вопросов</span>
-              <span data-lang="en">Onboarding without noise</span>
+              <span data-lang="en">Onboarding without extra questions</span>
             </strong></p>
             <p>
-              <span data-lang="ru">Вход без паролей: Apple, Google или код на почту. Онбординг спрашивает только то, что влияет на ленту. Геолокация запрашивается в контексте карты, а не на старте.</span>
-              <span data-lang="en">Passwordless sign-in: Apple, Google or an email code. Onboarding asks only what changes the feed. Location is requested in the context of a map, not at launch.</span>
+              <span data-lang="ru">Вход без пароля (Apple, Google или код на почту) и только вопросы, которые влияют на ленту.</span>
+              <span data-lang="en">Passwordless sign-in (Apple, Google or an email code) and only the questions that shape the feed.</span>
             </p>
           </section>
         </div>
@@ -253,8 +287,8 @@
         <div class="study-stack">
           <section class="study-block">
             <p>
-              <span data-lang="ru">Стартовый уровень считается по трём вопросам и помечен как предварительный. Дальше он калибруется по подтверждённым счетам или оценке тренера.</span>
-              <span data-lang="en">A starting level comes from three questions and is marked provisional. It is then calibrated by confirmed scores or a coach assessment.</span>
+              <span data-lang="ru">Стартовый уровень определяется по трём вопросам, а дальше уточняется по подтверждённым счетам.</span>
+              <span data-lang="en">The starting level comes from three questions and is then refined by confirmed scores.</span>
             </p>
           </section>
         </div>
@@ -282,12 +316,12 @@
         <div class="study-stack">
           <section class="study-block">
             <p class="copilot-section-heading"><span class="copilot-section-number">03</span><strong class="copilot-section-title">
-              <span data-lang="ru">Доверие к оплате</span>
-              <span data-lang="en">Payment trust</span>
+              <span data-lang="ru">Оплата без риска</span>
+              <span data-lang="en">Payment without risk</span>
             </strong></p>
             <p>
-              <span data-lang="ru">Главный барьер записи к незнакомым людям: риск заплатить за несостоявшуюся игру. Решение: холд вместо списания до полного состава, автоматическая отмена по дедлайну и возврат при дожде. Правила видны на экране оплаты.</span>
-              <span data-lang="en">The main barrier to joining strangers is the risk of paying for a game that never happens. Solution: a hold instead of a charge until the roster is full, auto-cancel at the deadline and a refund for rain. The rules are visible at checkout.</span>
+              <span data-lang="ru">Сначала Apple Pay, карта как запасной путь, правила видны прямо на экране оплаты. Второе место для друга добавляется в один тап.</span>
+              <span data-lang="en">Apple Pay first, a card as the fallback, and the rules right on the payment screen. A second spot for a friend takes one tap.</span>
             </p>
           </section>
         </div>
@@ -307,23 +341,8 @@
           </figure>
         </div>
 
-        <section class="study-note">
-          <p><strong><span data-lang="ru">Холд вместо списания, пока состав не собран.</span><span data-lang="en">Hold, don't charge, until the game is full.</span></strong></p>
-        </section>
 
         <!-- 04 · Bring a friend -->
-        <div class="study-stack">
-          <section class="study-block">
-            <p class="copilot-section-heading"><span class="copilot-section-number">04</span><strong class="copilot-section-title">
-              <span data-lang="ru">+1 в один тап</span>
-              <span data-lang="en">+1 in one tap</span>
-            </strong></p>
-            <p>
-              <span data-lang="ru">Запись на два места в один тап: цена пересчитывается сразу. Если места закрывают состав, оплата списывается мгновенно, а +1 выбирается из команды с фильтром по уровню.</span>
-              <span data-lang="en">Two spots in one tap with instant repricing. If they fill the roster, payment is captured immediately and the +1 is picked from your team, filtered by level.</span>
-            </p>
-          </section>
-        </div>
 
         <div class="remate-phones remate-phones--4">
           <figure class="remate-phone">
@@ -347,13 +366,13 @@
         <!-- 05 · Book a court -->
         <div class="study-stack">
           <section class="study-block">
-            <p class="copilot-section-heading"><span class="copilot-section-number">05</span><strong class="copilot-section-title">
-              <span data-lang="ru">Бронь корта</span>
-              <span data-lang="en">Court booking</span>
+            <p class="copilot-section-heading"><span class="copilot-section-number">04</span><strong class="copilot-section-title">
+              <span data-lang="ru">Бронь корта и турниры</span>
+              <span data-lang="en">Court booking and tournaments</span>
             </strong></p>
             <p>
-              <span data-lang="ru">Для своей компании: свободные слоты прямо в списке клубов, цена и пиковые часы на сетке, выбор корта по фото и покрытию. На оплате выбор модели: каждый за себя или весь корт.</span>
-              <span data-lang="en">For your own group: free slots inline in the club list, prices and peak hours on the grid, courts by photo and surface. At checkout you choose the model: split or the whole court.</span>
+              <span data-lang="ru">Свободные слоты прямо в списке клубов, корт по фото, оплата пополам или целиком. Турниры и новые города собраны из тех же паттернов.</span>
+              <span data-lang="en">Free slots right in the club list, courts by photo, and paying split or in full. Tournaments and new cities reuse the same patterns.</span>
             </p>
           </section>
         </div>
@@ -384,45 +403,6 @@
           </figure>
         </div>
 
-        <!-- 06 · Growth loop -->
-        <div class="study-stack">
-          <section class="study-block">
-            <p class="copilot-section-heading"><span class="copilot-section-number">06</span><strong class="copilot-section-title">
-              <span data-lang="ru">Встроенный рост</span>
-              <span data-lang="en">Built-in growth</span>
-            </strong></p>
-            <p>
-              <span data-lang="ru">Каждая запись заканчивается ссылкой. Друг открывает её в App Clip, платит свою часть без установки и только потом получает предложение скачать приложение.</span>
-              <span data-lang="en">Every booking ends with a link. A friend opens it in an App Clip, pays their part without installing and only then is offered the full app.</span>
-            </p>
-          </section>
-        </div>
-
-        <div class="remate-phones remate-phones--2">
-          <figure class="remate-phone">
-            <img width="720" height="1472" loading="lazy" decoding="async" src="../assets/remate/booked-match.webp" alt="You're booked with an invite link">
-            <figcaption><span data-lang="ru">Ссылка-приглашение после записи</span><span data-lang="en">An invite link after booking</span></figcaption>
-          </figure>
-          <figure class="remate-phone">
-            <img width="720" height="1472" loading="lazy" decoding="async" src="../assets/remate/app-clip.webp" alt="Friend's side: you're in, Marc, inside an App Clip">
-            <figcaption><span data-lang="ru">Сторона друга: App Clip без установки</span><span data-lang="en">The friend's side: an App Clip, no install</span></figcaption>
-          </figure>
-        </div>
-
-        <!-- 07 · Beyond the game -->
-        <div class="study-stack">
-          <section class="study-block">
-            <p class="copilot-section-heading"><span class="copilot-section-number">07</span><strong class="copilot-section-title">
-              <span data-lang="ru">Масштабирование паттернов</span>
-              <span data-lang="en">Scaling the patterns</span>
-            </strong></p>
-            <p>
-              <span data-lang="ru">Турниры, уроки и города используют те же паттерны, что и игры. В день турнира в фокусе следующий матч, check-in и граница выхода из группы.</span>
-              <span data-lang="en">Tournaments, lessons and cities reuse the same patterns as games. On tournament day the focus is the next match, check-in and the qualification line.</span>
-            </p>
-          </section>
-        </div>
-
         <div class="remate-phones">
           <figure class="remate-phone">
             <img width="720" height="1472" loading="lazy" decoding="async" src="../assets/remate/tournaments.webp" alt="Tournaments">
@@ -438,25 +418,53 @@
           </figure>
         </div>
 
+        <!-- 06 · Growth loop -->
         <div class="study-stack">
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Дизайн-система</span><span data-lang="en">Design system</span></p>
+            <p class="copilot-section-heading"><span class="copilot-section-number">05</span><strong class="copilot-section-title">
+              <span data-lang="ru">Приглашение друзей</span>
+              <span data-lang="en">Inviting friends</span>
+            </strong></p>
             <p>
-              <span data-lang="ru">Единая система: токены для светлой и тёмной темы, компоненты и 98 иконок. Иерархия строится на заливках, а не на обводках.</span>
-              <span data-lang="en">One system: tokens for light and dark themes, components and 98 icons. Hierarchy is built with fills, not strokes.</span>
+              <span data-lang="ru">Каждая запись заканчивается ссылкой для друзей.</span>
+              <span data-lang="en">Every booking ends with a link for friends.</span>
             </p>
-            <p><strong><span data-lang="ru">Три цвета задают весь язык продукта: синий корт, лаймовый мяч, чёрный текст.</span><span data-lang="en">Three colours define the product language: blue court, lime ball, black type.</span></strong></p>
+          </section>
+        </div>
+
+        <div class="remate-phones remate-phones--2">
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="../assets/remate/booked-match.webp" alt="You're booked with an invite link">
+            <figcaption><span data-lang="ru">Ссылка для друзей после записи</span><span data-lang="en">A link for friends after booking</span></figcaption>
+          </figure>
+          <figure class="remate-phone">
+            <img width="720" height="1472" loading="lazy" decoding="async" src="../assets/remate/app-clip.webp" alt="Friend's side: you're in, Marc, inside an App Clip">
+            <figcaption><span data-lang="ru">Сторона друга: App Clip без установки</span><span data-lang="en">The friend's side: an App Clip, no install</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- 07 · Beyond the game -->
+
+        <div class="study-stack">
+
+
+                    <section class="study-block result-block" data-lang="ru">
+            <p class="eyebrow">Результат</p>
+            <p>Продукт с нуля передан в разработку. Чтобы понять, работает ли он, мы заложили три метрики:</p>
+            <ul>
+              <li><strong>Доля игр, собранных полностью.</strong> Показывает, решает ли продукт главную задачу: собрать состав.</li>
+              <li><strong>Конверсия из ссылки для друзей в оплату.</strong> Показывает, работает ли рост через друзей и App Clip.</li>
+              <li><strong>Повторные игры с тем же составом.</strong> Показывает, совпадает ли уровень игроков: неравная игра не приводит к повторной.</li>
+            </ul>
           </section>
 
-
-
-          <section class="study-block result-block">
+          <section class="study-block result-block" data-lang="en">
             <p class="eyebrow">Result</p>
+            <p>The product was built from zero and handed off to development. To see whether it works, we set three metrics:</p>
             <ul>
-              <li><strong>A product built from zero and handed off to development.</strong> 7 flows — the games feed, onboarding, payment, +1, court booking, invitations and tournaments — share one model with the game at the centre, so every path ends the same way: you’re in, your spot is paid.</li>
-              <li><strong>No money risk for the player.</strong> A hold instead of a charge until the roster is full, automatic cancellation at the deadline and refunds for rain; the rules are visible right on the payment screen.</li>
-              <li><strong>Growth built into booking.</strong> A friend pays their share through an App Clip without installing the app, and only then gets offered the download.</li>
-              <li><strong>Design system:</strong> tokens for light and dark themes, components and 98 icons.</li>
+              <li><strong>Share of games with a full roster.</strong> Shows whether the product does its main job: filling the game.</li>
+              <li><strong>Conversion from a friend link to payment.</strong> Shows whether growth through friends and the App Clip works.</li>
+              <li><strong>Repeat games with the same players.</strong> Shows whether levels match: an uneven game doesn’t lead to a second one.</li>
             </ul>
           </section>
 
