@@ -1,6 +1,6 @@
 // Two pixel effects shared by every page:
 // 1. A trail of multicoloured pixels that light up under the cursor and fade out.
-// 2. The profile photo turns into shimmering pixels while you hover it.
+// 2. The profile photo shows as shimmering pixels and turns back into the photo on hover.
 (function () {
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduceMotion) return;
@@ -178,14 +178,28 @@
 
     function ready() {
       place();
-      img.addEventListener("pointerenter", start);
-      img.addEventListener("pointerleave", stop);
-      // On phones there is no hover: a tap toggles the effect.
+      // Pixels by default; hovering reveals the real photo.
+      start();
+      img.addEventListener("pointerenter", stop);
+      img.addEventListener("pointerleave", start);
+      // On phones there is no hover: a tap toggles between pixels and the photo.
       img.addEventListener("click", function () {
         if (active) stop(); else start();
       });
       window.addEventListener("resize", place);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+      // Don't animate while the photo is scrolled out of view.
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          var visible = entries[0].isIntersecting;
+          if (!visible && frame) {
+            cancelAnimationFrame(frame);
+            frame = 0;
+          } else if (visible && active && !frame) {
+            frame = requestAnimationFrame(loop);
+          }
+        }).observe(img);
+      }
     }
 
     if (img.complete && img.naturalWidth) ready();
