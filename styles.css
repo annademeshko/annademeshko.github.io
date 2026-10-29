@@ -3235,7 +3235,7 @@ html[data-theme="dark"]::after { mix-blend-mode: screen; }
 
 /* ===== Designer-canvas variant (bg-canvas.js): replaces the cursor light. ===== */
 body::before { display: none; }
-:root { --glass-blur: 1.6px; --glass: rgba(255, 255, 255, 0.55); }
+:root { --glass-blur: 1.68px; --glass: rgba(255, 255, 255, 0.55); }
 [data-theme="dark"] { --glass: rgba(18, 19, 21, 0.6); }
 body::after {
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
@@ -3264,7 +3264,7 @@ body::after {
 .bg-obj--cursor { animation: none; will-change: transform; }
 @media (max-width: 640px) { .bg-obj--extra { display: none; } }
 @keyframes bg-float-soft { from { transform: translate(0,0) rotate(var(--r)); } to { transform: translate(1.6vw,-1.4vh) rotate(calc(var(--r) + 3deg)); } }
-@media (max-width: 640px) { .bg-obj { width: calc(var(--w) * 1.7vw); } :root { --glass-blur: 1.2px; } }
+@media (max-width: 640px) { .bg-obj { width: calc(var(--w) * 1.7vw); } :root { --glass-blur: 1.26px; } }
 @media (prefers-reduced-motion: reduce) { .bg-obj { animation: none; } }
 
 /* Hover pills (contact dock + Spotify ticker): soft blue. */
