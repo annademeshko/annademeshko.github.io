@@ -2834,36 +2834,34 @@ h3,
   opacity: 1;
 }
 
-/* Contact dock: app-icon bar (CV as a PDF file · LinkedIn · Telegram · Email). */
+/* Contact dock: app-icon bar (CV as a PDF file · LinkedIn · Telegram · Email).
+   Desktop: a dock with a pill tooltip on hover. Mobile: a home-screen grid with captions. */
 .contact-dock {
-  --dock-bg: rgba(255, 255, 255, 0.72);
-  --dock-border: rgba(0, 0, 0, 0.06);
-  --dock-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
-  --dock-divider: rgba(0, 0, 0, 0.12);
-  --pdf-sheet: #ffffff;
-  --pdf-line: #c9ccd2;
-  --pdf-fold: #eef0f3;
+  --dock-bg: rgba(246, 246, 244, 0.86);
+  --dock-border: rgba(0, 0, 0, 0.08);
+  --dock-inner: rgba(255, 255, 255, 0.7);
+  --dock-divider: rgba(0, 0, 0, 0.16);
+  --dock-tip-bg: #dcdcd8;
+  --dock-tip-text: #1d1e21;
+  --dock-caption: var(--muted);
   display: inline-flex;
   align-items: center;
-  align-self: center;
-  gap: 8px;
+  gap: 12px;
   width: auto;
-  padding: 7px 9px;
+  padding: 10px 12px;
   border: 1px solid var(--dock-border);
-  border-radius: 20px;
+  border-radius: 26px;
   background: var(--dock-bg);
-  box-shadow: var(--dock-shadow);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 var(--dock-inner), 0 10px 30px rgba(0, 0, 0, 0.08);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 [data-theme="dark"] .contact-dock {
-  --dock-bg: rgba(34, 36, 41, 0.72);
-  --dock-border: rgba(255, 255, 255, 0.08);
-  --dock-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
-  --dock-divider: rgba(255, 255, 255, 0.16);
-  --pdf-sheet: #f4f5f6;
-  --pdf-line: #8d929b;
-  --pdf-fold: #d4d7dc;
+  --dock-bg: rgba(64, 64, 64, 0.9);
+  --dock-border: rgba(255, 255, 255, 0.16);
+  --dock-inner: rgba(255, 255, 255, 0.06);
+  --dock-divider: rgba(255, 255, 255, 0.28);
+  --dock-caption: #b9bcc2;
 }
 .home-page .contact-dock,
 .site-footer > .contact-dock {
@@ -2871,84 +2869,111 @@ h3,
   margin-left: auto;
   margin-right: auto;
 }
-.site-footer > .contact-dock { margin-top: 26px; }
+.site-footer > .contact-dock { margin-top: 28px; }
 
 .dock-divider {
-  width: 1px;
-  height: 30px;
-  margin: 0 3px;
+  align-self: center;
+  width: 2px;
+  height: 40px;
+  margin: 0 4px;
+  border-radius: 1px;
   background: var(--dock-divider);
 }
 
-.dock-item {
+.dock-item,
+.dock-item[data-copy-email] {
+  gap: 0;
   position: relative;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0;
   border: 0;
-  border-radius: 11px;
   background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  justify-content: flex-start;
+  align-self: flex-start;
   cursor: pointer;
-  transform-origin: 50% 100%;
-  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1.2);
   -webkit-tap-highlight-color: transparent;
 }
 .dock-icon {
   display: block;
-  width: 44px;
-  height: 44px;
-  border-radius: 11px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  width: 56px;
+  height: 56px;
+  border-radius: 13px;
+  transition: transform 180ms ease, filter 180ms ease;
 }
-.dock-icon--file {
-  width: 37px;
-  height: 44px;
-  border-radius: 0;
-  box-shadow: none;
-  overflow: visible;
-  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.14));
-}
-.pdf-sheet { fill: var(--pdf-sheet); stroke: var(--pdf-line); stroke-width: 1.2; }
-.pdf-fold { fill: var(--pdf-fold); stroke: var(--pdf-line); stroke-width: 1.2; stroke-linejoin: round; }
 
-.dock-tip {
+/* Tooltip pill above the icon (desktop). */
+.dock-label {
   position: absolute;
-  bottom: calc(100% + 10px);
+  bottom: calc(100% + 18px);
   left: 50%;
-  padding: 5px 9px;
-  border-radius: 7px;
-  background: var(--tooltip-bg);
-  color: var(--tooltip-text);
-  font-size: 12px;
-  line-height: 16px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--dock-tip-bg);
+  color: var(--dock-tip-text);
+  font-size: 15px;
+  line-height: 20px;
   font-weight: 500;
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, 4px);
-  transition: opacity 140ms ease, transform 140ms ease;
+  transition: opacity 150ms ease, transform 150ms ease;
 }
-.dock-tip--done { display: none; }
-.dock-item.is-copied .dock-tip { display: none; }
-.dock-item.is-copied .dock-tip--done { display: block; opacity: 1; transform: translate(-50%, 0); }
+.dock-label--done { display: none; }
+.dock-item.is-copied .dock-label { display: none; }
+.dock-item.is-copied .dock-label--done { display: block; opacity: 1; transform: translate(-50%, 0); }
 
 @media (hover: hover) {
-  .dock-item:hover { transform: translateY(-5px) scale(1.12); }
-  .dock-item:hover .dock-tip { opacity: 1; transform: translate(-50%, 0); }
+  .dock-item:hover .dock-icon { transform: translateY(-2px); filter: brightness(1.04); }
+  .dock-item:hover .dock-label { opacity: 1; transform: translate(-50%, 0); }
 }
-.dock-item:active { transform: scale(0.94); }
-.dock-item:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
+.dock-item:active .dock-icon { transform: scale(0.95); }
+.dock-item:focus-visible { outline: none; }
+.dock-item:focus-visible .dock-icon { outline: 2px solid var(--focus); outline-offset: 3px; }
+.dock-item:focus-visible .dock-label { opacity: 1; transform: translate(-50%, 0); }
+
+/* Mobile: no dock frame — icons in a row with captions underneath, like a home screen. */
+@media (max-width: 640px) {
+  .contact-dock {
+    display: grid;
+    grid-template-columns: repeat(4, 64px);
+    align-items: start;
+    justify-content: center;
+    column-gap: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .dock-divider { display: none; }
+  .dock-icon { width: 64px; height: 64px; border-radius: 15px; }
+  .dock-label,
+  .dock-item.is-copied .dock-label--done {
+    position: static;
+    margin-top: 8px;
+    padding: 0;
+    background: none;
+    color: var(--dock-caption);
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    opacity: 1;
+    transform: none;
+  }
+  .dock-item:hover .dock-icon { transform: none; }
 }
-.dock-item:focus-visible .dock-tip { opacity: 1; transform: translate(-50%, 0); }
+@media (max-width: 360px) {
+  .contact-dock { grid-template-columns: repeat(4, 56px); column-gap: 16px; }
+  .dock-icon { width: 56px; height: 56px; border-radius: 13px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .dock-item, .dock-tip { transition: none; }
-  .dock-item:hover { transform: none; }
+  .dock-icon, .dock-label { transition: none; }
 }
-.dock-icon--linkedin { background: linear-gradient(180deg, #3B7CCB, #0A66C2); }
-.dock-icon--telegram { background: linear-gradient(180deg, #37AEE2, #1E96C8); }
-.dock-icon--mail { background: linear-gradient(180deg, #6CBBFF, #2F80ED); }
