@@ -328,11 +328,11 @@
         <section class="work" data-panel="cases" aria-label="Кейсы">
         <a class="case-card case-link" href="/ru/remate/" aria-label="remate">
           <span class="case-cover">
-            <video class="case-image remate-cover-video" width="1600" height="900" autoplay muted loop playsinline preload="metadata" poster="/assets/remate/cover-dark-poster.webp" aria-label="remate: welcome animation and key screens of the iOS app"><source src="/assets/remate/cover-dark.mp4" type="video/mp4"></video>
+            <video class="case-image remate-cover-video" width="1600" height="900" autoplay muted loop playsinline preload="metadata" poster="/assets/remate/cover-light-dots-poster.webp?v=2" aria-label="remate: welcome animation and key screens of the iOS app"><source src="/assets/remate/cover-light-dots.mp4?v=2" type="video/mp4"></video>
             <script id="remate-cover-swap">
               // Light theme: light cover video on the grey textured frame; dark theme: dark video.
               (function () {
-                var v = document.currentScript.previousElementSibling, root = document.documentElement, cur = "";
+                var v = document.currentScript.previousElementSibling, root = document.documentElement, cur = "light"; // markup already points to the light video
                 var P = "/assets/remate/";
                 function apply() {
                   var t = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
