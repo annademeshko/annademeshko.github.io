@@ -1,7 +1,7 @@
 // Designer canvas under the frosted glass: small Figma-style UI pieces
 // (selection with size badge, multiplayer cursors, comment pin, component set,
 // prototype noodle, redlines, auto-layout, toolbar, layers, colour swatches,
-// vector nodes) drift slowly behind the page. The layer shifts a little toward
+// vector nodes, Motion / Weave / generative-plugin / shader panels) drift slowly behind the page. The layer shifts a little toward
 // the mouse for a soft parallax.
 (function () {
   var ru = (document.documentElement.lang || "").indexOf("ru") === 0;
@@ -13,9 +13,21 @@
       return '<rect x="' + (p[0] - 4) + '" y="' + (p[1] - 4) + '" width="8" height="8" fill="#fff" stroke="' + col + '" stroke-width="1.5"/>';
     }).join("");
   }
+  // Figma's multiplayer cursor: a tail-less, rounded arrowhead with a name tag.
+  var ARROW = "M3.2 2.6 C2.3 2.2 1.6 3 2 3.9 L8.4 19.2 C8.8 20.1 10.1 20 10.3 19 L12.2 12.2 L19 10.3 C20 10.1 20.1 8.8 19.2 8.4 Z";
   function cursor(col, name, w) {
-    return '<svg viewBox="0 0 ' + (w + 30) + ' 46"><path d="M2 2 L2 26 L8.5 20 L13 30 L17 28.2 L12.6 18.4 L21 18.4 Z" fill="' + col + '" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>' +
-      '<rect x="16" y="24" width="' + w + '" height="20" rx="5" fill="' + col + '"/><text x="' + (16 + w / 2) + '" y="38" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="600" fill="#fff">' + name + "</text></svg>";
+    return '<svg viewBox="0 0 ' + (w + 30) + ' 46"><path d="' + ARROW + '" fill="' + col + '" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>' +
+      '<rect x="14" y="20" width="' + w + '" height="20" rx="6" fill="' + col + '"/><text x="' + (14 + w / 2) + '" y="34" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="600" fill="#fff">' + name + "</text></svg>";
+  }
+
+  // Small floating property panel, like Figma's plugin / shader / motion panels.
+  function panel(title, icon, body, h) {
+    return '<svg viewBox="0 0 180 ' + h + '"><rect x="1" y="1" width="178" height="' + (h - 2) + '" rx="10" fill="#fff" stroke="#e6e6e6"/>' +
+      '<g transform="translate(12 12)">' + icon + '</g><text x="32" y="23" font-family="' + F + '" font-size="11" font-weight="600" fill="' + C.ink + '">' + title + '</text>' +
+      '<path d="M158 15 l7 7 m0 -7 l-7 7" stroke="' + C.ink + '" stroke-width="1.3" stroke-linecap="round"/>' + body + "</svg>";
+  }
+  function row(y, label) {
+    return '<text x="12" y="' + y + '" font-family="' + F + '" font-size="9.5" fill="#777">' + label + "</text>";
   }
 
   function sticky(col, text, author) {
@@ -90,6 +102,45 @@
     { x: 79, y: 19, w: 6.75, r: 0, d: 64, svg:
       '<svg viewBox="0 0 120 80"><path d="M8 66 C30 10, 60 10, 70 40 S 104 70, 112 14" fill="none" stroke="' + C.sel + '" stroke-width="1.5"/>' +
       handles([[8, 66], [70, 40], [112, 14]], C.sel) + '<circle cx="45" cy="12" r="3" fill="' + C.sel + '"/><path d="M45 12 L70 40" stroke="' + C.sel + '" stroke-width="1" stroke-dasharray="3 3"/></svg>' },
+    // ---- Figma Motion: custom bezier panel + timeline ----
+    { x: 87, y: 43, w: 8.5, r: 0, d: 66, svg:
+      panel("Custom Bezier", '<path d="M0 12 C6 12 6 2 12 2" fill="none" stroke="' + C.ink + '" stroke-width="1.4"/>',
+        '<rect x="12" y="36" width="156" height="20" rx="6" fill="#f5f5f5"/><rect x="14" y="38" width="76" height="16" rx="5" fill="#fff" stroke="#e6e6e6"/>' +
+        '<text x="52" y="49.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="' + C.ink + '">Curve</text><text x="129" y="49.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="#999">Spring</text>' +
+        '<rect x="12" y="64" width="156" height="84" rx="6" fill="#f5f5f5"/>' +
+        '<path d="M28 136 C76 136 112 76 152 76" fill="none" stroke="' + C.ink + '" stroke-width="2"/>' +
+        '<path d="M28 136 L72 128 M152 76 L108 84" stroke="' + C.sel + '" stroke-width="1"/><circle cx="72" cy="128" r="4" fill="#fff" stroke="' + C.sel + '" stroke-width="1.5"/><circle cx="108" cy="84" r="4" fill="#fff" stroke="' + C.sel + '" stroke-width="1.5"/>' +
+        '<text x="12" y="166" font-family="' + F + '" font-size="9" fill="#777">0.4, 0.0, 0.6, 1.0</text>' +
+        '<path d="M12 182 H168" stroke="#e6e6e6"/><rect x="12" y="190" width="156" height="8" rx="4" fill="' + C.sel + '"/>' +
+        '<path d="M40 186 v16" stroke="' + C.sel + '" stroke-width="2"/><path d="M36 182 h8 l-4 5 z" fill="' + C.sel + '"/>' +
+        '<path d="M60 210 l4 -4 l4 4 l-4 4 z M120 210 l4 -4 l4 4 l-4 4 z M160 210 l4 -4 l4 4 l-4 4 z" fill="#fff" stroke="#999"/>', 222) },
+
+    // ---- Figma Weave tools: "Change lighting" workflow ----
+    { x: 69, y: 24, w: 7, r: 0, d: 72, svg:
+      panel("Change lighting", '<rect width="14" height="12" rx="2" fill="' + C.ink + '"/><text x="7" y="9.5" text-anchor="middle" font-family="' + F + '" font-size="8" font-weight="800" fill="#fff">W</text>',
+        row(46, "Image input") +
+        '<defs><linearGradient id="dune" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9d2b0"/><stop offset=".55" stop-color="#c79b6b"/><stop offset="1" stop-color="#8f6740"/></linearGradient></defs>' +
+        '<rect x="12" y="54" width="156" height="104" rx="6" fill="url(#dune)"/><path d="M12 120 C60 96 110 140 168 104 V152 a6 6 0 0 1 -6 6 H18 a6 6 0 0 1 -6 -6 Z" fill="#b5875a" opacity=".6"/>' +
+        row(176, "Light style") + '<rect x="12" y="184" width="156" height="22" rx="5" fill="#fff" stroke="#e6e6e6"/><text x="20" y="198.5" font-family="' + F + '" font-size="9.5" fill="' + C.ink + '">Moonlight</text><path d="M154 193 l4 4 l4 -4" fill="none" stroke="#777" stroke-width="1.2"/>' +
+        '<rect x="112" y="218" width="56" height="20" rx="5" fill="' + C.sel + '"/><text x="140" y="231.5" text-anchor="middle" font-family="' + F + '" font-size="9.5" font-weight="600" fill="#fff">Generate</text>', 248) },
+
+    // ---- Generative plugins: "Map maker" ----
+    { x: 4, y: 24, w: 8, r: 0, d: 68, svg:
+      panel("Map maker", '<path d="M2 11 L5 3 L8 8 L11 2 L13 11 Z" fill="none" stroke="' + C.ink + '" stroke-width="1.2" stroke-linejoin="round"/>',
+        row(52, "Style") + '<rect x="72" y="40" width="96" height="18" rx="5" fill="#f5f5f5"/><rect x="120" y="42" width="46" height="14" rx="4" fill="#fff" stroke="#e6e6e6"/><text x="96" y="52.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="#999">Light</text><text x="143" y="52.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="' + C.ink + '">Dark</text>' +
+        row(78, "Interaction") + '<rect x="72" y="66" width="96" height="18" rx="5" fill="#f5f5f5"/><rect x="74" y="68" width="46" height="14" rx="4" fill="#fff" stroke="#e6e6e6"/><text x="97" y="78.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="' + C.ink + '">On</text><text x="143" y="78.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="#999">Off</text>' +
+        row(104, "Pins") + '<rect x="72" y="92" width="96" height="18" rx="5" fill="#f5f5f5"/><text x="80" y="104.5" font-family="' + F + '" font-size="9" fill="' + C.ink + '">7</text>' +
+        row(130, "Colors") + ['#a8d5d8', '#e9e6df', '#ffffff', '#a6c98a', '#3f6b2a'].map(function (c, i) { return '<rect x="' + (72 + i * 19.2) + '" y="118" width="19.2" height="18" fill="' + c + '" stroke="#e6e6e6" stroke-width=".5"/>'; }).join("") +
+        '<rect x="104" y="148" width="64" height="20" rx="5" fill="' + C.sel + '"/><text x="136" y="161.5" text-anchor="middle" font-family="' + F + '" font-size="9.5" font-weight="600" fill="#fff">Create map</text>', 178) },
+
+    // ---- Shaders: "Gradient map" ----
+    { x: 23, y: 33, w: 7.5, r: 0, d: 62, svg:
+      panel("Gradient map", '<path d="M1 10 C4 4 8 12 13 4" fill="none" stroke="' + C.ink + '" stroke-width="1.4"/>',
+        '<defs><linearGradient id="gmap"><stop offset="0" stop-color="#2d5bff"/><stop offset=".35" stop-color="#3fd1a0"/><stop offset=".65" stop-color="#ffd84d"/><stop offset="1" stop-color="#ff4d3d"/></linearGradient></defs>' +
+        row(52, "Colors") + '<rect x="72" y="42" width="96" height="14" rx="4" fill="url(#gmap)"/>' +
+        row(78, "Blend") + '<rect x="72" y="70" width="70" height="6" rx="3" fill="#e6e6e6"/><rect x="72" y="70" width="34" height="6" rx="3" fill="' + C.sel + '"/><circle cx="106" cy="73" r="5" fill="#fff" stroke="#ccc"/><text x="160" y="77" text-anchor="middle" font-family="' + F + '" font-size="9" fill="' + C.ink + '">3</text>' +
+        row(102, "Clip to layer"), 114) },
+
     // ---- FigJam ----
     // Sticky notes with author names.
     { x: -2, y: 94, w: 5.2, r: -6, d: 62, svg: sticky("#ffd966", ru ? "Идея!" : "Idea!", ru ? "Анна" : "Anna") },
