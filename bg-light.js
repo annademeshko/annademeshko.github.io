@@ -13,7 +13,7 @@
 
   function size() {
     var vmax = Math.max(window.innerWidth, window.innerHeight);
-    return { w: vmax * 0.5, h: vmax * 0.46 };
+    return { w: vmax * 0.34, h: vmax * 0.31 };
   }
 
   function apply() {

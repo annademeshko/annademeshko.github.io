@@ -3120,23 +3120,24 @@ h3,
   --glass-fade: rgba(18, 19, 21, 0);
 }
 html { background: var(--pearl-base); }
-/* Bottom layer: a soft blue light that follows the cursor (bg-light.js sets --light-x/y). */
+/* Bottom layer: a soft blue light that follows the cursor (bg-light.js sets --light-x/y)
+   and slowly cycles through the whole colour wheel. */
 body::before {
   content: "";
   position: fixed;
   z-index: -3;
   top: 0;
   left: 0;
-  width: 50vmax;
-  height: 46vmax;
+  width: 34vmax;
+  height: 31vmax;
   pointer-events: none;
   border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%;
   background:
     radial-gradient(closest-side at 46% 44%, var(--blob-core), var(--blob-mid) 42%, var(--blob-edge) 70%, transparent);
-  filter: blur(24px);
+  filter: blur(20px) saturate(1.25) hue-rotate(0deg);
   will-change: transform;
   transform: translate(var(--light-x, 20vw), var(--light-y, 10vh));
-  animation: blob-morph 9s ease-in-out infinite alternate;
+  animation: blob-morph 9s ease-in-out infinite alternate, blob-hue 40s linear infinite;
 }
 /* Top layer: the former white page, now translucent frosted glass. */
 body::after {
@@ -3148,6 +3149,10 @@ body::after {
   background: var(--glass);
   -webkit-backdrop-filter: blur(48px) saturate(1.15);
   backdrop-filter: blur(48px) saturate(1.15);
+}
+@keyframes blob-hue {
+  from { filter: blur(20px) saturate(1.25) hue-rotate(0deg); }
+  to   { filter: blur(20px) saturate(1.25) hue-rotate(360deg); }
 }
 @keyframes blob-morph {
   0%   { border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%; }
