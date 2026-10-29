@@ -3094,11 +3094,11 @@ h3,
 
 /* ===== Pearl background: an iridescent bottom layer under a frosted, semi-transparent sheet. ===== */
 :root {
-  --pearl-1: #ffb3d6; /* pink */
-  --pearl-2: #c8b8ff; /* lavender */
-  --pearl-3: #a6ecd5; /* mint */
-  --pearl-4: #ffd0a3; /* peach */
-  --pearl-5: #a9d0ff; /* sky */
+  --pearl-1: #ffa6cf; /* pink */
+  --pearl-2: #bba8ff; /* lavender */
+  --pearl-3: #93e8cc; /* mint */
+  --pearl-4: #ffc68f; /* peach */
+  --pearl-5: #98c6ff; /* sky */
   --pearl-base: #f4f0fb;
   --glass: rgba(255, 255, 255, 0.4);
   --glass-fade: rgba(255, 255, 255, 0);
@@ -3159,3 +3159,72 @@ body::after {
 /* Edge fades now fade the glass rather than solid white. */
 .top-fade { background: linear-gradient(180deg, var(--glass) 20%, var(--glass-fade)); }
 .bottom-fade { background: linear-gradient(0deg, var(--glass) 0%, var(--glass-fade)); }
+
+/* Frosted-glass grain: a faint noise texture on the glass sheet. */
+:root {
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-opacity: 0.07;
+}
+[data-theme="dark"] { --grain-opacity: 0.1; }
+body::after {
+  background-image: linear-gradient(var(--glass), var(--glass));
+  background-color: transparent;
+}
+html::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-size: 160px 160px;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: multiply;
+}
+html[data-theme="dark"]::after { mix-blend-mode: screen; }
+
+/* Liquid glass: the contact dock on the home page. */
+.contact-dock {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.16));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 0 18px rgba(255, 255, 255, 0.35),
+    0 12px 32px rgba(60, 40, 120, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.05);
+  -webkit-backdrop-filter: blur(22px) saturate(1.8) brightness(1.05);
+  backdrop-filter: blur(22px) saturate(1.8) brightness(1.05);
+}
+/* Specular highlight across the top half. */
+.contact-dock::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 70% at 30% -10%, rgba(255, 255, 255, 0.75), transparent 55%),
+    linear-gradient(115deg, transparent 55%, rgba(255, 255, 255, 0.22) 62%, transparent 70%);
+}
+[data-theme="dark"] .contact-dock {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 18px rgba(255, 255, 255, 0.05),
+    0 12px 32px rgba(0, 0, 0, 0.35);
+}
+[data-theme="dark"] .contact-dock::before {
+  background:
+    radial-gradient(120% 70% at 30% -10%, rgba(255, 255, 255, 0.18), transparent 55%),
+    linear-gradient(115deg, transparent 55%, rgba(255, 255, 255, 0.06) 62%, transparent 70%);
+}
+@media (max-width: 640px) {
+  .contact-dock, [data-theme="dark"] .contact-dock { border: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .contact-dock::before { display: none; }
+}
