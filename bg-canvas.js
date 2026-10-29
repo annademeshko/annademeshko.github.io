@@ -1,54 +1,89 @@
-// Designer canvas under the frosted glass: oversized design-tool objects
-// (cursor, Bézier curve, selection frame, sticky notes, component, frame label,
-// spacing redline) drift slowly behind the page. The whole layer shifts a little
-// toward the mouse for a soft parallax.
+// Designer canvas under the frosted glass: small Figma-style UI pieces
+// (selection with size badge, multiplayer cursors, comment pin, component set,
+// prototype noodle, redlines, auto-layout, toolbar, layers, colour swatches,
+// vector nodes) drift slowly behind the page. The layer shifts a little toward
+// the mouse for a soft parallax.
 (function () {
   var ru = (document.documentElement.lang || "").indexOf("ru") === 0;
-  var C = { blue: "#0d99ff", purple: "#9747ff", coral: "#ff6a55", green: "#14ae5c", yellow: "#ffcd29", pink: "#ff8fd0", ink: "#1d1e21" };
+  var F = "Inter,-apple-system,BlinkMacSystemFont,sans-serif";
+  var C = { sel: "#0d99ff", comp: "#9747ff", red: "#f24822", green: "#14ae5c", yellow: "#ffcd29", pink: "#ff24bd", ink: "#1e1e1e", grey: "#b3b3b3" };
+
+  function handles(pts, col) {
+    return pts.map(function (p) {
+      return '<rect x="' + (p[0] - 4) + '" y="' + (p[1] - 4) + '" width="8" height="8" fill="#fff" stroke="' + col + '" stroke-width="1.5"/>';
+    }).join("");
+  }
+  function cursor(col, name, w) {
+    return '<svg viewBox="0 0 ' + (w + 30) + ' 46"><path d="M2 2 L2 26 L8.5 20 L13 30 L17 28.2 L12.6 18.4 L21 18.4 Z" fill="' + col + '" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>' +
+      '<rect x="16" y="24" width="' + w + '" height="20" rx="5" fill="' + col + '"/><text x="' + (16 + w / 2) + '" y="38" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="600" fill="#fff">' + name + "</text></svg>";
+  }
 
   var objects = [
-    // Selection frame with handles and a size badge.
-    { x: 8, y: 10, w: 34, r: -4, d: 34, svg:
-      '<svg viewBox="0 0 340 220"><rect x="10" y="10" width="320" height="180" fill="' + C.blue + '" fill-opacity=".08" stroke="' + C.blue + '" stroke-width="3"/>' +
-      [[10,10],[330,10],[10,190],[330,190],[170,10],[170,190],[10,100],[330,100]].map(function (p) {
-        return '<rect x="' + (p[0]-7) + '" y="' + (p[1]-7) + '" width="14" height="14" fill="#fff" stroke="' + C.blue + '" stroke-width="3"/>';
-      }).join("") +
-      '<rect x="122" y="202" width="96" height="18" rx="4" fill="' + C.blue + '"/><text x="170" y="215.5" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#fff">1440 × 900</text></svg>' },
+    // Selection with handles and the blue size badge.
+    { x: 6, y: 12, w: 15, r: 0, d: 34, svg:
+      '<svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="110" fill="' + C.sel + '" fill-opacity=".06" stroke="' + C.sel + '" stroke-width="1.5"/>' +
+      handles([[10, 10], [190, 10], [10, 120], [190, 120]], C.sel) +
+      '<rect x="62" y="128" width="76" height="18" rx="3" fill="' + C.sel + '"/><text x="100" y="141" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="500" fill="#fff">1440 × 900</text></svg>' },
 
-    // Bézier curve with control handles.
-    { x: 62, y: 8, w: 30, r: 6, d: 40, svg:
-      '<svg viewBox="0 0 300 200"><path d="M20 160 C 90 20, 200 20, 280 140" fill="none" stroke="' + C.purple + '" stroke-width="5" stroke-linecap="round"/>' +
-      '<path d="M20 160 L90 20 M280 140 L200 20" stroke="' + C.purple + '" stroke-width="2" stroke-dasharray="6 6"/>' +
-      '<circle cx="90" cy="20" r="9" fill="#fff" stroke="' + C.purple + '" stroke-width="3"/><circle cx="200" cy="20" r="9" fill="#fff" stroke="' + C.purple + '" stroke-width="3"/>' +
-      '<rect x="10" y="150" width="20" height="20" fill="' + C.purple + '"/><rect x="270" y="130" width="20" height="20" fill="' + C.purple + '"/></svg>' },
+    // Multiplayer cursors.
+    { x: 74, y: 58, w: 7.5, r: -4, d: 26, svg: cursor(C.pink, ru ? "Анна" : "Anna", 46) },
+    { x: 20, y: 46, w: 7.5, r: 4, d: 30, svg: cursor(C.green, "Dev", 34) },
+    { x: 58, y: 16, w: 7.5, r: -2, d: 36, svg: cursor("#ff8c00", "PM", 30) },
 
-    // Big cursor with a name tag.
-    { x: 70, y: 52, w: 16, r: -8, d: 28, svg:
-      '<svg viewBox="0 0 160 150"><path d="M10 6 L10 96 L34 74 L52 116 L70 108 L52 66 L86 66 Z" fill="' + C.coral + '" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>' +
-      '<rect x="62" y="102" width="92" height="34" rx="17" fill="' + C.coral + '"/><text x="108" y="125" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="600" fill="#fff">' + (ru ? "Анна" : "Anna") + '</text></svg>' },
+    // Comment pin.
+    { x: 92, y: 50, w: 4, r: 0, d: 28, svg:
+      '<svg viewBox="0 0 48 52"><path d="M24 2 C36 2 46 12 46 24 C46 36 36 46 24 46 L4 46 L4 24 C4 12 12 2 24 2 Z" fill="#fff" stroke="#e6e6e6" stroke-width="1.5"/>' +
+      '<circle cx="25" cy="24" r="14" fill="' + C.comp + '"/><text x="25" y="29" text-anchor="middle" font-family="' + F + '" font-size="13" font-weight="700" fill="#fff">' + (ru ? "А" : "A") + "</text></svg>" },
 
-    // Sticky notes.
-    { x: 12, y: 58, w: 15, r: 7, d: 36, svg:
-      '<svg viewBox="0 0 150 150"><rect x="6" y="6" width="138" height="138" rx="6" fill="' + C.yellow + '"/><path d="M28 48 H118 M28 74 H104 M28 100 H86" stroke="' + C.ink + '" stroke-opacity=".35" stroke-width="8" stroke-linecap="round"/></svg>' },
-    { x: 28, y: 70, w: 12, r: -10, d: 44, svg:
-      '<svg viewBox="0 0 150 150"><rect x="6" y="6" width="138" height="138" rx="6" fill="' + C.pink + '"/><path d="M28 52 H118 M28 80 H96" stroke="' + C.ink + '" stroke-opacity=".3" stroke-width="8" stroke-linecap="round"/></svg>' },
+    // Component set: purple dashed frame with two variants.
+    { x: 34, y: 74, w: 14, r: 2, d: 40, svg:
+      '<svg viewBox="0 0 190 120"><path d="M10 10 l6 -6 l6 6 l-6 6 z M24 10 l6 -6 l6 6 l-6 6 z" fill="' + C.comp + '" transform="translate(0 2)"/><text x="42" y="16" font-family="' + F + '" font-size="11" font-weight="500" fill="' + C.comp + '">Button</text>' +
+      '<rect x="6" y="24" width="178" height="90" rx="6" fill="none" stroke="' + C.comp + '" stroke-width="1.5" stroke-dasharray="5 4"/>' +
+      '<rect x="22" y="48" width="66" height="28" rx="8" fill="' + C.ink + '"/><text x="55" y="66" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="600" fill="#fff">Primary</text>' +
+      '<rect x="102" y="48" width="66" height="28" rx="8" fill="#fff" stroke="' + C.ink + '" stroke-opacity=".2"/><text x="135" y="66" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="600" fill="' + C.ink + '">Ghost</text></svg>' },
 
-    // Component diamond.
-    { x: 46, y: 40, w: 9, r: 0, d: 30, svg:
-      '<svg viewBox="0 0 100 100"><g transform="rotate(45 50 50)" fill="' + C.purple + '"><rect x="20" y="20" width="26" height="26" rx="3"/><rect x="54" y="20" width="26" height="26" rx="3"/><rect x="20" y="54" width="26" height="26" rx="3"/><rect x="54" y="54" width="26" height="26" rx="3"/></g></svg>' },
+    // Prototype noodle.
+    { x: 60, y: 76, w: 12, r: 0, d: 32, svg:
+      '<svg viewBox="0 0 160 80"><circle cx="10" cy="64" r="6" fill="#fff" stroke="' + C.sel + '" stroke-width="2"/><path d="M16 64 C70 64 70 16 140 16" fill="none" stroke="' + C.sel + '" stroke-width="2.5"/><path d="M134 9 L148 16 L134 23 Z" fill="' + C.sel + '"/></svg>' },
 
-    // Frame label + empty frame.
-    { x: 40, y: 78, w: 24, r: 3, d: 38, svg:
-      '<svg viewBox="0 0 240 170"><text x="2" y="16" font-family="Inter,sans-serif" font-size="15" font-weight="500" fill="' + C.ink + '" fill-opacity=".55"># Frame 1</text><rect x="2" y="26" width="236" height="142" rx="4" fill="#fff" stroke="' + C.ink + '" stroke-opacity=".18" stroke-width="2"/>' +
-      '<rect x="20" y="44" width="120" height="14" rx="7" fill="' + C.ink + '" fill-opacity=".14"/><rect x="20" y="68" width="200" height="56" rx="8" fill="' + C.green + '" fill-opacity=".5"/><rect x="20" y="134" width="86" height="22" rx="11" fill="' + C.blue + '"/></svg>' },
+    // Redline spacing.
+    { x: 82, y: 34, w: 7, r: 0, d: 30, svg:
+      '<svg viewBox="0 0 90 40"><path d="M4 12 V34 M86 12 V34 M4 23 H86" stroke="' + C.red + '" stroke-width="1.5"/><rect x="32" y="2" width="26" height="15" rx="3" fill="' + C.red + '"/><text x="45" y="13" text-anchor="middle" font-family="' + F + '" font-size="10" font-weight="600" fill="#fff">24</text></svg>' },
 
-    // Spacing redline.
-    { x: 84, y: 26, w: 12, r: 90, d: 32, svg:
-      '<svg viewBox="0 0 120 50"><path d="M6 10 V40 M114 10 V40 M6 25 H114" stroke="' + C.coral + '" stroke-width="3"/><rect x="40" y="2" width="40" height="18" rx="4" fill="' + C.coral + '"/><text x="60" y="15.5" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">24</text></svg>' },
+    // Auto-layout tile with pink padding hint.
+    { x: 8, y: 66, w: 10, r: -3, d: 38, svg:
+      '<svg viewBox="0 0 130 90"><rect x="4" y="4" width="122" height="82" rx="8" fill="#fff" stroke="' + C.sel + '" stroke-width="1.5"/>' +
+      '<rect x="4" y="4" width="122" height="12" fill="' + C.pink + '" fill-opacity=".14"/><rect x="18" y="26" width="94" height="14" rx="4" fill="' + C.ink + '" fill-opacity=".14"/><rect x="18" y="48" width="70" height="14" rx="4" fill="' + C.ink + '" fill-opacity=".09"/>' +
+      '<path d="M65 16 V26" stroke="' + C.pink + '" stroke-width="1.5"/></svg>' },
 
-    // Pen-tool circle.
+    // Bottom toolbar.
+    { x: 72, y: 90, w: 16, r: 0, d: 44, svg:
+      '<svg viewBox="0 0 220 44"><rect x="2" y="2" width="216" height="40" rx="12" fill="#fff" stroke="#e6e6e6"/>' +
+      '<rect x="10" y="8" width="28" height="28" rx="7" fill="' + C.sel + '"/><path d="M19 14 L19 30 L23 26 L26 32 L28.6 31 L25.8 25 L31 25 Z" fill="#fff"/>' +
+      '<path d="M54 14 H72 M54 30 H72 M58 10 V34 M68 10 V34" stroke="' + C.ink + '" stroke-width="1.8"/>' +
+      '<rect x="88" y="13" width="18" height="18" rx="2" fill="none" stroke="' + C.ink + '" stroke-width="1.8"/>' +
+      '<path d="M124 31 L131 13 L138 31 M126.5 25 H135.5" fill="none" stroke="' + C.ink + '" stroke-width="1.8"/>' +
+      '<path d="M156 32 L160 14 L170 24 Z" fill="none" stroke="' + C.ink + '" stroke-width="1.8" stroke-linejoin="round"/>' +
+      '<path d="M186 15 H204 M195 15 V31" stroke="' + C.ink + '" stroke-width="1.8"/></svg>' },
+
+    // Layers panel snippet.
     { x: 2, y: 34, w: 10, r: 0, d: 42, svg:
-      '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="' + C.green + '" fill-opacity=".85"/><circle cx="50" cy="12" r="6" fill="#fff" stroke="' + C.blue + '" stroke-width="3"/><circle cx="88" cy="50" r="6" fill="#fff" stroke="' + C.blue + '" stroke-width="3"/><circle cx="50" cy="88" r="6" fill="#fff" stroke="' + C.blue + '" stroke-width="3"/><circle cx="12" cy="50" r="6" fill="#fff" stroke="' + C.blue + '" stroke-width="3"/></svg>' }
+      '<svg viewBox="0 0 130 92"><rect x="1" y="1" width="128" height="90" rx="8" fill="#fff" stroke="#e6e6e6"/>' +
+      '<text x="12" y="20" font-family="' + F + '" font-size="10" font-weight="600" fill="' + C.ink + '">Layers</text>' +
+      '<path d="M12 36 h8 v8 h-8 z" fill="none" stroke="' + C.ink + '" stroke-width="1.2"/><text x="26" y="43" font-family="' + F + '" font-size="10" fill="' + C.ink + '">Home</text>' +
+      '<rect x="6" y="50" width="118" height="16" rx="3" fill="' + C.sel + '" fill-opacity=".14"/><path d="M22 54 l4 4 l-4 4 l-4 -4 z" fill="' + C.comp + '"/><text x="32" y="62" font-family="' + F + '" font-size="10" fill="' + C.ink + '">Button</text>' +
+      '<text x="22" y="82" font-family="' + F + '" font-size="12" font-weight="700" fill="' + C.ink + '" fill-opacity=".6">T</text><text x="32" y="81" font-family="' + F + '" font-size="10" fill="' + C.ink + '">Title</text></svg>' },
+
+    // Colour swatches.
+    { x: 88, y: 76, w: 7, r: 4, d: 34, svg:
+      '<svg viewBox="0 0 92 30">' + [C.sel, C.comp, C.pink, C.yellow, C.green].map(function (c, i) {
+        return '<circle cx="' + (14 + i * 16) + '" cy="15" r="11" fill="' + c + '" stroke="#fff" stroke-width="2"/>';
+      }).join("") + "</svg>" },
+
+    // Vector path with nodes.
+    { x: 70, y: 2, w: 9, r: 0, d: 40, svg:
+      '<svg viewBox="0 0 120 80"><path d="M8 66 C30 10, 60 10, 70 40 S 104 70, 112 14" fill="none" stroke="' + C.sel + '" stroke-width="1.5"/>' +
+      handles([[8, 66], [70, 40], [112, 14]], C.sel) + '<circle cx="45" cy="12" r="3" fill="' + C.sel + '"/><path d="M45 12 L70 40" stroke="' + C.sel + '" stroke-width="1" stroke-dasharray="3 3"/></svg>' }
   ];
 
   var layer = document.createElement("div");
@@ -56,7 +91,7 @@
   layer.setAttribute("aria-hidden", "true");
   layer.innerHTML = objects.map(function (o, i) {
     return '<div class="bg-obj" style="left:' + o.x + '%;top:' + o.y + '%;--w:' + o.w + ';' +
-      '--r:' + o.r + 'deg;--d:' + o.d + 's;--delay:-' + (i * 3.7).toFixed(1) + 's">' + o.svg + "</div>";
+      '--r:' + o.r + 'deg;--d:' + o.d + 's;--delay:-' + (i * 3.1).toFixed(1) + 's">' + o.svg + "</div>";
   }).join("");
   document.body.insertBefore(layer, document.body.firstChild);
 
@@ -65,8 +100,8 @@
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   var x = 0, y = 0, tx = 0, ty = 0;
   window.addEventListener("pointermove", function (e) {
-    tx = (e.clientX / window.innerWidth - 0.5) * 36;
-    ty = (e.clientY / window.innerHeight - 0.5) * 28;
+    tx = (e.clientX / window.innerWidth - 0.5) * 30;
+    ty = (e.clientY / window.innerHeight - 0.5) * 22;
   }, { passive: true });
   (function frame() {
     x += (tx - x) * 0.05; y += (ty - y) * 0.05;

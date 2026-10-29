@@ -3235,7 +3235,7 @@ html[data-theme="dark"]::after { mix-blend-mode: screen; }
 
 /* ===== Designer-canvas variant (bg-canvas.js): replaces the cursor light. ===== */
 body::before { display: none; }
-:root { --glass-blur: 14px; --glass: rgba(255, 255, 255, 0.46); }
+:root { --glass-blur: 1.6px; --glass: rgba(255, 255, 255, 0.4); }
 [data-theme="dark"] { --glass: rgba(18, 19, 21, 0.6); }
 body::after {
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
@@ -3260,6 +3260,6 @@ body::after {
   66%  { transform: translate(-2vw, 3vh) rotate(calc(var(--r) - 3deg)); }
   100% { transform: translate(2.5vw, 1.5vh) rotate(calc(var(--r) + 2deg)); }
 }
-[data-theme="dark"] .bg-obj { filter: brightness(0.85); }
-@media (max-width: 640px) { .bg-obj { width: calc(var(--w) * 1.6vw); } :root { --glass-blur: 7px; } }
+[data-theme="dark"] .bg-obj { filter: brightness(0.8); opacity: .8; }
+@media (max-width: 640px) { .bg-obj { width: calc(var(--w) * 1.9vw); } :root { --glass-blur: 1.2px; } }
 @media (prefers-reduced-motion: reduce) { .bg-obj { animation: none; } }
