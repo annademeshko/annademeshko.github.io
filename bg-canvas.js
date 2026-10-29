@@ -1,7 +1,8 @@
 // Designer canvas under the frosted glass: small Figma-style UI pieces
 // (selection with size badge, multiplayer cursors, comment pin, component set,
 // prototype noodle, redlines, auto-layout, toolbar, layers, colour swatches,
-// vector nodes, Motion / Weave / generative-plugin / shader panels) drift slowly behind the page. The layer shifts a little toward
+// vector nodes, Motion / Weave / generative-plugin / shader panels) drift slowly behind the page,
+// and the collaborator cursors pick them up and drag them around. The layer shifts a little toward
 // the mouse for a soft parallax.
 (function () {
   var ru = (document.documentElement.lang || "").indexOf("ru") === 0;
@@ -191,19 +192,64 @@
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  // Collaborator cursors wander on their own: pick a spot, glide there, pause, repeat.
+  // Collaborator cursors move the canvas pieces around: glide to a piece, grab it
+  // (selection in the cursor's colour), drag it slowly to a free spot on the side
+  // bands, let go, rest, pick another one.
+  var COLORS = { "Анна": C.pink, "Anna": C.pink, "Dev": C.green, "PM": "#ff8c00" };
+  var pieces = Array.prototype.filter.call(layer.querySelectorAll(".bg-obj"), function (el) {
+    return !el.classList.contains("bg-obj--cursor") && !el.classList.contains("bg-obj--extra");
+  }).map(function (el) { return { el: el, dx: 0, dy: 0, busy: false }; });
+
   var cursors = Array.prototype.map.call(layer.querySelectorAll(".bg-obj--cursor"), function (el) {
-    return { el: el, x: 0, y: 0, tx: 0, ty: 0, wait: Math.random() * 1500, speed: 0.005 + Math.random() * 0.004, phase: Math.random() * 6 };
+    var name = (el.textContent || "").trim();
+    return { el: el, color: COLORS[name] || C.sel, x: 0, y: 0, tx: 0, ty: 0, state: "rest",
+             wait: 600 + Math.random() * 2500, piece: null, gx: 0, gy: 0, pdx: 0, pdy: 0, phase: Math.random() * 6 };
   });
-  function pick(c) {
-    var w = window.innerWidth, h = window.innerHeight;
+
+  function base(c) {               // cursor tip position with no offset
     var r = c.el.getBoundingClientRect();
-    var baseX = r.left - c.x, baseY = r.top - c.y;            // where the cursor sits with no offset
-    var nx = w * (0.18 + Math.random() * 0.64), ny = h * (0.12 + Math.random() * 0.72);
-    c.tx = nx - baseX; c.ty = ny - baseY;
-    c.speed = 0.0045 + Math.random() * 0.005;
+    return { x: r.left - c.x, y: r.top - c.y };
   }
-  cursors.forEach(pick);
+  function visible(r) {
+    return r.right > 0 && r.left < window.innerWidth && r.bottom > 40 && r.top < window.innerHeight - 40;
+  }
+  function choosePiece() {
+    var free = pieces.filter(function (p) { return !p.busy && visible(p.el.getBoundingClientRect()); });
+    return free.length ? free[Math.floor(Math.random() * free.length)] : null;
+  }
+  function wanderTo(c) {           // no free piece: just drift somewhere
+    var b = base(c), w = window.innerWidth, h = window.innerHeight;
+    c.tx = w * (0.15 + Math.random() * 0.7) - b.x; c.ty = h * (0.12 + Math.random() * 0.7) - b.y;
+  }
+  function startFetch(c) {
+    var p = choosePiece();
+    if (!p) { c.state = "wander"; wanderTo(c); return; }
+    p.busy = true; c.piece = p;
+    var r = p.el.getBoundingClientRect(), b = base(c);
+    // grab near the piece's top-left area, like picking up a frame by its edge
+    c.tx = r.left + r.width * (0.25 + Math.random() * 0.3) - b.x;
+    c.ty = r.top + r.height * (0.2 + Math.random() * 0.3) - b.y;
+    c.state = "fetch";
+  }
+  function startDrag(c) {
+    var p = c.piece, r = p.el.getBoundingClientRect(), w = window.innerWidth, h = window.innerHeight;
+    // destination: a side band, so pieces don't park under the text column
+    var left = Math.random() < 0.5;
+    var nx = left ? w * (0.02 + Math.random() * 0.24) : w * (0.68 + Math.random() * 0.26) - r.width * 0.4;
+    var ny = h * (0.1 + Math.random() * 0.55);
+    var ddx = nx - r.left, ddy = ny - r.top;
+    var len = Math.hypot(ddx, ddy), max = Math.min(w, h) * 0.35;  // keep moves modest
+    if (len > max) { ddx *= max / len; ddy *= max / len; }
+    c.gx = c.x; c.gy = c.y; c.pdx = p.dx; c.pdy = p.dy;
+    c.tx = c.x + ddx; c.ty = c.y + ddy;
+    p.el.style.setProperty("--grab", c.color);
+    p.el.classList.add("is-grabbed");
+    c.state = "drag";
+  }
+  function release(c) {
+    if (c.piece) { c.piece.el.classList.remove("is-grabbed"); c.piece.busy = false; c.piece = null; }
+  }
+  cursors.forEach(function (c) { wanderTo(c); c.state = "wander"; });
 
   // Gentle parallax of the whole layer toward the mouse.
   var px = 0, py = 0, ptx = 0, pty = 0;
@@ -219,16 +265,30 @@
   (function frame(now) {
     var dt = Math.min(64, now - last); last = now;
     cursors.forEach(function (c) {
-      var dx = c.tx - c.x, dy = c.ty - c.y;
-      if (Math.abs(dx) + Math.abs(dy) < 2) {
+      var dx = c.tx - c.x, dy = c.ty - c.y, arrived = Math.abs(dx) + Math.abs(dy) < 2;
+      if (!arrived) {
+        // steady glide that eases in near the target (px per second)
+        var dist = Math.hypot(dx, dy), vmax = c.state === "drag" ? 70 : 110;
+        var v = Math.max(18, Math.min(vmax, dist * 1.6)), step = Math.min(dist, v * dt / 1000);
+        c.x += dx / dist * step; c.y += dy / dist * step;
+      }
+      if (c.state === "drag" && c.piece) {            // the piece follows the cursor
+        c.piece.dx = c.pdx + (c.x - c.gx); c.piece.dy = c.pdy + (c.y - c.gy);
+        c.piece.el.style.translate = c.piece.dx.toFixed(1) + "px " + c.piece.dy.toFixed(1) + "px";
+      }
+      if (arrived) {
         c.wait -= dt;
-        if (c.wait <= 0) { pick(c); c.wait = 1500 + Math.random() * 3000; }
-      } else {
-        var k = 1 - Math.pow(1 - c.speed, dt / 16.7);
-        c.x += dx * k; c.y += dy * k;
+        if (c.state === "fetch") { c.state = "grab"; c.wait = 500; }
+        else if (c.state === "grab" && c.wait <= 0) startDrag(c);
+        else if (c.state === "drag") { c.state = "drop"; c.wait = 450; }
+        else if (c.state === "drop" && c.wait <= 0) { release(c); c.state = "rest"; c.wait = 1200 + Math.random() * 2500; }
+        else if ((c.state === "rest" || c.state === "wander") && c.wait <= 0) startFetch(c);
+      }
+      if (c.state === "grab" && c.piece && !c.piece.el.classList.contains("is-grabbed")) {
+        c.piece.el.style.setProperty("--grab", c.color); c.piece.el.classList.add("is-grabbed");
       }
       c.phase += dt / 1500;
-      var wob = Math.sin(c.phase) * 3;
+      var wob = c.state === "drag" || c.state === "grab" ? 0 : Math.sin(c.phase) * 3;
       c.el.style.transform = "translate(" + c.x.toFixed(1) + "px," + (c.y + wob).toFixed(1) + "px) rotate(var(--r))";
     });
     px += (ptx - px) * 0.05; py += (pty - py) * 0.05;

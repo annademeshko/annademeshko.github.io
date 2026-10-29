@@ -3300,3 +3300,9 @@ body::after {
   .works .case-link, .works .case-link * { cursor: var(--fig-cursor-case); }
   .cursor-tooltip { display: none !important; }
 }
+
+/* A canvas piece being dragged by a collaborator cursor: selection in that cursor's colour. */
+.bg-obj > svg { transition: outline-color 160ms ease; outline: 1.5px solid transparent; outline-offset: 3px; border-radius: 4px; }
+.bg-obj.is-grabbed > svg { outline-color: var(--grab, #0d99ff); }
+.bg-obj.is-grabbed { z-index: 1; }
+.bg-obj--cursor { z-index: 2; }
