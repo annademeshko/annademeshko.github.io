@@ -420,40 +420,37 @@ html :is(
 }
 
 
-/* remate cover, light theme: the light video plays as is (phones stay opaque) and a
-   canvas overlay multiplies the dot grid onto the white background only — the three
-   phones are cut out of the overlay with a mask. Dark theme keeps the dark video. */
-html:not([data-theme="dark"]) .case-cover:has(> .remate-cover-video) {
-  position: relative;
-  display: block;
-  border-radius: 12px;
-}
-html:not([data-theme="dark"]) .case-cover:has(> .remate-cover-video)::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  border-radius: 12px;
-  background-color: var(--canvas-bg);
-  background-image: radial-gradient(circle, var(--canvas-dot) 1.1px, transparent 1.4px);
-  background-size: var(--canvas-step) var(--canvas-step);
-  background-position: calc(var(--canvas-step) / 2) calc(var(--canvas-step) / 2);
-  box-shadow: inset 0 0 0 1px var(--canvas-edge);
-  mix-blend-mode: multiply;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' d='M0 0H1600V900H0Z M563 118H781A48 48 0 0 1 829 166V734A48 48 0 0 1 781 782H563A48 48 0 0 1 515 734V166A48 48 0 0 1 563 118Z M921 118H1140A48 48 0 0 1 1188 166V734A48 48 0 0 1 1140 782H921A48 48 0 0 1 873 734V166A48 48 0 0 1 921 118Z M1280 118H1501A48 48 0 0 1 1549 166V734A48 48 0 0 1 1501 782H1280A48 48 0 0 1 1232 734V166A48 48 0 0 1 1280 118Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' d='M0 0H1600V900H0Z M563 118H781A48 48 0 0 1 829 166V734A48 48 0 0 1 781 782H563A48 48 0 0 1 515 734V166A48 48 0 0 1 563 118Z M921 118H1140A48 48 0 0 1 1188 166V734A48 48 0 0 1 1140 782H921A48 48 0 0 1 873 734V166A48 48 0 0 1 921 118Z M1280 118H1501A48 48 0 0 1 1549 166V734A48 48 0 0 1 1501 782H1280A48 48 0 0 1 1232 734V166A48 48 0 0 1 1280 118Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-}
+/* remate cover, light theme: the video itself has the dot canvas baked into its
+   background (cover-light-dots.mp4), so the phones stay fully opaque in every frame. */
+html .case-cover:has(> .remate-cover-video) { display: block; border-radius: 12px; }
+html:not([data-theme="dark"]) .remate-cover-video { background: #f5f5f5; }
 
-/* Figma-style selection on hover: a thin blue frame around the case or concept surface. */
-:is(.case-texture-frame, .case-cover:has(> .remate-cover-video), .concept-marquee__tile, .concept-card) {
+/* Figma-style selection on hover: a thin blue frame around the case or concept surface.
+   Concepts use an inset outline; case covers get an overlay layer on top, because
+   their images/videos sit in their own layers and would paint over an outline. */
+:is(.concept-marquee__tile, .concept-card) {
   outline: 1.5px solid transparent;
-  outline-offset: 0;
+  outline-offset: -1.5px;
   transition: outline-color 140ms ease;
 }
-.case-link:hover :is(.case-texture-frame, .case-cover:has(> .remate-cover-video)),
-.case-link:focus-visible :is(.case-texture-frame, .case-cover:has(> .remate-cover-video)),
 .concept-marquee__tile:hover,
 .concept-card:hover {
   outline-color: #0d99ff;
+}
+.case-link :is(.case-texture-frame, .case-cover:has(> .remate-cover-video)) { position: relative; }
+.case-link :is(.case-texture-frame, .case-cover:has(> .remate-cover-video))::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1.5px #0d99ff;
+  background: none;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+.case-link:hover :is(.case-texture-frame, .case-cover:has(> .remate-cover-video))::after,
+.case-link:focus-visible :is(.case-texture-frame, .case-cover:has(> .remate-cover-video))::after {
+  opacity: 1;
 }
