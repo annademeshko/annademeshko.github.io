@@ -1,5 +1,5 @@
 // Two pixel effects shared by every page:
-// 1. A trail of multicoloured pixels that light up under the cursor and fade out.
+// 1. (Off) A trail of multicoloured pixels under the cursor — initTrail() is no longer called.
 // 2. The profile photo shows as shimmering pixels and turns back into the photo on hover.
 (function () {
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -216,7 +216,7 @@
   }
 
   function init() {
-    initTrail();
+    // Cursor pixel trail switched off.
     initPhoto();
   }
 
