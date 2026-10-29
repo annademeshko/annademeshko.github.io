@@ -3099,7 +3099,10 @@ h3,
   --pearl-3: #93e8cc; /* mint */
   --pearl-4: #ffc68f; /* peach */
   --pearl-5: #98c6ff; /* sky */
-  --pearl-base: #f4f0fb;
+  --pearl-base: #f3f5fa;
+  --blob-core: #2f6bff;
+  --blob-mid: rgba(70, 130, 255, 0.85);
+  --blob-edge: rgba(130, 180, 255, 0.35);
   --glass: rgba(255, 255, 255, 0.4);
   --glass-fade: rgba(255, 255, 255, 0);
 }
@@ -3109,29 +3112,32 @@ h3,
   --pearl-3: #13505a;
   --pearl-4: #5a3a2a;
   --pearl-5: #1d4078;
-  --pearl-base: #15151c;
+  --pearl-base: #111216;
+  --blob-core: #2a5cff;
+  --blob-mid: rgba(40, 90, 230, 0.75);
+  --blob-edge: rgba(40, 80, 200, 0.25);
   --glass: rgba(18, 19, 21, 0.52);
   --glass-fade: rgba(18, 19, 21, 0);
 }
 html { background: var(--pearl-base); }
-/* Bottom layer: five colour blobs, each drifting on its own path. */
+/* Bottom layer: a single soft blue blob floating around behind the glass. */
 body::before {
   content: "";
   position: fixed;
   z-index: -3;
-  inset: -15%;
+  top: 0;
+  left: 0;
+  width: 62vmax;
+  height: 56vmax;
   pointer-events: none;
-  background-color: var(--pearl-base);
-  background-image:
-    radial-gradient(closest-side, var(--pearl-1), transparent),
-    radial-gradient(closest-side, var(--pearl-5), transparent),
-    radial-gradient(closest-side, var(--pearl-3), transparent),
-    radial-gradient(closest-side, var(--pearl-4), transparent),
-    radial-gradient(closest-side, var(--pearl-2), transparent);
-  background-size: 62% 62%, 66% 66%, 64% 64%, 58% 58%, 72% 72%;
-  background-repeat: no-repeat;
-  background-position: 10% 15%, 90% 10%, 80% 90%, 15% 85%, 50% 50%;
-  animation: pearl-blobs 16s ease-in-out infinite alternate, pearl-turn 40s ease-in-out infinite alternate;
+  border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%;
+  background:
+    radial-gradient(closest-side at 42% 40%, var(--blob-core), var(--blob-mid) 45%, var(--blob-edge) 72%, transparent);
+  filter: blur(24px);
+  will-change: transform;
+  animation:
+    blob-fly 26s ease-in-out infinite alternate,
+    blob-morph 9s ease-in-out infinite alternate;
 }
 /* Top layer: the former white page, now translucent frosted glass. */
 body::after {
@@ -3144,16 +3150,18 @@ body::after {
   -webkit-backdrop-filter: blur(48px) saturate(1.15);
   backdrop-filter: blur(48px) saturate(1.15);
 }
-@keyframes pearl-blobs {
-  0%   { background-position: 10% 15%, 90% 10%, 80% 90%, 15% 85%, 50% 50%; }
-  25%  { background-position: 35% 5%,  70% 35%, 95% 60%, 5% 55%,  35% 70%; }
-  50%  { background-position: 60% 25%, 45% 5%,  60% 95%, 30% 95%, 65% 35%; }
-  75%  { background-position: 25% 45%, 95% 55%, 40% 70%, 70% 80%, 45% 20%; }
-  100% { background-position: 5% 70%,  65% 20%, 90% 40%, 45% 60%, 70% 65%; }
+@keyframes blob-fly {
+  0%   { transform: translate(-18vmax, -14vmax) rotate(0deg) scale(1); }
+  20%  { transform: translate(38vw, -6vmax) rotate(40deg) scale(1.12); }
+  40%  { transform: translate(62vw, 34vh) rotate(90deg) scale(0.92); }
+  60%  { transform: translate(18vw, 58vh) rotate(150deg) scale(1.08); }
+  80%  { transform: translate(-14vmax, 26vh) rotate(210deg) scale(0.96); }
+  100% { transform: translate(30vw, 12vh) rotate(260deg) scale(1.1); }
 }
-@keyframes pearl-turn {
-  from { transform: rotate(-6deg) scale(1.02); }
-  to   { transform: rotate(8deg) scale(1.08); }
+@keyframes blob-morph {
+  0%   { border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%; }
+  50%  { border-radius: 60% 40% 38% 62% / 40% 62% 38% 60%; }
+  100% { border-radius: 38% 62% 54% 46% / 58% 38% 62% 42%; }
 }
 @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
 /* Edge fades now fade the glass rather than solid white. */
