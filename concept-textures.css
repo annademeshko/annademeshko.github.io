@@ -378,3 +378,58 @@
   mix-blend-mode: screen;
   opacity: .52;
 }
+/* Light theme: light-grey surfaces with the same fibrous grain (inverted so the
+   fibres read as soft grey on the pale card). Dark theme keeps the black surface. */
+html:not([data-theme="dark"]) :is(
+  .concept-marquee__tile,
+  .concept-marquee__tile[data-palette],
+  .concept-marquee__tile[data-surface],
+  .concept-card,
+  .concept-card[data-palette],
+  .concept-card[data-surface],
+  .case-link .case-texture-frame,
+  .case-link[aria-label] .case-texture-frame
+) {
+  background: linear-gradient(135deg, #f1f1ef, #e7e7e4 55%, #eeeeec);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+html:not([data-theme="dark"]) :is(
+  .concept-marquee__tile,
+  .concept-marquee__tile[data-palette],
+  .concept-marquee__tile[data-surface],
+  .concept-card,
+  .concept-card[data-palette],
+  .concept-card[data-surface],
+  .case-link .case-texture-frame,
+  .case-link[aria-label] .case-texture-frame
+)::before {
+  filter: invert(1);
+  mix-blend-mode: multiply;
+  opacity: 0.38;
+}
+/* remate cover: in light theme the white-background video multiplies onto the grey textured frame. */
+html:not([data-theme="dark"]) .case-cover:has(> .remate-cover-video) {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f1f1ef, #e7e7e4 55%, #eeeeec);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+html:not([data-theme="dark"]) .case-cover:has(> .remate-cover-video)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('/assets/textures/fibrous-grain.webp') repeat;
+  background-size: 640px 640px;
+  filter: invert(1);
+  mix-blend-mode: multiply;
+  opacity: 0.38;
+}
+html:not([data-theme="dark"]) .remate-cover-video {
+  background: transparent;
+  mix-blend-mode: multiply;
+}
