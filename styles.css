@@ -3091,3 +3091,62 @@ h3,
   .np-tip { transition: none; }
   .np-window { overflow-x: auto; }
 }
+
+/* ===== Pearl background: an iridescent bottom layer under a frosted, semi-transparent sheet. ===== */
+:root {
+  --pearl-1: #ffb3d6; /* pink */
+  --pearl-2: #c8b8ff; /* lavender */
+  --pearl-3: #a6ecd5; /* mint */
+  --pearl-4: #ffd0a3; /* peach */
+  --pearl-5: #a9d0ff; /* sky */
+  --pearl-base: #f4f0fb;
+  --glass: rgba(255, 255, 255, 0.4);
+  --glass-fade: rgba(255, 255, 255, 0);
+}
+[data-theme="dark"] {
+  --pearl-1: #5e2f68;
+  --pearl-2: #33307a;
+  --pearl-3: #13505a;
+  --pearl-4: #5a3a2a;
+  --pearl-5: #1d4078;
+  --pearl-base: #15151c;
+  --glass: rgba(18, 19, 21, 0.52);
+  --glass-fade: rgba(18, 19, 21, 0);
+}
+html { background: var(--pearl-base); }
+/* Bottom layer: soft colour blobs that drift very slowly. */
+body::before {
+  content: "";
+  position: fixed;
+  z-index: -3;
+  inset: -25%;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 18% 22%, var(--pearl-1), transparent 70%),
+    radial-gradient(40% 38% at 82% 18%, var(--pearl-5), transparent 70%),
+    radial-gradient(42% 40% at 70% 78%, var(--pearl-3), transparent 70%),
+    radial-gradient(36% 34% at 24% 80%, var(--pearl-4), transparent 70%),
+    radial-gradient(46% 42% at 50% 50%, var(--pearl-2), transparent 72%),
+    var(--pearl-base);
+  animation: pearl-drift 48s ease-in-out infinite alternate;
+}
+/* Top layer: the former white page, now translucent frosted glass. */
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  pointer-events: none;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(48px) saturate(1.15);
+  backdrop-filter: blur(48px) saturate(1.15);
+}
+@keyframes pearl-drift {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50%  { transform: translate(4%, -3%) rotate(8deg) scale(1.05); }
+  100% { transform: translate(-3%, 4%) rotate(-6deg) scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
+/* Edge fades now fade the glass rather than solid white. */
+.top-fade { background: linear-gradient(180deg, var(--glass) 20%, var(--glass-fade)); }
+.bottom-fade { background: linear-gradient(0deg, var(--glass) 0%, var(--glass-fade)); }
