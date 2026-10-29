@@ -3012,59 +3012,54 @@ h3,
 .sel-handle--start::after { top: -8px; }
 .sel-handle--end::after { bottom: -8px; }
 
-/* "Now playing" ticker (now-playing.js): Spotify glyph, tiny equaliser, scrolling line. */
+/* Playlist ticker (now-playing.js): Spotify glyph, tiny equaliser, tracks scrolling in order. */
 .now-playing {
   position: fixed;
   z-index: 30;
   top: 22px;
   left: 50%;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
-  max-width: calc(100% - 32px);
+  width: min(380px, calc(100% - 32px));
   color: var(--text);
   font-size: 13px;
   line-height: 18px;
-  text-decoration: none;
   opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -4px);
-  transition: opacity 300ms ease, transform 300ms ease;
+  transform: translateX(-50%);
+  transition: opacity 400ms ease;
 }
-.now-playing.is-visible { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
-.np-logo { width: 15px; height: 15px; flex: 0 0 auto; }
+.now-playing.is-visible { opacity: 1; }
+.np-logo { display: inline-flex; flex: 0 0 auto; color: inherit; }
+.np-logo svg { width: 15px; height: 15px; }
 .np-eq { display: inline-flex; align-items: flex-end; gap: 2px; width: 11px; height: 11px; flex: 0 0 auto; }
-.np-eq i { width: 2.4px; height: 30%; border-radius: 1px; background: currentColor; opacity: 0.55; }
-.now-playing.is-playing .np-eq i { animation: np-eq 900ms ease-in-out infinite alternate; }
-.now-playing.is-playing .np-eq i:nth-child(2) { animation-delay: -300ms; animation-duration: 700ms; }
-.now-playing.is-playing .np-eq i:nth-child(3) { animation-delay: -600ms; animation-duration: 1100ms; }
+.np-eq i { width: 2.4px; height: 30%; border-radius: 1px; background: currentColor; opacity: 0.55; animation: np-eq 900ms ease-in-out infinite alternate; }
+.np-eq i:nth-child(2) { animation-delay: -300ms; animation-duration: 700ms; }
+.np-eq i:nth-child(3) { animation-delay: -600ms; animation-duration: 1100ms; }
 @keyframes np-eq { from { height: 25%; } to { height: 100%; } }
 .np-window {
+  flex: 1 1 auto;
+  min-width: 0;
   overflow: hidden;
-  width: min(240px, calc(100vw - 96px));
-  color: var(--muted);
   white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.now-playing:not(.is-scrolling) .np-window { width: auto; max-width: min(240px, calc(100vw - 96px)); }
-.now-playing.is-scrolling .np-window {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-}
-.np-track { display: inline-flex; }
-.np-text + .np-text { display: none; }
-.now-playing.is-scrolling .np-text { padding-right: 40px; }
-.now-playing.is-scrolling .np-text + .np-text { display: inline; }
-.now-playing.is-scrolling .np-track { animation: np-marquee var(--np-duration, 12s) linear infinite; }
-.now-playing:hover .np-window { color: var(--text); }
+.np-track { display: inline-flex; animation: np-marquee var(--np-duration, 600s) linear infinite; }
+.now-playing:hover .np-track { animation-play-state: paused; }
+.np-run { display: inline-flex; align-items: center; }
+.np-item { color: var(--muted); text-decoration: none; transition: color 150ms ease; }
+.np-item:hover { color: var(--text); }
+.np-dot { padding: 0 12px; color: var(--muted); opacity: 0.6; }
 @keyframes np-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (min-width: 521px) and (max-width: 1024px) {
-  .now-playing { top: 38px; left: 28px; transform: translateY(-4px); }
-  .now-playing.is-visible { transform: none; }
+  .now-playing { top: 38px; left: 28px; transform: none; width: min(340px, calc(100% - 260px)); }
 }
 @media (max-width: 520px) {
-  /* Below the centred theme/lang controls; scrolls away with the page. */
-  .now-playing { position: absolute; top: 74px; }
+  /* Mobile: no fixed bar — sits in the intro right under the contact icons. */
+  .now-playing { position: static; transform: none; width: 100%; margin-top: 4px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .now-playing .np-eq i, .now-playing .np-track { animation: none !important; }
+  .np-eq i, .np-track { animation: none !important; }
+  .np-window { overflow-x: auto; }
 }
