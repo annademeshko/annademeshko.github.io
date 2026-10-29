@@ -2949,3 +2949,6 @@ h3,
   .dock-item, .dock-tip { transition: none; }
   .dock-item:hover { transform: none; }
 }
+.dock-icon--linkedin { background: linear-gradient(180deg, #3B7CCB, #0A66C2); }
+.dock-icon--telegram { background: linear-gradient(180deg, #37AEE2, #1E96C8); }
+.dock-icon--mail { background: linear-gradient(180deg, #6CBBFF, #2F80ED); }
