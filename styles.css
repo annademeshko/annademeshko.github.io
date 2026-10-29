@@ -121,7 +121,7 @@ a {
   border-radius: 999px;
   background: var(--control-bg);
   color: var(--text);
-  cursor: pointer;
+  cursor: var(--fig-cursor, pointer);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   backdrop-filter: blur(14px);
   transform: translate(var(--mx, 0px), var(--my, 0px));
@@ -189,7 +189,7 @@ a {
   font-family: inherit;
   font-size: 13px;
   line-height: 1;
-  cursor: pointer;
+  cursor: var(--fig-cursor, pointer);
   transform: translate(var(--mx, 0px), var(--my, 0px));
   transition: color 160ms ease, transform 200ms ease-out;
 }
@@ -265,7 +265,7 @@ h1 {
   font: inherit;
   line-height: 24px;
   white-space: nowrap;
-  cursor: pointer;
+  cursor: var(--fig-cursor, pointer);
   transition: color 160ms ease;
 }
 
@@ -489,7 +489,7 @@ h1 {
   font: inherit;
   font-size: 15px;
   line-height: 1;
-  cursor: pointer;
+  cursor: var(--fig-cursor, pointer);
   transform: translate(var(--mx, 0px), var(--my, 0px));
   transition: color 260ms ease, transform 200ms ease-out;
 }
@@ -539,7 +539,7 @@ h2 {
 }
 
 .case-link {
-  cursor: pointer;
+  cursor: var(--fig-cursor, pointer);
 }
 
 .case-link .case-image {
@@ -2895,7 +2895,7 @@ h3,
   text-decoration: none;
   justify-content: flex-start;
   align-self: flex-start;
-  cursor: pointer;
+  cursor: var(--fig-cursor, pointer);
   -webkit-tap-highlight-color: transparent;
 }
 .dock-icon {
@@ -3281,4 +3281,13 @@ body::after {
 .np-tip { background: var(--pill-bg); color: var(--pill-text); }
 @media (max-width: 640px) {
   .dock-label { box-shadow: none; }
+}
+
+/* Figma-style multiplayer cursor for the visitor (desktop only).
+   Every former `cursor: pointer` reads --fig-cursor, so links and buttons keep it too. */
+@media (hover: hover) and (pointer: fine) {
+  :root { --fig-cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2248%22%20height%3D%2240%22%20viewBox%3D%220%200%2048%2040%22%3E%3Cpath%20d%3D%22M2%202%20L2%2021%20L7.2%2016.2%20L10.8%2024.2%20L14%2022.8%20L10.5%2015%20L17.2%2015%20Z%22%20fill%3D%22%230d99ff%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2220%22%20width%3D%2226%22%20height%3D%2218%22%20rx%3D%224.5%22%20fill%3D%22%230d99ff%22/%3E%3Ctext%20x%3D%2227.0%22%20y%3D%2232.6%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C-apple-system%2CHelvetica%2CArial%2Csans-serif%22%20font-size%3D%2211%22%20font-weight%3D%22600%22%20fill%3D%22%23fff%22%3E%D0%A2%D1%8B%3C/text%3E%3C/svg%3E") 2 2, pointer; }
+  :root[lang="en"] { --fig-cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2252%22%20height%3D%2240%22%20viewBox%3D%220%200%2052%2040%22%3E%3Cpath%20d%3D%22M2%202%20L2%2021%20L7.2%2016.2%20L10.8%2024.2%20L14%2022.8%20L10.5%2015%20L17.2%2015%20Z%22%20fill%3D%22%230d99ff%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2220%22%20width%3D%2230%22%20height%3D%2218%22%20rx%3D%224.5%22%20fill%3D%22%230d99ff%22/%3E%3Ctext%20x%3D%2229.0%22%20y%3D%2232.6%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C-apple-system%2CHelvetica%2CArial%2Csans-serif%22%20font-size%3D%2211%22%20font-weight%3D%22600%22%20fill%3D%22%23fff%22%3EYou%3C/text%3E%3C/svg%3E") 2 2, pointer; }
+  html, a, button, [role="button"], label, summary { cursor: var(--fig-cursor); }
+  input, textarea, [contenteditable="true"] { cursor: text; }
 }

@@ -137,7 +137,7 @@
         border-radius: 999px;
         background: rgba(255, 255, 255, 0.16);
         color: #fff;
-        cursor: pointer;
+        cursor: var(--fig-cursor, pointer);
         transition: background 160ms ease;
       }
 
@@ -226,14 +226,14 @@
       .concept-marquee__tile img, .concept-marquee__tile video { user-select: none; -webkit-user-drag: none; }
       .concept-marquee::-webkit-scrollbar { display: none; }
       .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; }
-      .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: pointer; }
+      .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: var(--fig-cursor, pointer); }
       .concept-marquee__tile::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; border-radius: 50%; background-color: rgba(15,17,21,.78); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.8' cy='10.8' r='6.8'/%3E%3Cpath d='m16 16 5 5'/%3E%3C/svg%3E"); background-size: 24px 24px; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
       .concept-marquee__tile:hover::after, .concept-marquee__tile:focus-within::after { opacity: 1; }
       .concept-marquee__tile img, .concept-marquee__tile video { display: block; width: auto; max-width: none; height: 100%; object-fit: cover; }
       .concept-fullscreen { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 5vmin; background: rgba(12,13,16,.93); cursor: zoom-out; }
       .concept-fullscreen.is-open { display: flex; }
       .concept-fullscreen img, .concept-fullscreen video { max-width: 94vw; max-height: 90vh; width: auto; height: auto; object-fit: contain; border-radius: 12px; cursor: default; }
-      .concept-fullscreen__close { position: absolute; top: 20px; right: 24px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #34363a; color: white; font-size: 30px; cursor: pointer; }
+      .concept-fullscreen__close { position: absolute; top: 20px; right: 24px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #34363a; color: white; font-size: 30px; cursor: var(--fig-cursor, pointer); }
       @media (min-width: 521px) { .home-page .portfolio-switcher, .home-page .concepts[data-panel="concepts"] { display: none !important; } .home-page .work[data-panel="cases"] { display: block !important; } }
       @media (max-width: 520px) { .concept-marquee-band { display: none; } }
       @media (prefers-reduced-motion: reduce) { .concept-marquee__track { animation: none; } }
