@@ -3262,6 +3262,7 @@ body::after {
 }
 [data-theme="dark"] .bg-obj { filter: brightness(0.8); opacity: .8; }
 .bg-obj--cursor { animation: none; will-change: transform; }
+@media (max-width: 640px) { .bg-obj--extra { display: none; } }
 @keyframes bg-float-soft { from { transform: translate(0,0) rotate(var(--r)); } to { transform: translate(1.6vw,-1.4vh) rotate(calc(var(--r) + 3deg)); } }
 @media (max-width: 640px) { .bg-obj { width: calc(var(--w) * 1.7vw); } :root { --glass-blur: 1.2px; } }
 @media (prefers-reduced-motion: reduce) { .bg-obj { animation: none; } }

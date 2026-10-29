@@ -18,6 +18,12 @@
       '<rect x="16" y="24" width="' + w + '" height="20" rx="5" fill="' + col + '"/><text x="' + (16 + w / 2) + '" y="38" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="600" fill="#fff">' + name + "</text></svg>";
   }
 
+  function sticky(col, text, author) {
+    return '<svg viewBox="0 0 120 124"><rect x="4" y="6" width="112" height="112" rx="4" fill="#000" fill-opacity=".08"/><rect x="2" y="2" width="112" height="112" rx="4" fill="' + col + '"/>' +
+      '<text x="14" y="40" font-family="' + F + '" font-size="20" font-weight="600" fill="#1e1e1e">' + text + '</text>' +
+      '<text x="14" y="100" font-family="' + F + '" font-size="11" fill="#1e1e1e" fill-opacity=".55">' + author + "</text></svg>";
+  }
+
   var objects = [
     // Selection with handles and the blue size badge.
     { x: 21.2, y: 17.7, w: 11.25, r: 0, d: 54, svg:
@@ -83,14 +89,51 @@
     // Vector path with nodes.
     { x: 61.5, y: 9.2, w: 6.75, r: 0, d: 64, svg:
       '<svg viewBox="0 0 120 80"><path d="M8 66 C30 10, 60 10, 70 40 S 104 70, 112 14" fill="none" stroke="' + C.sel + '" stroke-width="1.5"/>' +
-      handles([[8, 66], [70, 40], [112, 14]], C.sel) + '<circle cx="45" cy="12" r="3" fill="' + C.sel + '"/><path d="M45 12 L70 40" stroke="' + C.sel + '" stroke-width="1" stroke-dasharray="3 3"/></svg>' }
+      handles([[8, 66], [70, 40], [112, 14]], C.sel) + '<circle cx="45" cy="12" r="3" fill="' + C.sel + '"/><path d="M45 12 L70 40" stroke="' + C.sel + '" stroke-width="1" stroke-dasharray="3 3"/></svg>' },
+    // ---- FigJam ----
+    // Sticky notes with author names.
+    { x: 41, y: 12, w: 5.2, r: -6, d: 62, svg: sticky("#ffd966", ru ? "Идея!" : "Idea!", ru ? "Анна" : "Anna") },
+    { x: 76, y: 22, w: 4.8, r: 5, d: 70, extra: true, svg: sticky("#85e0a3", ru ? "Тест" : "Test", "Dev") },
+    { x: 13, y: 50, w: 4.8, r: 7, d: 66, extra: true, svg: sticky("#ffbdf2", ru ? "UX?" : "UX?", "PM") },
+    { x: 79, y: 60, w: 4.6, r: -4, d: 74, extra: true, svg: sticky("#80caff", ru ? "Флоу" : "Flow", ru ? "Анна" : "Anna") },
+
+    // Stamps.
+    { x: 34, y: 28, w: 2.6, r: -12, d: 56, svg:
+      '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#ff7262" stroke="#fff" stroke-width="3"/><text x="30" y="37" text-anchor="middle" font-family="' + F + '" font-size="20" font-weight="800" fill="#fff">+1</text></svg>' },
+    { x: 66, y: 66, w: 2.6, r: 10, d: 60, extra: true, svg:
+      '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#9747ff" stroke="#fff" stroke-width="3"/><path d="M30 42 C18 34 16 28 18 23 C20 18 27 17 30 23 C33 17 40 18 42 23 C44 28 42 34 30 42 Z" fill="#fff"/></svg>' },
+
+    // Reaction bubble.
+    { x: 60, y: 44, w: 3.6, r: 0, d: 58, extra: true, svg:
+      '<svg viewBox="0 0 84 44"><rect x="2" y="2" width="80" height="34" rx="17" fill="#fff" stroke="#e6e6e6"/><path d="M18 34 L14 42 L26 35" fill="#fff" stroke="#e6e6e6"/><text x="42" y="26" text-anchor="middle" font-size="18">👍 🔥 💡</text></svg>' },
+
+    // Washi tape.
+    { x: 33, y: 58, w: 5, r: -14, d: 72, extra: true, svg:
+      '<svg viewBox="0 0 120 30"><path d="M4 4 L116 4 L112 10 L116 16 L112 22 L116 26 L4 26 L8 20 L4 14 L8 8 Z" fill="#ffaf6e" fill-opacity=".75"/><path d="M20 4 L12 26 M44 4 L36 26 M68 4 L60 26 M92 4 L84 26" stroke="#fff" stroke-opacity=".5" stroke-width="5"/></svg>' },
+
+    // Elbow connector between two shapes.
+    { x: 27, y: 2, w: 7, r: 0, d: 64, extra: true, svg:
+      '<svg viewBox="0 0 150 80"><rect x="4" y="44" width="40" height="30" rx="6" fill="#d9b8ff"/><path d="M106 8 L130 30 L106 52 L82 30 Z" fill="#80caff"/>' +
+      '<path d="M44 59 H64 V30 H76" fill="none" stroke="#1e1e1e" stroke-width="2"/><path d="M74 25 L82 30 L74 35 Z" fill="#1e1e1e"/></svg>' },
+
+    // Marker scribble.
+    { x: 70, y: 10, w: 5, r: 0, d: 68, svg:
+      '<svg viewBox="0 0 120 50"><path d="M6 36 C18 8 30 44 42 22 S 64 6 74 30 S 98 44 114 12" fill="none" stroke="#14ae5c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/></svg>' },
+
+    // Section label.
+    { x: 37, y: 9, w: 4, r: 0, d: 76, extra: true, svg:
+      '<svg viewBox="0 0 96 28"><rect x="2" y="2" width="92" height="24" rx="6" fill="#ffc943"/><text x="48" y="19" text-anchor="middle" font-family="' + F + '" font-size="12" font-weight="700" fill="#1e1e1e">' + (ru ? "Идеи" : "Ideas") + '</text></svg>' },
+
+    // Timer widget.
+    { x: 52, y: 60, w: 4.2, r: 0, d: 80, extra: true, svg:
+      '<svg viewBox="0 0 100 40"><rect x="2" y="2" width="96" height="36" rx="10" fill="#1e1e1e"/><circle cx="20" cy="20" r="8" fill="none" stroke="#ffc943" stroke-width="2.5"/><path d="M20 15 V20 L24 22" stroke="#ffc943" stroke-width="2" stroke-linecap="round"/><text x="62" y="26" text-anchor="middle" font-family="' + F + '" font-size="15" font-weight="700" fill="#fff">04:59</text></svg>' }
   ];
 
   var layer = document.createElement("div");
   layer.className = "bg-canvas";
   layer.setAttribute("aria-hidden", "true");
   layer.innerHTML = objects.map(function (o, i) {
-    return '<div class="bg-obj' + (o.cursor ? " bg-obj--cursor" : "") + '" style="left:' + o.x + '%;top:' + o.y + '%;--w:' + o.w + ';' +
+    return '<div class="bg-obj' + (o.cursor ? " bg-obj--cursor" : "") + (o.extra ? " bg-obj--extra" : "") + '" style="left:' + o.x + '%;top:' + o.y + '%;--w:' + o.w + ';' +
       '--r:' + o.r + 'deg;--d:' + o.d + 's;--delay:-' + (i * 3.1).toFixed(1) + 's">' + o.svg + "</div>";
   }).join("");
   document.body.insertBefore(layer, document.body.firstChild);
