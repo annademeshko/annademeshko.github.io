@@ -39,44 +39,44 @@
 
   var objects = [
     // Selection with handles and the blue size badge.
-    { x: 5, y: 14, w: 11.25, r: 0, d: 54, svg:
+    { x: 14.0, y: 19.4, w: 11.25, r: 0, d: 54, svg:
       '<svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="110" fill="' + C.sel + '" fill-opacity=".06" stroke="' + C.sel + '" stroke-width="1.5"/>' +
       handles([[10, 10], [190, 10], [10, 120], [190, 120]], C.sel) +
       '<rect x="62" y="128" width="76" height="18" rx="3" fill="' + C.sel + '"/><text x="100" y="141" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="500" fill="#fff">1440 × 900</text></svg>' },
 
     // Multiplayer cursors.
-    { x: 64.1, y: 56.8, w: 5.62, r: -4, d: 42, cursor: true, svg: cursor(C.pink, ru ? "Анна" : "Anna", 46) },
-    { x: 30.7, y: 46.6, w: 5.62, r: 4, d: 48, cursor: true, svg: cursor(C.green, "Dev", 34) },
-    { x: 54.2, y: 21.1, w: 5.62, r: -2, d: 58, cursor: true, svg: cursor("#ff8c00", "PM", 30) },
+    { x: 61.3, y: 55.8, w: 5.62, r: -4, d: 42, cursor: true, svg: cursor(C.pink, ru ? "Анна" : "Anna", 46) },
+    { x: 34.6, y: 47.1, w: 5.62, r: 4, d: 48, cursor: true, svg: cursor(C.green, "Dev", 34) },
+    { x: 53.4, y: 25.4, w: 5.62, r: -2, d: 58, cursor: true, svg: cursor("#ff8c00", "PM", 30) },
 
     // Comment pin.
-    { x: 90, y: 27, w: 3.0, r: 0, d: 45, svg:
+    { x: 82.0, y: 30.4, w: 3.0, r: 0, d: 45, svg:
       '<svg viewBox="0 0 48 52"><path d="M24 2 C36 2 46 12 46 24 C46 36 36 46 24 46 L4 46 L4 24 C4 12 12 2 24 2 Z" fill="#fff" stroke="#e6e6e6" stroke-width="1.5"/>' +
       '<circle cx="25" cy="24" r="14" fill="' + C.comp + '"/><text x="25" y="29" text-anchor="middle" font-family="' + F + '" font-size="13" font-weight="700" fill="#fff">' + (ru ? "А" : "A") + "</text></svg>" },
 
     // Component set: purple dashed frame with two variants.
-    { x: 21, y: 50, w: 10.5, r: 2, d: 64, svg:
+    { x: 26.8, y: 50.0, w: 10.5, r: 2, d: 64, svg:
       '<svg viewBox="0 0 190 120"><path d="M10 10 l6 -6 l6 6 l-6 6 z M24 10 l6 -6 l6 6 l-6 6 z" fill="' + C.comp + '" transform="translate(0 2)"/><text x="42" y="16" font-family="' + F + '" font-size="11" font-weight="500" fill="' + C.comp + '">Button</text>' +
       '<rect x="6" y="24" width="178" height="90" rx="6" fill="none" stroke="' + C.comp + '" stroke-width="1.5" stroke-dasharray="5 4"/>' +
       '<rect x="22" y="48" width="66" height="28" rx="8" fill="' + C.ink + '"/><text x="55" y="66" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="600" fill="#fff">Primary</text>' +
       '<rect x="102" y="48" width="66" height="28" rx="8" fill="#fff" stroke="' + C.ink + '" stroke-opacity=".2"/><text x="135" y="66" text-anchor="middle" font-family="' + F + '" font-size="11" font-weight="600" fill="' + C.ink + '">Ghost</text></svg>' },
 
     // Prototype noodle.
-    { x: 77, y: 55, w: 9.0, r: 0, d: 51, svg:
+    { x: 71.6, y: 54.2, w: 9.0, r: 0, d: 51, svg:
       '<svg viewBox="0 0 160 80"><circle cx="10" cy="64" r="6" fill="#fff" stroke="' + C.sel + '" stroke-width="2"/><path d="M16 64 C70 64 70 16 140 16" fill="none" stroke="' + C.sel + '" stroke-width="2.5"/><path d="M134 9 L148 16 L134 23 Z" fill="' + C.sel + '"/></svg>' },
 
     // Redline spacing.
-    { x: 81, y: 37, w: 5.25, r: 0, d: 48, svg:
+    { x: 74.8, y: 39.0, w: 5.25, r: 0, d: 48, svg:
       '<svg viewBox="0 0 90 40"><path d="M4 12 V34 M86 12 V34 M4 23 H86" stroke="' + C.red + '" stroke-width="1.5"/><rect x="32" y="2" width="26" height="15" rx="3" fill="' + C.red + '"/><text x="45" y="13" text-anchor="middle" font-family="' + F + '" font-size="10" font-weight="600" fill="#fff">24</text></svg>' },
 
     // Auto-layout tile with pink padding hint.
-    { x: 6, y: 58, w: 7.5, r: -3, d: 61, svg:
+    { x: 14.8, y: 56.8, w: 7.5, r: -3, d: 61, svg:
       '<svg viewBox="0 0 130 90"><rect x="4" y="4" width="122" height="82" rx="8" fill="#fff" stroke="' + C.sel + '" stroke-width="1.5"/>' +
       '<rect x="4" y="4" width="122" height="12" fill="' + C.pink + '" fill-opacity=".14"/><rect x="18" y="26" width="94" height="14" rx="4" fill="' + C.ink + '" fill-opacity=".14"/><rect x="18" y="48" width="70" height="14" rx="4" fill="' + C.ink + '" fill-opacity=".09"/>' +
       '<path d="M65 16 V26" stroke="' + C.pink + '" stroke-width="1.5"/></svg>' },
 
     // Bottom toolbar.
-    { x: 63, y: 15, w: 12.0, r: 0, d: 70, svg:
+    { x: 60.4, y: 20.2, w: 12.0, r: 0, d: 70, svg:
       '<svg viewBox="0 0 220 44"><rect x="2" y="2" width="216" height="40" rx="12" fill="#fff" stroke="#e6e6e6"/>' +
       '<rect x="10" y="8" width="28" height="28" rx="7" fill="' + C.sel + '"/><path d="M19 14 L19 30 L23 26 L26 32 L28.6 31 L25.8 25 L31 25 Z" fill="#fff"/>' +
       '<path d="M54 14 H72 M54 30 H72 M58 10 V34 M68 10 V34" stroke="' + C.ink + '" stroke-width="1.8"/>' +
@@ -86,7 +86,7 @@
       '<path d="M186 15 H204 M195 15 V31" stroke="' + C.ink + '" stroke-width="1.8"/></svg>' },
 
     // Layers panel snippet.
-    { x: 8, y: 38, w: 7.5, r: 0, d: 67, svg:
+    { x: 16.4, y: 39.8, w: 7.5, r: 0, d: 67, svg:
       '<svg viewBox="0 0 130 92"><rect x="1" y="1" width="128" height="90" rx="8" fill="#fff" stroke="#e6e6e6"/>' +
       '<text x="12" y="20" font-family="' + F + '" font-size="10" font-weight="600" fill="' + C.ink + '">Layers</text>' +
       '<path d="M12 36 h8 v8 h-8 z" fill="none" stroke="' + C.ink + '" stroke-width="1.2"/><text x="26" y="43" font-family="' + F + '" font-size="10" fill="' + C.ink + '">Home</text>' +
@@ -94,17 +94,17 @@
       '<text x="22" y="82" font-family="' + F + '" font-size="12" font-weight="700" fill="' + C.ink + '" fill-opacity=".6">T</text><text x="32" y="81" font-family="' + F + '" font-size="10" fill="' + C.ink + '">Title</text></svg>' },
 
     // Colour swatches.
-    { x: 71, y: 46, w: 5.25, r: 4, d: 54, svg:
+    { x: 66.8, y: 46.6, w: 5.25, r: 4, d: 54, svg:
       '<svg viewBox="0 0 92 30">' + [C.sel, C.comp, C.pink, C.yellow, C.green].map(function (c, i) {
         return '<circle cx="' + (14 + i * 16) + '" cy="15" r="11" fill="' + c + '" stroke="#fff" stroke-width="2"/>';
       }).join("") + "</svg>" },
 
     // Vector path with nodes.
-    { x: 79, y: 19, w: 6.75, r: 0, d: 64, svg:
+    { x: 73.2, y: 23.7, w: 6.75, r: 0, d: 64, svg:
       '<svg viewBox="0 0 120 80"><path d="M8 66 C30 10, 60 10, 70 40 S 104 70, 112 14" fill="none" stroke="' + C.sel + '" stroke-width="1.5"/>' +
       handles([[8, 66], [70, 40], [112, 14]], C.sel) + '<circle cx="45" cy="12" r="3" fill="' + C.sel + '"/><path d="M45 12 L70 40" stroke="' + C.sel + '" stroke-width="1" stroke-dasharray="3 3"/></svg>' },
     // ---- Figma Motion: custom bezier panel + timeline ----
-    { x: 87, y: 43, w: 8.5, r: 0, d: 66, svg:
+    { x: 79.6, y: 44.0, w: 8.5, r: 0, d: 66, svg:
       panel("Custom Bezier", '<path d="M0 12 C6 12 6 2 12 2" fill="none" stroke="' + C.ink + '" stroke-width="1.4"/>',
         '<rect x="12" y="36" width="156" height="20" rx="6" fill="#f5f5f5"/><rect x="14" y="38" width="76" height="16" rx="5" fill="#fff" stroke="#e6e6e6"/>' +
         '<text x="52" y="49.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="' + C.ink + '">Curve</text><text x="129" y="49.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="#999">Spring</text>' +
@@ -117,7 +117,7 @@
         '<path d="M60 210 l4 -4 l4 4 l-4 4 z M120 210 l4 -4 l4 4 l-4 4 z M160 210 l4 -4 l4 4 l-4 4 z" fill="#fff" stroke="#999"/>', 222) },
 
     // ---- Figma Weave tools: "Change lighting" workflow ----
-    { x: 69, y: 24, w: 7, r: 0, d: 72, svg:
+    { x: 65.2, y: 27.9, w: 7, r: 0, d: 72, svg:
       panel("Change lighting", '<rect width="14" height="12" rx="2" fill="' + C.ink + '"/><text x="7" y="9.5" text-anchor="middle" font-family="' + F + '" font-size="8" font-weight="800" fill="#fff">W</text>',
         row(46, "Image input") +
         '<defs><linearGradient id="dune" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9d2b0"/><stop offset=".55" stop-color="#c79b6b"/><stop offset="1" stop-color="#8f6740"/></linearGradient></defs>' +
@@ -126,7 +126,7 @@
         '<rect x="112" y="218" width="56" height="20" rx="5" fill="' + C.sel + '"/><text x="140" y="231.5" text-anchor="middle" font-family="' + F + '" font-size="9.5" font-weight="600" fill="#fff">Generate</text>', 248) },
 
     // ---- Generative plugins: "Map maker" ----
-    { x: 4, y: 24, w: 8, r: 0, d: 68, svg:
+    { x: 13.2, y: 27.9, w: 8, r: 0, d: 68, svg:
       panel("Map maker", '<path d="M2 11 L5 3 L8 8 L11 2 L13 11 Z" fill="none" stroke="' + C.ink + '" stroke-width="1.2" stroke-linejoin="round"/>',
         row(52, "Style") + '<rect x="72" y="40" width="96" height="18" rx="5" fill="#f5f5f5"/><rect x="120" y="42" width="46" height="14" rx="4" fill="#fff" stroke="#e6e6e6"/><text x="96" y="52.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="#999">Light</text><text x="143" y="52.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="' + C.ink + '">Dark</text>' +
         row(78, "Interaction") + '<rect x="72" y="66" width="96" height="18" rx="5" fill="#f5f5f5"/><rect x="74" y="68" width="46" height="14" rx="4" fill="#fff" stroke="#e6e6e6"/><text x="97" y="78.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="' + C.ink + '">On</text><text x="143" y="78.5" text-anchor="middle" font-family="' + F + '" font-size="9" fill="#999">Off</text>' +
@@ -135,7 +135,7 @@
         '<rect x="104" y="148" width="64" height="20" rx="5" fill="' + C.sel + '"/><text x="136" y="161.5" text-anchor="middle" font-family="' + F + '" font-size="9.5" font-weight="600" fill="#fff">Create map</text>', 178) },
 
     // ---- Shaders: "Gradient map" ----
-    { x: 23, y: 33, w: 7.5, r: 0, d: 62, svg:
+    { x: 28.4, y: 35.5, w: 7.5, r: 0, d: 62, svg:
       panel("Gradient map", '<path d="M1 10 C4 4 8 12 13 4" fill="none" stroke="' + C.ink + '" stroke-width="1.4"/>',
         '<defs><linearGradient id="gmap"><stop offset="0" stop-color="#2d5bff"/><stop offset=".35" stop-color="#3fd1a0"/><stop offset=".65" stop-color="#ffd84d"/><stop offset="1" stop-color="#ff4d3d"/></linearGradient></defs>' +
         row(52, "Colors") + '<rect x="72" y="42" width="96" height="14" rx="4" fill="url(#gmap)"/>' +
@@ -144,40 +144,40 @@
 
     // ---- FigJam ----
     // Sticky notes with author names.
-    { x: -2, y: 94, w: 5.2, r: -6, d: 62, svg: sticky("#ffd966", ru ? "Идея!" : "Idea!", ru ? "Анна" : "Anna") },
-    { x: 97, y: -3, w: 4.8, r: 5, d: 70, extra: true, svg: sticky("#85e0a3", ru ? "Тест" : "Test", "Dev") },
-    { x: -3, y: -4, w: 4.8, r: 7, d: 66, extra: true, svg: sticky("#ffbdf2", ru ? "UX?" : "UX?", "PM") },
-    { x: 95, y: 93, w: 4.6, r: -4, d: 74, extra: true, svg: sticky("#80caff", ru ? "Флоу" : "Flow", ru ? "Анна" : "Anna") },
+    { x: 8.4, y: 84, w: 5.2, r: -6, d: 62, svg: sticky("#ffd966", ru ? "Идея!" : "Idea!", ru ? "Анна" : "Anna") },
+    { x: 87.4, y: 7, w: 4.8, r: 5, d: 70, extra: true, svg: sticky("#85e0a3", ru ? "Тест" : "Test", "Dev") },
+    { x: 7.6, y: 7, w: 4.8, r: 7, d: 66, extra: true, svg: sticky("#ffbdf2", ru ? "UX?" : "UX?", "PM") },
+    { x: 86.0, y: 84, w: 4.6, r: -4, d: 74, extra: true, svg: sticky("#80caff", ru ? "Флоу" : "Flow", ru ? "Анна" : "Anna") },
 
     // Stamps.
-    { x: 98, y: 30, w: 2.6, r: -12, d: 56, svg:
+    { x: 88.4, y: 33.0, w: 2.6, r: -12, d: 56, svg:
       '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#ff7262" stroke="#fff" stroke-width="3"/><text x="30" y="37" text-anchor="middle" font-family="' + F + '" font-size="20" font-weight="800" fill="#fff">+1</text></svg>' },
-    { x: -1, y: 47, w: 2.6, r: 10, d: 60, extra: true, svg:
+    { x: 9.2, y: 47.5, w: 2.6, r: 10, d: 60, extra: true, svg:
       '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#9747ff" stroke="#fff" stroke-width="3"/><path d="M30 42 C18 34 16 28 18 23 C20 18 27 17 30 23 C33 17 40 18 42 23 C44 28 42 34 30 42 Z" fill="#fff"/></svg>' },
 
     // Reaction bubble.
-    { x: 97, y: 58, w: 3.6, r: 0, d: 58, extra: true, svg:
+    { x: 87.6, y: 56.8, w: 3.6, r: 0, d: 58, extra: true, svg:
       '<svg viewBox="0 0 84 44"><rect x="2" y="2" width="80" height="34" rx="17" fill="#fff" stroke="#e6e6e6"/><path d="M18 34 L14 42 L26 35" fill="#fff" stroke="#e6e6e6"/><text x="42" y="26" text-anchor="middle" font-size="18">👍 🔥 💡</text></svg>' },
 
     // Washi tape.
-    { x: 30, y: 97, w: 5, r: -14, d: 72, extra: true, svg:
+    { x: 34.0, y: 84, w: 5, r: -14, d: 72, extra: true, svg:
       '<svg viewBox="0 0 120 30"><path d="M4 4 L116 4 L112 10 L116 16 L112 22 L116 26 L4 26 L8 20 L4 14 L8 8 Z" fill="#ffaf6e" fill-opacity=".75"/><path d="M20 4 L12 26 M44 4 L36 26 M68 4 L60 26 M92 4 L84 26" stroke="#fff" stroke-opacity=".5" stroke-width="5"/></svg>' },
 
     // Elbow connector between two shapes.
-    { x: 60, y: -5, w: 7, r: 0, d: 64, extra: true, svg:
+    { x: 58.0, y: 7, w: 7, r: 0, d: 64, extra: true, svg:
       '<svg viewBox="0 0 150 80"><rect x="4" y="44" width="40" height="30" rx="6" fill="#d9b8ff"/><path d="M106 8 L130 30 L106 52 L82 30 Z" fill="#80caff"/>' +
       '<path d="M44 59 H64 V30 H76" fill="none" stroke="#1e1e1e" stroke-width="2"/><path d="M74 25 L82 30 L74 35 Z" fill="#1e1e1e"/></svg>' },
 
     // Marker scribble.
-    { x: 45, y: -4, w: 5, r: 0, d: 68, svg:
+    { x: 46.0, y: 7, w: 5, r: 0, d: 68, svg:
       '<svg viewBox="0 0 120 50"><path d="M6 36 C18 8 30 44 42 22 S 64 6 74 30 S 98 44 114 12" fill="none" stroke="#14ae5c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/></svg>' },
 
     // Section label.
-    { x: 22, y: -3, w: 4, r: 0, d: 76, extra: true, svg:
+    { x: 27.6, y: 7, w: 4, r: 0, d: 76, extra: true, svg:
       '<svg viewBox="0 0 96 28"><rect x="2" y="2" width="92" height="24" rx="6" fill="#ffc943"/><text x="48" y="19" text-anchor="middle" font-family="' + F + '" font-size="12" font-weight="700" fill="#1e1e1e">' + (ru ? "Идеи" : "Ideas") + '</text></svg>' },
 
     // Timer widget.
-    { x: 68, y: 97, w: 4.2, r: 0, d: 80, extra: true, svg:
+    { x: 64.4, y: 84, w: 4.2, r: 0, d: 80, extra: true, svg:
       '<svg viewBox="0 0 100 40"><rect x="2" y="2" width="96" height="36" rx="10" fill="#1e1e1e"/><circle cx="20" cy="20" r="8" fill="none" stroke="#ffc943" stroke-width="2.5"/><path d="M20 15 V20 L24 22" stroke="#ffc943" stroke-width="2" stroke-linecap="round"/><text x="62" y="26" text-anchor="middle" font-family="' + F + '" font-size="15" font-weight="700" fill="#fff">04:59</text></svg>' }
   ];
 
@@ -219,7 +219,7 @@
   }
   function wanderTo(c) {           // no free piece: just drift somewhere
     var b = base(c), w = window.innerWidth, h = window.innerHeight;
-    c.tx = w * (0.15 + Math.random() * 0.7) - b.x; c.ty = h * (0.12 + Math.random() * 0.7) - b.y;
+    c.tx = w * (0.2 + Math.random() * 0.6) - b.x; c.ty = h * (0.15 + Math.random() * 0.6) - b.y;
   }
   function startFetch(c) {
     var p = choosePiece();
@@ -235,8 +235,8 @@
     var p = c.piece, r = p.el.getBoundingClientRect(), w = window.innerWidth, h = window.innerHeight;
     // destination: a side band, so pieces don't park under the text column
     var left = Math.random() < 0.5;
-    var nx = left ? w * (0.02 + Math.random() * 0.24) : w * (0.68 + Math.random() * 0.26) - r.width * 0.4;
-    var ny = h * (0.1 + Math.random() * 0.55);
+    var nx = left ? w * (0.08 + Math.random() * 0.2) : w * (0.66 + Math.random() * 0.2) - r.width * 0.5;
+    var ny = h * (0.12 + Math.random() * 0.5);
     var ddx = nx - r.left, ddy = ny - r.top;
     var len = Math.hypot(ddx, ddy), max = Math.min(w, h) * 0.35;  // keep moves modest
     if (len > max) { ddx *= max / len; ddy *= max / len; }
@@ -249,7 +249,16 @@
   function release(c) {
     if (c.piece) { c.piece.el.classList.remove("is-grabbed"); c.piece.busy = false; c.piece = null; }
   }
-  cursors.forEach(function (c) { wanderTo(c); c.state = "wander"; });
+  // On load every cursor is already at a piece and grabs it right away.
+  cursors.forEach(function (c, i) {
+    var p = choosePiece();
+    if (!p) { wanderTo(c); c.state = "wander"; return; }
+    p.busy = true; c.piece = p;
+    var r = p.el.getBoundingClientRect(), b = base(c);
+    c.x = c.tx = r.left + r.width * 0.35 - b.x;
+    c.y = c.ty = r.top + r.height * 0.3 - b.y;
+    c.state = "grab"; c.wait = 250 + i * 350;
+  });
 
   // Gentle parallax of the whole layer toward the mouse.
   var px = 0, py = 0, ptx = 0, pty = 0;
@@ -268,7 +277,7 @@
       var dx = c.tx - c.x, dy = c.ty - c.y, arrived = Math.abs(dx) + Math.abs(dy) < 2;
       if (!arrived) {
         // steady glide that eases in near the target (px per second)
-        var dist = Math.hypot(dx, dy), vmax = c.state === "drag" ? 70 : 110;
+        var dist = Math.hypot(dx, dy), vmax = c.state === "drag" ? 75 : 140;
         var v = Math.max(18, Math.min(vmax, dist * 1.6)), step = Math.min(dist, v * dt / 1000);
         c.x += dx / dist * step; c.y += dy / dist * step;
       }
