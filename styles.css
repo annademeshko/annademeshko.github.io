@@ -3266,3 +3266,19 @@ body::after {
 @keyframes bg-float-soft { from { transform: translate(0,0) rotate(var(--r)); } to { transform: translate(1.6vw,-1.4vh) rotate(calc(var(--r) + 3deg)); } }
 @media (max-width: 640px) { .bg-obj { width: calc(var(--w) * 1.7vw); } :root { --glass-blur: 1.2px; } }
 @media (prefers-reduced-motion: reduce) { .bg-obj { animation: none; } }
+
+/* Hover pills (contact dock + Spotify ticker): soft blue. */
+:root {
+  --pill-bg: #dceaff;
+  --pill-text: #1c3d6e;
+  --pill-border: rgba(28, 61, 110, 0.08);
+}
+:root[data-pill="pink"] { --pill-bg: #ffdcee; --pill-text: #6e1f4a; --pill-border: rgba(110, 31, 74, 0.08); }
+.contact-dock { --dock-tip-bg: var(--pill-bg); --dock-tip-text: var(--pill-text); }
+.dock-label, .np-tip {
+  box-shadow: inset 0 0 0 1px var(--pill-border), 0 6px 16px rgba(28, 61, 110, 0.1);
+}
+.np-tip { background: var(--pill-bg); color: var(--pill-text); }
+@media (max-width: 640px) {
+  .dock-label { box-shadow: none; }
+}
