@@ -338,8 +338,8 @@
                   var t = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
                   if (t === cur) return; cur = t;
                   var name = t === "light" ? "cover-light-dots" : "cover-dark";
-                  v.poster = P + name + "-poster.webp";
-                  v.querySelector("source").src = P + name + ".mp4";
+                  v.poster = P + name + "-poster.webp?v=2";
+                  v.querySelector("source").src = P + name + ".mp4?v=2";
                   v.load(); var pl = v.play(); if (pl && pl.catch) pl.catch(function () {});
                 }
                 apply();

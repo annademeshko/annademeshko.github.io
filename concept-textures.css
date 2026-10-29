@@ -381,10 +381,10 @@
 /* Figma's empty canvas on every case/concept surface: #F5F5F5 with a dot grid in
    light theme, #1E1E1E with muted dots in dark theme (replaces the fibrous grain). */
 html {
-  --canvas-bg: #f5f5f5;
-  --canvas-dot: #cfcfcf;
+  --canvas-bg: #ffffff;
+  --canvas-dot: #d4d4d4;
   --canvas-step: 16px;
-  --canvas-edge: rgba(0, 0, 0, 0.06);
+  --canvas-edge: rgba(0, 0, 0, 0.08);
 }
 html[data-theme="dark"] {
   --canvas-bg: #1e1e1e;
@@ -423,7 +423,7 @@ html :is(
 /* remate cover, light theme: the video itself has the dot canvas baked into its
    background (cover-light-dots.mp4), so the phones stay fully opaque in every frame. */
 html .case-cover:has(> .remate-cover-video) { display: block; border-radius: 12px; }
-html:not([data-theme="dark"]) .remate-cover-video { background: #f5f5f5; }
+html:not([data-theme="dark"]) .remate-cover-video { background: #ffffff; }
 
 /* Figma-style selection on hover: a thin blue frame around the case or concept surface.
    Concepts use an inset outline; case covers get an overlay layer on top, because
