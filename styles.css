@@ -3025,6 +3025,7 @@ h3,
   color: var(--text);
   font-size: 13px;
   line-height: 18px;
+  text-decoration: none;
   opacity: 0;
   transform: translateX(-50%);
   transition: opacity 400ms ease;
@@ -3048,8 +3049,33 @@ h3,
 .np-track { display: inline-flex; animation: np-marquee var(--np-duration, 600s) linear infinite; }
 .now-playing:hover .np-track { animation-play-state: paused; }
 .np-run { display: inline-flex; align-items: center; }
-.np-item { color: var(--muted); text-decoration: none; transition: color 150ms ease; }
-.np-item:hover { color: var(--text); }
+.np-item { color: var(--muted); transition: color 150ms ease; }
+.now-playing:hover .np-item { color: var(--text); }
+.np-arrow { width: 14px; height: 14px; flex: 0 0 auto; color: var(--muted); transition: color 150ms ease, transform 150ms ease; }
+.now-playing:hover .np-arrow { color: var(--text); transform: translate(1px, -1px); }
+.now-playing:focus-visible { outline: 2px solid var(--focus); outline-offset: 6px; border-radius: 6px; }
+/* Hover pill, same look as the contact-dock tooltips, below the ticker. */
+.np-tip {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #dcdcd8;
+  color: #1d1e21;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -4px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+@media (hover: hover) {
+  .now-playing:hover .np-tip { opacity: 1; transform: translate(-50%, 0); }
+}
+.now-playing:focus-visible .np-tip { opacity: 1; transform: translate(-50%, 0); }
 .np-dot { padding: 0 12px; color: var(--muted); opacity: 0.6; }
 @keyframes np-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (min-width: 521px) and (max-width: 1024px) {
@@ -3057,9 +3083,11 @@ h3,
 }
 @media (max-width: 520px) {
   /* Mobile: no fixed bar — sits in the intro right under the contact icons. */
-  .now-playing { position: static; transform: none; width: 100%; margin-top: 4px; }
+  .now-playing { position: relative; top: auto; left: auto; transform: none; width: 100%; margin-top: 4px; }
+  .np-tip { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .np-eq i, .np-track { animation: none !important; }
+  .np-tip { transition: none; }
   .np-window { overflow-x: auto; }
 }

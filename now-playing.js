@@ -1,6 +1,6 @@
 // Playlist ticker: tracks from the "best songs ever" Spotify playlist, in order,
 // scrolling one after another. Static list (first 100 tracks of the playlist),
-// so no Spotify sign-in or server is needed. Each track opens in Spotify.
+// so no Spotify sign-in or server is needed. Clicking it opens the playlist.
 // Desktop: pinned to the top centre. Mobile: sits under the contact icons in the intro.
 (function () {
   var PLAYLIST = "https://open.spotify.com/playlist/14TdC0nbL1qSOms0uueJ5V";
@@ -105,20 +105,27 @@
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   var items = TRACKS.map(function (t) {
-    return '<a class="np-item" href="https://open.spotify.com/track/' + t[2] + '" target="_blank" rel="noreferrer" tabindex="-1">' +
-      esc(t[0]) + " — " + esc(t[1]) + "</a>";
+    return '<span class="np-item">' + esc(t[0]) + " — " + esc(t[1]) + "</span>";
   }).join('<span class="np-dot" aria-hidden="true">·</span>');
 
-  var bar = document.createElement("div");
+  var label = isRu ? "Открыть плейлист в Spotify" : "Open the playlist on Spotify";
+  var ARROW = '<svg class="np-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  // The whole ticker is one link to the playlist.
+  var bar = document.createElement("a");
   bar.className = "now-playing";
+  bar.href = PLAYLIST;
+  bar.target = "_blank";
+  bar.rel = "noreferrer";
+  bar.setAttribute("aria-label", label);
   bar.innerHTML =
-    '<a class="np-logo" href="' + PLAYLIST + '" target="_blank" rel="noreferrer" aria-label="' +
-      (isRu ? "Мой плейлист в Spotify" : "My playlist on Spotify") + '">' + SPOTIFY + "</a>" +
+    '<span class="np-logo" aria-hidden="true">' + SPOTIFY + "</span>" +
     '<span class="np-eq" aria-hidden="true"><i></i><i></i><i></i></span>' +
     '<span class="np-window" aria-hidden="true"><span class="np-track">' +
       '<span class="np-run">' + items + '<span class="np-dot">·</span></span>' +
       '<span class="np-run">' + items + '<span class="np-dot">·</span></span>' +
-    "</span></span>";
+    "</span></span>" + ARROW +
+    '<span class="np-tip" aria-hidden="true">' + label + " ↗</span>";
 
   // Mobile: in the intro under the contact icons. Desktop: fixed to the top (CSS).
   var dock = document.querySelector(".intro .contact-dock");
