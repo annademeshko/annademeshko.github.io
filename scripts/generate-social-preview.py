@@ -51,32 +51,15 @@ def render(lang):
     lines=['Распутываю сложные сценарии.','Делаю продукты понятнее.'] if lang=='ru' else ['I untangle complex flows.','And make products feel simple.']
     for i,line in enumerate(lines): text(64,445+i*33,line,23,'#666a73')
     text(64,557,'B2B · B2C · Cybersecurity · AI',19,'#646973')
-    # Real work, in floating rounded cards like the site's concept gallery.
-    def card(path,x,y,w,h,angle,label):
-        pad=12; extra=28
-        layer=Image.new('RGBA',((w+60)*S,(h+extra+60)*S))
-        shadow=Image.new('RGBA',layer.size)
-        sd=ImageDraw.Draw(shadow)
-        sd.rounded_rectangle((22*S,28*S,(w+22)*S,(h+extra+28)*S),20*S,fill=(41,52,82,35))
-        layer.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(12*S)))
-        ld=ImageDraw.Draw(layer)
-        ld.rounded_rectangle((20*S,15*S,(w+20)*S,(h+extra+15)*S),18*S,fill='white',outline='#e5e7ed',width=S)
-        source=Image.open(ROOT/path).convert('RGB')
-        if 'remate/' in path:
-            source=source.crop((470,25,1590,875))
-        source=ImageOps.pad(source,((w-2*pad)*S,h*S),method=Image.Resampling.LANCZOS,color='white')
-        mask=Image.new('L',source.size);ImageDraw.Draw(mask).rounded_rectangle((0,0,*source.size),10*S,fill=255)
-        layer.paste(source,((20+pad)*S,(15+pad)*S),mask)
-        font=ImageFont.truetype(str(FONT/'DejaVuSans.ttf'),12*S)
-        ld.text(((20+pad)*S,(h+30)*S),label,fill='#838895',font=font)
-        layer=layer.rotate(angle,Image.Resampling.BICUBIC,expand=True)
-        canvas.paste(layer,(x*S,y*S),layer)
-    card('assets/remate/cover-light-dots-poster.webp',555,58,540,440,-2,'REMATE / SportTech')
+    # Show the complete original cover: no crop, rounded container or shadow.
+    source=Image.open(ROOT/'assets/remate/cover-light-dots-poster.webp').convert('RGB')
+    source.thumbnail((640*S,360*S),Image.Resampling.LANCZOS)
+    canvas.paste(source,(540*S,140*S))
     d=ImageDraw.Draw(canvas)
     # Blue collaborator cursor and label, matching the homepage's pointer.
     d.polygon([(1030*S,493*S),(1040*S,524*S),(1048*S,512*S),(1062*S,508*S)],fill=BLUE)
     rect((1052,519,1138,551),BLUE,radius=7)
     text(1063,524,'Аня' if lang=='ru' else 'Anna',17,'white',True)
-    canvas.resize((1200,630),Image.Resampling.LANCZOS).save(ROOT/f'assets/social/remate-preview-{lang}-v2.png',optimize=True)
+    canvas.resize((1200,630),Image.Resampling.LANCZOS).save(ROOT/f'assets/social/remate-full-{lang}-v4.png',optimize=True)
 
 for language in ('ru','en'): render(language)
