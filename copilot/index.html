@@ -1,14 +1,537 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wave and CoPilot: AI vulnerability triage</title>
-  <link rel="canonical" href="https://annademeshko.com/wave/">
-  <meta http-equiv="refresh" content="0; url=/wave/">
-  <script>location.replace('/wave/' + location.search + location.hash);</script>
-</head>
-<body>
-  <p>The CoPilot case is now part of the Wave case: <a href="/wave/">open it</a>.</p>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Anna Demeshko case study: CoPilot — AI vulnerability triage that cut scan review from 6–8 to 2–3 hours.">
+    <title>CoPilot: AI vulnerability triage</title>
+  <link rel="canonical" href="https://annademeshko.com/copilot/">
+    <link rel="icon" type="image/png" href="../assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="../assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+      .case-summary { box-sizing: border-box; width: min(680px, 100%); margin: 8px 0 56px; }
+      .case-summary-table { margin: 0; }
+      .case-summary-line:last-child { border-bottom: 0; }
+      .case-summary-line { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--control-border); }
+      .case-summary-line dt { color: var(--muted); font-size: 16px; line-height: 24px; }
+      .case-summary-line dd { margin: 0; color: var(--text); font-size: 16px; font-weight: 400; line-height: 24px; }
+      .research-findings li { margin-bottom: 10px; }
+      @media (max-width: 640px) { .case-summary-line { grid-template-columns: 1fr; gap: 2px; } }
+
+      /* Screens follow the site theme: light screens in light mode, dark in dark. */
+      .theme-shot { width: 100%; margin: 0; }
+      .copilot-detail-figure.theme-shot { width: min(680px, 100%); }
+      .copilot-system-figure.theme-shot { width: min(680px, 100%); }
+      .copilot-sequence .theme-shot { width: auto; }
+      .theme-shot img { display: block; }
+      .theme-shot .shot-dark { display: none; }
+      [data-theme="dark"] .theme-shot .shot-light { display: none; }
+      [data-theme="dark"] .theme-shot .shot-dark { display: block; }
+      [data-theme="dark"] .theme-shot .study-image { filter: none; }
+      .theme-shot figcaption,
+      .copilot-states-grid figcaption,
+      .theme-compare-caption { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 20px; }
+
+      /* Light / dark comparison slider */
+      .theme-compare-wrap { width: 100%; margin: 0; }
+      .theme-compare {
+        --pos: 50%;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+        background: var(--surface);
+        cursor: ew-resize;
+        user-select: none;
+        touch-action: pan-y;
+      }
+      .theme-compare img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+      }
+      .theme-compare .compare-light { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+      .theme-compare-handle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: var(--pos);
+        width: 2px;
+        margin-left: -1px;
+        background: #ffffff;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 18px rgba(0, 0, 0, 0.25);
+        pointer-events: none;
+      }
+      .theme-compare-handle::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%231d1e21' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18-6-6 6-6'/%3E%3Cpath d='m15 6 6 6-6 6'/%3E%3C/svg%3E") center / 20px no-repeat;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+      }
+      .theme-compare-label {
+        position: absolute;
+        bottom: 14px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 500;
+        pointer-events: none;
+        backdrop-filter: blur(6px);
+      }
+      .theme-compare-label--light { left: 14px; color: #1d1e21; background: rgba(255, 255, 255, 0.85); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+      .theme-compare-label--dark { right: 14px; color: #f4f5f6; background: rgba(18, 19, 21, 0.75); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1); }
+      .theme-compare-range {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .theme-compare-range:focus-visible + .theme-compare-handle::after { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+      /* Crops: the image carries its own surface, so the card only frames it. */
+      .copilot-crop { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--control-border); }
+      .copilot-sequence .copilot-detail-card { padding: 0; min-height: 0; background: #ffffff; }
+      [data-theme="dark"] .copilot-sequence .copilot-detail-card { background: #0f1011; }
+      .copilot-system-figure .copilot-crop { border: 0; border-radius: 12px; }
+
+      /* Edge states grid */
+      .copilot-states-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 16px;
+        width: 100%;
+      }
+      .copilot-states-grid figure { margin: 0; }
+      @media (max-width: 640px) { .copilot-states-grid { grid-template-columns: 1fr; } }
+    </style>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+        } catch (e) {}
+      })();
+    </script>
+  
+    <style>
+      .lang-switch--conditional { display: none; }
+      html.lang-switch-enabled .lang-switch--conditional { display: inline-flex; }
+    </style>
+    <script>
+      (function () {
+        try {
+          var params = new URLSearchParams(location.search);
+          var state = history.state || {};
+          var enabled = params.get("langswitch") === "1" || state.langSwitchFromRu === true;
+
+          if (!enabled) return;
+
+          document.documentElement.classList.add("lang-switch-enabled");
+
+          var nextState = Object.assign({}, state, { langSwitchFromRu: true });
+          if (params.get("langswitch") === "1") {
+            params.delete("langswitch");
+            var cleanUrl =
+              location.pathname +
+              (params.toString() ? "?" + params.toString() : "") +
+              location.hash;
+            history.replaceState(nextState, "", cleanUrl);
+          } else {
+            history.replaceState(nextState, "", location.href);
+          }
+
+          var preconnect = document.createElement("link");
+          preconnect.rel = "preconnect";
+          preconnect.href = "https://annademeshko.com";
+          document.head.appendChild(preconnect);
+
+          var prefetch = document.createElement("link");
+          prefetch.rel = "prefetch";
+          prefetch.href = "https://annademeshko.com/ru/copilot/";
+          document.head.appendChild(prefetch);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch lang-switch--conditional" role="group" aria-label="Language">
+        <a class="lang-btn" href="https://annademeshko.com/ru/copilot/" data-lang-set="ru" aria-pressed="false">RU</a>
+        <a class="lang-btn" href="/copilot/" data-lang-set="en" aria-pressed="true">EN</a>
+      </div>
+    </div>
+
+    <main class="page case-page copilot-case" aria-label="CoPilot case study">
+      <article class="case-study">
+
+        <header class="case-hero">
+          <h1>How I cut scan triage from 6–8 to 2–3 hours with AI in CoPilot</h1>
+          <p class="case-hero-lead">CoPilot runs a security scanner report through three engines — an RL model, an LLM and an Advice service — and helps analysts quickly separate real vulnerabilities from false positives. I designed the product from brief to developer handoff.</p>
+          <p class="case-meta">2025 · Product Designer · In production · Enterprise AppSec platform</p>
+        </header>
+
+        <section class="case-summary" aria-label="Summary">
+          <dl class="case-summary-table">
+            <div class="case-summary-line"><dt>Role</dt><dd>Sole designer of CoPilot, from brief to developer handoff</dd></div>
+            <div class="case-summary-line"><dt>Team</dt><dd>9 people: me (designer), PM, analyst, 2 frontend, 2 backend, 2 QA</dd></div>
+            <div class="case-summary-line"><dt>Product</dt><dd>AppSec Solutions, cybersecurity, B2B SaaS, web</dd></div>
+            <div class="case-summary-line"><dt>Outcome</dt><dd>≈ −60% time to triage a large scan (from 6–8 to 2–3 hours); ≈ 2 in 3 findings closed without opening the code</dd></div>
+          </dl>
+        </section>
+
+        <figure class="theme-compare-wrap">
+          <div class="theme-compare" data-theme-compare>
+            <img class="compare-dark" src="/assets/copilot-v2/dark-04-report-details.webp" width="3840" height="2160" alt="CoPilot in dark theme: report list and vulnerability review" decoding="async">
+            <img class="compare-light" src="/assets/copilot-v2/light-04-report-details.webp" width="3840" height="2160" alt="CoPilot in light theme: report list and vulnerability review" decoding="async">
+            <span class="theme-compare-label theme-compare-label--light">Light</span>
+            <span class="theme-compare-label theme-compare-label--dark">Dark</span>
+            <input class="theme-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare light and dark theme">
+            <span class="theme-compare-handle" aria-hidden="true"></span>
+          </div>
+          <figcaption class="theme-compare-caption">Drag the slider to compare the light and dark themes. The screens below follow the site theme.</figcaption>
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Context</p>
+            <p>After every scan an analyst received hundreds of findings, and triaging a single scan took 6–8 hours.</p>
+            <p>AI could speed this up, but only if the interface answers three questions at any moment:</p>
+            <div class="copilot-question-lines" aria-label="Key questions">
+              <div class="copilot-question-line"><span>01</span><strong>What is happening right now?</strong></div>
+              <div class="copilot-question-line"><span>02</span><strong>How much can I trust the result?</strong></div>
+              <div class="copilot-question-line"><span>03</span><strong>What should I do next?</strong></div>
+            </div>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Research</p>
+            <p>I held regular calls with analysts and walked through scenarios with the PM. Key findings:</p>
+            <ul class="research-findings">
+              <li><strong>No status, no trust.</strong> An expert needs to see which stage a check is at and where it failed.</li>
+              <li><strong>A prediction is easy to mistake for a verdict.</strong> The AI's assessment and the human decision must be clearly separated.</li>
+              <li><strong>Hundreds of findings, limited expert time.</strong> The evidence for a decision has to live in one place.</li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Key decisions</p>
+            <p><strong>Several signals, not one badge.</strong> Prediction, Match and each engine's results are shown separately, so the analyst checks the logic instead of taking the conclusion on faith. Any disagreement between signals is visible at once.</p>
+            <p><strong>A choice of check depth, not always a full analysis.</strong> Fast triage and deep review are different jobs, so before starting a check the analyst can run the full pipeline or individual engines.</p>
+            <p><strong>A human makes the final call, not an auto-close threshold.</strong> Auto-closing can't be defended in an audit, and a single false negative means a missed real vulnerability.</p>
+          </section>
+        </div>
+
+        <section class="study-block copilot-flow-wrap">
+          <p class="eyebrow">Mapping the workflow</p>
+          <p>The flow is split into two modes: monitoring and reviewing.</p>
+          <div class="copilot-workflow-phases" aria-label="CoPilot workflow">
+            <div class="copilot-workflow-phase">
+              <div class="copilot-phase-label">Monitoring</div>
+              <div class="copilot-phase-steps">
+                <div class="copilot-phase-step"><span class="step-index">01</span><strong>Select report</strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">02</span><strong>Configure check</strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">03</span><strong>Track processing</strong></div>
+              </div>
+            </div>
+            <div class="copilot-workflow-phase">
+              <div class="copilot-phase-label">Reviewing</div>
+              <div class="copilot-phase-steps">
+                <div class="copilot-phase-step"><span class="step-index">04</span><strong>Review result</strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">05</span><strong>Inspect finding</strong></div>
+                <span class="copilot-step-arrow" aria-hidden="true">→</span>
+                <div class="copilot-phase-step"><span class="step-index">06</span><strong>Make decision</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">01</span><strong class="copilot-section-title">Control before the check starts</strong></p>
+            <p>Everything that affects the result sits in one dialog: report format, the report itself and check depth — from the full pipeline (RL → LLM → Advice) to individual engines. Each mode has a short explanation, so the choice is clear without documentation.</p>
+          </section>
+        </div>
+
+        <figure class="theme-shot">
+          <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-02-check-report-setup.webp" alt="Check report dialog: format, report and check mode">
+          <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-02-check-report-setup.webp" alt="Check report dialog: format, report and check mode">
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">02</span><strong class="copilot-section-title">Making background processing visible</strong></p>
+            <p>Instead of a generic progress bar, each report has three segments — one per engine. At a glance the analyst sees where the check is, what is done and where it stopped, and knows whether to wait or step in.</p>
+            <p class="copilot-state-line">
+              <strong>Waiting</strong> · <strong>In progress</strong> · <strong>Completed</strong> · <strong>Skipped</strong> · <strong>Failed</strong> · <strong>Broken</strong>
+            </p>
+          </section>
+        </div>
+
+        <figure class="theme-shot">
+          <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-03-processing.webp" alt="CoPilot report list with processing states">
+          <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-03-processing.webp" alt="CoPilot report list with processing states">
+        </figure>
+
+        <figure class="copilot-detail-figure theme-shot">
+          <img class="copilot-crop shot-light" loading="lazy" decoding="async" src="/assets/copilot-v2/light-processing-states.webp" alt="Processing states: waiting, RL, LLM, Advice service, completed, failed">
+          <img class="copilot-crop shot-dark" loading="lazy" decoding="async" src="/assets/copilot-v2/dark-processing-states.webp" alt="Processing states: waiting, RL, LLM, Advice service, completed, failed">
+          <figcaption>One state model shows both the current stage and the status of each step.</figcaption>
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">03</span><strong class="copilot-section-title">From a result to an investigation</strong></p>
+            <p>The report opens next to the list, so the analyst keeps the context. The panel follows a clear hierarchy:</p>
+            <ul>
+              <li>check summary: Prediction, Match and findings by type</li>
+              <li>the finding and its technical parameters</li>
+              <li>review status and the rule behind the decision</li>
+              <li>the expert's next action</li>
+            </ul>
+          </section>
+        </div>
+
+        <figure class="theme-shot">
+          <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-04-report-details.webp" alt="CoPilot report: metrics, vulnerability list and an expanded finding">
+          <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-04-report-details.webp" alt="CoPilot report: metrics, vulnerability list and an expanded finding">
+        </figure>
+
+        <figure class="copilot-detail-figure theme-shot">
+          <img class="copilot-crop shot-light" loading="lazy" decoding="async" src="/assets/copilot-v2/light-parameters.webp" alt="Finding parameters and rule">
+          <img class="copilot-crop shot-dark" loading="lazy" decoding="async" src="/assets/copilot-v2/dark-parameters.webp" alt="Finding parameters and rule">
+          <figcaption>Evidence and decision history stay together in one place.</figcaption>
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">04</span><strong class="copilot-section-title">Keeping the human in the loop</strong></p>
+            <p>Only an expert can confirm, reject or ignore a finding, and every decision is recorded in the history. Actions are labelled with words instead of hidden behind icons: a decision that has to be defended in an audit shouldn't involve guessing.</p>
+          </section>
+        </div>
+
+        <figure class="theme-shot">
+          <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-05-human-decision.webp" alt="Vulnerability review with Confirm, Reject and Ignore actions">
+          <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-05-human-decision.webp" alt="Vulnerability review with Confirm, Reject and Ignore actions">
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">05</span><strong class="copilot-section-title">Actions with consequences for future scans</strong></p>
+            <p>Ignore excludes an object from later scans, so it is more than a dismiss: the consequence is shown before confirmation, and afterwards the product confirms that the rule will apply going forward.</p>
+          </section>
+        </div>
+
+        <figure class="theme-shot">
+          <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-06-ignore-flow.webp" alt="Ignore confirmation in the product context">
+          <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-06-ignore-flow.webp" alt="Ignore confirmation in the product context">
+        </figure>
+
+        <div class="study-stack">
+          <div class="copilot-sequence copilot-sequence--actions">
+            <figure class="theme-shot">
+              <div class="copilot-detail-card">
+                <img class="shot-light" loading="lazy" decoding="async" src="/assets/copilot-v2/light-ignore-modal.webp" alt="Ignore confirmation modal">
+                <img class="shot-dark" loading="lazy" decoding="async" src="/assets/copilot-v2/dark-ignore-modal.webp" alt="Ignore confirmation modal">
+              </div>
+              <figcaption>The consequence is explicit before confirmation.</figcaption>
+            </figure>
+            <figure class="theme-shot">
+              <div class="copilot-detail-card">
+                <img class="shot-light" loading="lazy" decoding="async" src="/assets/copilot-v2/light-ignore-success.webp" alt="Success notification after ignoring an object">
+                <img class="shot-dark" loading="lazy" decoding="async" src="/assets/copilot-v2/dark-ignore-success.webp" alt="Success notification after ignoring an object">
+              </div>
+              <figcaption>The product confirms that the rule applies to following scans.</figcaption>
+            </figure>
+          </div>
+
+          <section class="study-block">
+            <p class="copilot-section-heading"><span class="copilot-section-number">06</span><strong class="copilot-section-title">A failure is not a dead end</strong></p>
+            <p>If one of the engines fails, the analyst sees at which stage, why, and what is already done. RL and LLM results stay available, and the check can be restarted right from the error card.</p>
+          </section>
+        </div>
+
+        <figure class="theme-shot">
+          <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-08-failure-reason.webp" alt="Advice service failure reason and engine timeline">
+          <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-08-failure-reason.webp" alt="Advice service failure reason and engine timeline">
+        </figure>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Beyond the happy path</p>
+            <p>I defined 8 states — from waiting and in progress to failed, empty and zero findings — and reused the same logic at every level: the pipeline, the report and an individual finding. Complexity grows without new rules for every screen.</p>
+          </section>
+        </div>
+
+        <figure class="copilot-system-figure theme-shot">
+          <img class="copilot-crop shot-light" loading="lazy" decoding="async" src="/assets/copilot-v2/light-state-system.webp" alt="Report status system: pipeline, status and meaning">
+          <img class="copilot-crop shot-dark" loading="lazy" decoding="async" src="/assets/copilot-v2/dark-state-system.webp" alt="Report status system: pipeline, status and meaning">
+          <figcaption>Reusable semantic states instead of one-off solutions for every screen.</figcaption>
+        </figure>
+
+        <div class="copilot-states-grid">
+          <figure class="theme-shot">
+            <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-10-no-reports-yet.webp" alt="Empty state: no reports yet">
+            <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-10-no-reports-yet.webp" alt="Empty state: no reports yet">
+            <figcaption>Empty: the first run explains where to start.</figcaption>
+          </figure>
+          <figure class="theme-shot">
+            <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-09-no-vulnerabilities.webp" alt="Report with no vulnerabilities">
+            <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-09-no-vulnerabilities.webp" alt="Report with no vulnerabilities">
+            <figcaption>Zero findings is a result, not a blank screen.</figcaption>
+          </figure>
+          <figure class="theme-shot">
+            <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-11-loading.webp" alt="Loading the report list">
+            <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-11-loading.webp" alt="Loading the report list">
+            <figcaption>Loading mirrors the table structure, so the screen doesn't jump.</figcaption>
+          </figure>
+          <figure class="theme-shot">
+            <img class="study-image shot-light is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/light-12-connection-error.webp" alt="Error loading reports">
+            <img class="study-image shot-dark is-loading" loading="lazy" decoding="async" width="3840" height="2160" src="/assets/copilot-v2/dark-12-connection-error.webp" alt="Error loading reports">
+            <figcaption>Connection error: a clear reason and one next step.</figcaption>
+          </figure>
+        </div>
+
+        <div class="study-stack">
+          <section class="study-block">
+            <p class="eyebrow">Light and dark themes</p>
+            <p>The interface is built on semantic tokens — background, surface, border, text, accent and status colours. Both themes come from one system: only colour values change, not the layouts. Status colours are darker in the light theme to stay legible on white.</p>
+          </section>
+
+          <section class="study-block result-block">
+            <p class="eyebrow">Outcome</p>
+            <ul>
+              <li><strong>≈ −60% time to triage a large scan:</strong> from 6–8 to 2–3 hours.</li>
+              <li><strong>≈ 2 in 3 findings closed without opening the code:</strong> obvious cases are resolved straight from the check results.</li>
+              <li><strong>100% of decisions are traceable:</strong> the triage can be defended in an audit.</li>
+              <li><strong>A single system of 8 states:</strong> one specification for development instead of mockups for every case.</li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">What I learned</p>
+            <p>Complexity doesn't disappear when you simplify an interface — it has to be structured. Triage got faster not because AI decides for people, but because the analyst can see what each conclusion is based on.</p>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer site-footer--case">
+      <h2 class="footer-title"><span data-lang="ru">Давай знакомиться</span><span data-lang="en">Let’s connect</span></h2>
+      <script>
+        (function () {
+          var el = document.currentScript.previousElementSibling;
+          function fit() {
+            el.style.fontSize = "";
+            var w = el.clientWidth, s = el.scrollWidth;
+            if (s > w) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * w / s * 0.98) + "px";
+          }
+          fit();
+          window.addEventListener("resize", fit);
+          if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+        })();
+      </script>
+      <nav class="contact-dock contact-dock--footer" aria-label="Контакты" data-aria-ru="Контакты" data-aria-en="Contacts">
+          <a class="dock-item" data-cv href="../assets/anna-demeshko-product-designer-en.pdf" target="_blank" rel="noreferrer"><svg class="dock-icon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="dkPdf1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F4F2"/><stop offset="1" stop-color="#DEDEDB"/></linearGradient></defs><rect width="56" height="56" rx="13" fill="url(#dkPdf1)"/><path d="M19 10.5h13.5l9 9V42a3.5 3.5 0 0 1-3.5 3.5H19a3.5 3.5 0 0 1-3.5-3.5V14a3.5 3.5 0 0 1 3.5-3.5Z" fill="#fff" stroke="#C4C6CB" stroke-width="1.2"/><path d="M32.5 10.5V17a2.5 2.5 0 0 0 2.5 2.5h6.5" fill="#ECEDEF" stroke="#C4C6CB" stroke-width="1.2" stroke-linejoin="round"/><rect x="11" y="27" width="25" height="11" rx="2.5" fill="#E5322D"/><text x="23.5" y="35.2" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="8" font-weight="800" fill="#fff" letter-spacing=".3">PDF</text></svg><span class="dock-label"><span data-lang="ru">Резюме</span><span data-lang="en">CV</span></span></a>
+          <span class="dock-divider" aria-hidden="true"></span>
+          <a class="dock-item" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><img class="dock-icon" src="../assets/contacts/linkedin.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">LinkedIn</span><span data-lang="en">LinkedIn</span></span></a>
+          <a class="dock-item" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><img class="dock-icon" src="../assets/contacts/telegram.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Telegram</span><span data-lang="en">Telegram</span></span></a>
+          <button class="dock-item" type="button" data-copy-email="annademeshko.v@gmail.com" aria-label="Email: annademeshko.v@gmail.com"><img class="dock-icon" src="../assets/contacts/mail.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Почта</span><span data-lang="en">Email</span></span><span class="dock-label dock-label--done"><span data-lang="ru">Скопировано</span><span data-lang="en">Copied</span></span></button>
+        </nav>
+    </footer>
+
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <nav class="case-nav" aria-label="Case navigation">
+      <a class="case-nav-link case-nav-prev" href="/remate/" aria-label="Previous case"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label">Previous case</span></a>
+      <a class="case-nav-link case-nav-home" href="/">Home</a>
+      <a class="case-nav-link case-nav-next" href="/nova/" aria-label="Next case"><span class="case-nav-label">Next case</span><img class="case-nav-icon next-icon" src="/assets/icon-external.svg" alt=""></a>
+      </nav>
+    <script src="../script.js?v=20261021-cv"></script>
+    <script src="/pixels.js?v=20261029-notrail" defer></script>
+    <script>
+      // Light / dark comparison slider: drag anywhere on the image, or use the arrow keys.
+      (function () {
+        document.querySelectorAll("[data-theme-compare]").forEach(function (box) {
+          var range = box.querySelector(".theme-compare-range");
+          var dragging = false;
+          function set(pct) {
+            pct = Math.max(0, Math.min(100, pct));
+            box.style.setProperty("--pos", pct + "%");
+            range.value = Math.round(pct);
+          }
+          function fromEvent(e) {
+            var r = box.getBoundingClientRect();
+            set(((e.clientX - r.left) / r.width) * 100);
+          }
+          box.addEventListener("pointerdown", function (e) {
+            dragging = true;
+            box.setPointerCapture(e.pointerId);
+            fromEvent(e);
+            range.focus({ preventScroll: true });
+          });
+          box.addEventListener("pointermove", function (e) { if (dragging) fromEvent(e); });
+          box.addEventListener("pointerup", function () { dragging = false; });
+          box.addEventListener("pointercancel", function () { dragging = false; });
+          range.addEventListener("input", function () { set(Number(range.value)); });
+        });
+      })();
+    </script>
+    <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
+    <script>
+      (function () {
+        try {
+          var p = new URLSearchParams(location.search);
+          if (p.get("noanalytics") === "1") localStorage.setItem("cf-noanalytics", "1");
+          if (p.get("noanalytics") === "0") localStorage.removeItem("cf-noanalytics");
+          if (localStorage.getItem("cf-noanalytics") === "1") return;
+        } catch (e) {}
+        var s = document.createElement("script");
+        s.defer = true;
+        s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        s.setAttribute("data-cf-beacon", '{"token": "e99ab9de70814c0e9089a11ad2a2fd46"}');
+        document.head.appendChild(s);
+      })();
+    </script>
+    <!-- End Cloudflare Web Analytics -->
+  
+    <script>
+      (function () {
+        if (!document.documentElement.classList.contains("lang-switch-enabled")) return;
+
+        document.addEventListener("click", function (event) {
+          var link = event.target.closest && event.target.closest("a[href]");
+          if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+          try {
+            var url = new URL(link.href, location.href);
+            if (url.origin !== location.origin) return;
+            if (url.pathname.indexOf("/assets/") === 0) return;
+            if (url.pathname === location.pathname && url.hash) return;
+
+            url.searchParams.set("langswitch", "1");
+            link.href = url.href;
+          } catch (e) {}
+        }, true);
+      })();
+    </script>
+  </body>
 </html>
