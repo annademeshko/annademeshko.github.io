@@ -407,10 +407,21 @@
       /* Profile photo: black and white, no pixel effect. */
       html.standalone-english .home-page .intro-photo { filter: grayscale(1); }
 
+      /* Intro summary: one sentence, key facts in bold. */
+      html.standalone-english .home-page .intro-copy p.intro-summary {
+        max-width: 470px;
+        margin: 0 auto;
+        font-size: 17px;
+        line-height: 26px;
+        font-weight: 450;
+        text-wrap: balance;
+      }
+      html.standalone-english .home-page .intro-summary b { font-weight: 650; color: var(--heading); }
+
       /* Header text: solid, readable colours in every theme. */
-      html.standalone-english[data-theme="pink"] { --intro-text: #120a10; --muted: #2a1220; }
-      html.standalone-english[data-theme="light"] { --intro-text: rgba(0, 0, 0, 0.78); }
-      html.standalone-english[data-theme="dark"] { --intro-text: #e3e6eb; }
+      html.standalone-english[data-theme="pink"] { --intro-text: #000; --text: #000; --heading: #000; --muted: #2a1220; }
+      html.standalone-english[data-theme="light"] { --intro-text: #111; }
+      html.standalone-english[data-theme="dark"] { --intro-text: #eef0f3; }
       html.standalone-english .np-item,
       html.standalone-english .np-arrow,
       html.standalone-english .np-dot { color: var(--text); }
@@ -456,8 +467,7 @@
         <div class="intro-copy">
           <h1 id="intro-title"><span data-lang="ru">Анна Демешко</span><span data-lang="en">Anna Demeshko</span></h1>
           <div class="intro-facts">
-            <p><span data-lang="ru">Product Designer с опытом 4+ лет<br> B2B · B2C · Cybersecurity · AI</span><span data-lang="en">Product Designer with 4+ years of experience<br> B2B · B2C · Cybersecurity · AI</span></p>
-            <p><span data-lang="ru"><span class="intro-use">Использую:</span> Claude Code, Codex, Figma Make, ChatGPT</span><span data-lang="en"><span class="intro-use">Use:</span> Claude Code, Codex, Figma Make, ChatGPT</span></p>
+            <p class="intro-summary"><span data-lang="ru">Продуктовый дизайнер, <b>4+&nbsp;года</b> в <b>B2B, B2C, кибербезопасности и AI</b>. Работаю с Claude&nbsp;Code, Codex, Figma&nbsp;Make и ChatGPT.</span><span data-lang="en">Product designer with <b>4+&nbsp;years</b> in <b>B2B, B2C, cybersecurity and AI</b>. I work with Claude&nbsp;Code, Codex, Figma&nbsp;Make and ChatGPT.</span></p>
             <p class="intro-tagline"><span data-lang="ru"><span class="text-select"><span class="sel-handle sel-handle--start" aria-hidden="true"></span>Распутываю сложные сценарии,<br> чтобы продуктом было просто и приятно пользоваться<span class="sel-handle sel-handle--end" aria-hidden="true"></span></span></span><span data-lang="en"><span class="text-select"><span class="sel-handle sel-handle--start" aria-hidden="true"></span>I untangle complex flows<br> so the product is simple and pleasant to use<span class="sel-handle sel-handle--end" aria-hidden="true"></span></span></span></p>
           </div>
         </div>
