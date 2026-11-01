@@ -26,31 +26,24 @@
     <link rel="stylesheet" href="./styles.css">
     <style>.remate-cover-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0e0e0e;border-radius:12px;clip-path:inset(0 round 12px)}</style>
     <style>
-      /* Same compact pill proportions as the language control. */
-      .portfolio-tabs { align-items: center; }
-      .portfolio-tabs .segmented-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 34px;
-        min-height: 34px;
-        padding: 6px 10px;
-        font-size: 13px;
-        font-weight: 400;
-      }
-      .portfolio-tabs .segmented-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+      /* Sequential case studies followed by a masonry concept gallery. */
       .concept-lightbox [hidden] { display: none; }
-
-      /* ---- Cases / concepts switcher + Pinterest-style concept grid ---- */
-      .portfolio-switcher {
-        display: flex;
-        justify-content: center;
+      .selected-cases-heading,
+      .concepts-heading {
         width: 100%;
-        margin: 56px 0 48px;
+        margin: 56px auto 36px;
+        padding: 0;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 24.5px;
+        letter-spacing: normal;
+        color: var(--heading);
       }
-
-      .portfolio-switcher .segmented {
-        margin-bottom: 0;
+      .selected-cases-heading { max-width: 680px; }
+      .concepts-heading { margin-top: 64px; }
+      @media (max-width: 520px) {
+        .selected-cases-heading { margin-top: 44px; margin-bottom: 32px; }
+        .concepts-heading { margin-top: 44px; margin-bottom: 32px; }
       }
 
       .home-page .works {
@@ -169,10 +162,6 @@
       }
 
       @media (max-width: 520px) {
-        .portfolio-switcher {
-          margin: 44px 0 32px;
-        }
-
         .concepts-grid {
           column-count: 1;
           column-gap: 0;
@@ -315,16 +304,9 @@
       </section>
 
 
-      <!-- Cases / Concepts switcher --><div class="portfolio-switcher">
-        <div class="segmented portfolio-tabs" role="tablist" aria-label="Cases and concepts">
-          <span class="segmented__thumb" aria-hidden="true"></span>
-          <button class="segmented-btn is-active" type="button" role="tab" id="cases-tab" aria-controls="cases-panel" aria-selected="true" data-panel="cases">Cases</button>
-          <button class="segmented-btn" type="button" role="tab" id="concepts-tab" aria-controls="concepts-panel" aria-selected="false" tabindex="-1" data-panel="concepts">Concepts</button>
-        </div>
-      </div>
-
       <div class="works">
-        <section id="cases-panel" role="tabpanel" aria-labelledby="cases-tab" class="work" data-panel="cases" aria-label="Cases">
+        <section id="cases-panel" aria-labelledby="selected-cases-heading" class="work" data-panel="cases">
+          <h2 id="selected-cases-heading" class="selected-cases-heading">Selected cases</h2>
         <a class="case-card case-link" href="/remate/" aria-label="remate">
           <span class="case-cover">
             <video class="case-image remate-cover-video" width="1600" height="900" autoplay muted loop playsinline preload="metadata" poster="./assets/remate/cover-light-dots-poster.webp?v=2" aria-label="remate: welcome animation and key screens of the iOS app"><source src="./assets/remate/cover-light-dots.mp4?v=2" type="video/mp4"></video>
@@ -397,7 +379,8 @@
 
       </section>
 
-        <section id="concepts-panel" role="tabpanel" aria-labelledby="concepts-tab" class="concepts" data-panel="concepts" aria-label="Concepts" hidden>
+        <section id="concepts-panel" aria-labelledby="concepts-heading" class="concepts" data-panel="concepts">
+          <h2 id="concepts-heading" class="concepts-heading">Concepts</h2>
           <div class="concepts-grid">
             <figure data-palette="travel-blue" data-surface="blue" class="concept-card" data-texture="ocean"><video width="2702" height="2700" muted loop playsinline preload="none" poster="/assets/concept-previews/gift-poster.webp" data-video="/assets/travel/gift-preview.mp4" data-full="/assets/aviasales-gift-concept.gif" aria-label="Aviasales gift certificates concept: choosing a postcard and sending a travel gift"></video></figure>
             <figure data-palette="travel-blue" data-surface="blue" class="concept-card" data-texture="violet"><video data-video="/assets/travel/lucky.mp4" width="1080" height="1200" muted loop playsinline preload="none" poster="/assets/travel/lucky-poster.webp" aria-label="Lucky flight: animated bonus picker for a travel app, with daily attempts and a locked state"></video></figure>
@@ -519,24 +502,6 @@
         });
       })();
     </script>
-    <script>
-      document.querySelectorAll('.portfolio-tabs [role="tab"]').forEach(function (tab, index, tabs) {
-        tab.addEventListener('click', function () {
-          tabs.forEach(function (item) { item.tabIndex = item === tab ? 0 : -1; });
-        });
-        tab.addEventListener('keydown', function (event) {
-          var next;
-          if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
-          else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
-          else if (event.key === 'Home') next = 0;
-          else if (event.key === 'End') next = tabs.length - 1;
-          else return;
-          event.preventDefault();
-          tabs[next].click();
-          tabs[next].focus();
-        });
-      });
-    </script>
     <script src="/now-playing.js" defer></script>
     <script src="./script.js?v=20261021-cv"></script>
     <script src="/pixels.js?v=20261029-notrail" defer></script>
@@ -604,4 +569,5 @@
     <script src="https://annademeshko.com/concept-media.js?v=20261016-2"></script>
 </body>
 </html>
+
 
