@@ -127,7 +127,7 @@
     "</span></span>" + ARROW +
     '<span class="np-tip" aria-hidden="true">' + label + " ↗</span>";
 
-  // Mobile: in the intro under the contact icons. Desktop: fixed to the top (CSS).
+  // Mobile: in the intro under the contact icons. Desktop: at the top of the page, scrolls with it (CSS).
   var dock = document.querySelector(".intro .contact-dock");
   if (dock && dock.parentNode) dock.parentNode.insertBefore(bar, dock.nextSibling);
   else document.body.appendChild(bar);

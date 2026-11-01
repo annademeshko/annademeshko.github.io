@@ -3065,7 +3065,8 @@ h3,
 
 /* Playlist ticker (now-playing.js): Spotify glyph, tiny equaliser, tracks scrolling in order. */
 .now-playing {
-  position: fixed;
+  /* Sits at the top of the page and scrolls away with it. */
+  position: absolute;
   z-index: 30;
   top: 22px;
   left: 50%;

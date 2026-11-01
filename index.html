@@ -442,36 +442,6 @@
           color: var(--text);
         }
       }
-      @media (max-width: 520px) {
-        /* Phones: pin the music ticker to the top too; theme switch sits under it. */
-        html.standalone-english .now-playing {
-          position: fixed;
-          z-index: 30;
-          top: 10px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: calc(100% - 32px);
-          max-width: 380px;
-          margin: 0;
-          padding: 6px 14px;
-          border-radius: 999px;
-          background: var(--bg);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-        }
-        html.standalone-english .site-controls { top: 58px; }
-        html.standalone-english .site-controls.is-hidden { transform: translateX(-50%) translateY(-220%); }
-        html.standalone-english .top-fade { height: 56px; }
-        html.standalone-english .home-page { padding-top: 112px; }
-      }
-      @media (min-width: 521px) {
-        /* The ticker is fixed at the top: give it a solid pill so it stays legible over the black cards. */
-        html.standalone-english .now-playing {
-          padding: 6px 14px;
-          border-radius: 999px;
-          background: var(--bg);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-        }
-      }
       /* Tagline: solid selection plate with contrasting text. */
       html.standalone-english .text-select { --sel: #fff; --sel-bg: #000; color: #fff; font-weight: 500; }
       html.standalone-english[data-theme="light"] .text-select { --sel: #ed2e8e; }
