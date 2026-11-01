@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="standalone-english">
   <head>
     <script>
       // Preserve existing RU-origin links while keeping standalone English independent.
@@ -277,6 +277,45 @@
       .intro-label { color: var(--text); font-weight: 500; }
     </style>
     <style>.case-texture-frame .case-cover.case-cover--split{--split:51.7%;overflow:visible}.case-cover--split > .case-image{clip-path:inset(12.33% 6.667% 9.667% 6.667% round .8%)!important;border-radius:0!important;background:transparent!important}.case-cover--split .split-dark{mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2400 1500'%3E%3Crect x='160' y='185' width='2080' height='1170' rx='20' fill='white'/%3E%3C/svg%3E") center/100% 100% no-repeat;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;clip-path:polygon(calc(var(--split) + 14.1%) 0,100% 0,100% 100%,calc(var(--split) - 13.4%) 100%);transition:clip-path 600ms cubic-bezier(.2,.8,.2,1)}.case-cover--split .split-line{position:absolute;left:var(--split);top:12.33%;height:78%;width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 12px rgba(0,0,0,.35);transform:rotate(23.75deg);pointer-events:none;transition:left 600ms cubic-bezier(.2,.8,.2,1)}.case-cover--split .split-knob{position:absolute;left:var(--split);top:51.33%;width:4%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d1e21' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18-6-6 6-6'/%3E%3Cpath d='m15 6 6 6-6 6'/%3E%3C/svg%3E") center/50% no-repeat;box-shadow:0 6px 20px rgba(0,0,0,.3);pointer-events:none;transition:left 600ms cubic-bezier(.2,.8,.2,1)}.cf3-theme{left:1.5%;top:2%;width:17.5%}.cf3-states{left:-1.5%;top:50%;width:27.3%}.cf3-metric{left:76.5%;top:13%;width:25%}.cf3-toast{left:61%;top:81%;width:37.7%}.case-link:hover .cf3-theme,.case-link:focus-visible .cf3-theme{transform:translate(-6px,-8px)}.case-link:hover .cf3-states,.case-link:focus-visible .cf3-states{transform:translate(-9px,3px)}.case-link:hover .cf3-metric,.case-link:focus-visible .cf3-metric{transform:translate(8px,-6px)}.case-link:hover .cf3-toast,.case-link:focus-visible .cf3-toast{transform:translate(7px,7px)}.case-link:hover .cf3-metric img{animation-delay:-.8s;animation-duration:3.6s}.case-link:hover .cf3-toast img{animation-delay:-2.4s;animation-duration:3.8s}.case-link:hover .cf3-theme img{animation-delay:-1.6s;animation-duration:3.4s}@media (prefers-reduced-motion: reduce){.case-cover--split .split-dark,.case-cover--split .split-line,.case-cover--split .split-knob{transition:none}}</style>
+
+    <style>
+      /* Violet glass contact trays, scoped to the standalone English homepage. */
+      html.standalone-english .contact-dock {
+        border: 1px solid rgba(134, 130, 224, .62);
+        background: linear-gradient(115deg, rgba(91, 82, 180, .24), rgba(142, 145, 244, .56));
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .88),
+          inset 0 -1px 0 rgba(122, 120, 224, .45),
+          inset 0 0 18px rgba(175, 177, 255, .28),
+          0 10px 28px rgba(90, 77, 176, .16);
+        -webkit-backdrop-filter: blur(22px) saturate(1.5);
+        backdrop-filter: blur(22px) saturate(1.5);
+        --dock-divider: rgba(73, 62, 132, .2);
+      }
+      html.standalone-english .contact-dock::before {
+        background: linear-gradient(120deg, rgba(255,255,255,.36), transparent 42%, rgba(222,225,255,.28));
+      }
+      html.standalone-english[data-theme="dark"] .contact-dock {
+        border-color: rgba(162, 165, 255, .72);
+        background: linear-gradient(115deg, rgba(56, 48, 104, .62), rgba(108, 112, 213, .72));
+        box-shadow: inset 0 1px 0 rgba(218,220,255,.6), inset 0 -1px 0 rgba(152,155,255,.42), 0 10px 28px rgba(87,76,184,.2);
+        --dock-divider: rgba(221, 222, 255, .28);
+      }
+      @media (max-width: 640px) {
+        html.standalone-english .contact-dock {
+          width: fit-content;
+          max-width: calc(100vw - 32px);
+          padding: 14px;
+          border-radius: 26px;
+          grid-template-columns: repeat(4, 56px);
+          column-gap: clamp(10px, 4vw, 24px);
+          --dock-caption: #353151;
+        }
+        html.standalone-english .contact-dock .dock-icon { width: 56px; height: 56px; border-radius: 13px; }
+        html.standalone-english[data-theme="dark"] .contact-dock { --dock-caption: #f1efff; }
+        html.standalone-english .contact-dock::before { display: block; }
+      }
+    </style>
   </head>
   <body>
     <div class="site-controls">
