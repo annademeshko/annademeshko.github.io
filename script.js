@@ -175,6 +175,38 @@
   updateTitle(initialLang);
   updateThemeControl();
 
+  // Three-way theme switch (pink / white / black) on the homepage.
+  const themeButtons = document.querySelectorAll(".theme-btn[data-theme-set]");
+  const updateThemeButtons = () => {
+    const current = root.getAttribute("data-theme");
+    themeButtons.forEach((button) => {
+      const active = button.getAttribute("data-theme-set") === current;
+      button.setAttribute("aria-checked", String(active));
+      button.tabIndex = active ? 0 : -1;
+    });
+  };
+  themeButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      const next = button.getAttribute("data-theme-set");
+      root.setAttribute("data-theme", next);
+      store("theme", next);
+      updateThemeButtons();
+    });
+    button.addEventListener("keydown", (event) => {
+      const step = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1
+        : event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 0;
+      if (!step) return;
+      event.preventDefault();
+      const target = themeButtons[(index + step + themeButtons.length) % themeButtons.length];
+      target.focus();
+      target.click();
+    });
+  });
+  if (themeButtons.length) {
+    if (!root.getAttribute("data-theme")) root.setAttribute("data-theme", "pink");
+    updateThemeButtons();
+  }
+
   const themeToggle = document.querySelector(".theme-toggle");
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
@@ -352,7 +384,7 @@
     const STRENGTH = 0.14;
     const MAX = 3;
     const magneticSelector =
-      ".theme-toggle, .lang-btn, .segmented-btn, .vibe-button, " +
+      ".theme-toggle, .theme-btn, .lang-btn, .segmented-btn, .vibe-button, " +
       ".case-nav-home, .case-nav-prev, .case-nav-next";
     document.querySelectorAll(magneticSelector).forEach((btn) => {
       btn.addEventListener("mousemove", (event) => {

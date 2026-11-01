@@ -163,6 +163,55 @@ a {
   display: block;
 }
 
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--control-bg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(14px);
+}
+
+.theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  cursor: var(--fig-cursor, pointer);
+  transform: translate(var(--mx, 0px), var(--my, 0px));
+  transition: background-color 160ms ease, transform 200ms ease-out;
+}
+
+.theme-btn:focus { outline: none; }
+.theme-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.theme-swatch {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  transition: transform 160ms ease;
+}
+
+.theme-btn[data-theme-set="pink"] .theme-swatch { background: #ed2e8e; }
+.theme-btn[data-theme-set="light"] .theme-swatch { background: #ffffff; }
+.theme-btn[data-theme-set="dark"] .theme-swatch { background: #121315; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28); }
+
+.theme-btn:hover .theme-swatch,
+.theme-btn:focus-visible .theme-swatch { transform: scale(1.12); }
+
+.theme-btn[aria-checked="true"] {
+  background: var(--control-active-bg);
+}
+
 .lang-switch {
   display: inline-flex;
   align-items: center;
