@@ -33,7 +33,7 @@
     <title data-ru="Анна Демешко" data-en="Anna Demeshko">Anna Demeshko</title>
     <link rel="icon" type="image/png" href="./assets/fav_black.png" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/png" href="./assets/fav_white.png" media="(prefers-color-scheme: dark)">
-    <link rel="preload" href="/assets/fonts/rock-salt.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/sedgwick-ave.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/assets/fonts/archivo-wdth-wght.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./styles.css">
     <style>.remate-cover-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0e0e0e;border-radius:12px;clip-path:inset(0 round 12px)}</style>
@@ -373,17 +373,18 @@
       html.standalone-english .concepts .concept-card::before { display: none; }
     </style>
     <style>
-      /* Fonts: hand-drawn name (Rock Salt), wide black headings (Archivo Expanded). */
-      @font-face { font-family: "Rock Salt"; src: url("/assets/fonts/rock-salt.woff2") format("woff2"); font-display: swap; }
+      /* Fonts: hand-drawn name (Sedgwick Ave), wide black headings (Archivo Expanded). */
+      @font-face { font-family: "Sedgwick Ave"; src: url("/assets/fonts/sedgwick-ave.woff2") format("woff2"); font-display: swap; }
       @font-face { font-family: "Archivo Expanded"; src: url("/assets/fonts/archivo-wdth-wght.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
       @font-face { font-family: "Archivo Expanded"; src: url("/assets/fonts/archivo-wdth-wght-ext.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
       html.standalone-english .home-page .intro h1 {
-        font-family: "Rock Salt", "Inter", cursive;
+        font-family: "Sedgwick Ave", "Inter", cursive;
         font-weight: 400;
-        font-size: 30px;
-        line-height: 1.5;
-        letter-spacing: 0.02em;
+        font-size: 40px;
+        line-height: 1.15;
+        letter-spacing: 0.01em;
+        -webkit-text-stroke: 0.4px currentColor;
         text-transform: uppercase;
         color: var(--heading);
       }
@@ -400,8 +401,11 @@
       html.standalone-english .concepts-heading { font-size: 20px; line-height: 26px; }
       html.standalone-english .footer-title { font-size: clamp(30px, 7.4vw, 86px); letter-spacing: -0.01em; }
       @media (max-width: 520px) {
-        html.standalone-english .home-page .intro h1 { font-size: 26px; }
+        html.standalone-english .home-page .intro h1 { font-size: 34px; }
       }
+
+      /* Profile photo: black and white, no pixel effect. */
+      html.standalone-english .home-page .intro-photo { filter: grayscale(1); }
 
       /* Header text: solid, readable colours in every theme. */
       html.standalone-english[data-theme="pink"] { --intro-text: #120a10; --muted: #2a1220; }
@@ -652,7 +656,6 @@
     </script>
     <script src="/now-playing.js" defer></script>
     <script src="./script.js?v=20261021-cv"></script>
-    <script src="/pixels.js?v=20261029-notrail" defer></script>
     <script>
       // Interactive fluid background — desktop only, and never when the user
       // prefers reduced motion. Injected here so mobile never loads the WebGL sim.
