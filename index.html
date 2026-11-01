@@ -425,6 +425,23 @@
       html.standalone-english .np-arrow,
       html.standalone-english .np-dot { color: var(--text); }
       html.standalone-english .np-dot { opacity: 0.5; }
+      @media (max-width: 640px) {
+        /* Contact icons without captions on phones; "Copied" still shows briefly under the email icon. */
+        html.standalone-english .contact-dock .dock-label { display: none; }
+        html.standalone-english .contact-dock .dock-item { position: relative; }
+        html.standalone-english .contact-dock .dock-item.is-copied .dock-label--done {
+          display: block;
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-top: 6px;
+          transform: translateX(-50%);
+          white-space: nowrap;
+          font-size: 12px;
+          font-weight: 500;
+          color: var(--text);
+        }
+      }
       @media (max-width: 520px) {
         /* Phones: pin the music ticker to the top too; theme switch sits under it. */
         html.standalone-english .now-playing {
