@@ -163,54 +163,56 @@ a {
   display: block;
 }
 
+@font-face {
+  font-family: "Covered By Your Grace";
+  src: url("/assets/fonts/covered-by-your-grace.woff2") format("woff2");
+  font-display: swap;
+}
+
+/* Theme switch: hand-written words, the active one sits on a solid plate
+   (same treatment as the homepage tagline). */
 .theme-switch {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   padding: 3px;
-  border-radius: 999px;
-  background: var(--control-bg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(14px);
+  border-radius: 10px;
+  /* Soft, feathered backing so the words stay legible over images when scrolling. */
+  background: var(--bg);
+  box-shadow: 0 0 14px 8px var(--bg);
 }
 
 .theme-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  padding: 0;
+  padding: 5px 7px 3px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 0;
   background: none;
+  color: var(--heading);
+  font-family: "Covered By Your Grace", "Inter", cursive;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   cursor: var(--fig-cursor, pointer);
   transform: translate(var(--mx, 0px), var(--my, 0px));
-  transition: background-color 160ms ease, transform 200ms ease-out;
+  transition: background-color 160ms ease, color 160ms ease, transform 200ms ease-out;
+}
+
+@media (hover: hover) {
+  .theme-btn:hover {
+    transform: translate(var(--mx, 0px), var(--my, 0px)) rotate(-3deg);
+  }
 }
 
 .theme-btn:focus { outline: none; }
 .theme-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-.theme-swatch {
-  display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
-  transition: transform 160ms ease;
-}
-
-.theme-btn[data-theme-set="pink"] .theme-swatch { background: #ed2e8e; }
-.theme-btn[data-theme-set="light"] .theme-swatch { background: #ffffff; }
-.theme-btn[data-theme-set="dark"] .theme-swatch { background: #121315; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28); }
-
-.theme-btn:hover .theme-swatch,
-.theme-btn:focus-visible .theme-swatch { transform: scale(1.12); }
-
 .theme-btn[aria-checked="true"] {
-  background: var(--control-active-bg);
+  background: var(--heading);
+  color: var(--bg);
 }
+
+[data-theme="pink"] .theme-btn[aria-checked="true"] { color: #fff; }
 
 .lang-switch {
   display: inline-flex;
