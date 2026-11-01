@@ -306,7 +306,8 @@
     const params = new URLSearchParams(window.location.search);
     const state = window.history.state || {};
     const fromRussianPortfolio =
-      params.get("langswitch") === "1" || state.langSwitchFromRu === true;
+      params.get("langswitch") === "1" || state.langSwitchFromRu === true ||
+      document.documentElement.classList.contains("lang-switch-enabled");
 
     if (document.documentElement.lang === "en" && fromRussianPortfolio) {
       const nextState = Object.assign({}, state, { langSwitchFromRu: true });
@@ -329,6 +330,10 @@
         try {
           const url = new URL(link.href, window.location.href);
           if (url.origin !== window.location.origin) return;
+          // Go directly to the matching English home, without relying on a root redirect.
+          if (link.classList.contains("case-nav-home") || url.pathname === "/") {
+            url.pathname = "/en/";
+          }
           url.searchParams.set("langswitch", "1");
           link.href = url.pathname + url.search + url.hash;
         } catch (e) {}
