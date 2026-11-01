@@ -545,32 +545,10 @@
         });
       })();
     </script>
-    <script src="/bg-canvas.js" defer></script>
     <script src="/now-playing.js" defer></script>
     <script src="/script.js?v=20261101-home-mode"></script>
     <script src="/pixels.js?v=20261029-notrail" defer></script>
-    <script>
-      // Interactive fluid background — desktop only, and never when the user
-      // prefers reduced motion. Injected here so mobile never loads the WebGL sim.
-      (function () {
-        try {
-          var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-          var wide = window.matchMedia("(min-width: 900px)").matches;
-          var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          if (!fine || !wide || reduce) return;
-          var c = document.createElement("canvas");
-          c.id = "fluid";
-          c.setAttribute("aria-hidden", "true");
-          // Keep the canvas out of normal flow even before styles.css styles it,
-          // so it never pushes the page content down.
-          c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;";
-          document.body.insertBefore(c, document.body.firstChild);
-          var s = document.createElement("script");
-          s.src = "./fluid.js";
-          document.body.appendChild(s);
-        } catch (e) {}
-      })();
-    </script>
+
     <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
     <script>
       (function () {
