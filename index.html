@@ -345,6 +345,21 @@
       }
       html.standalone-english .work .case-texture-frame::before { display: none; }
     </style>
+
+    <style>
+      /* Match the contact trays to the black case covers. */
+      html.standalone-english .contact-dock,
+      html.standalone-english[data-theme="dark"] .contact-dock {
+        background: #090909;
+        border-color: #090909;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        --dock-divider: rgba(255,255,255,.2);
+        --dock-caption: #f4f4f4;
+      }
+      html.standalone-english .contact-dock::before { display: none; }
+    </style>
   </head>
   <body>
     <div class="site-controls">
