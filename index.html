@@ -1,6 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      // Preserve existing RU-origin links while keeping standalone English independent.
+      (function () {
+        var params = new URLSearchParams(location.search);
+        if (params.get("langswitch") === "1" || (history.state || {}).langSwitchFromRu === true) {
+          params.set("langswitch", "1");
+          location.replace("/en/?" + params.toString() + location.hash);
+        }
+      })();
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Portfolio of Anna Demeshko, Product Designer.">

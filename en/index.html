@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en" class="lang-switch-enabled">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Portfolio of Anna Demeshko, Product Designer.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Anna Demeshko">
+    <meta property="og:url" content="https://annademeshko.com/">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Anna Demeshko — Product Designer">
+    <meta property="og:description" content="Complex products, clear UX, a little AI. Come take a look →">
+    <meta property="og:image" content="https://annademeshko.com/assets/social/remate-full-en-v4.png">
+    <meta property="og:image:secure_url" content="https://annademeshko.com/assets/social/remate-full-en-v4.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Anna Demeshko — Product Designer.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://annademeshko.com/assets/social/remate-full-en-v4.png">
+    <meta name="twitter:title" content="Anna Demeshko — Product Designer">
+    <meta name="twitter:description" content="Complex products, clear UX, a little AI. Come take a look →">
+    <title data-ru="Анна Демешко" data-en="Anna Demeshko">Anna Demeshko</title>
+    <link rel="icon" type="image/png" href="/assets/fav_black.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="/assets/fav_white.png" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/styles.css">
+    <style>.remate-cover-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0e0e0e;border-radius:12px;clip-path:inset(0 round 12px)}</style>
+    <style>
+      /* ---- Cases / concepts switcher + Pinterest-style concept grid ---- */
+      .portfolio-switcher {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 56px 0 48px;
+      }
+
+      .portfolio-switcher .segmented {
+        margin-bottom: 0;
+      }
+
+      .home-page .works {
+        padding-top: 0;
+      }
+
+      .home-page .concepts {
+        width: min(1180px, calc(100vw - 48px));
+        max-width: none;
+      }
+
+      .concepts-grid {
+        width: 100%;
+        column-count: 2;
+        column-gap: 18px;
+      }
+
+      .concept-card {
+        display: block;
+        width: 100%;
+        margin: 0 0 14px;
+        break-inside: avoid;
+        border-radius: 18px;
+        overflow: hidden;
+        cursor: zoom-in;
+        background: var(--surface);
+      }
+
+      .concept-card img,
+      .concept-card video {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: inherit;
+        transition: transform 260ms cubic-bezier(.22,1,.36,1), opacity 180ms ease;
+      }
+
+      .concept-card--phone {
+        width: 62%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .concept-card:hover img,
+      .concept-card:hover video {
+        transform: scale(1.012);
+        opacity: .94;
+      }
+
+      .concept-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 5vmin;
+        background: var(--overlay);
+        cursor: zoom-out;
+      }
+
+      .concept-lightbox.is-open {
+        display: flex;
+      }
+
+      .concept-lightbox img,
+      .concept-lightbox video {
+        max-width: 92vw;
+        max-height: 92vh;
+        width: auto;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+        cursor: default;
+      }
+
+      .concept-lightbox__close {
+        position: absolute;
+        top: clamp(16px, 3vw, 28px);
+        right: clamp(16px, 3vw, 28px);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+        cursor: var(--fig-cursor, pointer);
+        transition: background 160ms ease;
+      }
+
+      .concept-lightbox__close:hover {
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .concept-lightbox__close svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      @media (max-width: 760px) {
+        .home-page .concepts {
+          width: min(100%, calc(100vw - 28px));
+        }
+
+        .concepts-grid {
+          column-count: 1;
+        }
+
+        .concept-card--phone {
+          width: 72%;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .portfolio-switcher {
+          margin: 44px 0 32px;
+        }
+
+        .concepts-grid {
+          column-count: 1;
+          column-gap: 0;
+        }
+
+        .concept-card {
+          margin-bottom: 14px;
+          border-radius: 14px;
+        }
+      }
+
+      /* Keep the full-bleed band from ever pushing a horizontal scrollbar. */
+      body { overflow-x: hidden; }
+
+      /* Two–three headline metrics under each case card, pulled from its
+         Outcome block, so numbers are visible before the click. Rendered as
+         quiet pill chips that match the site's controls. */
+      .case-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .case-stats .stat {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 22px;
+        background: #191919;
+        font-size: 12.5px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: -0.0366211px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .case-stats .stat b {
+        font-weight: 600;
+        color: #ffffff;
+      }
+      /* Dark theme: mirror the pill so it stays visible on the dark ground. */
+      [data-theme="dark"] .case-stats .stat {
+        background: #f4f5f6;
+        color: rgba(18, 19, 21, 0.72);
+      }
+      [data-theme="dark"] .case-stats .stat b {
+        color: #121315;
+      }
+    
+      /* Wider desktop carousel, with scroll and fullscreen preview. */
+      .concept-marquee-band { width: 100vw; margin: 48px 0 48px calc(50% - 50vw); overflow: visible; padding: 22px 0; }
+      .concept-marquee { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab; }
+      .concept-marquee.is-dragging { cursor: grabbing; }
+      .concept-marquee__tile img, .concept-marquee__tile video { user-select: none; -webkit-user-drag: none; }
+      .concept-marquee::-webkit-scrollbar { display: none; }
+      .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; }
+      .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: var(--fig-cursor, pointer); }
+      .concept-marquee__tile::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; border-radius: 50%; background-color: rgba(15,17,21,.78); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.8' cy='10.8' r='6.8'/%3E%3Cpath d='m16 16 5 5'/%3E%3C/svg%3E"); background-size: 24px 24px; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
+      .concept-marquee__tile:hover::after, .concept-marquee__tile:focus-within::after { opacity: 1; }
+      .concept-marquee__tile img, .concept-marquee__tile video { display: block; width: auto; max-width: none; height: 100%; object-fit: cover; }
+      .concept-fullscreen { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 5vmin; background: rgba(12,13,16,.93); cursor: zoom-out; }
+      .concept-fullscreen.is-open { display: flex; }
+      .concept-fullscreen img, .concept-fullscreen video { max-width: 94vw; max-height: 90vh; width: auto; height: auto; object-fit: contain; border-radius: 12px; cursor: default; }
+      .concept-fullscreen__close { position: absolute; top: 20px; right: 24px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #34363a; color: white; font-size: 30px; cursor: var(--fig-cursor, pointer); }
+      @media (min-width: 521px) { .home-page .portfolio-switcher, .home-page .concepts[data-panel="concepts"] { display: none !important; } .home-page .work[data-panel="cases"] { display: block !important; } }
+      @media (max-width: 520px) { .concept-marquee-band { display: none; } }
+      @media (prefers-reduced-motion: reduce) { .concept-marquee__track { animation: none; } }
+    
+      .selected-cases-heading { width: 100%; max-width: 680px; margin: 8px auto 36px; padding: 0; font-size: 18px; font-weight: 600; line-height: 24.5px; letter-spacing: normal; color: var(--heading); }
+      @media (max-width: 520px) { .selected-cases-heading { display: none; } }
+    </style>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+        } catch (e) {}
+      })();
+    </script>
+  
+    <style>
+      .lang-switch--conditional { display: none; }
+      html.lang-switch-enabled .lang-switch--conditional { display: inline-flex; }
+    </style>
+    <script>
+      (function () {
+        try {
+          var params = new URLSearchParams(location.search);
+          var state = history.state || {};
+          var enabled = true;
+
+          if (!enabled) return;
+
+          document.documentElement.classList.add("lang-switch-enabled");
+
+          var nextState = Object.assign({}, state, { langSwitchFromRu: true });
+          if (params.get("langswitch") === "1") {
+            params.delete("langswitch");
+            var cleanUrl =
+              location.pathname +
+              (params.toString() ? "?" + params.toString() : "") +
+              location.hash;
+            history.replaceState(nextState, "", cleanUrl);
+          } else {
+            history.replaceState(nextState, "", location.href);
+          }
+
+          var preconnect = document.createElement("link");
+          preconnect.rel = "preconnect";
+          preconnect.href = "https://annademeshko.com";
+          document.head.appendChild(preconnect);
+
+          var prefetch = document.createElement("link");
+          prefetch.rel = "prefetch";
+          prefetch.href = "https://annademeshko.com/ru/";
+          document.head.appendChild(prefetch);
+        } catch (e) {}
+      })();
+    </script>
+      <link rel="stylesheet" href="/concept-textures.css">
+      <style>
+      .intro-facts { display: flex; flex-direction: column; gap: 6px; }
+      .intro-label { color: var(--text); font-weight: 500; }
+    </style>
+    <style>.case-texture-frame .case-cover.case-cover--split{--split:51.7%;overflow:visible}.case-cover--split > .case-image{clip-path:inset(12.33% 6.667% 9.667% 6.667% round .8%)!important;border-radius:0!important;background:transparent!important}.case-cover--split .split-dark{mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2400 1500'%3E%3Crect x='160' y='185' width='2080' height='1170' rx='20' fill='white'/%3E%3C/svg%3E") center/100% 100% no-repeat;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;clip-path:polygon(calc(var(--split) + 14.1%) 0,100% 0,100% 100%,calc(var(--split) - 13.4%) 100%);transition:clip-path 600ms cubic-bezier(.2,.8,.2,1)}.case-cover--split .split-line{position:absolute;left:var(--split);top:12.33%;height:78%;width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 12px rgba(0,0,0,.35);transform:rotate(23.75deg);pointer-events:none;transition:left 600ms cubic-bezier(.2,.8,.2,1)}.case-cover--split .split-knob{position:absolute;left:var(--split);top:51.33%;width:4%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d1e21' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18-6-6 6-6'/%3E%3Cpath d='m15 6 6 6-6 6'/%3E%3C/svg%3E") center/50% no-repeat;box-shadow:0 6px 20px rgba(0,0,0,.3);pointer-events:none;transition:left 600ms cubic-bezier(.2,.8,.2,1)}.cf3-theme{left:1.5%;top:2%;width:17.5%}.cf3-states{left:-1.5%;top:50%;width:27.3%}.cf3-metric{left:76.5%;top:13%;width:25%}.cf3-toast{left:61%;top:81%;width:37.7%}.case-link:hover .cf3-theme,.case-link:focus-visible .cf3-theme{transform:translate(-6px,-8px)}.case-link:hover .cf3-states,.case-link:focus-visible .cf3-states{transform:translate(-9px,3px)}.case-link:hover .cf3-metric,.case-link:focus-visible .cf3-metric{transform:translate(8px,-6px)}.case-link:hover .cf3-toast,.case-link:focus-visible .cf3-toast{transform:translate(7px,7px)}.case-link:hover .cf3-metric img{animation-delay:-.8s;animation-duration:3.6s}.case-link:hover .cf3-toast img{animation-delay:-2.4s;animation-duration:3.8s}.case-link:hover .cf3-theme img{animation-delay:-1.6s;animation-duration:3.4s}@media (prefers-reduced-motion: reduce){.case-cover--split .split-dark,.case-cover--split .split-line,.case-cover--split .split-knob{transition:none}}</style>
+  </head>
+  <body>
+    <div class="site-controls">
+      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch lang-switch--conditional" role="group" aria-label="Language">
+        <a class="lang-btn" href="https://annademeshko.com/ru/" data-lang-set="ru" aria-pressed="false">RU</a>
+        <a class="lang-btn" href="/" data-lang-set="en" aria-pressed="true">EN</a>
+      </div>
+    </div>
+
+    <div class="top-fade" aria-hidden="true"></div>
+
+    <main class="page home-page" aria-label="Anna Demeshko portfolio">
+      <section class="intro" aria-labelledby="intro-title">
+        <img class="intro-photo" src="/assets/profile/anna-demeshko-400.webp" srcset="/assets/profile/anna-demeshko-400.webp 400w, ./assets/profile/anna-demeshko-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" fetchpriority="high">
+        <div class="intro-copy">
+          <h1 id="intro-title"><span data-lang="ru">Анна Демешко</span><span data-lang="en">Anna Demeshko</span></h1>
+          <div class="intro-facts">
+            <p><span data-lang="ru">Product Designer с опытом 4+ лет<br> B2B · B2C · Cybersecurity · AI</span><span data-lang="en">Product Designer with 4+ years of experience<br> B2B · B2C · Cybersecurity · AI</span></p>
+            <p><span data-lang="ru"><span class="intro-use">Использую:</span> Claude Code, Codex, Figma Make, ChatGPT</span><span data-lang="en"><span class="intro-use">Use:</span> Claude Code, Codex, Figma Make, ChatGPT</span></p>
+            <p class="intro-tagline"><span data-lang="ru"><span class="text-select"><span class="sel-handle sel-handle--start" aria-hidden="true"></span>Распутываю сложные сценарии,<br> чтобы продуктом было просто и приятно пользоваться<span class="sel-handle sel-handle--end" aria-hidden="true"></span></span></span><span data-lang="en"><span class="text-select"><span class="sel-handle sel-handle--start" aria-hidden="true"></span>I untangle complex flows<br> so the product is simple and pleasant to use<span class="sel-handle sel-handle--end" aria-hidden="true"></span></span></span></p>
+          </div>
+        </div>
+
+        <nav class="contact-dock" aria-label="Контакты">
+          <a class="dock-item" data-cv href="/assets/anna-demeshko-product-designer-en.pdf" target="_blank" rel="noreferrer"><svg class="dock-icon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="dkPdf1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F4F2"/><stop offset="1" stop-color="#DEDEDB"/></linearGradient></defs><rect width="56" height="56" rx="13" fill="url(#dkPdf1)"/><path d="M19 10.5h13.5l9 9V42a3.5 3.5 0 0 1-3.5 3.5H19a3.5 3.5 0 0 1-3.5-3.5V14a3.5 3.5 0 0 1 3.5-3.5Z" fill="#fff" stroke="#C4C6CB" stroke-width="1.2"/><path d="M32.5 10.5V17a2.5 2.5 0 0 0 2.5 2.5h6.5" fill="#ECEDEF" stroke="#C4C6CB" stroke-width="1.2" stroke-linejoin="round"/><rect x="11" y="27" width="25" height="11" rx="2.5" fill="#E5322D"/><text x="23.5" y="35.2" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="8" font-weight="800" fill="#fff" letter-spacing=".3">PDF</text></svg><span class="dock-label"><span data-lang="ru">Резюме</span><span data-lang="en">CV</span></span></a>
+          <span class="dock-divider" aria-hidden="true"></span>
+          <a class="dock-item" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><img class="dock-icon" src="/assets/contacts/linkedin.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">LinkedIn</span><span data-lang="en">LinkedIn</span></span></a>
+          <a class="dock-item" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><img class="dock-icon" src="/assets/contacts/telegram.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Telegram</span><span data-lang="en">Telegram</span></span></a>
+          <button class="dock-item" type="button" data-copy-email="annademeshko.v@gmail.com" aria-label="Email: annademeshko.v@gmail.com"><img class="dock-icon" src="/assets/contacts/mail.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Почта</span><span data-lang="en">Email</span></span><span class="dock-label dock-label--done"><span data-lang="ru">Скопировано</span><span data-lang="en">Copied</span></span></button>
+        </nav>
+      </section>
+
+
+      <!-- Desktop-only continuous concepts gallery; mobile retains its original tab. -->
+      <section class="concept-marquee-band" aria-label="Concepts">
+        <div class="concept-marquee" aria-label="Scrolling concepts gallery">
+          <div class="concept-marquee__track">
+            <figure data-palette="travel-blue" data-surface="blue" class="concept-marquee__tile" data-texture="ocean"><video width="2702" height="2700" muted loop playsinline preload="none" poster="/assets/concept-previews/gift-poster.webp" data-video="/assets/travel/gift-preview.mp4" data-full="/assets/aviasales-gift-concept.gif" aria-label="Aviasales gift certificates concept: choosing a postcard and sending a travel gift"></video></figure>
+            <figure data-palette="travel-blue" data-surface="blue" class="concept-marquee__tile" data-texture="violet"><video data-video="/assets/travel/lucky.mp4" width="1080" height="1200" muted loop playsinline preload="none" poster="/assets/travel/lucky-poster.webp" aria-label="Lucky flight: animated bonus picker for a travel app, with daily attempts and a locked state"></video></figure>
+            <figure data-large-screens="true" data-palette="travel-blue" data-cutout="true" class="concept-marquee__tile" data-texture="ocean"><img width="12712" height="5400" loading="lazy" decoding="async" src="/assets/concepts-transparent/paris-with-friends-800.webp" data-full="/assets/concepts-transparent/paris-with-friends.png" srcset="/assets/concepts-transparent/paris-with-friends-800.webp 800w, /assets/concepts-transparent/paris-with-friends-1600.webp 1600w, /assets/concepts-transparent/paris-with-friends-2400.webp 2400w" sizes="(max-width: 520px) calc(100vw - 64px), 1055px" alt="Paris with friends: creating a group trip, matching flights, invitations and individual budgets"></figure>
+            <figure data-palette="spotify-vibe" class="concept-marquee__tile" data-texture="moss"><video width="1080" height="1350" muted loop playsinline preload="none" poster="/assets/concept-previews/spotify-vibe-check-poster.webp" data-video="/assets/concepts/spotify-vibe-check.mp4" aria-label="Spotify Vibe Check: a music app concept for sharing listening compatibility"></video></figure>
+            <figure data-large-screens="true" data-palette="travel-blue" data-cutout="true" class="concept-marquee__tile" data-texture="ice"><img width="15152" height="5400" loading="lazy" decoding="async" src="/assets/concepts-transparent/trip-chat-and-favorites-800.webp" data-full="/assets/concepts-transparent/trip-chat-and-favorites.png" srcset="/assets/concepts-transparent/trip-chat-and-favorites-800.webp 800w, /assets/concepts-transparent/trip-chat-and-favorites-1600.webp 1600w, /assets/concepts-transparent/trip-chat-and-favorites-2400.webp 2400w" sizes="(max-width: 520px) calc(100vw - 64px), 1257px" alt="Travel app concept: from chat to a shared trip, saved flights and trip management in the profile"></figure>
+            <figure data-palette="franglais-cyan" data-cutout="true" class="concept-marquee__tile" data-texture="ember"><img width="3880" height="3604" loading="lazy" decoding="async" src="/assets/concepts-transparent/franglais-800.webp" data-full="/assets/concepts-transparent/franglais.png" srcset="/assets/concepts-transparent/franglais-800.webp 800w, /assets/concepts-transparent/franglais-1600.webp 1600w, /assets/concepts-transparent/franglais-2400.webp 2400w" sizes="(max-width: 520px) calc(100vw - 84px), 362px" alt="Franglais: French learning app prototype with daily tasks, progress and rewards"></figure>
+            <figure data-cutout="true" data-palette="wallet-lime" data-surface="charcoal" class="concept-marquee__tile" data-texture="moss"><img sizes="(max-width: 520px) calc(100vw - 84px), 673px" srcset="/assets/concepts-transparent/crypto-wallet-800.webp 800w, /assets/concepts-transparent/crypto-wallet-1600.webp 1600w, /assets/concepts-transparent/crypto-wallet-2400.webp 2400w" width="16004" height="7992" loading="lazy" decoding="async" src="/assets/concepts-transparent/crypto-wallet-800.webp" data-full="/assets/concepts-transparent/crypto-wallet.png" alt="Mobile crypto wallet concept"></figure>
+            <figure data-palette="bank-blue" class="concept-marquee__tile" data-texture="violet"><img width="882" height="1815" loading="lazy" decoding="async" src="/assets/ozon_no_bg_1.webp" data-full="/assets/ozon_no_bg_1.webp" srcset="/assets/ozon_no_bg_1.webp 882w" sizes="(max-width: 520px) calc(100vw - 48px), 194px" alt="Mobile banking concept"></figure>
+            <figure data-palette="cargo-sand" data-surface="sand" class="concept-marquee__tile" data-texture="ember"><img width="4320" height="2700" loading="lazy" decoding="async" src="/assets/concept-previews/Cargo-Distribution-—-Desktop-800.webp" data-full="/assets/Cargo%20Distribution%20%E2%80%94%20Desktop.webp" srcset="/assets/concept-previews/Cargo-Distribution-—-Desktop-800.webp 800w, /assets/concept-previews/Cargo-Distribution-—-Desktop-1600.webp 1600w, /assets/concept-previews/Cargo-Distribution-—-Desktop-2400.webp 2400w" sizes="(max-width: 520px) calc(100vw - 48px), 640px" alt="Cargo Distribution"></figure>
+            <figure data-cutout="true" data-palette="crypto-orange" data-surface="orange" class="concept-marquee__tile" data-texture="moss"><img sizes="(max-width: 520px) calc(100vw - 84px), 350px" srcset="/assets/concepts-transparent/crypto-dashboard-800.webp 800w, /assets/concepts-transparent/crypto-dashboard-1600.webp 1600w, /assets/concepts-transparent/crypto-dashboard-2400.webp 2400w" width="3960" height="3800" loading="lazy" decoding="async" src="/assets/concepts-transparent/crypto-dashboard-800.webp" data-full="/assets/concepts-transparent/crypto-dashboard.png" alt="Crypto Dashboard"></figure>
+          </div>
+        </div>
+      </section>
+
+      <h2 class="selected-cases-heading">Selected cases</h2>
+
+      <!-- Cases / Concepts switcher --><div class="portfolio-switcher">
+        <div class="segmented" role="tablist" aria-label="Cases and concepts">
+          <span class="segmented__thumb" aria-hidden="true"></span>
+          <button class="segmented-btn is-active" type="button" role="tab" aria-selected="true" data-panel="cases">Cases</button>
+          <button class="segmented-btn" type="button" role="tab" aria-selected="false" data-panel="concepts">Concepts</button>
+        </div>
+      </div>
+
+      <div class="works">
+        <section class="work" data-panel="cases" aria-label="Кейсы">
+        <a class="case-card case-link" href="/remate/" aria-label="remate">
+          <span class="case-cover">
+            <video class="case-image remate-cover-video" width="1600" height="900" autoplay muted loop playsinline preload="metadata" poster="/assets/remate/cover-light-dots-poster.webp?v=2" aria-label="remate: welcome animation and key screens of the iOS app"><source src="/assets/remate/cover-light-dots.mp4?v=2" type="video/mp4"></video>
+            <script id="remate-cover-swap">
+              // Light theme: light cover video on the grey textured frame; dark theme: dark video.
+              (function () {
+                var v = document.currentScript.previousElementSibling, root = document.documentElement, cur = "light"; // markup already points to the light video
+                var P = "/assets/remate/";
+                function apply() {
+                  var t = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+                  if (t === cur) return; cur = t;
+                  var name = t === "light" ? "cover-light-dots" : "cover-dark";
+                  v.poster = P + name + "-poster.webp?v=2";
+                  v.querySelector("source").src = P + name + ".mp4?v=2";
+                  v.load(); var pl = v.play(); if (pl && pl.catch) pl.catch(function () {});
+                }
+                apply();
+                new MutationObserver(apply).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+              })();
+            </script>
+          </span>
+          <span class="case-copy case-copy--meta">
+            <span class="case-meta"><img class="case-logo" src="/assets/logos/remate.png" width="56" height="56" alt="" loading="lazy" decoding="async"><span class="case-meta-text"><span class="case-company">remate</span><span class="case-meta-line">Sr. Product Designer<span class="case-meta-dates"><span class="case-meta-dot" aria-hidden="true">•</span><span data-lang="ru">сен 2025 — авг 2026</span><span data-lang="en">Sep 2025 — Aug 2026</span></span></span><span class="case-meta-line">B2C<span class="case-meta-dot" aria-hidden="true">•</span>Mobile<span class="case-meta-tail"><span class="case-meta-dot" aria-hidden="true">•</span><span data-lang="ru">Передано в разработку</span><span data-lang="en">Handed off to development</span></span></span></span></span>
+            <span class="case-summary"><span class="case-title remate-card-title"><span data-lang="ru">remate: поиск игры, бронь корта и запись на тренировки</span><span data-lang="en">remate: finding games, booking courts and signing up for training</span></span>
+            <span class="case-description"><span data-lang="ru">Как я с нуля спроектировала приложение, где игроки находят соперников своего уровня и честно делят оплату</span><span data-lang="en">How I designed an app from zero where players find opponents at their level and split the cost fairly</span></span></span>
+          </span>
+        </a>
+
+
+
+        <a class="case-card case-link" href="/copilot/" aria-label="CoPilot">
+          <span class="case-texture-frame"><span class="case-cover case-cover--split">
+            <img class="case-image is-loading" width="2400" height="1500" loading="lazy" decoding="async" src="/assets/copilot-v2/cover-split-light.webp" alt="CoPilot: one screen split into light and dark themes, with UI components">
+            <img class="split-dark" src="/assets/copilot-v2/cover-split-dark.webp" alt="" loading="lazy" decoding="async">
+            <span class="split-line" aria-hidden="true"></span><span class="split-knob" aria-hidden="true"></span>
+            <span class="cover-float cf3-states"><img src="/assets/copilot-v2/cover-states.webp" alt="" loading="lazy" decoding="async"></span>
+            <span class="cover-float cf3-metric"><img src="/assets/copilot-v2/cover-metric.webp" alt="" loading="lazy" decoding="async"></span>
+            <span class="cover-float cf3-theme"><img src="/assets/copilot-v2/cover-theme.webp" alt="" loading="lazy" decoding="async"></span>
+            <span class="cover-float cf3-toast"><img src="/assets/copilot-v2/cover-toast.webp" alt="" loading="lazy" decoding="async"></span>
+          </span></span>
+          <span class="case-copy case-copy--meta">
+            <span class="case-meta"><img class="case-logo" src="/assets/logos/appsec-solutions.png" width="56" height="56" alt="" loading="lazy" decoding="async"><span class="case-meta-text"><span class="case-company">AppSec Solutions</span><span class="case-meta-line">Product Designer<span class="case-meta-dates"><span class="case-meta-dot" aria-hidden="true">•</span><span data-lang="ru">сен 2024 — июн 2026</span><span data-lang="en">Sep 2024 — Jun 2026</span></span></span><span class="case-meta-line">B2B<span class="case-meta-dot" aria-hidden="true">•</span>Cybersecurity<span class="case-meta-dot" aria-hidden="true">•</span>SaaS</span></span></span>
+            <span class="case-summary"><span class="case-title"><span data-lang="ru">CoPilot: AI-триаж уязвимостей</span><span data-lang="en">CoPilot: AI vulnerability triage</span></span>
+            <span class="case-description"><span data-lang="ru">Как я сократила разбор скана с 6–8 до 2–3 часов с помощью AI в CoPilot</span><span data-lang="en">How I cut scan triage from 6–8 to 2–3 hours with AI in CoPilot</span></span></span>
+          </span>
+        </a>
+
+        <a class="case-card case-link nova-card" href="/nova/" aria-label="NOVA">
+          <span class="case-texture-frame nova-texture-frame"><img class="case-image is-loading" width="1536" height="961" loading="lazy" decoding="async" src="/assets/nova/cover.webp" alt="NOVA: onboarding и первый депозит для UK iGaming"><span class="nova-phone nova-phone-1" aria-hidden="true"><img src="/assets/nova/cover-even-1.webp" width="646" height="1360" alt="" loading="lazy" decoding="async"></span><span class="nova-phone nova-phone-2" aria-hidden="true"><img src="/assets/nova/cover-even-2.webp" width="646" height="1360" alt="" loading="lazy" decoding="async"></span><span class="nova-phone nova-phone-3" aria-hidden="true"><img src="/assets/nova/cover-even-3.webp" width="646" height="1360" alt="" loading="lazy" decoding="async"></span><span class="nova-phone nova-phone-4" aria-hidden="true"><img src="/assets/nova/cover-even-4.webp" width="646" height="1360" alt="" loading="lazy" decoding="async"></span></span>
+          <span class="case-copy case-copy--meta">
+            <span class="case-meta"><img class="case-logo" src="/assets/logos/nda.png" width="56" height="56" alt="" loading="lazy" decoding="async"><span class="case-meta-text"><span class="case-company"><span data-lang="ru">Компания под NDA</span><span data-lang="en">Company under NDA</span></span><span class="case-meta-line">Sr. Product Designer<span class="case-meta-dates"><span class="case-meta-dot" aria-hidden="true">•</span><span data-lang="ru">фев 2026 — май 2026</span><span data-lang="en">Feb 2026 — May 2026</span></span></span><span class="case-meta-line">iGaming<span class="case-meta-dot" aria-hidden="true">•</span>Mobile<span class="case-meta-tail"><span class="case-meta-dot" aria-hidden="true">•</span><span data-lang="ru">Передано в разработку</span><span data-lang="en">Handed off to development</span></span></span></span></span>
+            <span class="case-summary"><span class="case-title"><span data-lang="ru">NOVA: путь от регистрации до игры</span><span data-lang="en">NOVA: from sign-up to play</span></span>
+            <span class="case-description"><span data-lang="ru">Как я провела нового игрока через проверку личности и первый депозит, не потеряв выбранную игру</span><span data-lang="en">How I guided new players through identity checks and a first deposit without losing the game they chose</span></span></span>
+          </span>
+        </a>
+
+<a class="case-card case-link" href="/track/" aria-label="Track">
+          <span class="case-texture-frame"><span class="case-cover">
+            <img class="case-image is-loading" width="2320" height="1518" loading="lazy" decoding="async" src="/assets/track/track-base.webp" alt="Дашборд Track с виджетами безопасности">
+            <span class="cover-float cf-vuln"><img src="/assets/track/track-vulnapps.webp" alt="" loading="lazy" decoding="async"></span>
+            <span class="cover-float cf-widgets"><img src="/assets/track/track-widgets.webp" alt="" loading="lazy" decoding="async"></span>
+          </span></span>
+          <span class="case-copy case-copy--meta">
+            <span class="case-meta"><img class="case-logo" src="/assets/logos/appsec-solutions.png" width="56" height="56" alt="" loading="lazy" decoding="async"><span class="case-meta-text"><span class="case-company">AppSec Solutions</span><span class="case-meta-line">Product Designer<span class="case-meta-dates"><span class="case-meta-dot" aria-hidden="true">•</span><span data-lang="ru">сен 2024 — июн 2026</span><span data-lang="en">Sep 2024 — Jun 2026</span></span></span><span class="case-meta-line">B2B<span class="case-meta-dot" aria-hidden="true">•</span>Cybersecurity<span class="case-meta-dot" aria-hidden="true">•</span>SaaS</span></span></span>
+            <span class="case-summary"><span class="case-title"><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">Track: security dashboard</span></span>
+            <span class="case-description"><span data-lang="ru">Как я собрала дашборд безопасности, где каждая из трёх ролей за минуту собирает свою аналитику</span><span data-lang="en">How I built a security dashboard where each of three roles sets up their own analytics in a minute</span></span></span>
+          </span>
+        </a>
+
+
+      </section>
+
+        <section class="concepts" data-panel="concepts" aria-label="Concepts" hidden>
+          <div class="concepts-grid">
+            <figure data-palette="travel-blue" data-surface="blue" class="concept-card" data-texture="ocean"><video width="2702" height="2700" muted loop playsinline preload="none" poster="/assets/concept-previews/gift-poster.webp" data-video="/assets/travel/gift-preview.mp4" data-full="/assets/aviasales-gift-concept.gif" aria-label="Aviasales gift certificates concept: choosing a postcard and sending a travel gift"></video></figure>
+            <figure data-palette="travel-blue" data-surface="blue" class="concept-card" data-texture="violet"><video data-video="/assets/travel/lucky.mp4" width="1080" height="1200" muted loop playsinline preload="none" poster="/assets/travel/lucky-poster.webp" aria-label="Lucky flight: animated bonus picker for a travel app, with daily attempts and a locked state"></video></figure>
+            <figure data-large-screens="true" data-palette="travel-blue" data-cutout="true" class="concept-card" data-texture="ocean"><img width="12712" height="5400" loading="lazy" decoding="async" src="/assets/concepts-transparent/paris-with-friends-800.webp" data-full="/assets/concepts-transparent/paris-with-friends.png" srcset="/assets/concepts-transparent/paris-with-friends-800.webp 800w, /assets/concepts-transparent/paris-with-friends-1600.webp 1600w, /assets/concepts-transparent/paris-with-friends-2400.webp 2400w" sizes="(max-width: 520px) calc(100vw - 84px), 791px" alt="Paris with friends: creating a group trip, matching flights, invitations and individual budgets"></figure>
+            <figure data-palette="spotify-vibe" class="concept-card" data-texture="moss"><video width="1080" height="1350" muted loop playsinline preload="none" poster="/assets/concept-previews/spotify-vibe-check-poster.webp" data-video="/assets/concepts/spotify-vibe-check.mp4" aria-label="Spotify Vibe Check: a music app concept for sharing listening compatibility"></video></figure>
+            <figure data-large-screens="true" data-palette="travel-blue" data-cutout="true" class="concept-card" data-texture="ice"><img width="15152" height="5400" loading="lazy" decoding="async" src="/assets/concepts-transparent/trip-chat-and-favorites-800.webp" data-full="/assets/concepts-transparent/trip-chat-and-favorites.png" srcset="/assets/concepts-transparent/trip-chat-and-favorites-800.webp 800w, /assets/concepts-transparent/trip-chat-and-favorites-1600.webp 1600w, /assets/concepts-transparent/trip-chat-and-favorites-2400.webp 2400w" sizes="(max-width: 520px) calc(100vw - 84px), 943px" alt="Travel app concept: from chat to a shared trip, saved flights and trip management in the profile"></figure>
+            <figure data-palette="franglais-cyan" data-cutout="true" class="concept-card" data-texture="ember"><img width="3880" height="3604" loading="lazy" decoding="async" src="/assets/concepts-transparent/franglais-800.webp" data-full="/assets/concepts-transparent/franglais.png" srcset="/assets/concepts-transparent/franglais-800.webp 800w, /assets/concepts-transparent/franglais-1600.webp 1600w, /assets/concepts-transparent/franglais-2400.webp 2400w" sizes="(max-width: 520px) calc(100vw - 84px), 362px" alt="Franglais: French learning app prototype with daily tasks, progress and rewards"></figure>
+            <figure data-cutout="true" data-palette="wallet-lime" data-surface="charcoal" class="concept-card" data-texture="moss"><img sizes="(max-width: 520px) calc(100vw - 84px), 673px" srcset="/assets/concepts-transparent/crypto-wallet-800.webp 800w, /assets/concepts-transparent/crypto-wallet-1600.webp 1600w, /assets/concepts-transparent/crypto-wallet-2400.webp 2400w" width="16004" height="7992" loading="lazy" decoding="async" src="/assets/concepts-transparent/crypto-wallet-800.webp" data-full="/assets/concepts-transparent/crypto-wallet.png" alt="Mobile crypto wallet concept"></figure>
+            <figure data-palette="bank-blue" class="concept-card concept-card--phone" data-texture="violet"><img width="882" height="1815" loading="lazy" decoding="async" src="/assets/ozon_no_bg_1.webp" data-full="/assets/ozon_no_bg_1.webp" srcset="/assets/ozon_no_bg_1.webp 882w" sizes="(max-width: 520px) calc(100vw - 48px), 194px" alt="Mobile banking concept"></figure>
+            <figure data-palette="cargo-sand" data-surface="sand" class="concept-card" data-texture="ember"><img width="4320" height="2700" loading="lazy" decoding="async" src="/assets/concept-previews/Cargo-Distribution-—-Desktop-800.webp" data-full="/assets/Cargo%20Distribution%20%E2%80%94%20Desktop.webp" srcset="/assets/concept-previews/Cargo-Distribution-—-Desktop-800.webp 800w, /assets/concept-previews/Cargo-Distribution-—-Desktop-1600.webp 1600w, /assets/concept-previews/Cargo-Distribution-—-Desktop-2400.webp 2400w" sizes="(max-width: 520px) calc(100vw - 48px), 640px" alt="Cargo Distribution"></figure>
+            <figure data-cutout="true" data-palette="crypto-orange" data-surface="orange" class="concept-card" data-texture="moss"><img sizes="(max-width: 520px) calc(100vw - 84px), 350px" srcset="/assets/concepts-transparent/crypto-dashboard-800.webp 800w, /assets/concepts-transparent/crypto-dashboard-1600.webp 1600w, /assets/concepts-transparent/crypto-dashboard-2400.webp 2400w" width="3960" height="3800" loading="lazy" decoding="async" src="/assets/concepts-transparent/crypto-dashboard-800.webp" data-full="/assets/concepts-transparent/crypto-dashboard.png" alt="Crypto Dashboard"></figure>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <h2 class="footer-title"><span data-lang="ru">Давай знакомиться</span><span data-lang="en">Let’s connect</span></h2>
+      <script>
+        (function () {
+          var el = document.currentScript.previousElementSibling;
+          function fit() {
+            el.style.fontSize = "";
+            var w = el.clientWidth, s = el.scrollWidth;
+            if (s > w) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * w / s * 0.98) + "px";
+          }
+          fit();
+          window.addEventListener("resize", fit);
+          if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+        })();
+      </script>
+      <nav class="contact-dock contact-dock--footer" aria-label="Контакты" data-aria-ru="Контакты" data-aria-en="Contacts">
+          <a class="dock-item" data-cv href="/assets/anna-demeshko-product-designer-en.pdf" target="_blank" rel="noreferrer"><svg class="dock-icon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="dkPdf2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F4F2"/><stop offset="1" stop-color="#DEDEDB"/></linearGradient></defs><rect width="56" height="56" rx="13" fill="url(#dkPdf2)"/><path d="M19 10.5h13.5l9 9V42a3.5 3.5 0 0 1-3.5 3.5H19a3.5 3.5 0 0 1-3.5-3.5V14a3.5 3.5 0 0 1 3.5-3.5Z" fill="#fff" stroke="#C4C6CB" stroke-width="1.2"/><path d="M32.5 10.5V17a2.5 2.5 0 0 0 2.5 2.5h6.5" fill="#ECEDEF" stroke="#C4C6CB" stroke-width="1.2" stroke-linejoin="round"/><rect x="11" y="27" width="25" height="11" rx="2.5" fill="#E5322D"/><text x="23.5" y="35.2" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="8" font-weight="800" fill="#fff" letter-spacing=".3">PDF</text></svg><span class="dock-label"><span data-lang="ru">Резюме</span><span data-lang="en">CV</span></span></a>
+          <span class="dock-divider" aria-hidden="true"></span>
+          <a class="dock-item" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><img class="dock-icon" src="/assets/contacts/linkedin.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">LinkedIn</span><span data-lang="en">LinkedIn</span></span></a>
+          <a class="dock-item" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><img class="dock-icon" src="/assets/contacts/telegram.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Telegram</span><span data-lang="en">Telegram</span></span></a>
+          <button class="dock-item" type="button" data-copy-email="annademeshko.v@gmail.com" aria-label="Email: annademeshko.v@gmail.com"><img class="dock-icon" src="/assets/contacts/mail.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Почта</span><span data-lang="en">Email</span></span><span class="dock-label dock-label--done"><span data-lang="ru">Скопировано</span><span data-lang="en">Copied</span></span></button>
+        </nav>
+    </footer>
+
+    <div class="cursor-tooltip" role="status" aria-hidden="true"><span data-lang="ru">Смотреть кейс</span><span data-lang="en">View case</span></div>
+
+    <script>
+      // Click any concept tile to view it fullscreen.
+      (function () {
+        var concepts = document.querySelector('.concepts[data-panel="concepts"]');
+        if (!concepts) return;
+
+        var box = document.createElement("div");
+        box.className = "concept-lightbox";
+        box.setAttribute("role", "dialog");
+        box.setAttribute("aria-modal", "true");
+        box.setAttribute("aria-hidden", "true");
+
+        var close = document.createElement("button");
+        close.type = "button";
+        close.className = "concept-lightbox__close";
+        close.setAttribute("aria-label", "Close");
+        close.innerHTML =
+          '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
+        var img = document.createElement("img");
+        img.alt = "";
+
+        var video = document.createElement("video");
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.hidden = true;
+
+        box.appendChild(close);
+        box.appendChild(img);
+        box.appendChild(video);
+        document.body.appendChild(box);
+
+        var savedOverflow = "";
+
+        function open(src, alt, isVideo) {
+          img.hidden = !!isVideo;
+          video.hidden = !isVideo;
+          if (isVideo) {
+            video.src = src;
+            video.setAttribute("aria-label", alt || "");
+            video.play().catch(function () {});
+          } else {
+            img.src = src;
+            img.alt = alt || "";
+          }
+          box.classList.add("is-open");
+          box.setAttribute("aria-hidden", "false");
+          savedOverflow = document.body.style.overflow;
+          document.body.style.overflow = "hidden";
+        }
+
+        function hide() {
+          box.classList.remove("is-open");
+          video.pause();
+          box.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = savedOverflow;
+        }
+
+        concepts.addEventListener("click", function (event) {
+          var clip = event.target.closest(".concept-card video");
+          if (clip) {
+            open(clip.dataset.full || clip.dataset.video || clip.currentSrc, clip.getAttribute("aria-label"), !clip.dataset.full);
+            return;
+          }
+          var picture = event.target.closest(".concept-card img");
+          if (!picture) return;
+          open(picture.dataset.full || picture.currentSrc || picture.src, picture.alt);
+        });
+
+        close.addEventListener("click", hide);
+        box.addEventListener("click", function (event) {
+          if (event.target !== img && event.target !== video) hide();
+        });
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && box.classList.contains("is-open")) hide();
+        });
+      })();
+    </script>
+    <script src="/bg-canvas.js" defer></script>
+    <script src="/now-playing.js" defer></script>
+    <script src="/script.js?v=20261021-cv"></script>
+    <script src="/pixels.js?v=20261029-notrail" defer></script>
+    <script>
+      // Interactive fluid background — desktop only, and never when the user
+      // prefers reduced motion. Injected here so mobile never loads the WebGL sim.
+      (function () {
+        try {
+          var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+          var wide = window.matchMedia("(min-width: 900px)").matches;
+          var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (!fine || !wide || reduce) return;
+          var c = document.createElement("canvas");
+          c.id = "fluid";
+          c.setAttribute("aria-hidden", "true");
+          // Keep the canvas out of normal flow even before styles.css styles it,
+          // so it never pushes the page content down.
+          c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;";
+          document.body.insertBefore(c, document.body.firstChild);
+          var s = document.createElement("script");
+          s.src = "./fluid.js";
+          document.body.appendChild(s);
+        } catch (e) {}
+      })();
+    </script>
+    <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
+    <script>
+      (function () {
+        try {
+          var p = new URLSearchParams(location.search);
+          if (p.get("noanalytics") === "1") localStorage.setItem("cf-noanalytics", "1");
+          if (p.get("noanalytics") === "0") localStorage.removeItem("cf-noanalytics");
+          if (localStorage.getItem("cf-noanalytics") === "1") return;
+        } catch (e) {}
+        var s = document.createElement("script");
+        s.defer = true;
+        s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        s.setAttribute("data-cf-beacon", '{"token": "e99ab9de70814c0e9089a11ad2a2fd46"}');
+        document.head.appendChild(s);
+      })();
+    </script>
+    <!-- End Cloudflare Web Analytics -->
+  
+    <script>
+      (function () {
+        if (!document.documentElement.classList.contains("lang-switch-enabled")) return;
+
+        document.addEventListener("click", function (event) {
+          var link = event.target.closest && event.target.closest("a[href]");
+          if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+          try {
+            var url = new URL(link.href, location.href);
+            if (url.origin !== location.origin) return;
+            if (url.pathname.indexOf("/assets/") === 0) return;
+            if (url.pathname === location.pathname && url.hash) return;
+
+            url.searchParams.set("langswitch", "1");
+            link.href = url.href;
+          } catch (e) {}
+        }, true);
+      })();
+    </script>
+  
+    <script>
+      // Looping desktop gallery: vertical wheel moves horizontally; click opens fullscreen.
+      (function () {
+        const gallery = document.querySelector('.concept-marquee');
+        const track = document.querySelector('.concept-marquee__track');
+        if (!gallery || !track) return;
+        const originals = Array.from(track.children);
+        originals.forEach(tile => { const copy = tile.cloneNode(true); copy.setAttribute('aria-hidden', 'true'); track.appendChild(copy); });
+        let dragging = false;
+        let dragStartX = 0;
+        let lastPointerX = 0;
+        let moved = false;
+        let suppressClick = false;
+        let idleUntil = 0;
+        let lastFrame = 0;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const cycleSize = () => track.scrollWidth / 2;
+        function wrapPosition() {
+          const cycle = cycleSize();
+          if (!cycle) return;
+          if (gallery.scrollLeft >= cycle) gallery.scrollLeft -= cycle;
+          else if (gallery.scrollLeft < 0) gallery.scrollLeft += cycle;
+        }
+        function loop(now) {
+          if (!gallery.getClientRects().length || document.hidden) { lastFrame = 0; requestAnimationFrame(loop); return; }
+          wrapPosition();
+          if (!dragging && !reducedMotion.matches && now > idleUntil && lastFrame) {
+            gallery.scrollLeft += Math.min(now - lastFrame, 64) * 0.095;
+            wrapPosition();
+          }
+          lastFrame = now;
+          requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+        gallery.addEventListener('pointerdown', event => {
+          if (event.button !== 0 || event.pointerType === 'touch') return;
+          dragging = true;
+          moved = false;
+          suppressClick = false;
+          dragStartX = event.clientX;
+          lastPointerX = event.clientX;
+          gallery.classList.add('is-dragging');
+          idleUntil = performance.now() + 1500;
+        });
+        gallery.addEventListener('pointermove', event => {
+          if (!dragging) return;
+          const delta = event.clientX - dragStartX;
+          if (Math.abs(delta) > 5 && !moved) { moved = true; gallery.setPointerCapture(event.pointerId); }
+          gallery.scrollLeft -= event.clientX - lastPointerX;
+          lastPointerX = event.clientX;
+          wrapPosition();
+          idleUntil = performance.now() + 1500;
+        });
+        const stopDrag = () => {
+          if (!dragging) return;
+          dragging = false;
+          suppressClick = moved;
+          gallery.classList.remove('is-dragging');
+          idleUntil = performance.now() + 1500;
+        };
+        gallery.addEventListener('pointerup', stopDrag);
+        gallery.addEventListener('pointercancel', stopDrag);
+        gallery.addEventListener('lostpointercapture', stopDrag);
+        gallery.addEventListener('dragstart', event => event.preventDefault());
+
+        const lightbox = document.createElement('div');
+        lightbox.className = 'concept-fullscreen';
+        lightbox.setAttribute('role', 'dialog');
+        lightbox.setAttribute('aria-modal', 'true');
+        lightbox.setAttribute('aria-label', 'Concept preview');
+        const close = document.createElement('button');
+        close.type = 'button'; close.className = 'concept-fullscreen__close'; close.setAttribute('aria-label', 'Close'); close.textContent = '×';
+        lightbox.appendChild(close); document.body.appendChild(lightbox);
+        let currentIndex = 0;
+        function showConcept(index) {
+          currentIndex = (index + originals.length) % originals.length;
+          const media = originals[currentIndex].querySelector('img, video');
+          if (!media) return;
+          lightbox.querySelectorAll('img,video').forEach(el => { if (el.tagName === 'VIDEO') el.pause(); el.remove(); });
+          const full = media.dataset.full ? document.createElement('img') : media.cloneNode(true);
+          if (media.dataset.full) { full.src = media.dataset.full; full.alt = media.alt || media.getAttribute('aria-label') || ''; }
+          else if (full.tagName === 'VIDEO') { full.src = media.dataset.video || media.currentSrc; }
+          full.removeAttribute('loading');
+          full.removeAttribute('autoplay');
+          if (full.tagName === 'VIDEO') { full.controls = true; full.autoplay = true; }
+          lightbox.insertBefore(full, close);
+          lightbox.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+          if (full.tagName === 'VIDEO') full.play().catch(() => {});
+          close.focus();
+        }
+        function hide() {
+          lightbox.classList.remove('is-open');
+          lightbox.querySelectorAll('img,video').forEach(el => { if (el.tagName === 'VIDEO') el.pause(); el.remove(); });
+          document.body.style.overflow = '';
+        }
+        gallery.addEventListener('click', event => {
+          if (suppressClick) { suppressClick = false; event.preventDefault(); return; }
+          const tile = event.target.closest('.concept-marquee__tile');
+          if (!tile) return;
+          const index = Array.from(track.children).indexOf(tile) % originals.length;
+          if (index >= 0) showConcept(index);
+        });
+        close.addEventListener('click', hide);
+        lightbox.addEventListener('click', event => { if (event.target === lightbox) hide(); });
+        document.addEventListener('keydown', event => {
+          if (!lightbox.classList.contains('is-open')) return;
+          if (event.key === 'Escape') hide();
+          else if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+            event.preventDefault();
+            showConcept(currentIndex + (event.key === 'ArrowRight' ? 1 : -1));
+          }
+        });
+      })();
+    </script>
+    <script src="https://annademeshko.com/concept-media.js?v=20261016-2"></script>
+</body>
+</html>
