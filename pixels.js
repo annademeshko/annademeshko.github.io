@@ -128,16 +128,25 @@
       var cw = canvas.width / grid.cols;
       var ch = canvas.height / grid.rows;
       var time = t / 1000;
+      var dark = isDark();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (var y = 0; y < grid.rows; y++) {
         for (var x = 0; x < grid.cols; x++) {
           var i = (y * grid.cols + x) * 4;
-          // A diagonal rainbow wave travels across the pixels, each pixel flickers a little.
+          // A diagonal wave travels across the pixels, each pixel flickers a little.
+          // Light theme: shades of the cursor pink (#ed2e8e). Dark theme: whites and greys.
           var wave = Math.sin(time * 2.2 + (x + y) * 0.35);
           var flicker = 0.92 + 0.08 * Math.sin(time * 7 + x * 1.7 + y * 2.3);
-          var hue = (time * 60 + (x + y) * 9) % 360;
-          var mix = 0.18 + 0.12 * wave;
-          var tint = hslToRgb(hue / 360, 0.9, 0.62);
+          var shade = 0.5 + 0.5 * Math.sin(time * 1.6 + (x + y) * 0.55 + Math.sin(x * 2.1 + y * 1.3));
+          var mix = dark ? 0.26 + 0.14 * wave : 0.36 + 0.16 * wave;
+          var tint;
+          if (dark) {
+            var v = 170 + 85 * shade; // grey to white
+            tint = [v, v, v];
+          } else {
+            // hue 322–338, lightness 45–80%: from deep cursor pink to soft pink
+            tint = hslToRgb((330 + 8 * Math.sin(time * 1.1 + x * 0.7 - y * 0.5)) / 360, 0.85, 0.45 + 0.35 * shade);
+          }
           var r = (grid.data[i] * (1 - mix) + tint[0] * mix) * flicker;
           var g = (grid.data[i + 1] * (1 - mix) + tint[1] * mix) * flicker;
           var b = (grid.data[i + 2] * (1 - mix) + tint[2] * mix) * flicker;
