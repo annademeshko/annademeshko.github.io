@@ -138,14 +138,14 @@
           var wave = Math.sin(time * 2.2 + (x + y) * 0.35);
           var flicker = 0.92 + 0.08 * Math.sin(time * 7 + x * 1.7 + y * 2.3);
           var shade = 0.5 + 0.5 * Math.sin(time * 1.6 + (x + y) * 0.55 + Math.sin(x * 2.1 + y * 1.3));
-          var mix = dark ? 0.26 + 0.14 * wave : 0.36 + 0.16 * wave;
+          var mix = dark ? 0.26 + 0.14 * wave : 0.62 + 0.18 * wave;
           var tint;
           if (dark) {
             var v = 170 + 85 * shade; // grey to white
             tint = [v, v, v];
           } else {
-            // hue 322–338, lightness 45–80%: from deep cursor pink to soft pink
-            tint = hslToRgb((330 + 8 * Math.sin(time * 1.1 + x * 0.7 - y * 0.5)) / 360, 0.85, 0.45 + 0.35 * shade);
+            // hue 322–338, lightness 50–72%, full saturation: from deep cursor pink to soft pink
+            tint = hslToRgb((330 + 8 * Math.sin(time * 1.1 + x * 0.7 - y * 0.5)) / 360, 1, 0.5 + 0.22 * shade);
           }
           var r = (grid.data[i] * (1 - mix) + tint[0] * mix) * flicker;
           var g = (grid.data[i + 1] * (1 - mix) + tint[1] * mix) * flicker;
