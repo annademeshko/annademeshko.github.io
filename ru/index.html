@@ -354,6 +354,13 @@
         html.bilingual-home .contact-dock .dock-icon { width: 56px; height: 56px; border-radius: 13px; }
       }
     </style>
+    <style>
+      /* Russian footer headline, hand-lettered like the name; spans the content width. */
+      html.bilingual-home .footer-lettering { display: block; width: min(760px, calc(100% - 32px)); margin: 0 auto; line-height: 0; }
+      html.bilingual-home .footer-lettering img { display: none; width: 100%; height: auto; }
+      html.bilingual-home[data-theme="light"] .footer-lettering .name-lettering--light,
+      html.bilingual-home[data-theme="dark"] .footer-lettering .name-lettering--dark { display: block; }
+    </style>
   </head>
   <body>
     <div class="site-controls">
@@ -498,7 +505,7 @@
     </main>
 
     <footer class="site-footer">
-      <h2 class="footer-title"><span data-lang="ru">Давай знакомиться</span><span data-lang="en">Let’s connect</span></h2>
+      <h2 class="footer-title"><span data-lang="ru"><span class="footer-lettering" role="img" aria-label="Давайте знакомиться"><img class="name-lettering--light" src="/assets/lettering/davayte-znakomitsya-black.svg" width="4962" height="534" alt="" loading="lazy" decoding="async"><img class="name-lettering--dark" src="/assets/lettering/davayte-znakomitsya-white.svg" width="4962" height="534" alt="" loading="lazy" decoding="async"></span></span><span data-lang="en">Let’s connect</span></h2>
       <script>
         (function () {
           var el = document.currentScript.previousElementSibling;
