@@ -412,8 +412,12 @@
         html.standalone-english .home-page .intro h1 { font-size: 40px; }
       }
 
-      /* Profile photo: black and white, no pixel effect. */
-      html.standalone-english .home-page .intro-photo { filter: grayscale(1); }
+      /* Profile illustration: a different background per theme
+         (same pairing as the cursor: black on pink, pink on white, white on black). */
+      html.standalone-english .home-page .intro-photo { display: none; }
+      html.standalone-english[data-theme="light"] .home-page .intro-photo--light,
+      html.standalone-english[data-theme="pink"] .home-page .intro-photo--pink,
+      html.standalone-english[data-theme="dark"] .home-page .intro-photo--dark { display: block; }
 
       /* Intro summary: one sentence, key facts in bold. */
       html.standalone-english .home-page .intro-copy p.intro-summary {
@@ -491,7 +495,9 @@
 
     <main class="page home-page" aria-label="Anna Demeshko portfolio">
       <section class="intro" aria-labelledby="intro-title">
-        <img class="intro-photo" src="./assets/profile/anna-demeshko-400.webp?v=bw2" srcset="./assets/profile/anna-demeshko-400.webp?v=bw2 400w, ./assets/profile/anna-demeshko-600.webp?v=bw2 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" fetchpriority="high">
+        <img class="intro-photo intro-photo--light" src="./assets/profile/anna-illustration-pink-400.webp" srcset="./assets/profile/anna-illustration-pink-400.webp 400w, ./assets/profile/anna-illustration-pink-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" fetchpriority="high">
+        <img class="intro-photo intro-photo--pink" src="./assets/profile/anna-illustration-dark-400.webp" srcset="./assets/profile/anna-illustration-dark-400.webp 400w, ./assets/profile/anna-illustration-dark-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" loading="lazy">
+        <img class="intro-photo intro-photo--dark" src="./assets/profile/anna-illustration-light-400.webp" srcset="./assets/profile/anna-illustration-light-400.webp 400w, ./assets/profile/anna-illustration-light-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" loading="lazy">
         <div class="intro-copy">
           <h1 id="intro-title"><span data-lang="ru">Анна Демешко</span><span data-lang="en">Anna Demeshko</span></h1>
           <div class="intro-facts">
