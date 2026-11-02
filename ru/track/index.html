@@ -11,8 +11,8 @@
     </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Кейс Анны Демешко: Track — настраиваемый дашборд безопасности.">
-    <title data-ru="Track: дашборд безопасности" data-en="Track: security dashboard">Track: дашборд безопасности</title>
+    <meta name="description" content="Кейс Анны Демешко: Track 2.0 — редизайн дашбордов безопасности, от статистики к приоритетам.">
+    <title>Track 2.0: редизайн дашбордов безопасности</title>
   <link rel="canonical" href="https://annademeshko.com/ru/track/">
     <link rel="icon" type="image/png" sizes="256x256" href="/assets/favicon-ad.png">
     <link rel="stylesheet" href="/styles.css">
@@ -20,11 +20,28 @@
       .case-summary { box-sizing: border-box; width: min(680px, 100%); margin: 8px 0 56px; }
       .case-summary-table { margin: 0; }
       .case-summary-line:last-child { border-bottom: 0; }
-      .research-findings li { margin-bottom: 10px; }
       .case-summary-line { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--control-border); }
       .case-summary-line dt { color: var(--muted); font-size: 16px; line-height: 24px; }
       .case-summary-line dd { margin: 0; color: var(--text); font-size: 16px; font-weight: 400; line-height: 24px; }
+      .research-findings li { margin-bottom: 10px; }
       @media (max-width: 640px) { .case-summary-line { grid-template-columns: 1fr; gap: 2px; } }
+      .case-part { box-sizing: border-box; width: min(680px, 100%); margin: 72px 0 8px; padding-top: 24px; border-top: 1px solid var(--control-border); }
+      .case-part .eyebrow { margin: 0 0 6px; }
+      .case-part h2 { margin: 0; color: var(--heading); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
+      /* Before / after comparison slider (same pattern as the CoPilot theme slider) */
+      .ba-compare-wrap { width: 100%; margin: 0; }
+      .ba-compare-caption { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 20px; }
+      .ba-compare { --pos: 50%; position: relative; overflow: hidden; width: 100%; aspect-ratio: 16 / 9; border-radius: 8px; background: #fff; cursor: ew-resize; user-select: none; touch-action: pan-y; }
+      .ba-compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; pointer-events: none; }
+      .ba-compare .compare-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+      .ba-compare-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.18), 0 0 18px rgba(0,0,0,.25); pointer-events: none; }
+      .ba-compare-handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 36px; height: 36px; border-radius: 50%; transform: translate(-50%, -50%); background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%231d1e21' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18-6-6 6-6'/%3E%3Cpath d='m15 6 6 6-6 6'/%3E%3C/svg%3E") center / 20px no-repeat; box-shadow: 0 4px 14px rgba(0,0,0,.28); }
+      .ba-compare-label { position: absolute; bottom: 14px; padding: 4px 10px; border-radius: 999px; font-size: 13px; line-height: 18px; font-weight: 500; pointer-events: none; backdrop-filter: blur(6px); }
+      .ba-compare-label--before { left: 14px; color: #f4f5f6; background: rgba(18,19,21,.75); box-shadow: 0 0 0 1px rgba(255,255,255,.1); }
+      .ba-compare-label--after { right: 14px; color: #fff; background: rgba(46,139,247,.92); }
+      .ba-compare-range { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+      .ba-compare-range:focus-visible + .ba-compare-handle::after { outline: 2px solid var(--focus); outline-offset: 3px; }
+      .case-part + .ba-compare-wrap { margin-top: -4px; }
     </style>
     <script>
       (function () {
@@ -51,100 +68,185 @@
       </div>
     </div>
 
-    <main class="page case-page" aria-label="Кейс Track: дашборд безопасности">
+    <main class="page case-page" aria-label="Кейс Track 2.0: редизайн дашбордов безопасности">
       <article class="case-study">
         <header class="case-hero">
-          <h1><span data-lang="ru">Как я собрала дашборд безопасности, где каждая из трёх ролей за минуту собирает свою аналитику</span><span data-lang="en">Track: security dashboard</span></h1>
-          <p class="case-hero-lead"><span data-lang="ru">Track состоит из виджетов: DevOps, аналитик безопасности и менеджер собирают на нём аналитику, которая нужна каждому.</span><span data-lang="en">A widget-based security dashboard: each role assembles its own overview and drills into details without losing the big picture.</span></p>
-          <p class="case-meta"><span data-lang="ru">2025 · Product Designer · В проде · Корпоративная платформа AppSec</span><span data-lang="en">2025 · Product Designer · Shipped · Enterprise AppSec platform</span></p>
+          <h1>Track 2.0: как я превратила дашборд с графиками в ответ на вопрос «что исправлять в первую очередь?»</h1>
+          <p class="case-hero-lead">Редизайн дашбордов продукта для безопасности. Я провела аудит первой версии, перестроила обзор вокруг реальных рисков и спроектировала весь сценарий работы с виджетами: от пустого экрана до деталей.</p>
+          <p class="case-meta">2026 · Product Designer · Концепция редизайна · Корпоративная платформа AppSec</p>
         </header>
 
-        <section class="case-summary" aria-label="Кратко" data-lang="ru">
+        <section class="case-summary" aria-label="Кратко">
           <dl class="case-summary-table">
-            <div class="case-summary-line"><dt>Роль</dt><dd>Единственный дизайнер, от ролевых сценариев до передачи в разработку</dd></div>
-            <div class="case-summary-line"><dt>Команда</dt><dd>9 человек: я (дизайнер), PM, аналитик, 2 фронтендера, 2 бэкендера, 2 QA</dd></div>
-            <div class="case-summary-line"><dt>Продукт</dt><dd>AppSec Solutions, cybersecurity, B2B SaaS, веб</dd></div>
-            <div class="case-summary-line"><dt>Результат</dt><dd>≈ 1 минута, чтобы собрать свою аналитику под роль; 3 роли работают в одном дашборде</dd></div>
+            <div class="case-summary-line"><dt>Роль</dt><dd>Product Designer, UX-аудит</dd></div>
+            <div class="case-summary-line"><dt>Продукт</dt><dd>Кибербезопасность, B2B, веб-приложение</dd></div>
+            <div class="case-summary-line"><dt>Результат</dt><dd>Первый полезный дашборд менее чем за 10 секунд вместо минуты; эксплуатируемые уязвимости на первом экране; один клик от графика до списка проблем, которые нужно исправить</dd></div>
           </dl>
         </section>
+
+        <img class="study-image" loading="eager" decoding="async" src="/assets/track/v2/01-dashboard.webp" alt="Обновлённый дашборд Track: KPI, критичность, недельный тренд, приложения и политики">
+
         <div class="study-stack">
           <section class="study-block">
-            <p class="eyebrow">Контекст</p>
-            <p><span data-lang="ru">У команд безопасности были разные первые вопросы:</span><span data-lang="en">Security teams started from different first questions:</span></p>
+            <p class="eyebrow">Что такое Track</p>
+            <p>Большую часть современного приложения пишет не та команда, которая его выпускает. Оно собирается из open-source библиотек из npm, Maven, PyPI и других реестров. Любая из них может принести известную уязвимость, вредоносный код или лицензию, которую компании нельзя использовать.</p>
+            <p>Track защищает эту цепочку поставок. Он проверяет каждую зависимость, в том числе транзитивную, и работает как межсетевой экран перед внутренними репозиториями компании: опасные пакеты блокируются или попадают в карантин ещё до сборки. На дашбордах команда видит, как работает эта защита.</p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Кто пользуется продуктом</p>
             <ul>
-              <li><span data-lang="ru">DevOps следил за репозиториями;</span><span data-lang="en">DevOps watched the repositories,</span></li>
-              <li><span data-lang="ru">аналитик безопасности следил за критичностью уязвимостей и приложениями;</span><span data-lang="en">the AppSec analyst — severity and applications</span></li>
-              <li><span data-lang="ru">менеджер следил за политиками и нарушениями.</span><span data-lang="en">the manager — policies and violations</span></li>
+              <li><strong>AppSec-инженеры</strong> разбирают уязвимости и определяют, что исправлять в первую очередь.</li>
+              <li><strong>DevOps- и DevSecOps-инженеры</strong> следят за репозиториями и за тем, чтобы блокировка пакета не сломала сборку.</li>
+              <li><strong>Руководители безопасности</strong> контролируют политики, нарушения и сроки исправления, отчитываются перед бизнесом.</li>
             </ul>
-            <p><span data-lang="ru">Один статичный дашборд одним ролям давал лишний шум, а другим оставлял слепые зоны.</span><span data-lang="en">A single static dashboard couldn't serve everyone: it gave noise to some roles and blind spots to others, and each team still pulled the metrics it needed by hand or went to a neighbouring team for them.</span></p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Несколько терминов</p>
+            <ul>
+              <li><strong>CVE:</strong> публичный идентификатор известной уязвимости.</li>
+              <li><strong>Severity:</strong> уровень критичности, от Critical до Info.</li>
+              <li><strong>KEV:</strong> публичный каталог уязвимостей, которые уже используют атакующие. Если уязвимость попала в него, её нужно исправлять сейчас.</li>
+              <li><strong>MTTR:</strong> среднее время от обнаружения проблемы до её исправления.</li>
+            </ul>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Что не работало</p>
+            <p>Первая версия решала основную задачу: каждая роль могла собрать свой обзор примерно за минуту. Но когда я прошла сценарий AppSec-инженера, обнаружилось несколько препятствий.</p>
+            <ul>
+              <li><strong>Много чисел, нет приоритетов.</strong> Дашборд показывал 25 648 уязвимостей, но не объяснял, какие из них важны сегодня.</li>
+              <li><strong>У каждого виджета свои фильтры.</strong> Соседние графики могли показывать разные периоды, поэтому их нельзя было сравнивать.</li>
+              <li><strong>Блокировки выглядели как инциденты.</strong> Заблокированный пакет означает, что защита сработала, но на графике он был тревожным красным.</li>
+              <li><strong>Тупиковые экраны.</strong> Пустой экран не подсказывал, с чего начать, а раскрытый виджет просто увеличивал график, не предлагая следующего действия.</li>
+              <li><strong>Не было состояний.</strong> Загрузка, сбой источника данных и отсутствие прав не были спроектированы, поэтому дашборд мог выглядеть сломанным.</li>
+            </ul>
           </section>
 
           <section class="study-block">
             <p class="eyebrow">Задача</p>
-            <p><span data-lang="ru">Дать каждому контроль над своей аналитикой и не превратить настройку в конфигуратор.</span><span data-lang="en">I had to give users control over their overview without turning setup into a complex configurator. The empty state had to lead to the first action, and the widget picker had to explain the choice before applying it.</span></p>
-          </section>
-
-          <section class="study-block" data-lang="ru">
-            <p class="eyebrow">Исследование</p>
-            <p>Запросы приносили аналитики, а решения мы проверяли на внутренних пользователях:</p>
-            <ul class="research-findings">
-              <li><strong>Кликабельные прототипы:</strong> смотрели, как роли собирают свою аналитику с пустого экрана.</li>
-              <li><strong>A/B-тесты:</strong> сравнивали варианты перед выбором финального.</li>
-            </ul>
-            <p>Вывод: у каждой роли свой первый вопрос.</p>
+            <p>Сохранить гибкость, которая нравилась пользователям, но за несколько секунд отвечать на вопрос «что исправлять в первую очередь?» и сразу вести к исправлению.</p>
           </section>
         </div>
 
-        <img class="study-image" loading="lazy" decoding="async" src="/assets/track/dashboard.webp" alt="Настраиваемый дашборд безопасности Track с виджетами severity">
-
+        <!-- 1. Overview -->
+        <section class="case-part">
+          <p class="eyebrow">01 · Обзор</p>
+          <h2>От статистики к приоритетам</h2>
+        </section>
+        <figure class="ba-compare-wrap">
+          <div class="ba-compare" data-ba-compare>
+            <img class="compare-after" src="/assets/track/v2/cmp-01.webp" width="2880" height="1620" alt="Дашборд Track 2.0" decoding="async" loading="lazy">
+            <img class="compare-before" src="/assets/track/dashboard.webp" width="2400" height="1350" alt="Дашборд Track первой версии" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">До</span>
+            <span class="ba-compare-label ba-compare-label--after">После</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнить старый и новый дизайн">
+            <span class="ba-compare-handle" aria-hidden="true"></span>
+          </div>
+          <figcaption class="ba-compare-caption">Потяните разделитель, чтобы сравнить первую версию и редизайн.</figcaption>
+        </figure>
         <div class="study-stack">
-
-
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Ключевые решения</span><span data-lang="en">Key decisions</span></p>
-            <p><strong><span data-lang="ru">Ролевые вопросы, а не типы графиков.</span><span data-lang="en">How to organize the dashboard: by chart types or by role questions.</span></strong> <span data-lang="ru">У DevOps, аналитика и менеджера разный первый вопрос, а витрина графиков «на все случаи» давала шум.</span><span data-lang="en">I chose to build the overview around role questions (severity, repositories, policies), because DevOps, the analyst and the manager each start from a different first question. I rejected an all-purpose gallery of charts: it gave noise to some roles and blind spots to others.</span></p>
-            <p><strong><span data-lang="ru">Лёгкий выбор виджетов, а не конфигуратор.</span><span data-lang="en">Setup: a full configurator or an empty state with a widget picker.</span></strong> <span data-lang="ru">Свою аналитику можно собрать примерно за минуту, а конфигуратор отпугивал бы ещё до старта.</span><span data-lang="en">I chose a light picker with previews and Select all — the path from an empty screen to the first overview takes a minute. I rejected a complex configurator: it turns the start into a separate job and scares off some roles before their first overview.</span></p>
-            <p><strong><span data-lang="ru">Раскрытие на месте, а не отдельная страница.</span><span data-lang="en">Detail: a separate page or an expanded view in place.</span></strong> <span data-lang="ru">Так пользователь не теряет общую картину.</span><span data-lang="en">I chose to expand a widget into a detailed mode right inside the dashboard, with a one-click return. I rejected moving to a separate details page: the user lost the context of the overview and a sense of where they were.</span></p>
-          </section>
-
-          <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
-            <p><strong><span data-lang="ru">Пустой дашборд как точка старта:</span><span data-lang="en">The empty state as a starting point, not a dead end:</span></strong> <span data-lang="ru">сразу предлагает добавить виджет.</span><span data-lang="en">the empty screen immediately offers an action — add a widget. A large “+” area shows that a personal overview will appear here.</span></p>
+            <p><strong>Один период и общие фильтры.</strong> Я вынесла фильтры из виджетов над дашбордом: теперь все графики показывают данные в одном контексте. Если виджету нужен собственный период, он явно указан, например «Last 90 d».</p>
+            <p><strong>Ряд KPI с главными вопросами.</strong> Сколько проблем открыто, сколько из них критические, какие уже эксплуатируются и как быстро команда исправляет их относительно SLA.</p>
+            <p><strong>Спокойный цвет для блокировок.</strong> Красный остался только для того, что требует реакции. Рост числа заблокированных пакетов означает, что защита работает.</p>
+            <p><strong>Видно, что делает каждая политика.</strong> У каждой политики есть метка Block, Quarantine или Warn: 2000 предупреждений и 2000 блокировок говорят о разных вещах.</p>
+            <p><strong>Различимые уровни критичности.</strong> Critical теперь сливовый и не сливается с High, а второстепенный текст соответствует требованиям WCAG AA по контрастности.</p>
           </section>
         </div>
 
-        <img class="study-image" loading="lazy" decoding="async" src="/assets/track/empty-state.webp" alt="Empty state дашборда Track с призывом добавить виджет">
-
+        <!-- 2. Empty state -->
+        <section class="case-part">
+          <p class="eyebrow">02 · Первый запуск</p>
+          <h2>Пустой экран помогает начать</h2>
+        </section>
+        <figure class="ba-compare-wrap">
+          <div class="ba-compare" data-ba-compare>
+            <img class="compare-after" src="/assets/track/v2/cmp-02.webp" width="2880" height="1620" alt="Пустой дашборд Track 2.0 с ролевыми шаблонами" decoding="async" loading="lazy">
+            <img class="compare-before" src="/assets/track/empty-state.webp" width="2400" height="1350" alt="Пустой дашборд Track первой версии" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">До</span>
+            <span class="ba-compare-label ba-compare-label--after">После</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнить старый и новый дизайн">
+            <span class="ba-compare-handle" aria-hidden="true"></span>
+          </div>
+        </figure>
         <section class="study-note">
-          <p><strong><span data-lang="ru">Выбор виджетов с превью:</span><span data-lang="en">Widget picker: an informed choice:</span></strong> <span data-lang="ru">видно, что получится, ещё до подтверждения.</span><span data-lang="en">the picker shows widget previews before confirmation. Select all speeds up the start, manual selection gives control, and active badges show the current set.</span></p>
+          <p>Вместо одинокого «+» появились три шаблона для трёх ролей: Security overview для AppSec, Supply chain risk для DevSecOps и Policy compliance для руководителей безопасности. Один клик даёт готовый полезный дашборд. Выбор виджетов вручную тоже остался.</p>
         </section>
 
-        <img class="study-image" loading="lazy" decoding="async" src="/assets/track/widget-picker.webp" alt="Widget picker Track с превью виджетов">
-
+        <!-- 3. Widget library -->
+        <section class="case-part">
+          <p class="eyebrow">03 · Библиотека виджетов</p>
+          <h2>Выбор, в котором легко разобраться</h2>
+        </section>
+        <figure class="ba-compare-wrap">
+          <div class="ba-compare" data-ba-compare>
+            <img class="compare-after" src="/assets/track/v2/cmp-03.webp" width="2880" height="1620" alt="Библиотека виджетов Track 2.0" decoding="async" loading="lazy">
+            <img class="compare-before" src="/assets/track/widget-picker.webp" width="2400" height="1350" alt="Выбор виджетов в первой версии Track" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">До</span>
+            <span class="ba-compare-label ba-compare-label--after">После</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнить старый и новый дизайн">
+            <span class="ba-compare-handle" aria-hidden="true"></span>
+          </div>
+        </figure>
         <section class="study-note">
-          <p><strong><span data-lang="ru">Заполненный дашборд:</span><span data-lang="en">Populated dashboard: a single security overview:</span></strong> <span data-lang="ru">критичность, приложения, репозитории и политики в одном месте.</span><span data-lang="en">the overview brings together severity, vulnerable applications, blocked repositories and policy triggers. The Critical/High/Medium/Low/Informational color system stays consistent across all widgets.</span></p>
+          <p>Категории и поиск вместо длинной сетки, крупные превью с реальными данными, заметная метка «Already on dashboard» и счётчик выбранных виджетов. Названия в библиотеке и на дашборде совпадают, поэтому добавленный виджет легко узнать.</p>
         </section>
 
-        <img class="study-image" loading="lazy" decoding="async" src="/assets/track/dashboard.webp" alt="Заполненный дашборд безопасности Track с единой severity-системой">
-
+        <!-- 4. Drill-down -->
+        <section class="case-part">
+          <p class="eyebrow">04 · Детали</p>
+          <h2>От графика сразу к действию</h2>
+        </section>
+        <figure class="ba-compare-wrap">
+          <div class="ba-compare" data-ba-compare>
+            <img class="compare-after" src="/assets/track/v2/cmp-06.webp" width="2880" height="1620" alt="Детальный вид Track 2.0: приложения, KEV и доступность исправления" decoding="async" loading="lazy">
+            <img class="compare-before" src="/assets/track/expanded.webp" width="2400" height="1350" alt="Раскрытый виджет первой версии Track" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">До</span>
+            <span class="ba-compare-label ba-compare-label--after">После</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнить старый и новый дизайн">
+            <span class="ba-compare-handle" aria-hidden="true"></span>
+          </div>
+        </figure>
         <section class="study-note">
-          <p><strong><span data-lang="ru">Раскрытый виджет:</span><span data-lang="en">Expanded view: detail without losing context:</span></strong> <span data-lang="ru">подробный график без потери контекста и возврат к дашборду в один клик.</span><span data-lang="en">a widget expands into a detailed mode with a stacked bar chart, time period and severity hover states. You can return to the overview in one click.</span></p>
+          <p>Детальный вид стал рабочим экраном. Фильтры переносятся с дашборда, а таблица отвечает на три первых вопроса AppSec-инженера: эксплуатируется ли уязвимость, есть ли исправление и кто отвечает за приложение. Отсюда можно выгрузить список, поделиться ссылкой или сформировать план исправления.</p>
         </section>
 
-        <img class="study-image" loading="lazy" decoding="async" src="/assets/track/expanded.webp" alt="Expanded view виджета Track со stacked bar chart">
+        <!-- 5. New in 2.0 -->
+        <section class="case-part">
+          <p class="eyebrow">05 · Новое в 2.0</p>
+          <h2>Чего не было в первой версии</h2>
+        </section>
+        <section class="study-note">
+          <p><strong>Редактирование раскладки.</strong> Виджет можно перетащить за ручку и изменить его размер за угол; сетка подсказывает расположение. На общем дашборде есть предупреждение, что изменения увидит вся команда, чтобы случайно не нарушить работу коллег.</p>
+        </section>
+        <img class="study-image" loading="lazy" decoding="async" src="/assets/track/v2/04-edit.webp" alt="Режим редактирования раскладки дашборда">
+        <section class="study-note">
+          <p><strong>Настройки виджета с живым превью.</strong> Тип графика, период, топ N и критичность меняются в боковой панели, а результат виден сразу. Сам дашборд остаётся на месте.</p>
+        </section>
+        <img class="study-image" loading="lazy" decoding="async" src="/assets/track/v2/05-settings.webp" alt="Настройки виджета с живым превью">
+        <section class="study-note">
+          <p><strong>Состояния и наложения.</strong> У всех виджетов одинаково устроены загрузка, отсутствие данных, ошибка источника и отсутствие прав. В каждом состоянии есть следующий шаг. Если один источник недоступен, остальные виджеты продолжают работать.</p>
+        </section>
+        <img class="study-image" loading="lazy" decoding="async" src="/assets/track/v2/07-states.webp" alt="Состояния виджетов и наложения">
+
         <div class="study-stack">
           <section class="study-block result-block">
-            <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+            <p class="eyebrow">Результат</p>
             <ul>
-              <li><strong><span data-lang="ru">≈ 1 минута, чтобы собрать свою аналитику под роль</span><span data-lang="en">≈ 1 minute to assemble a personal overview for your role</span></strong> <span data-lang="ru">без конфигуратора.</span><span data-lang="en">— the empty state and widget picker lead from a blank screen to the first overview without a configurator.</span></li>
-              <li><strong><span data-lang="ru">3 роли в одном дашборде:</span><span data-lang="en">3 roles — one dashboard:</span></strong> <span data-lang="ru">каждый собирает свои метрики в одном месте.</span><span data-lang="en">DevOps, the analyst and the manager assemble the metrics they need in one place and stop arguing over whose dashboard is the “right” one.</span></li>
-              <li><strong><span data-lang="ru">5 уровней критичности в единой системе:</span><span data-lang="en">5 severity levels in one system:</span></strong> <span data-lang="ru">одни цвета во всех виджетах, и новый виджет не ломает остальные.</span><span data-lang="en">Critical / High / Medium / Low / Informational keep colour consistent across every widget, and a new widget is added without breaking the rest.</span></li>
+              <li><strong>Менее 10 секунд до полезного дашборда вместо минуты.</strong> Ролевой шаблон заменяет поочерёдный выбор виджетов.</li>
+              <li><strong>Эксплуатируемые уязвимости на первом экране.</strong> Раньше увидеть их на дашборде было невозможно.</li>
+              <li><strong>1 клик от графика до списка проблем,</strong> с сохранением фильтров. Раньше приходилось переходить в другой раздел и настраивать их заново.</li>
+              <li><strong>1 набор фильтров вместо 6.</strong> Все виджеты показывают один период и одну область данных.</li>
+              <li><strong>Спроектированы 4 состояния виджета:</strong> загрузка, пустые данные, ошибка и отсутствие прав. Раньше их не было.</li>
             </ul>
+            <p>После запуска я бы отслеживала два показателя: долю эксплуатируемых уязвимостей, исправленных в пределах SLA, и частоту переходов из виджета в детали. Они покажут, приводит ли дашборд к исправлениям.</p>
           </section>
 
-          <section class="study-block" data-lang="ru">
+          <section class="study-block">
             <p class="eyebrow">Чему я научилась</p>
-            <p>Дашборд для нескольких ролей должен отвечать на первый вопрос каждой роли, а не быть набором графиков. И лёгкий старт важнее гибкой настройки.</p>
+            <p>Возможность собрать свой обзор решает задачу «нам всем нужно разное», но не отвечает на вопрос «что делать дальше?». В продукте для безопасности дашборд полезен, когда отделяет реальный риск от шума и ведёт к исправлению в один клик.</p>
           </section>
         </div>
       </article>
@@ -200,5 +302,22 @@
     </script>
     <!-- End Cloudflare Web Analytics -->
       <script src="/language-position.js?v=20261102-reading-position2"></script>
+      <script>
+      // Before / after slider: drag anywhere on the image, or use the arrow keys.
+      (function () {
+        document.querySelectorAll("[data-ba-compare]").forEach(function (box) {
+          var range = box.querySelector(".ba-compare-range");
+          var dragging = false;
+          function set(pct) { pct = Math.max(0, Math.min(100, pct)); box.style.setProperty("--pos", pct + "%"); range.value = Math.round(pct); }
+          function fromEvent(e) { var r = box.getBoundingClientRect(); set(((e.clientX - r.left) / r.width) * 100); }
+          box.addEventListener("pointerdown", function (e) { dragging = true; box.setPointerCapture(e.pointerId); fromEvent(e); range.focus({ preventScroll: true }); });
+          box.addEventListener("pointermove", function (e) { if (dragging) fromEvent(e); });
+          box.addEventListener("pointerup", function () { dragging = false; });
+          box.addEventListener("pointercancel", function () { dragging = false; });
+          range.addEventListener("input", function () { set(Number(range.value)); });
+        });
+      })();
+    </script>
   </body>
 </html>
+
