@@ -312,6 +312,23 @@
 .case-link[aria-label='CoPilot'] .cf3-states{left:4.5%;top:50%;width:27.3%}
 .case-link[aria-label='CoPilot'] .cf3-metric{left:69.5%;top:14%;width:25%}
 .case-link[aria-label='CoPilot'] .cf3-toast{left:57%;top:74.5%;width:37.7%}</style>
+    <style>
+      /* Tagline highlight + contact trays, same look as the English homepage:
+         light theme = black highlight and black tray, dark theme = white highlight and white tray. */
+      html.bilingual-home[lang] .text-select { --sel: #ed2e8e; --sel-bg: #000; color: #fff; font-weight: 500; }
+      html.bilingual-home[lang][data-theme="dark"] .text-select { --sel: #ed2e8e; --sel-bg: #fff; color: #000; }
+      html.bilingual-home[lang] .contact-dock,
+      html.bilingual-home[lang][data-theme="light"] .contact-dock {
+        background: #090909; border-color: #090909; box-shadow: none;
+        -webkit-backdrop-filter: none; backdrop-filter: none;
+        --dock-divider: rgba(255,255,255,.2); --dock-caption: #f4f4f4;
+      }
+      html.bilingual-home[lang][data-theme="dark"] .contact-dock {
+        background: #fbfcfc; border-color: #fbfcfc;
+        --dock-divider: rgba(0,0,0,.16); --dock-caption: #111;
+      }
+      html.bilingual-home[lang] .contact-dock::before { display: none; }
+    </style>
   </head>
   <body>
     <div class="site-controls">
