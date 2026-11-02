@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Кейс Анны Демешко: Track 2.0 — редизайн дашбордов безопасности.">
-    <title data-ru="Track 2.0: редизайн дашбордов" data-en="Track 2.0: dashboards redesign">Track 2.0: редизайн дашбордов</title>
+    <meta name="description" content="Anna Demeshko case study: Track 2.0, a redesign of security dashboards.">
+    <title>Track 2.0: security dashboards redesign</title>
   <meta name="robots" content="noindex">
     <link rel="icon" type="image/png" href="../assets/fav_black.png" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/png" href="../assets/fav_white.png" media="(prefers-color-scheme: dark)">
@@ -99,184 +99,185 @@
       </div>
     </div>
 
-    <main class="page case-page" aria-label="Кейс Track 2.0: редизайн дашбордов безопасности">
+    <main class="page case-page" aria-label="Track 2.0 case study: security dashboards redesign">
       <article class="case-study">
         <header class="case-hero">
-          <h1><span data-lang="ru">Track 2.0: как я превратила дашборд из набора графиков в ответ на вопрос «что чинить первым»</span><span data-lang="en">Track 2.0: turning a set of charts into an answer to “what do we fix first”</span></h1>
-          <p class="case-hero-lead"><span data-lang="ru">Редизайн дашбордов в AppSec-платформе: UX-аудит первой версии, приоритизация по реальной угрозе и полный цикл работы с виджетами, от пустого экрана до деталей.</span><span data-lang="en">A redesign of the dashboards in an AppSec platform: a UX audit of v1, prioritisation by real-world risk and the full widget lifecycle, from an empty screen to the details.</span></p>
-          <p class="case-meta"><span data-lang="ru">2026 · Product Designer · Редизайн-концепт · Корпоративная AppSec-платформа</span><span data-lang="en">2026 · Product Designer · Redesign concept · Enterprise AppSec platform</span></p>
+          <h1>Track 2.0: how I turned a dashboard full of charts into an answer to “what do we fix first?”</h1>
+          <p class="case-hero-lead">A redesign of the dashboards in a security product. I audited the first version, rebuilt it around real risk and designed the whole widget flow, from an empty screen to the details.</p>
+          <p class="case-meta">2026 · Product Designer · Redesign concept · Enterprise AppSec platform</p>
         </header>
 
         <section class="case-summary" aria-label="Summary">
           <dl class="case-summary-table">
-            <div class="case-summary-line"><dt><span data-lang="ru">Роль</span><span data-lang="en">Role</span></dt><dd><span data-lang="ru">UX-аудит, продуктовые решения, UI, состояния</span><span data-lang="en">UX audit, product decisions, UI, states</span></dd></div>
-            <div class="case-summary-line"><dt><span data-lang="ru">Продукт</span><span data-lang="en">Product</span></dt><dd><span data-lang="ru">AppSec.Track, AppSec Solutions · защита цепочки поставок ПО · B2B · web</span><span data-lang="en">AppSec.Track, AppSec Solutions · software supply chain security · B2B · web</span></dd></div>
-            <div class="case-summary-line"><dt><span data-lang="ru">Основа</span><span data-lang="en">Basis</span></dt><dd><span data-lang="ru">Первая версия дашбордов, которую я запускала в 2025</span><span data-lang="en">The first version of the dashboards I shipped in 2025</span></dd></div>
-            <div class="case-summary-line"><dt><span data-lang="ru">Объём</span><span data-lang="en">Scope</span></dt><dd><span data-lang="ru">7 экранов: обзор, старт, библиотека, редактирование, настройки, детали, состояния</span><span data-lang="en">7 screens: overview, start, library, edit mode, settings, details, states</span></dd></div>
+            <div class="case-summary-line"><dt>Role</dt><dd>Product Designer, UX audit</dd></div>
+            <div class="case-summary-line"><dt>Product</dt><dd>Cybersecurity, B2B, web app</dd></div>
+            <div class="case-summary-line"><dt>Result</dt><dd>First useful dashboard in under 10 seconds instead of about a minute; exploited vulnerabilities visible on the first screen; one click from a chart to the list of things to fix</dd></div>
           </dl>
         </section>
 
-        <img class="study-image" loading="eager" decoding="async" src="../assets/track/v2/01-dashboard.webp" alt="Новый дашборд Track: KPI, severity, тренд находок, приложения и политики">
+        <img class="study-image" loading="eager" decoding="async" src="../assets/track/v2/01-dashboard.webp" alt="Redesigned Track dashboard with KPIs, severity split, weekly trend, applications and policies">
 
         <div class="study-stack">
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Что такое Track</span><span data-lang="en">What Track is</span></p>
-            <p><span data-lang="ru">Современное приложение в основном собрано из чужого кода: open-source библиотек из maven, npm, PyPI и других реестров. Любая из них может принести в продукт уязвимость, вредоносный код или лицензию, которую компании нельзя использовать.</span><span data-lang="en">A modern application is mostly made of other people’s code: open-source libraries from maven, npm, PyPI and other registries. Any of them can bring in a vulnerability, malicious code or a licence the company can’t use.</span></p>
-            <p><span data-lang="ru">AppSec.Track от AppSec Solutions (ГК Swordfish Security) — платформа для защиты цепочки поставок ПО, или SCA/OSA-анализатор. Он проверяет всё дерево зависимостей на уязвимости, вредоносные пакеты и лицензионную чистоту. А его OSA-файрвол встаёт перед внутренними репозиториями (Nexus, Artifactory) и в реальном времени блокирует опасные компоненты ещё до того, как они попадут в сборку. Дашборды — место, где команда видит, что происходит со всей цепочкой поставок кода.</span><span data-lang="en">AppSec.Track by AppSec Solutions (Swordfish Security group) is a software supply chain security platform, an SCA/OSA analyser. It checks the whole dependency tree for vulnerabilities, malicious packages and licence compliance. Its OSA firewall sits in front of internal repositories (Nexus, Artifactory) and blocks dangerous components in real time, before they reach a build. Dashboards are where the team sees what is happening across the whole software supply chain.</span></p>
+            <p class="eyebrow">What Track is</p>
+            <p>Most of a modern app isn’t written by the team that ships it. It’s built from open-source libraries pulled from npm, Maven, PyPI and other registries, and any of them can bring in a known vulnerability, malicious code or a license the company isn’t allowed to use.</p>
+            <p>Track protects that supply chain. It checks every dependency, including the ones that come in indirectly, and works as a firewall in front of the company’s internal repositories: risky packages get blocked or quarantined before they reach a build. The dashboards are where the team sees how all of this is going.</p>
           </section>
 
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Для кого</span><span data-lang="en">Who it’s for</span></p>
+            <p class="eyebrow">Who uses it</p>
             <ul>
-              <li><strong><span data-lang="ru">AppSec-инженер</span><span data-lang="en">AppSec engineer</span></strong> <span data-lang="ru">— разбирает уязвимости и решает, что чинить первым.</span><span data-lang="en">— triages vulnerabilities and decides what to fix first.</span></li>
-              <li><strong><span data-lang="ru">DevOps / DevSecOps</span><span data-lang="en">DevOps / DevSecOps</span></strong> <span data-lang="ru">— следит за репозиториями и за тем, чтобы блокировки не останавливали сборки.</span><span data-lang="en">— watches the repositories and makes sure blocks don’t break builds.</span></li>
-              <li><strong><span data-lang="ru">Руководитель безопасности</span><span data-lang="en">Head of security</span></strong> <span data-lang="ru">— смотрит на политики, нарушения и сроки исправления, отчитывается перед бизнесом.</span><span data-lang="en">— looks at policies, violations and time to fix, and reports to the business.</span></li>
+              <li><strong>AppSec engineers</strong> triage vulnerabilities and decide what gets fixed first.</li>
+              <li><strong>DevOps and DevSecOps engineers</strong> look after the repositories and make sure a block doesn’t break someone’s build.</li>
+              <li><strong>Security leads</strong> watch policies, violations and fix times, and report to the business.</li>
             </ul>
           </section>
 
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Пара терминов</span><span data-lang="en">A few terms</span></p>
+            <p class="eyebrow">A few terms</p>
             <ul>
-              <li><strong>CVE</strong> <span data-lang="ru">— публичный идентификатор известной уязвимости.</span><span data-lang="en">— a public ID of a known vulnerability.</span></li>
-              <li><strong>Severity</strong> <span data-lang="ru">— критичность уязвимости: Critical, High, Medium, Low, Info.</span><span data-lang="en">— how severe a vulnerability is: Critical, High, Medium, Low, Info.</span></li>
-              <li><strong>KEV</strong> <span data-lang="ru">— каталог уязвимостей, которые уже используются в реальных атаках. Это главный сигнал «чинить сейчас».</span><span data-lang="en">— a catalogue of vulnerabilities already exploited in real attacks. It’s the strongest “fix now” signal.</span></li>
-              <li><strong>MTTR</strong> <span data-lang="ru">— среднее время от обнаружения до исправления.</span><span data-lang="en">— mean time from detection to fix.</span></li>
+              <li><strong>CVE:</strong> the public ID of a known vulnerability.</li>
+              <li><strong>Severity:</strong> how bad it is, from Critical down to Info.</li>
+              <li><strong>KEV:</strong> a public list of vulnerabilities attackers are already using. If something is on it, it should be fixed now.</li>
+              <li><strong>MTTR:</strong> how long it takes, on average, to fix a problem once it’s found.</li>
             </ul>
           </section>
 
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Что было не так в первой версии</span><span data-lang="en">What was wrong with v1</span></p>
-            <p><span data-lang="ru">Первая версия решила главную задачу: каждая роль собирала свой обзор за минуту. Но когда я посмотрела на неё глазами AppSec-инженера, нашлись проблемы:</span><span data-lang="en">v1 solved the main problem: every role could set up its own overview in a minute. But looking at it as an AppSec engineer, I found problems:</span></p>
+            <p class="eyebrow">What wasn’t working</p>
+            <p>The first version did its main job: each role could set up its own view in about a minute. But when I went through it the way an AppSec engineer would, a few things kept getting in the way.</p>
             <ul>
-              <li><strong><span data-lang="ru">Много цифр, нет приоритета.</span><span data-lang="en">Lots of numbers, no priority.</span></strong> <span data-lang="ru">25 648 уязвимостей — и непонятно, какие из них опасны прямо сейчас.</span><span data-lang="en">25,648 vulnerabilities, and no way to tell which ones are dangerous right now.</span></li>
-              <li><strong><span data-lang="ru">У каждого виджета свой период и фильтры.</span><span data-lang="en">Every widget had its own period and filters.</span></strong> <span data-lang="ru">Два графика рядом могли показывать разные промежутки времени, и сравнивать их было нельзя.</span><span data-lang="en">Two charts side by side could show different time ranges and couldn’t be compared.</span></li>
-              <li><strong><span data-lang="ru">Блокировка выглядела как авария.</span><span data-lang="en">A block looked like an incident.</span></strong> <span data-lang="ru">Хотя заблокированный пакет — это файрвол, который сделал свою работу.</span><span data-lang="en">But a blocked package is the firewall doing its job.</span></li>
-              <li><strong><span data-lang="ru">Пустой экран и детали — тупики.</span><span data-lang="en">The empty screen and the details were dead ends.</span></strong> <span data-lang="ru">Пустой экран не подсказывал, с чего начать, а детальный вид был просто увеличенным графиком, с которым ничего нельзя сделать.</span><span data-lang="en">The empty screen didn’t suggest where to start, and the detailed view was just a bigger chart you couldn’t act on.</span></li>
-              <li><strong><span data-lang="ru">Нет состояний.</span><span data-lang="en">No states.</span></strong> <span data-lang="ru">Загрузка, ошибка источника и отсутствие прав не были продуманы, поэтому дашборд мог выглядеть сломанным.</span><span data-lang="en">Loading, a failed source and missing permissions weren’t designed, so the dashboard could look broken.</span></li>
+              <li><strong>Lots of numbers, no priorities.</strong> The dashboard said there were 25,648 vulnerabilities, but not which ones mattered today.</li>
+              <li><strong>Every widget had its own filters.</strong> Two charts next to each other could cover different periods, so you couldn’t compare them.</li>
+              <li><strong>Blocks looked like incidents.</strong> A blocked package means the firewall did its job, yet it was shown in alarm red.</li>
+              <li><strong>Dead ends.</strong> The empty screen didn’t say where to start, and the expanded view was just a bigger chart with nothing to do next.</li>
+              <li><strong>No states.</strong> Loading, a failed data source and missing permissions weren’t designed, so the dashboard could look broken.</li>
             </ul>
           </section>
 
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Задача</span><span data-lang="en">Goal</span></p>
-            <p><span data-lang="ru">Сохранить гибкость первой версии, но сделать так, чтобы дашборд за несколько секунд отвечал на вопрос «что чинить первым» и вёл к действию, а не просто показывал статистику.</span><span data-lang="en">Keep the flexibility of v1, but make the dashboard answer “what do we fix first” within seconds and lead to an action instead of just showing statistics.</span></p>
+            <p class="eyebrow">Goal</p>
+            <p>Keep the flexibility people liked, but make the dashboard answer “what do we fix first?” in a few seconds and take you straight to the fix.</p>
           </section>
         </div>
 
         <!-- 1. Overview -->
         <section class="case-part">
-          <p class="eyebrow"><span data-lang="ru">01 · Обзор</span><span data-lang="en">01 · Overview</span></p>
-          <h2><span data-lang="ru">От статистики к приоритетам</span><span data-lang="en">From statistics to priorities</span></h2>
+          <p class="eyebrow">01 · Overview</p>
+          <h2>From statistics to priorities</h2>
         </section>
         <figure class="ba-compare-wrap">
           <div class="ba-compare" data-ba-compare>
-            <img class="compare-after" src="../assets/track/v2/cmp-01.webp" width="1440" height="810" alt="Track 2.0: дашборд" decoding="async" loading="lazy">
-            <img class="compare-before" src="../assets/track/dashboard.webp" width="2400" height="1350" alt="Track, первая версия: дашборд" decoding="async" loading="lazy">
-            <span class="ba-compare-label ba-compare-label--before"><span data-lang="ru">Было</span><span data-lang="en">Before</span></span>
-            <span class="ba-compare-label ba-compare-label--after"><span data-lang="ru">Стало</span><span data-lang="en">After</span></span>
-            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнить старый и новый дизайн">
+            <img class="compare-after" src="../assets/track/v2/cmp-01.webp" width="1440" height="810" alt="Track 2.0 dashboard" decoding="async" loading="lazy">
+            <img class="compare-before" src="../assets/track/dashboard.webp" width="2400" height="1350" alt="Track v1 dashboard" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">Before</span>
+            <span class="ba-compare-label ba-compare-label--after">After</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare the old and new design">
             <span class="ba-compare-handle" aria-hidden="true"></span>
           </div>
-          <figcaption class="ba-compare-caption"><span data-lang="ru">Потяните разделитель, чтобы сравнить первую версию и редизайн.</span><span data-lang="en">Drag the divider to compare the first version and the redesign.</span></figcaption>
+          <figcaption class="ba-compare-caption">Drag the divider to compare the first version with the redesign.</figcaption>
         </figure>
         <div class="study-stack">
           <section class="study-block">
-            <p><strong><span data-lang="ru">Один период и одни фильтры на весь дашборд.</span><span data-lang="en">One period and one set of filters for the whole dashboard.</span></strong> <span data-lang="ru">Убрала фильтры из каждого виджета и вынесла их наверх. Теперь все графики говорят об одном и том же. Если виджету действительно нужен свой период, он показывает его явной меткой («Last 90 d»).</span><span data-lang="en">I removed per-widget filters and moved them to the top, so every chart talks about the same thing. If a widget really needs its own period, it shows it with an explicit label (“Last 90 d”).</span></p>
-            <p><strong><span data-lang="ru">KPI-строка отвечает на главные вопросы.</span><span data-lang="en">A KPI row answers the main questions.</span></strong> <span data-lang="ru">Сколько открытых находок, сколько критичных и сколько из них уже эксплуатируются (KEV), как быстро команда чинит относительно SLA.</span><span data-lang="en">How many open findings, how many are critical and how many are already exploited (KEV), how fast the team fixes them compared to the SLA.</span></p>
-            <p><strong><span data-lang="ru">Блокировка — нейтральный цвет.</span><span data-lang="en">Blocks are neutral.</span></strong> <span data-lang="ru">Красный остаётся только для того, что требует реакции. Рост заблокированных пакетов — не тревога, а работа защиты.</span><span data-lang="en">Red is kept only for what needs a reaction. A growing number of blocked packages isn’t an alarm, it’s protection at work.</span></p>
-            <p><strong><span data-lang="ru">У политики видно действие.</span><span data-lang="en">Each policy shows its action.</span></strong> <span data-lang="ru">Block, Quarantine или Warn рядом с каждой политикой: 2 000 предупреждений и 2 000 блокировок — очень разные истории.</span><span data-lang="en">Block, Quarantine or Warn next to every policy: 2,000 warnings and 2,000 blocks are very different stories.</span></p>
-            <p><strong><span data-lang="ru">Severity легко различить.</span><span data-lang="en">Severity is distinguishable.</span></strong> <span data-lang="ru">Critical стал малиновым, чтобы не сливаться с High, а вторичный текст прошёл по контрасту WCAG AA.</span><span data-lang="en">Critical became crimson-plum so it doesn’t blend with High, and secondary text now passes WCAG AA contrast.</span></p>
+            <p><strong>One period and one set of filters.</strong> I took the filters out of the widgets and put them above the dashboard, so every chart now talks about the same thing. If a widget really needs its own period, it says so with a visible label like “Last 90 d”.</p>
+            <p><strong>A KPI row with the main questions.</strong> How many open findings there are, how many are critical, how many of those are already being exploited, and how fast the team fixes them compared to the SLA.</p>
+            <p><strong>Blocks in a calm color.</strong> Red is only for things that need a reaction. More blocked packages isn’t an alarm, it’s the protection working.</p>
+            <p><strong>Policies show what they do.</strong> Each one has a Block, Quarantine or Warn badge, because 2,000 warnings and 2,000 blocks are very different stories.</p>
+            <p><strong>Severity that’s easy to tell apart.</strong> Critical is now plum so it doesn’t blend into High, and secondary text passes WCAG AA contrast.</p>
           </section>
         </div>
 
         <!-- 2. Empty state -->
         <section class="case-part">
-          <p class="eyebrow"><span data-lang="ru">02 · Первый запуск</span><span data-lang="en">02 · First run</span></p>
-          <h2><span data-lang="ru">Пустой экран предлагает готовый старт под роль</span><span data-lang="en">The empty screen offers a ready start for each role</span></h2>
+          <p class="eyebrow">02 · First run</p>
+          <h2>An empty screen that gets you started</h2>
         </section>
         <figure class="ba-compare-wrap">
           <div class="ba-compare" data-ba-compare>
-            <img class="compare-after" src="../assets/track/v2/cmp-02.webp" width="1440" height="810" alt="Track 2.0: пустой экран" decoding="async" loading="lazy">
-            <img class="compare-before" src="../assets/track/empty-state.webp" width="2400" height="1350" alt="Track, первая версия: пустой экран" decoding="async" loading="lazy">
-            <span class="ba-compare-label ba-compare-label--before"><span data-lang="ru">Было</span><span data-lang="en">Before</span></span>
-            <span class="ba-compare-label ba-compare-label--after"><span data-lang="ru">Стало</span><span data-lang="en">After</span></span>
-            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнить старый и новый дизайн">
+            <img class="compare-after" src="../assets/track/v2/cmp-02.webp" width="1440" height="810" alt="Track 2.0 empty dashboard with role templates" decoding="async" loading="lazy">
+            <img class="compare-before" src="../assets/track/empty-state.webp" width="2400" height="1350" alt="Track v1 empty dashboard" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">Before</span>
+            <span class="ba-compare-label ba-compare-label--after">After</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare the old and new design">
             <span class="ba-compare-handle" aria-hidden="true"></span>
           </div>
         </figure>
         <section class="study-note">
-          <p><span data-lang="ru">Вместо одинокого «+» — три шаблона под те самые три роли: Security overview для AppSec, Supply chain risk для DevSecOps, Policy compliance для руководителя. Шаблон даёт полезный дашборд в один клик, а ручной выбор виджетов остаётся рядом.</span><span data-lang="en">Instead of a lone “+”, three templates for the same three roles: Security overview for AppSec, Supply chain risk for DevSecOps, Policy compliance for the head of security. A template gives a useful dashboard in one click, and picking widgets manually is still right there.</span></p>
+          <p>Instead of a lonely “+”, there are three templates for the same three roles: Security overview for AppSec, Supply chain risk for DevSecOps and Policy compliance for security leads. One click gives you a dashboard that’s already useful, and you can still pick widgets by hand.</p>
         </section>
 
         <!-- 3. Widget library -->
         <section class="case-part">
-          <p class="eyebrow"><span data-lang="ru">03 · Библиотека виджетов</span><span data-lang="en">03 · Widget library</span></p>
-          <h2><span data-lang="ru">Выбор, в котором легко ориентироваться</span><span data-lang="en">A choice that’s easy to navigate</span></h2>
+          <p class="eyebrow">03 · Widget library</p>
+          <h2>A choice that’s easy to find your way around</h2>
         </section>
         <figure class="ba-compare-wrap">
           <div class="ba-compare" data-ba-compare>
-            <img class="compare-after" src="../assets/track/v2/cmp-03.webp" width="1440" height="810" alt="Track 2.0: выбор виджетов" decoding="async" loading="lazy">
-            <img class="compare-before" src="../assets/track/widget-picker.webp" width="2400" height="1350" alt="Track, первая версия: выбор виджетов" decoding="async" loading="lazy">
-            <span class="ba-compare-label ba-compare-label--before"><span data-lang="ru">Было</span><span data-lang="en">Before</span></span>
-            <span class="ba-compare-label ba-compare-label--after"><span data-lang="ru">Стало</span><span data-lang="en">After</span></span>
-            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнить старый и новый дизайн">
+            <img class="compare-after" src="../assets/track/v2/cmp-03.webp" width="1440" height="810" alt="Track 2.0 widget library" decoding="async" loading="lazy">
+            <img class="compare-before" src="../assets/track/widget-picker.webp" width="2400" height="1350" alt="Track v1 widget picker" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">Before</span>
+            <span class="ba-compare-label ba-compare-label--after">After</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare the old and new design">
             <span class="ba-compare-handle" aria-hidden="true"></span>
           </div>
         </figure>
         <section class="study-note">
-          <p><span data-lang="ru">Категории и поиск вместо одной сетки, крупные превью на реальных данных, понятная пометка «Already on dashboard» и счётчик выбранного внизу. Названия виджетов в библиотеке и на дашборде совпадают — пользователь узнаёт то, что выбрал.</span><span data-lang="en">Categories and search instead of a single grid, large previews with real data, a clear “Already on dashboard” mark and a selection counter at the bottom. Widget names match between the library and the dashboard, so people recognise what they picked.</span></p>
+          <p>Categories and search instead of one long grid, big previews with real data, a clear “Already on dashboard” mark and a counter of what you’ve picked. Widgets have the same names here and on the dashboard, so you recognise what you added.</p>
         </section>
 
         <!-- 4. Drill-down -->
         <section class="case-part">
-          <p class="eyebrow"><span data-lang="ru">04 · Детали</span><span data-lang="en">04 · Details</span></p>
-          <h2><span data-lang="ru">Из графика — сразу к действию</span><span data-lang="en">From a chart straight to action</span></h2>
+          <p class="eyebrow">04 · Details</p>
+          <h2>From a chart straight to action</h2>
         </section>
         <figure class="ba-compare-wrap">
           <div class="ba-compare" data-ba-compare>
-            <img class="compare-after" src="../assets/track/v2/cmp-06.webp" width="1440" height="810" alt="Track 2.0: детальный вид" decoding="async" loading="lazy">
-            <img class="compare-before" src="../assets/track/expanded.webp" width="2400" height="1350" alt="Track, первая версия: детальный вид" decoding="async" loading="lazy">
-            <span class="ba-compare-label ba-compare-label--before"><span data-lang="ru">Было</span><span data-lang="en">Before</span></span>
-            <span class="ba-compare-label ba-compare-label--after"><span data-lang="ru">Стало</span><span data-lang="en">After</span></span>
-            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнить старый и новый дизайн">
+            <img class="compare-after" src="../assets/track/v2/cmp-06.webp" width="1440" height="810" alt="Track 2.0 drill-down with applications, KEV and fix availability" decoding="async" loading="lazy">
+            <img class="compare-before" src="../assets/track/expanded.webp" width="2400" height="1350" alt="Track v1 expanded widget" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">Before</span>
+            <span class="ba-compare-label ba-compare-label--after">After</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare the old and new design">
             <span class="ba-compare-handle" aria-hidden="true"></span>
           </div>
         </figure>
         <section class="study-note">
-          <p><span data-lang="ru">Детальный вид стал рабочим местом. Фильтры с дашборда переносятся сюда, а таблица отвечает на три вопроса AppSec-инженера: эксплуатируется ли уязвимость (KEV), есть ли исправление и кто владелец приложения. Отсюда можно выгрузить данные, поделиться ссылкой или сразу сгенерировать план исправлений.</span><span data-lang="en">The detailed view became a workspace. Dashboard filters carry over, and the table answers an AppSec engineer’s three questions: is it exploited (KEV), is there a fix, and who owns the application. From here you can export the data, share a link or generate a remediation plan.</span></p>
+          <p>The detailed view is now a place to work. Filters come with you from the dashboard, and the table answers the three questions an AppSec engineer asks first: is it being exploited, is there a fix, and who owns the app. From here you can export the list, share a link or generate a remediation plan.</p>
         </section>
 
         <!-- 5. New in 2.0 -->
         <section class="case-part">
-          <p class="eyebrow"><span data-lang="ru">05 · Новое в 2.0</span><span data-lang="en">05 · New in 2.0</span></p>
-          <h2><span data-lang="ru">То, чего в первой версии не было</span><span data-lang="en">What v1 didn’t have</span></h2>
+          <p class="eyebrow">05 · New in 2.0</p>
+          <h2>What the first version didn’t have</h2>
         </section>
         <section class="study-note">
-          <p><strong><span data-lang="ru">Редактирование раскладки.</span><span data-lang="en">Layout editing.</span></strong> <span data-lang="ru">Перетаскивание за ручку, изменение размера за угол с подсказкой сетки. Общий дашборд предупреждает, что изменения увидит вся команда — так никто случайно не сломает обзор коллегам.</span><span data-lang="en">Drag by the handle, resize from the corner with a grid hint. A shared dashboard warns that the whole team will see the changes, so nobody accidentally breaks it for colleagues.</span></p>
+          <p><strong>Layout editing.</strong> Drag a widget by its handle and resize it from the corner, with a grid hint. A shared dashboard warns you that the whole team will see your changes, so nobody breaks it for their colleagues by accident.</p>
         </section>
-        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/04-edit.webp" alt="Режим редактирования раскладки дашборда">
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/04-edit.webp" alt="Dashboard layout editing mode">
         <section class="study-note">
-          <p><strong><span data-lang="ru">Настройки виджета с живым превью.</span><span data-lang="en">Widget settings with a live preview.</span></strong> <span data-lang="ru">Тип визуализации, период, топ-N и severity меняются в панели сбоку, а результат сразу виден сверху. Дашборд при этом остаётся на месте.</span><span data-lang="en">Visualisation, period, top-N and severity change in a side panel, and the result shows up instantly at the top. The dashboard stays in place.</span></p>
+          <p><strong>Widget settings with a live preview.</strong> You change the chart type, period, top N and severity in a side panel and see the result right away. The dashboard stays where it is.</p>
         </section>
-        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/05-settings.webp" alt="Панель настроек виджета с живым превью">
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/05-settings.webp" alt="Widget settings panel with live preview">
         <section class="study-note">
-          <p><strong><span data-lang="ru">Состояния и оверлеи.</span><span data-lang="en">States and overlays.</span></strong> <span data-lang="ru">Каждый виджет одинаково показывает загрузку, пустые данные, ошибку источника и отсутствие прав — и всегда предлагает следующий шаг. Ошибка одного источника не роняет весь дашборд.</span><span data-lang="en">Every widget handles loading, empty data, a failed source and missing permissions the same way, and always suggests a next step. One failed source doesn’t take the whole dashboard down.</span></p>
+          <p><strong>States and overlays.</strong> Every widget handles loading, empty data, a failed source and missing permissions the same way, and always offers a next step. If one source fails, the rest of the dashboard keeps working.</p>
         </section>
-        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/07-states.webp" alt="Состояния виджетов и всплывающие окна">
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/07-states.webp" alt="Widget states and overlays">
 
         <div class="study-stack">
           <section class="study-block result-block">
-            <p class="eyebrow"><span data-lang="ru">Как проверить, что стало лучше</span><span data-lang="en">How to tell it works</span></p>
-            <p><span data-lang="ru">Это концепт, поэтому вместо результатов — метрики, по которым я бы оценивала редизайн:</span><span data-lang="en">This is a concept, so instead of results, here are the metrics I’d use to judge the redesign:</span></p>
+            <p class="eyebrow">Result</p>
             <ul>
-              <li><strong><span data-lang="ru">Время до первого полезного дашборда</span><span data-lang="en">Time to the first useful dashboard</span></strong> <span data-lang="ru">— с шаблонами оно должно сократиться с минуты до нескольких секунд.</span><span data-lang="en">— with templates it should drop from a minute to a few seconds.</span></li>
-              <li><strong><span data-lang="ru">Доля KEV-уязвимостей, закрытых в SLA</span><span data-lang="en">Share of KEV vulnerabilities fixed within the SLA</span></strong> <span data-lang="ru">— главный показатель того, что команда чинит правильное.</span><span data-lang="en">— the main sign the team is fixing the right things.</span></li>
-              <li><strong><span data-lang="ru">Переходы из виджета в детали</span><span data-lang="en">Clicks from a widget into the details</span></strong> <span data-lang="ru">— показывают, что дашборд ведёт к действию, а не просто висит на экране.</span><span data-lang="en">— show the dashboard leads to action rather than just sitting on a screen.</span></li>
+              <li><strong>Under 10 seconds to a useful dashboard instead of about a minute.</strong> A role template replaces picking widgets one by one.</li>
+              <li><strong>Exploited vulnerabilities on the first screen.</strong> Before, there was no way to see them on the dashboard at all.</li>
+              <li><strong>1 click from a chart to the list of things to fix,</strong> with filters carried over. Before, you had to go to another section and set the filters again.</li>
+              <li><strong>1 set of filters instead of 6.</strong> All widgets now show the same period and scope.</li>
+              <li><strong>4 widget states designed:</strong> loading, empty, error and no permission. Before, there were none.</li>
             </ul>
+            <p>After launch I’d keep an eye on two numbers: the share of exploited vulnerabilities fixed within the SLA, and how often people go from a widget into the details. They show whether the dashboard actually leads to fixes.</p>
           </section>
 
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Что я вынесла</span><span data-lang="en">What I learned</span></p>
-            <p><span data-lang="ru">Гибкая настройка решает «у каждого свой обзор», но не «что делать дальше». В продукте про безопасность дашборд ценен тогда, когда отделяет реальную угрозу от шума и в один клик ведёт к исправлению.</span><span data-lang="en">Flexible setup solves “everyone has their own view”, but not “what do I do next”. In a security product, a dashboard is valuable when it separates real risk from noise and leads to a fix in one click.</span></p>
+            <p class="eyebrow">What I learned</p>
+            <p>Letting everyone build their own view solves “we all need different things”, but not “what do I do next?”. In a security product, a dashboard earns its place when it separates real risk from noise and gets you to the fix in one click.</p>
           </section>
         </div>
       </article>
@@ -310,8 +311,8 @@
 
     <div class="bottom-fade" aria-hidden="true"></div>
     <nav class="case-nav" aria-label="Case navigation">
-      <a class="case-nav-link case-nav-prev" href="/ru/nova/" aria-label="Предыдущий кейс"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label">Предыдущий кейс</span></a>
-      <a class="case-nav-link case-nav-home" href="/ru/">На главную</a>
+      <a class="case-nav-link case-nav-prev" href="/nova/" aria-label="Previous case"><img class="case-nav-icon prev-icon" src="/assets/icon-external.svg" alt=""><span class="case-nav-label">Previous case</span></a>
+      <a class="case-nav-link case-nav-home" href="/">Home</a>
       <span class="case-nav-spacer" aria-hidden="true"></span>
       </nav>
     <script src="../script.js?v=20261101-themes2"></script>
