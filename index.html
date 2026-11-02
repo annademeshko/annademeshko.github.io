@@ -441,6 +441,30 @@
       html.standalone-english[data-theme="light"] .home-page .intro-photo--light,
       html.standalone-english[data-theme="pink"] .home-page .intro-photo--pink,
       html.standalone-english[data-theme="dark"] .home-page .intro-photo--dark { display: block; }
+      /* Hover: the real photo fades in over the illustration, fades out on leave. */
+      html.standalone-english .home-page .intro-photo-wrap {
+        position: relative;
+        display: block;
+        width: 128px;
+        height: 128px;
+        margin-bottom: -12px;
+      }
+      html.standalone-english .home-page .intro-photo-wrap .intro-photo { margin-bottom: 0; }
+      html.standalone-english .home-page .intro-photo-real {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(1);
+        opacity: 0;
+        transition: opacity .35s ease;
+        pointer-events: none;
+      }
+      html.standalone-english .home-page .intro-photo-wrap:hover .intro-photo-real { opacity: 1; }
+      @media (prefers-reduced-motion: reduce) {
+        html.standalone-english .home-page .intro-photo-real { transition: none; }
+      }
 
       /* Intro summary: one sentence, key facts in bold. */
       html.standalone-english .home-page .intro-copy p.intro-summary {
@@ -518,9 +542,12 @@
 
     <main class="page home-page" aria-label="Anna Demeshko portfolio">
       <section class="intro" aria-labelledby="intro-title">
-        <img class="intro-photo intro-photo--light" src="./assets/profile/anna-illustration-pink-400.webp" srcset="./assets/profile/anna-illustration-pink-400.webp 400w, ./assets/profile/anna-illustration-pink-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" fetchpriority="high">
-        <img class="intro-photo intro-photo--pink" src="./assets/profile/anna-illustration-dark-400.webp" srcset="./assets/profile/anna-illustration-dark-400.webp 400w, ./assets/profile/anna-illustration-dark-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" loading="lazy">
-        <img class="intro-photo intro-photo--dark" src="./assets/profile/anna-illustration-light-400.webp" srcset="./assets/profile/anna-illustration-light-400.webp 400w, ./assets/profile/anna-illustration-light-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" loading="lazy">
+        <span class="intro-photo-wrap">
+          <img class="intro-photo intro-photo--light" src="./assets/profile/anna-illustration-pink-400.webp" srcset="./assets/profile/anna-illustration-pink-400.webp 400w, ./assets/profile/anna-illustration-pink-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" fetchpriority="high">
+          <img class="intro-photo intro-photo--pink" src="./assets/profile/anna-illustration-dark-400.webp" srcset="./assets/profile/anna-illustration-dark-400.webp 400w, ./assets/profile/anna-illustration-dark-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" loading="lazy">
+          <img class="intro-photo intro-photo--dark" src="./assets/profile/anna-illustration-light-400.webp" srcset="./assets/profile/anna-illustration-light-400.webp 400w, ./assets/profile/anna-illustration-light-600.webp 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" loading="lazy">
+          <img class="intro-photo-real" src="./assets/profile/anna-demeshko-400.webp?v=bw2" srcset="./assets/profile/anna-demeshko-400.webp?v=bw2 400w, ./assets/profile/anna-demeshko-600.webp?v=bw2 600w" sizes="128px" width="128" height="128" alt="" aria-hidden="true" decoding="async" loading="lazy">
+        </span>
         <div class="intro-copy">
           <h1 id="intro-title"><span data-lang="ru">Анна Демешко</span><span data-lang="en">Anna Demeshko</span></h1>
           <div class="intro-facts">
