@@ -314,6 +314,16 @@
         display: none;
       }
     </style>
+      <style>
+      /* English version of the bilingual portfolio: favicon-pink hover frames. */
+      html.bilingual-home[lang="en"] .concept-marquee__tile:hover,
+      html.bilingual-home[lang="en"] .concept-card:hover { outline-color: #ed2e8e; }
+      html.bilingual-home[lang="en"] .case-link :is(.case-texture-frame, .case-cover:has(> .remate-cover-video))::after {
+        box-shadow: inset 0 0 0 1.5px #ed2e8e;
+      }
+      html.bilingual-home[lang="en"] .text-select { --sel: #ed2e8e; --sel-bg: rgba(237, 46, 142, .2); }
+      html.bilingual-home[lang="en"][data-theme="dark"] .text-select { --sel-bg: rgba(237, 46, 142, .3); }
+    </style>
   </head>
   <body>
     <div class="site-controls">
