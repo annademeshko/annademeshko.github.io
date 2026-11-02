@@ -3323,13 +3323,13 @@ body::after {
 @media (max-width: 640px) { .bg-obj { width: calc(var(--w) * 1.7vw); } :root { --glass-blur: 3.12px; } }
 @media (prefers-reduced-motion: reduce) { .bg-obj { animation: none; } }
 
-/* Contact and Spotify hover pills match the brand-pink cursor in every theme. */
+/* Soft pink contact and Spotify hover pills with black text in every theme. */
 :root {
-  --pill-bg: #ed2e8e;
+  --pill-bg: #ffdcee;
   --pill-text: #000;
   --pill-border: rgba(0, 0, 0, 0.08);
 }
-:root[data-pill="pink"] { --pill-bg: #ed2e8e; --pill-text: #000; --pill-border: rgba(0, 0, 0, 0.08); }
+:root[data-pill="pink"] { --pill-bg: #ffdcee; --pill-text: #000; --pill-border: rgba(0, 0, 0, 0.08); }
 .contact-dock { --dock-tip-bg: var(--pill-bg); --dock-tip-text: var(--pill-text); }
 .dock-label, .np-tip {
   box-shadow: inset 0 0 0 1px var(--pill-border), 0 6px 16px rgba(28, 61, 110, 0.1);
