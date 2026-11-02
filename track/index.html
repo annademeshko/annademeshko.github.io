@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Anna Demeshko case study: Track — a customizable security dashboard.">
-    <title data-ru="Track: дашборд безопасности" data-en="Track: security dashboard">Track: security dashboard</title>
+    <meta name="description" content="Anna Demeshko case study: Track 2.0, a redesign of security dashboards.">
+    <title>Track 2.0: security dashboards redesign</title>
   <link rel="canonical" href="https://annademeshko.com/track/">
     <link rel="icon" type="image/png" href="../assets/fav_black.png" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/png" href="../assets/fav_white.png" media="(prefers-color-scheme: dark)">
@@ -22,6 +22,20 @@
       .case-part { box-sizing: border-box; width: min(680px, 100%); margin: 72px 0 8px; padding-top: 24px; border-top: 1px solid var(--control-border); }
       .case-part .eyebrow { margin: 0 0 6px; }
       .case-part h2 { margin: 0; color: var(--heading); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
+      /* Before / after comparison slider (same pattern as the CoPilot theme slider) */
+      .ba-compare-wrap { width: 100%; margin: 0; }
+      .ba-compare-caption { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 20px; }
+      .ba-compare { --pos: 50%; position: relative; overflow: hidden; width: 100%; aspect-ratio: 16 / 9; border-radius: 8px; background: #fff; cursor: ew-resize; user-select: none; touch-action: pan-y; }
+      .ba-compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; pointer-events: none; }
+      .ba-compare .compare-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+      .ba-compare-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.18), 0 0 18px rgba(0,0,0,.25); pointer-events: none; }
+      .ba-compare-handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 36px; height: 36px; border-radius: 50%; transform: translate(-50%, -50%); background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%231d1e21' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18-6-6 6-6'/%3E%3Cpath d='m15 6 6 6-6 6'/%3E%3C/svg%3E") center / 20px no-repeat; box-shadow: 0 4px 14px rgba(0,0,0,.28); }
+      .ba-compare-label { position: absolute; bottom: 14px; padding: 4px 10px; border-radius: 999px; font-size: 13px; line-height: 18px; font-weight: 500; pointer-events: none; backdrop-filter: blur(6px); }
+      .ba-compare-label--before { left: 14px; color: #f4f5f6; background: rgba(18,19,21,.75); box-shadow: 0 0 0 1px rgba(255,255,255,.1); }
+      .ba-compare-label--after { right: 14px; color: #fff; background: rgba(46,139,247,.92); }
+      .ba-compare-range { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+      .ba-compare-range:focus-visible + .ba-compare-handle::after { outline: 2px solid var(--focus); outline-offset: 3px; }
+      .case-part + .ba-compare-wrap { margin-top: -4px; }
     </style>
     <script>
       (function () {
@@ -85,106 +99,190 @@
       </div>
     </div>
 
-    <main class="page case-page" aria-label="Кейс Track: дашборд безопасности">
+    <main class="page case-page" aria-label="Track 2.0 case study: security dashboards redesign">
       <article class="case-study">
         <header class="case-hero">
-          <h1><span data-lang="ru">Track: дашборд безопасности</span><span data-lang="en">How I built a security dashboard where each of three roles sets up their own analytics in a minute</span></h1>
-          <p class="case-hero-lead"><span data-lang="ru">Виджетный security-дашборд: каждая роль собирает свой обзор и уходит в детали, не теряя общей картины.</span><span data-lang="en">Track is made of widgets: DevOps engineers, security analysts and managers each build the analytics they need.</span></p>
-          <p class="case-meta"><span data-lang="ru">2025 · Product Designer · В проде · Корпоративная AppSec-платформа</span><span data-lang="en">2025 · Product Designer · Shipped · Enterprise AppSec platform</span></p>
+          <h1>Track 2.0: how I turned a dashboard full of charts into an answer to “what do we fix first?”</h1>
+          <p class="case-hero-lead">A redesign of the dashboards in a security product. I audited the first version, rebuilt it around real risk and designed the whole widget flow, from an empty screen to the details.</p>
+          <p class="case-meta">2026 · Product Designer · Redesign concept · Enterprise AppSec platform</p>
         </header>
 
         <section class="case-summary" aria-label="Summary">
           <dl class="case-summary-table">
-            <div class="case-summary-line"><dt>Role</dt><dd>Sole designer, from role scenarios to handoff</dd></div>
-            <div class="case-summary-line"><dt>Team</dt><dd>9 people: me (designer), PM, analyst, 2 frontend developers, 2 backend developers, 2 QA</dd></div>
-            <div class="case-summary-line"><dt>Product</dt><dd>AppSec Solutions, cybersecurity, B2B SaaS, web</dd></div>
-            <div class="case-summary-line"><dt>Result</dt><dd>≈ 1 minute to set up your own analytics for your role; 3 roles work from one dashboard</dd></div>
+            <div class="case-summary-line"><dt>Role</dt><dd>Product Designer, UX audit</dd></div>
+            <div class="case-summary-line"><dt>Product</dt><dd>Cybersecurity, B2B, web app</dd></div>
+            <div class="case-summary-line"><dt>Result</dt><dd>First useful dashboard in under 10 seconds instead of about a minute; exploited vulnerabilities visible on the first screen; one click from a chart to the list of things to fix</dd></div>
           </dl>
         </section>
+
+        <img class="study-image" loading="eager" decoding="async" src="../assets/track/v2/01-dashboard.webp" alt="Redesigned Track dashboard with KPIs, severity split, weekly trend, applications and policies">
+
         <div class="study-stack">
           <section class="study-block">
-            <p class="eyebrow">Context</p>
-            <p><span data-lang="ru">Security-команды работали с разными первыми вопросами:</span><span data-lang="en">Security teams had different first questions:</span></p>
+            <p class="eyebrow">What Track is</p>
+            <p>Most of a modern app isn’t written by the team that ships it. It’s built from open-source libraries pulled from npm, Maven, PyPI and other registries, and any of them can bring in a known vulnerability, malicious code or a license the company isn’t allowed to use.</p>
+            <p>Track protects that supply chain. It checks every dependency, including the ones that come in indirectly, and works as a firewall in front of the company’s internal repositories: risky packages get blocked or quarantined before they reach a build. The dashboards are where the team sees how all of this is going.</p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Who uses it</p>
             <ul>
-              <li><span data-lang="ru">DevOps следил за репозиториями,</span><span data-lang="en">DevOps engineers watched the repositories;</span></li>
-              <li><span data-lang="ru">AppSec-аналитик — за severity и приложениями</span><span data-lang="en">security analysts watched severity and applications;</span></li>
-              <li><span data-lang="ru">менеджер — за политиками и нарушениями</span><span data-lang="en">managers watched policies and violations.</span></li>
+              <li><strong>AppSec engineers</strong> triage vulnerabilities and decide what gets fixed first.</li>
+              <li><strong>DevOps and DevSecOps engineers</strong> look after the repositories and make sure a block doesn’t break someone’s build.</li>
+              <li><strong>Security leads</strong> watch policies, violations and fix times, and report to the business.</li>
             </ul>
-            <p><span data-lang="ru">Один статичный дашборд не мог обслужить всех: одним ролям он давал шум, другим — слепые зоны, и каждая команда всё равно доставала нужные метрики вручную или шла за ними к соседям.</span><span data-lang="en">A single static dashboard gave some roles too much noise and left others with blind spots.</span></p>
           </section>
 
           <section class="study-block">
-            <p class="eyebrow">Design challenge</p>
-            <p><span data-lang="ru">Нужно было дать пользователю контроль над обзором, но не превращать настройку в сложный конфигуратор. Empty state должен вести к первому действию, а widget picker объяснять выбор до применения.</span><span data-lang="en">Give everyone control over their own analytics without turning setup into a configurator.</span></p>
+            <p class="eyebrow">A few terms</p>
+            <ul>
+              <li><strong>CVE:</strong> the public ID of a known vulnerability.</li>
+              <li><strong>Severity:</strong> how bad it is, from Critical down to Info.</li>
+              <li><strong>KEV:</strong> a public list of vulnerabilities attackers are already using. If something is on it, it should be fixed now.</li>
+              <li><strong>MTTR:</strong> how long it takes, on average, to fix a problem once it’s found.</li>
+            </ul>
           </section>
 
           <section class="study-block">
-            <p class="eyebrow">Research</p>
-            <p>Analysts brought in requests, and we tested solutions with internal users:</p>
-            <ul class="research-findings">
-              <li><strong>Clickable prototypes:</strong> how roles set up their analytics from an empty screen.</li>
-              <li><strong>A/B tests:</strong> we compared options before choosing the final one.</li>
+            <p class="eyebrow">What wasn’t working</p>
+            <p>The first version did its main job: each role could set up its own view in about a minute. But when I went through it the way an AppSec engineer would, a few things kept getting in the way.</p>
+            <ul>
+              <li><strong>Lots of numbers, no priorities.</strong> The dashboard said there were 25,648 vulnerabilities, but not which ones mattered today.</li>
+              <li><strong>Every widget had its own filters.</strong> Two charts next to each other could cover different periods, so you couldn’t compare them.</li>
+              <li><strong>Blocks looked like incidents.</strong> A blocked package means the firewall did its job, yet it was shown in alarm red.</li>
+              <li><strong>Dead ends.</strong> The empty screen didn’t say where to start, and the expanded view was just a bigger chart with nothing to do next.</li>
+              <li><strong>No states.</strong> Loading, a failed data source and missing permissions weren’t designed, so the dashboard could look broken.</li>
             </ul>
-            <p>The takeaway: every role starts from a different first question.</p>
+          </section>
+
+          <section class="study-block">
+            <p class="eyebrow">Goal</p>
+            <p>Keep the flexibility people liked, but make the dashboard answer “what do we fix first?” in a few seconds and take you straight to the fix.</p>
           </section>
         </div>
 
-        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/dashboard.webp" alt="Настраиваемый дашборд безопасности Track с виджетами severity">
-
+        <!-- 1. Overview -->
+        <section class="case-part">
+          <p class="eyebrow">01 · Overview</p>
+          <h2>From statistics to priorities</h2>
+        </section>
+        <figure class="ba-compare-wrap">
+          <div class="ba-compare" data-ba-compare>
+            <img class="compare-after" src="../assets/track/v2/cmp-01.webp" width="1440" height="810" alt="Track 2.0 dashboard" decoding="async" loading="lazy">
+            <img class="compare-before" src="../assets/track/dashboard.webp" width="2400" height="1350" alt="Track v1 dashboard" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">Before</span>
+            <span class="ba-compare-label ba-compare-label--after">After</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare the old and new design">
+            <span class="ba-compare-handle" aria-hidden="true"></span>
+          </div>
+          <figcaption class="ba-compare-caption">Drag the divider to compare the first version with the redesign.</figcaption>
+        </figure>
         <div class="study-stack">
-
-
-
-
           <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Ключевые решения</span><span data-lang="en">Key decisions</span></p>
-            <p><strong><span data-lang="ru">Как организовать дашборд: по типам графиков или по ролевым вопросам.</span><span data-lang="en">Role questions, not chart types.</span></strong> <span data-lang="ru">Выбрала строить обзор вокруг вопросов роли (severity, репозитории, политики), потому что у DevOps, аналитика и менеджера первый вопрос разный. Отбросила витрину графиков «на все случаи»: одним ролям она давала шум, другим — слепые зоны.</span><span data-lang="en">DevOps, analysts and managers each start from a different question, and an all-purpose gallery of charts only added noise.</span></p>
-            <p><strong><span data-lang="ru">Настройка: полноценный конфигуратор или empty state с widget picker.</span><span data-lang="en">A light widget picker, not a configurator.</span></strong> <span data-lang="ru">Выбрала лёгкий picker с превью и Select all — путь от пустого экрана к первому обзору занимает минуту. Отбросила сложный конфигуратор: он превращает старт в отдельную работу и отпугивает часть ролей ещё до первого обзора.</span><span data-lang="en">You can set up your analytics in about a minute, while a configurator would put people off before they even start.</span></p>
-            <p><strong><span data-lang="ru">Детали: отдельная страница или expanded view на месте.</span><span data-lang="en">Expand in place, not a separate page.</span></strong> <span data-lang="ru">Выбрала раскрывать виджет в детальный режим прямо в дашборде, с возвратом в один клик. Отбросила уход на отдельную страницу деталей: пользователь терял контекст общего обзора и «где я нахожусь».</span><span data-lang="en">That way people never lose the big picture.</span></p>
-          </section>
-
-          <section class="study-block">
-            <p class="eyebrow"><span data-lang="ru">Решение</span><span data-lang="en">Solution</span></p>
-            <p><strong><span data-lang="ru">Empty state как точка старта, а не тупик:</span><span data-lang="en">The empty dashboard as a starting point:</span></strong> <span data-lang="ru">пустой экран сразу предлагает действие: добавить виджет. Большая зона с «+» показывает, что здесь появится персональный обзор.</span><span data-lang="en">it immediately offers to add a widget.</span></p>
+            <p><strong>One period and one set of filters.</strong> I took the filters out of the widgets and put them above the dashboard, so every chart now talks about the same thing. If a widget really needs its own period, it says so with a visible label like “Last 90 d”.</p>
+            <p><strong>A KPI row with the main questions.</strong> How many open findings there are, how many are critical, how many of those are already being exploited, and how fast the team fixes them compared to the SLA.</p>
+            <p><strong>Blocks in a calm color.</strong> Red is only for things that need a reaction. More blocked packages isn’t an alarm, it’s the protection working.</p>
+            <p><strong>Policies show what they do.</strong> Each one has a Block, Quarantine or Warn badge, because 2,000 warnings and 2,000 blocks are very different stories.</p>
+            <p><strong>Severity that’s easy to tell apart.</strong> Critical is now plum so it doesn’t blend into High, and secondary text passes WCAG AA contrast.</p>
           </section>
         </div>
 
-        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/empty-state.webp" alt="Empty state дашборда Track с призывом добавить виджет">
-
+        <!-- 2. Empty state -->
+        <section class="case-part">
+          <p class="eyebrow">02 · First run</p>
+          <h2>An empty screen that gets you started</h2>
+        </section>
+        <figure class="ba-compare-wrap">
+          <div class="ba-compare" data-ba-compare>
+            <img class="compare-after" src="../assets/track/v2/cmp-02.webp" width="1440" height="810" alt="Track 2.0 empty dashboard with role templates" decoding="async" loading="lazy">
+            <img class="compare-before" src="../assets/track/empty-state.webp" width="2400" height="1350" alt="Track v1 empty dashboard" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">Before</span>
+            <span class="ba-compare-label ba-compare-label--after">After</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare the old and new design">
+            <span class="ba-compare-handle" aria-hidden="true"></span>
+          </div>
+        </figure>
         <section class="study-note">
-          <p><strong><span data-lang="ru">Widget picker: выбор с пониманием:</span><span data-lang="en">A widget picker with previews:</span></strong> <span data-lang="ru">пикер показывает превью виджетов до подтверждения. Select all ускоряет старт, ручной выбор даёт контроль, active-бейджи показывают текущий набор.</span><span data-lang="en">you see the result before confirming.</span></p>
+          <p>Instead of a lonely “+”, there are three templates for the same three roles: Security overview for AppSec, Supply chain risk for DevSecOps and Policy compliance for security leads. One click gives you a dashboard that’s already useful, and you can still pick widgets by hand.</p>
         </section>
 
-        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/widget-picker.webp" alt="Widget picker Track с превью виджетов">
-
+        <!-- 3. Widget library -->
+        <section class="case-part">
+          <p class="eyebrow">03 · Widget library</p>
+          <h2>A choice that’s easy to find your way around</h2>
+        </section>
+        <figure class="ba-compare-wrap">
+          <div class="ba-compare" data-ba-compare>
+            <img class="compare-after" src="../assets/track/v2/cmp-03.webp" width="1440" height="810" alt="Track 2.0 widget library" decoding="async" loading="lazy">
+            <img class="compare-before" src="../assets/track/widget-picker.webp" width="2400" height="1350" alt="Track v1 widget picker" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">Before</span>
+            <span class="ba-compare-label ba-compare-label--after">After</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare the old and new design">
+            <span class="ba-compare-handle" aria-hidden="true"></span>
+          </div>
+        </figure>
         <section class="study-note">
-          <p><strong><span data-lang="ru">Populated dashboard: единый обзор безопасности:</span><span data-lang="en">The populated dashboard:</span></strong> <span data-lang="ru">обзор собирает severity, уязвимые приложения, заблокированные репозитории и policy triggers. Цветовая система Critical/High/Medium/Low/Informational остаётся единой во всех виджетах.</span><span data-lang="en">severity, applications, repositories and policies in one place.</span></p>
+          <p>Categories and search instead of one long grid, big previews with real data, a clear “Already on dashboard” mark and a counter of what you’ve picked. Widgets have the same names here and on the dashboard, so you recognise what you added.</p>
         </section>
 
-        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/dashboard.webp" alt="Заполненный дашборд безопасности Track с единой severity-системой">
-
+        <!-- 4. Drill-down -->
+        <section class="case-part">
+          <p class="eyebrow">04 · Details</p>
+          <h2>From a chart straight to action</h2>
+        </section>
+        <figure class="ba-compare-wrap">
+          <div class="ba-compare" data-ba-compare>
+            <img class="compare-after" src="../assets/track/v2/cmp-06.webp" width="1440" height="810" alt="Track 2.0 drill-down with applications, KEV and fix availability" decoding="async" loading="lazy">
+            <img class="compare-before" src="../assets/track/expanded.webp" width="2400" height="1350" alt="Track v1 expanded widget" decoding="async" loading="lazy">
+            <span class="ba-compare-label ba-compare-label--before">Before</span>
+            <span class="ba-compare-label ba-compare-label--after">After</span>
+            <input class="ba-compare-range" type="range" min="0" max="100" value="50" aria-label="Compare the old and new design">
+            <span class="ba-compare-handle" aria-hidden="true"></span>
+          </div>
+        </figure>
         <section class="study-note">
-          <p><strong><span data-lang="ru">Expanded view: детали без потери контекста:</span><span data-lang="en">An expanded widget:</span></strong> <span data-lang="ru">виджет раскрывается в детальный режим со stacked bar chart, периодом и hover-state по severity. Вернуться к обзору можно одним кликом.</span><span data-lang="en">a detailed chart without losing context and a one-click way back to the dashboard.</span></p>
+          <p>The detailed view is now a place to work. Filters come with you from the dashboard, and the table answers the three questions an AppSec engineer asks first: is it being exploited, is there a fix, and who owns the app. From here you can export the list, share a link or generate a remediation plan.</p>
         </section>
 
-        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/expanded.webp" alt="Expanded view виджета Track со stacked bar chart">
+        <!-- 5. New in 2.0 -->
+        <section class="case-part">
+          <p class="eyebrow">05 · New in 2.0</p>
+          <h2>What the first version didn’t have</h2>
+        </section>
+        <section class="study-note">
+          <p><strong>Layout editing.</strong> Drag a widget by its handle and resize it from the corner, with a grid hint. A shared dashboard warns you that the whole team will see your changes, so nobody breaks it for their colleagues by accident.</p>
+        </section>
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/04-edit.webp" alt="Dashboard layout editing mode">
+        <section class="study-note">
+          <p><strong>Widget settings with a live preview.</strong> You change the chart type, period, top N and severity in a side panel and see the result right away. The dashboard stays where it is.</p>
+        </section>
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/05-settings.webp" alt="Widget settings panel with live preview">
+        <section class="study-note">
+          <p><strong>States and overlays.</strong> Every widget handles loading, empty data, a failed source and missing permissions the same way, and always offers a next step. If one source fails, the rest of the dashboard keeps working.</p>
+        </section>
+        <img class="study-image" loading="lazy" decoding="async" src="../assets/track/v2/07-states.webp" alt="Widget states and overlays">
+
         <div class="study-stack">
           <section class="study-block result-block">
-            <p class="eyebrow"><span data-lang="ru">Результат</span><span data-lang="en">Outcome</span></p>
+            <p class="eyebrow">Result</p>
             <ul>
-              <li><strong><span data-lang="ru">≈ 1 минута собрать персональный обзор под роль</span><span data-lang="en">≈ 1 minute to set up your own analytics for your role</span></strong> <span data-lang="ru">— empty state и widget picker ведут от пустого экрана к первому обзору без настройки-конфигуратора.</span><span data-lang="en">with no configurator.</span></li>
-              <li><strong><span data-lang="ru">3 роли — один дашборд:</span><span data-lang="en">3 roles in one dashboard:</span></strong> <span data-lang="ru">DevOps, аналитик и менеджер собирают нужные метрики в одном месте и перестают спорить, чей дашборд «правильный».</span><span data-lang="en">each role builds its own metrics in one place.</span></li>
-              <li><strong><span data-lang="ru">5 уровней severity в единой системе:</span><span data-lang="en">5 severity levels in one system:</span></strong> <span data-lang="ru">Critical / High / Medium / Low / Informational держат цвет одинаковым во всех виджетах, а новый виджет добавляется, не ломая остальные.</span><span data-lang="en">the same colours in every widget, and a new widget doesn’t break the rest.</span></li>
+              <li><strong>Under 10 seconds to a useful dashboard instead of about a minute.</strong> A role template replaces picking widgets one by one.</li>
+              <li><strong>Exploited vulnerabilities on the first screen.</strong> Before, there was no way to see them on the dashboard at all.</li>
+              <li><strong>1 click from a chart to the list of things to fix,</strong> with filters carried over. Before, you had to go to another section and set the filters again.</li>
+              <li><strong>1 set of filters instead of 6.</strong> All widgets now show the same period and scope.</li>
+              <li><strong>4 widget states designed:</strong> loading, empty, error and no permission. Before, there were none.</li>
             </ul>
+            <p>After launch I’d keep an eye on two numbers: the share of exploited vulnerabilities fixed within the SLA, and how often people go from a widget into the details. They show whether the dashboard actually leads to fixes.</p>
           </section>
 
           <section class="study-block">
             <p class="eyebrow">What I learned</p>
-            <p>A dashboard for several roles should answer each role’s first question rather than be a set of charts. And an easy start matters more than flexible configuration.</p>
+            <p>Letting everyone build their own view solves “we all need different things”, but not “what do I do next?”. In a security product, a dashboard earns its place when it separates real risk from noise and gets you to the fix in one click.</p>
           </section>
         </div>
       </article>
     </main>
+
 
     <footer class="site-footer site-footer--case">
       <h2 class="footer-title"><span data-lang="ru">Давай знакомиться</span><span data-lang="en">Let’s connect</span></h2>
@@ -218,6 +316,22 @@
       <span class="case-nav-spacer" aria-hidden="true"></span>
       </nav>
     <script src="../script.js?v=20261101-themes2"></script>
+    <script>
+      // Before / after slider: drag anywhere on the image, or use the arrow keys.
+      (function () {
+        document.querySelectorAll("[data-ba-compare]").forEach(function (box) {
+          var range = box.querySelector(".ba-compare-range");
+          var dragging = false;
+          function set(pct) { pct = Math.max(0, Math.min(100, pct)); box.style.setProperty("--pos", pct + "%"); range.value = Math.round(pct); }
+          function fromEvent(e) { var r = box.getBoundingClientRect(); set(((e.clientX - r.left) / r.width) * 100); }
+          box.addEventListener("pointerdown", function (e) { dragging = true; box.setPointerCapture(e.pointerId); fromEvent(e); range.focus({ preventScroll: true }); });
+          box.addEventListener("pointermove", function (e) { if (dragging) fromEvent(e); });
+          box.addEventListener("pointerup", function () { dragging = false; });
+          box.addEventListener("pointercancel", function () { dragging = false; });
+          range.addEventListener("input", function () { set(Number(range.value)); });
+        });
+      })();
+    </script>
     <script src="/pixels.js?v=20261029-notrail" defer></script>
     <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
     <script>
