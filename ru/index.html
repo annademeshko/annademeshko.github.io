@@ -333,6 +333,18 @@
       }
       html.bilingual-home[lang] .contact-dock::before { display: none; }
     </style>
+    <style>
+      /* Russian version: the name is hand-lettered in Cyrillic (black on light, white on dark). */
+      html.bilingual-home .name-lettering { display: inline-block; line-height: 0; }
+      html.bilingual-home .name-lettering img {
+        display: none;
+        width: auto;
+        height: 0.98em;          /* 1000 SVG units at 1024 units per em */
+        vertical-align: -0.16em; /* the feet of Д sit below the baseline */
+      }
+      html.bilingual-home[data-theme="light"] .name-lettering--light,
+      html.bilingual-home[data-theme="dark"] .name-lettering--dark { display: inline-block; }
+    </style>
   </head>
   <body>
     <div class="site-controls">
@@ -352,7 +364,7 @@
       <section class="intro" aria-labelledby="intro-title">
         <img class="intro-photo" data-pixel-mask="/assets/profile/anna-demeshko-mask-400.png" src="/assets/profile/anna-demeshko-400.webp?v=bw2" srcset="/assets/profile/anna-demeshko-400.webp?v=bw2 400w, /assets/profile/anna-demeshko-600.webp?v=bw2 600w" sizes="128px" width="128" height="128" alt="Анна Демешко" decoding="async" fetchpriority="high">
         <div class="intro-copy">
-          <h1 id="intro-title"><span data-lang="ru">Anna Demeshko</span><span data-lang="en">Anna Demeshko</span></h1>
+          <h1 id="intro-title"><span data-lang="ru"><span class="name-lettering" role="img" aria-label="Анна Демешко"><img class="name-lettering--light" src="/assets/lettering/anna-demeshko-ru-black.svg" width="2970" height="500" alt="" decoding="async"><img class="name-lettering--dark" src="/assets/lettering/anna-demeshko-ru-white.svg" width="2970" height="500" alt="" decoding="async" loading="lazy"></span></span><span data-lang="en">Anna Demeshko</span></h1>
           <div class="intro-facts">
             <p><span data-lang="ru">Product Designer с опытом 4+ лет<br> B2B · B2C · Cybersecurity · AI</span><span data-lang="en">Product Designer with 4+ years of experience<br> B2B · B2C · Cybersecurity · AI</span></p>
             <p><span data-lang="ru"><span class="intro-use">Использую:</span> Claude Code, Codex, Figma Make, ChatGPT</span><span data-lang="en"><span class="intro-use">Use:</span> Claude Code, Codex, Figma Make, ChatGPT</span></p>
