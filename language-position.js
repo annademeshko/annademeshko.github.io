@@ -58,7 +58,8 @@
     if (target.origin !== location.origin) return;
     try {
       sessionStorage.setItem(storageKey, JSON.stringify(capture(target.href)));
-      target.searchParams.set("reading-position", "20261102");
+      // Every switch gets its own URL so an HTTP/prefetch cache cannot restore an older page.
+      target.searchParams.set("reading-position", Date.now().toString(36) + "-" + Math.random().toString(36).slice(2));
       link.href = target.href;
     } catch (_) {}
   }, true);
