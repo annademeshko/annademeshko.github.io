@@ -3362,3 +3362,23 @@ body::after {
 .bg-obj.is-grabbed { outline-color: var(--grab, #0d99ff); }
 .bg-obj.is-grabbed { z-index: 1; }
 .bg-obj--cursor { z-index: 2; }
+
+/* Russian portfolio: favicon pink in light mode, white in dark mode. */
+@media (hover: hover) and (pointer: fine) {
+  :root[lang="ru"] {
+    --fig-cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2249%22%20height%3D%2240%22%20viewBox%3D%220%200%2049%2040%22%3E%3Cpath%20d%3D%22M3.2%202.6%20C2.3%202.2%201.6%203%202%203.9%20L8.4%2019.2%20C8.8%2020.1%2010.1%2020%2010.3%2019%20L12.2%2012.2%20L19%2010.3%20C20%2010.1%2020.1%208.8%2019.2%208.4%20Z%22%20fill%3D%22%23ed2e8e%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2219%22%20width%3D%2233%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%23ed2e8e%22%2F%3E%3Ctext%20x%3D%2230.5%22%20y%3D%2231.6%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C-apple-system%2CHelvetica%2CArial%2Csans-serif%22%20font-size%3D%2211%22%20font-weight%3D%22600%22%20fill%3D%22%23fff%22%3E%D0%A2%D1%8B%3C%2Ftext%3E%3C%2Fsvg%3E") 2 2, pointer;
+    --fig-cursor-case: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22124%22%20height%3D%2240%22%20viewBox%3D%220%200%20124%2040%22%3E%3Cpath%20d%3D%22M3.2%202.6%20C2.3%202.2%201.6%203%202%203.9%20L8.4%2019.2%20C8.8%2020.1%2010.1%2020%2010.3%2019%20L12.2%2012.2%20L19%2010.3%20C20%2010.1%2020.1%208.8%2019.2%208.4%20Z%22%20fill%3D%22%23ed2e8e%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2219%22%20width%3D%22108%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%23ed2e8e%22%2F%3E%3Ctext%20x%3D%2268.0%22%20y%3D%2231.6%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C-apple-system%2CHelvetica%2CArial%2Csans-serif%22%20font-size%3D%2211%22%20font-weight%3D%22600%22%20fill%3D%22%23fff%22%3E%D0%A1%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D1%82%D1%8C%20%D0%BA%D0%B5%D0%B9%D1%81%3C%2Ftext%3E%3C%2Fsvg%3E") 2 2, pointer;
+  }
+  :root[lang="ru"][data-theme="dark"] {
+    --fig-cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2249%22%20height%3D%2240%22%20viewBox%3D%220%200%2049%2040%22%3E%3Cpath%20d%3D%22M3.2%202.6%20C2.3%202.2%201.6%203%202%203.9%20L8.4%2019.2%20C8.8%2020.1%2010.1%2020%2010.3%2019%20L12.2%2012.2%20L19%2010.3%20C20%2010.1%2020.1%208.8%2019.2%208.4%20Z%22%20fill%3D%22%23fff%22%20stroke%3D%22%23121315%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2219%22%20width%3D%2233%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3Ctext%20x%3D%2230.5%22%20y%3D%2231.6%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C-apple-system%2CHelvetica%2CArial%2Csans-serif%22%20font-size%3D%2211%22%20font-weight%3D%22600%22%20fill%3D%22%23121315%22%3E%D0%A2%D1%8B%3C%2Ftext%3E%3C%2Fsvg%3E") 2 2, pointer;
+    --fig-cursor-case: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22124%22%20height%3D%2240%22%20viewBox%3D%220%200%20124%2040%22%3E%3Cpath%20d%3D%22M3.2%202.6%20C2.3%202.2%201.6%203%202%203.9%20L8.4%2019.2%20C8.8%2020.1%2010.1%2020%2010.3%2019%20L12.2%2012.2%20L19%2010.3%20C20%2010.1%2020.1%208.8%2019.2%208.4%20Z%22%20fill%3D%22%23fff%22%20stroke%3D%22%23121315%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2219%22%20width%3D%22108%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3Ctext%20x%3D%2268.0%22%20y%3D%2231.6%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C-apple-system%2CHelvetica%2CArial%2Csans-serif%22%20font-size%3D%2211%22%20font-weight%3D%22600%22%20fill%3D%22%23121315%22%3E%D0%A1%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D1%82%D1%8C%20%D0%BA%D0%B5%D0%B9%D1%81%3C%2Ftext%3E%3C%2Fsvg%3E") 2 2, pointer;
+  }
+  html[lang="ru"] :is(.concept-card, .concept-marquee__tile),
+  html[lang="ru"] :is(.concept-card, .concept-marquee__tile) :is(img, video) { cursor: var(--fig-cursor); }
+}
+
+html[lang="ru"] .text-select {
+  --sel: #ed2e8e;
+  --sel-bg: rgba(237, 46, 142, .2);
+}
+html[lang="ru"][data-theme="dark"] .text-select { --sel-bg: rgba(237, 46, 142, .3); }

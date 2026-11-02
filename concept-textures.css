@@ -454,3 +454,10 @@ html:not([data-theme="dark"]) .remate-cover-video { background: #ffffff; }
 .case-link:focus-visible :is(.case-texture-frame, .case-cover:has(> .remate-cover-video))::after {
   opacity: 1;
 }
+
+/* Russian portfolio hover frames match the favicon in both themes. */
+html[lang="ru"] .concept-marquee__tile:hover,
+html[lang="ru"] .concept-card:hover { outline-color: #ed2e8e; }
+html[lang="ru"] .case-link :is(.case-texture-frame, .case-cover:has(> .remate-cover-video))::after {
+  box-shadow: inset 0 0 0 1.5px #ed2e8e;
+}
