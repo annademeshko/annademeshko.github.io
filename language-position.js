@@ -1,6 +1,12 @@
 // Keep the reading position when navigating between translated portfolio pages.
 (() => {
   const storageKey = "portfolio-language-position";
+  // Use a fresh document on a language switch, then remove the rollout marker.
+  const arrival = new URL(location.href);
+  if (arrival.searchParams.has("reading-position")) {
+    arrival.searchParams.delete("reading-position");
+    history.replaceState(history.state, "", arrival.pathname + arrival.search + arrival.hash);
+  }
   const pagePath = (url) => new URL(url, location.href).pathname.replace(/index\.html$/, "").replace(/\/?$/, "/");
   const mediaKey = (node) => {
     const src = node.getAttribute("src") || node.getAttribute("poster") || node.querySelector("source")?.getAttribute("src");
@@ -50,7 +56,11 @@
     }
     const target = new URL(link.href, location.href);
     if (target.origin !== location.origin) return;
-    try { sessionStorage.setItem(storageKey, JSON.stringify(capture(target.href))); } catch (_) {}
+    try {
+      sessionStorage.setItem(storageKey, JSON.stringify(capture(target.href)));
+      target.searchParams.set("reading-position", "20261102");
+      link.href = target.href;
+    } catch (_) {}
   }, true);
 
   let saved;

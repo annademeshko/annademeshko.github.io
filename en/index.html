@@ -343,6 +343,21 @@
       /* The bilingual portfolio uses only its light/dark toggle. */
       html.bilingual-home .theme-switch { display: none !important; }
     </style>
+      <style>
+      @font-face { font-family: "Covered By Your Grace"; src: url("/assets/fonts/covered-by-your-grace.woff2") format("woff2"); font-display: swap; }
+      html.bilingual-home .home-page .intro h1 {
+        font-family: "Covered By Your Grace", "Inter", cursive;
+        font-weight: 400;
+        font-size: 46px;
+        line-height: 1.1;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: var(--heading);
+      }
+      @media (max-width: 520px) {
+        html.bilingual-home .home-page .intro h1 { font-size: 40px; }
+      }
+    </style>
   </head>
   <body>
     <div class="site-controls">
@@ -362,7 +377,7 @@
       <section class="intro" aria-labelledby="intro-title">
         <img class="intro-photo" src="/assets/profile/anna-demeshko-400.webp?v=bw2" srcset="/assets/profile/anna-demeshko-400.webp?v=bw2 400w, ./assets/profile/anna-demeshko-600.webp?v=bw2 600w" sizes="128px" width="128" height="128" alt="Anna Demeshko" decoding="async" fetchpriority="high">
         <div class="intro-copy">
-          <h1 id="intro-title"><span data-lang="ru">Анна Демешко</span><span data-lang="en">Anna Demeshko</span></h1>
+          <h1 id="intro-title"><span data-lang="ru">Anna Demeshko</span><span data-lang="en">Anna Demeshko</span></h1>
           <div class="intro-facts">
             <p><span data-lang="ru">Product Designer с опытом 4+ лет<br> B2B · B2C · Cybersecurity · AI</span><span data-lang="en">Product Designer with 4+ years of experience<br> B2B · B2C · Cybersecurity · AI</span></p>
             <p><span data-lang="ru"><span class="intro-use">Использую:</span> Claude Code, Codex, Figma Make, ChatGPT</span><span data-lang="en"><span class="intro-use">Use:</span> Claude Code, Codex, Figma Make, ChatGPT</span></p>
@@ -748,6 +763,6 @@
       })();
     </script>
     <script src="https://annademeshko.com/concept-media.js?v=20261016-2"></script>
-    <script src="/language-position.js?v=20261102-reading-position"></script>
+    <script src="/language-position.js?v=20261102-reading-position2"></script>
   </body>
 </html>
