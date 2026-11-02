@@ -339,6 +339,10 @@
         html.bilingual-home[lang="en"] :is(.concept-card, .concept-marquee__tile) :is(img, video) { cursor: var(--fig-cursor); }
       }
     </style>
+      <style>
+      /* The bilingual portfolio uses only its light/dark toggle. */
+      html.bilingual-home .theme-switch { display: none !important; }
+    </style>
   </head>
   <body>
     <div class="site-controls">
@@ -348,7 +352,7 @@
       </button>
       <div class="lang-switch lang-switch--conditional" role="group" aria-label="Language">
         <a class="lang-btn" href="https://annademeshko.com/ru/" data-lang-set="ru" aria-pressed="false">RU</a>
-        <a class="lang-btn" href="/" data-lang-set="en" aria-pressed="true">EN</a>
+        <a class="lang-btn" href="/en/?langswitch=1" data-lang-set="en" aria-pressed="true">EN</a>
       </div>
     </div>
 
