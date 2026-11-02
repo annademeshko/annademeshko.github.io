@@ -98,6 +98,14 @@
     var grid = null; // sampled colours: { cols, rows, data }
     var active = false;
     var frame = 0;
+    // Optional person mask (white = person): on the light theme the background turns pink.
+    var maskImg = null;
+    var maskSrc = img.getAttribute("data-pixel-mask");
+    if (maskSrc) {
+      var mi = new Image();
+      mi.onload = function () { maskImg = mi; if (grid) place(); };
+      mi.src = maskSrc;
+    }
 
     function place() {
       var r = img.getBoundingClientRect();
@@ -117,7 +125,12 @@
       var sctx = small.getContext("2d");
       try {
         sctx.drawImage(img, 0, 0, cols, rows);
-        grid = { cols: cols, rows: rows, data: sctx.getImageData(0, 0, cols, rows).data };
+        grid = { cols: cols, rows: rows, data: sctx.getImageData(0, 0, cols, rows).data, mask: null };
+        if (maskImg) {
+          sctx.clearRect(0, 0, cols, rows);
+          sctx.drawImage(maskImg, 0, 0, cols, rows);
+          grid.mask = sctx.getImageData(0, 0, cols, rows).data;
+        }
       } catch (e) {
         grid = null; // image from another origin: skip the effect
       }
@@ -138,7 +151,8 @@
           var wave = Math.sin(time * 2.2 + (x + y) * 0.35);
           var flicker = 0.92 + 0.08 * Math.sin(time * 7 + x * 1.7 + y * 2.3);
           var shade = 0.5 + 0.5 * Math.sin(time * 1.6 + (x + y) * 0.55 + Math.sin(x * 2.1 + y * 1.3));
-          var mix = dark ? 0.26 + 0.14 * wave : 0.62 + 0.18 * wave;
+          // With a mask the background carries the pink, so the person keeps more of the photo.
+          var mix = dark ? 0.26 + 0.14 * wave : (grid.mask ? 0.32 + 0.14 * wave : 0.62 + 0.18 * wave);
           var tint;
           if (dark) {
             var v = 170 + 85 * shade; // grey to white
@@ -150,6 +164,16 @@
           var r = (grid.data[i] * (1 - mix) + tint[0] * mix) * flicker;
           var g = (grid.data[i + 1] * (1 - mix) + tint[1] * mix) * flicker;
           var b = (grid.data[i + 2] * (1 - mix) + tint[2] * mix) * flicker;
+          if (!dark && grid.mask) {
+            // Background cells: pure, bright cursor-pink shades instead of the dark studio backdrop.
+            var m = grid.mask[i] / 255;
+            if (m < 1) {
+              var bg = hslToRgb((330 + 6 * Math.sin(time * 1.3 + x * 0.9 + y * 0.4)) / 360, 1, 0.5 + 0.12 * shade);
+              r = r * m + bg[0] * flicker * (1 - m);
+              g = g * m + bg[1] * flicker * (1 - m);
+              b = b * m + bg[2] * flicker * (1 - m);
+            }
+          }
           ctx.fillStyle = "rgb(" + (r | 0) + "," + (g | 0) + "," + (b | 0) + ")";
           ctx.fillRect(Math.floor(x * cw), Math.floor(y * ch), Math.ceil(cw), Math.ceil(ch));
         }
