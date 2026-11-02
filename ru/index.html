@@ -345,6 +345,15 @@
       html.bilingual-home[data-theme="light"] .name-lettering--light,
       html.bilingual-home[data-theme="dark"] .name-lettering--dark { display: inline-block; }
     </style>
+    <style>
+      /* Mobile: contact icons without captions. */
+      @media (max-width: 640px) {
+        html.bilingual-home .contact-dock .dock-label,
+        html.bilingual-home .contact-dock .dock-item.is-copied .dock-label--done { display: none !important; }
+        html.bilingual-home .contact-dock { padding: 12px; border-radius: 24px; width: fit-content; column-gap: 16px; }
+        html.bilingual-home .contact-dock .dock-icon { width: 56px; height: 56px; border-radius: 13px; }
+      }
+    </style>
   </head>
   <body>
     <div class="site-controls">
