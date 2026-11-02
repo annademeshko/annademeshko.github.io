@@ -373,6 +373,22 @@
     </style>
 
     <style>
+      /* Contact trays take the background colour of the profile illustration for each theme. */
+      html.standalone-english[data-theme="pink"] .contact-dock {
+        background: #242424; border-color: #242424;
+        --dock-divider: rgba(255,255,255,.2); --dock-caption: #f4f4f4;
+      }
+      html.standalone-english[data-theme="light"] .contact-dock {
+        background: #f13385; border-color: #f13385;
+        --dock-divider: rgba(0,0,0,.22); --dock-caption: #000;
+      }
+      html.standalone-english[data-theme="dark"] .contact-dock {
+        background: #fbfcfc; border-color: #fbfcfc;
+        --dock-divider: rgba(0,0,0,.16); --dock-caption: #111;
+      }
+    </style>
+
+    <style>
       html.standalone-english .concepts .concept-card,
       html.standalone-english .concepts .concept-card[data-palette],
       html.standalone-english .concepts .concept-card[data-surface] {
@@ -408,6 +424,13 @@
       html.standalone-english .selected-cases-heading,
       html.standalone-english .concepts-heading { font-size: 20px; line-height: 26px; }
       html.standalone-english .footer-title { font-size: clamp(30px, 7.4vw, 86px); letter-spacing: -0.01em; }
+      /* "Let's connect" in the same hand-lettered face as the name. */
+      html.standalone-english .footer-title {
+        font-family: "Covered By Your Grace", "Inter", cursive;
+        font-weight: 400;
+        font-stretch: normal;
+        letter-spacing: 0.03em;
+      }
       @media (max-width: 520px) {
         html.standalone-english .home-page .intro h1 { font-size: 40px; }
       }
