@@ -203,7 +203,7 @@
     });
   });
   if (themeButtons.length) {
-    if (!root.getAttribute("data-theme")) root.setAttribute("data-theme", "pink");
+    if (!root.getAttribute("data-theme")) root.setAttribute("data-theme", "light");
     updateThemeButtons();
   }
 

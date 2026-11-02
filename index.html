@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="standalone-english">
+<html lang="en" class="standalone-english" data-theme="light">
   <head>
     <script>
       // Preserve existing RU-origin links while keeping standalone English independent.
@@ -228,7 +228,7 @@
       (function () {
         try {
           var t = localStorage.getItem("theme");
-          document.documentElement.setAttribute("data-theme", t === "dark" || t === "light" ? t : "pink");
+          document.documentElement.setAttribute("data-theme", t === "pink" || t === "dark" || t === "light" ? t : "light");
         } catch (e) {}
       })();
     </script>
@@ -290,7 +290,7 @@
 .case-link[aria-label='CoPilot'] .cf3-toast{left:57%;top:74.5%;width:37.7%}</style>
 
     <style>
-      /* Pink theme (default on the standalone English homepage). */
+      /* Optional pink theme on the standalone English homepage. */
       html.standalone-english[data-theme="pink"] {
         --text: #171016;
         --heading: #090609;
@@ -683,7 +683,7 @@
       })();
     </script>
     <script src="/now-playing.js" defer></script>
-    <script src="./script.js?v=20261102-cv"></script>
+    <script src="./script.js?v=20261102-light-default"></script>
     <script>
       // Interactive fluid background — desktop only, and never when the user
       // prefers reduced motion. Injected here so mobile never loads the WebGL sim.
