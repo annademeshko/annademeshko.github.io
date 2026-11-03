@@ -802,6 +802,13 @@ h3,
   width: 100%;
 }
 
+/* Keep the cover frame full-width before its lazy image loads, so the page
+   doesn't grow (and the footer doesn't jump) as covers arrive. */
+.home-page .case-card > .case-texture-frame {
+  align-self: stretch;
+  width: 100%;
+}
+
 .study-image {
   cursor: zoom-in;
 }
