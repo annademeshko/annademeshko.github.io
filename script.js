@@ -164,7 +164,7 @@
   function updateCV(lang) {
     const href = lang === "en"
       ? "/assets/anna-demeshko-product-designer-en-20261102.pdf"
-      : "/assets/CV%20%E2%80%94%20%D0%94%D0%B5%D0%BC%D0%B5%D1%88%D0%BA%D0%BE%20%D0%90%D0%BD%D0%BD%D0%B0%20%28Product%20designer%29%20ru.pdf";
+      : "/assets/anna-demeshko-product-designer-ru-20261103.pdf";
     cvLinks.forEach((link) => link.setAttribute("href", href));
   }
 
