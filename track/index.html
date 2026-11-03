@@ -86,7 +86,40 @@
         } catch (e) {}
       })();
     </script>
-  </head>
+      <style>
+      /* Footer, same as the English homepage: "Let's connect" in the hand-lettered face and theme-coloured contact tray. */
+      @font-face { font-family: "Covered By Your Grace"; src: url("/assets/fonts/covered-by-your-grace.woff2") format("woff2"); font-display: block; }
+      .site-footer .footer-title {
+        font-family: "Covered By Your Grace", "Inter", cursive;
+        font-weight: 400;
+        font-stretch: normal;
+        font-size: clamp(30px, 7.4vw, 86px);
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+      .footer-lettering { display: block; width: min(760px, calc(100% - 32px)); margin: 0 auto; line-height: 0; }
+      .footer-lettering img { display: none; width: 100%; height: auto; }
+      html[data-theme="light"] .footer-lettering .name-lettering--light,
+      html[data-theme="dark"] .footer-lettering .name-lettering--dark,
+      html:not([data-theme]) .footer-lettering .name-lettering--light { display: block; }
+      .site-footer .contact-dock {
+        background: #f13385; border-color: #f13385; box-shadow: none;
+        -webkit-backdrop-filter: none; backdrop-filter: none;
+        --dock-divider: rgba(0,0,0,.22); --dock-caption: #000;
+      }
+      html[data-theme="dark"] .site-footer .contact-dock {
+        background: #fbfcfc; border-color: #fbfcfc;
+        --dock-divider: rgba(0,0,0,.16); --dock-caption: #111;
+      }
+      .site-footer .contact-dock::before { display: none; }
+      @media (max-width: 640px) {
+        .site-footer .contact-dock .dock-label,
+        .site-footer .contact-dock .dock-item.is-copied .dock-label--done { display: none !important; }
+        .site-footer .contact-dock { padding: 12px; border-radius: 24px; width: fit-content; column-gap: 16px; }
+        .site-footer .contact-dock .dock-icon { width: 56px; height: 56px; border-radius: 13px; }
+      }
+    </style>
+</head>
   <body>
     <div class="site-controls">
       <button class="theme-toggle theme-toggle--bilingual" type="button" aria-label="Тема / Theme">
@@ -290,7 +323,7 @@
 
 
     <footer class="site-footer site-footer--case">
-      <h2 class="footer-title"><span data-lang="ru">Давай знакомиться</span><span data-lang="en">Let’s connect</span></h2>
+      <h2 class="footer-title"><span data-lang="ru"><span class="footer-lettering" role="img" aria-label="Давайте знакомиться"><img class="name-lettering--light" src="/assets/lettering/davayte-znakomitsya-black.svg" width="4962" height="534" alt="" loading="lazy" decoding="async"><img class="name-lettering--dark" src="/assets/lettering/davayte-znakomitsya-white.svg" width="4962" height="534" alt="" loading="lazy" decoding="async"></span></span><span data-lang="en">Let’s connect</span></h2>
       <script>
         (function () {
           var el = document.currentScript.previousElementSibling;
@@ -305,7 +338,7 @@
         })();
       </script>
       <nav class="contact-dock contact-dock--footer" aria-label="Контакты" data-aria-ru="Контакты" data-aria-en="Contacts">
-          <a class="dock-item" data-cv href="../assets/anna-demeshko-product-designer-en.pdf" target="_blank" rel="noreferrer"><svg class="dock-icon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="dkPdf1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F4F2"/><stop offset="1" stop-color="#DEDEDB"/></linearGradient></defs><rect width="56" height="56" rx="13" fill="url(#dkPdf1)"/><path d="M19 10.5h13.5l9 9V42a3.5 3.5 0 0 1-3.5 3.5H19a3.5 3.5 0 0 1-3.5-3.5V14a3.5 3.5 0 0 1 3.5-3.5Z" fill="#fff" stroke="#C4C6CB" stroke-width="1.2"/><path d="M32.5 10.5V17a2.5 2.5 0 0 0 2.5 2.5h6.5" fill="#ECEDEF" stroke="#C4C6CB" stroke-width="1.2" stroke-linejoin="round"/><rect x="11" y="27" width="25" height="11" rx="2.5" fill="#E5322D"/><text x="23.5" y="35.2" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="8" font-weight="800" fill="#fff" letter-spacing=".3">PDF</text></svg><span class="dock-label"><span data-lang="ru">Резюме</span><span data-lang="en">CV</span></span></a>
+          <a class="dock-item" data-cv href="/assets/anna-demeshko-product-designer-en-20261102.pdf" target="_blank" rel="noreferrer"><svg class="dock-icon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="dkPdf1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F4F2"/><stop offset="1" stop-color="#DEDEDB"/></linearGradient></defs><rect width="56" height="56" rx="13" fill="url(#dkPdf1)"/><path d="M19 10.5h13.5l9 9V42a3.5 3.5 0 0 1-3.5 3.5H19a3.5 3.5 0 0 1-3.5-3.5V14a3.5 3.5 0 0 1 3.5-3.5Z" fill="#fff" stroke="#C4C6CB" stroke-width="1.2"/><path d="M32.5 10.5V17a2.5 2.5 0 0 0 2.5 2.5h6.5" fill="#ECEDEF" stroke="#C4C6CB" stroke-width="1.2" stroke-linejoin="round"/><rect x="11" y="27" width="25" height="11" rx="2.5" fill="#E5322D"/><text x="23.5" y="35.2" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="8" font-weight="800" fill="#fff" letter-spacing=".3">PDF</text></svg><span class="dock-label"><span data-lang="ru">Резюме</span><span data-lang="en">CV</span></span></a>
           <span class="dock-divider" aria-hidden="true"></span>
           <a class="dock-item" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><img class="dock-icon" src="../assets/contacts/linkedin.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">LinkedIn</span><span data-lang="en">LinkedIn</span></span></a>
           <a class="dock-item" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><img class="dock-icon" src="../assets/contacts/telegram.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Telegram</span><span data-lang="en">Telegram</span></span></a>
