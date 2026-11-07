@@ -163,7 +163,7 @@
   const cvLinks = document.querySelectorAll("[data-cv]");
   function updateCV(lang) {
     const href = lang === "en"
-      ? "/assets/anna-demeshko-product-designer-en-20261102.pdf"
+      ? "/assets/anna-demeshko-product-designer-en-20261107.pdf"
       : "/assets/anna-demeshko-product-designer-ru-20261103.pdf";
     cvLinks.forEach((link) => link.setAttribute("href", href));
   }
