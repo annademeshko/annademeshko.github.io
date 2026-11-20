@@ -570,6 +570,12 @@
 .phone .br-seg button[aria-pressed=true]{background:rgba(255,255,255,.14)}
 .phone .br-icon.br-glass:active,.phone .br-chatpill.br-glass:active{transform:scale(1.06);transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
 @media(prefers-reduced-transparency:reduce){.phone .br-glass{background:#181818!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
+
+/* vertical scrolling only */
+html,body{overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+.phone .app-body{overflow-x:hidden!important;overflow-y:auto!important;touch-action:pan-y}
+.phone{overflow:hidden}
 </style>
 </head>
 <body>
