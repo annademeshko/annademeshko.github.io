@@ -576,6 +576,161 @@ html,body{overflow-x:hidden}
 @supports (overflow:clip){html,body{overflow-x:clip}}
 .phone .app-body{overflow-x:hidden!important;overflow-y:auto!important;touch-action:pan-y}
 .phone{overflow:hidden}
+
+/* =====================================================================
+   v7 — one scale for type, spacing and corner radius
+   Prototype (pt): type 11 · 13 · 15 · 17 · 24   spacing 4 · 8 · 12 · 16 · 24
+                   radius 8 · 12 · 16 · 20 · 40 (sheet, concentric with the 48 screen) · pill
+                   nested corners: inner = outer − padding (card 20 / pad 4 → photo 16)
+   Page (px):      type 11 label · 13 small · 15 body · 17 lead · 20 h3 · 28 · 40
+                   spacing 8 · 16 · 24 · 32 · 48 · 64 · 96   radius 12 · 16 · pill
+   ===================================================================== */
+
+/* ---------- prototype: type ---------- */
+.phone{--f12:calc(13px*var(--t));--f16:calc(15px*var(--t))}
+.phone .br-title{font-size:calc(24px*var(--t));line-height:1.2;letter-spacing:-.4px;margin:8px 0}
+.phone .br-text{font-size:var(--f15);line-height:1.4}
+.phone .br-small,.phone .br-note,.phone .br-hint{font-size:var(--f13)}
+.phone .br-nav h2 small,.phone .br-chatpill small{font-size:var(--f13)}
+.phone .br-row b,.phone .br-srow b,.phone .br-dayrow b,.phone .br-memchip b,.phone .br-status b,.phone .br-card-head b,.phone .br-post-head b{font-size:var(--f15);font-weight:600}
+.phone .br-row small,.phone .br-srow small,.phone .br-dayrow small,.phone .br-memchip small,.phone .br-status small,.phone .br-card-head small,.phone .br-post-head small{font-size:var(--f13);line-height:1.3;margin-top:2px}
+.phone .br-preview figcaption,.phone .br-pair figcaption{font-size:var(--f13);line-height:1.35}
+.phone .br-lock span{font-size:var(--f13)}
+.phone .br-day span{font-size:var(--f13);border-radius:999px;padding:4px 10px}
+.phone .br-cal .h{font-size:var(--f13)}
+.phone .br-feedtabs button{font-size:var(--f17)}
+.phone .br-btn{font-size:var(--f15)}
+.phone .br-plain{font-size:var(--f15)}
+.phone .br-pill{height:34px;padding:0 14px;font-size:var(--f15);border-radius:999px}
+.phone .br-block{min-height:48px;border-radius:999px;font-size:var(--f17);font-weight:600}
+.phone .br-alert .row .br-btn{min-height:48px;border-radius:999px;font-size:var(--f17)}
+.phone .br-empty b{font-size:var(--f17)}
+.phone .br-initial.sm{font-size:var(--f13)}
+
+/* ---------- prototype: spacing ---------- */
+.phone .br-actions{padding:12px 16px 8px;gap:4px}
+.phone .br-hint{margin:0 0 8px}
+.phone .br-note{margin-top:8px;gap:4px}
+.phone .br-day{margin:16px 0 12px}
+/* cards: 12 inside, 4 around photos */
+.phone .br-card-head{min-height:56px;padding:0 4px 0 12px;gap:12px}
+.phone .br-card-body{padding:12px}
+.phone .br-card-body .br-btn{margin-top:12px}
+.phone .br-card-body .br-small{margin-top:8px!important}
+.phone .br-invite{gap:12px;padding:12px 12px 0}
+.phone .br-pair{padding:4px 4px 0;gap:4px}
+.phone .br-pair figcaption{padding:8px 8px 0}
+.phone .br-card-foot{min-height:58px;padding:8px 12px}
+.phone .br-card+div .br-plain{padding:0 12px}
+.phone .br-status,.phone .br-dayrow,.phone .br-memchip{padding:12px;gap:12px;margin-top:8px}
+.phone .br-memchip,.phone .br-dayrow{margin-top:16px}
+/* confirm / respond screens */
+.phone .br-preview{gap:8px;margin-top:24px}
+.phone .br-preview figcaption{margin:8px 0 0}
+.phone .br-preview+.br-small,.phone .br-preview+p{margin-top:16px}
+/* sheet + menu */
+.phone .br-sheet{padding:8px 16px 16px}
+.phone .br-sheet h3{margin-top:4px}
+.phone .br-sheet .br-small{margin:4px 8px 8px}
+.phone .br-srow{gap:12px;padding:12px 16px;margin-top:8px}
+.phone .br-sheet .br-block{margin-top:16px}
+.phone .br-menu{padding:8px}
+.phone .br-menu button{padding:8px 12px;gap:12px}
+
+/* ---------- prototype: radius ---------- */
+.phone .br-card,.phone .br-status,.phone .br-dayrow,.phone .br-memchip,.phone .br-srow{border-radius:20px}
+.phone .br-status .ic,.phone .br-suggest .ic{border-radius:12px}
+.phone .br-memchip .photo,.phone .br-dayrow .photo,.phone .br-mini,.phone .br-cal button.d .photo{border-radius:8px}
+.phone .br-memchip .selfie,.phone .br-dayrow .selfie{border-radius:4px}
+.phone .br-quote .photo{border-radius:4px}
+.phone .br-pair .photo,.phone .br-pair .photo-open,.phone .br-post-media .photo,.phone .br-preview .photo,.phone .br-slot{border-radius:16px}
+.phone .br-preview .selfie,.phone .br-pair .selfie,.phone .br-post-media .selfie{border-radius:8px}
+.phone .br-sheet{border-radius:40px}
+.phone .br-alert{border-radius:32px}
+.phone .br-menu{border-radius:24px}
+.phone .br-menu button{border-radius:16px}
+.phone .br-seg{border-radius:999px}.phone .br-seg button{border-radius:999px}
+.phone .br-field,.phone .br-search input,.phone .br-select,.phone .br-chatpill,.phone .br-pillgroup,.phone .br-camtoggle,.phone .br-tabbar{border-radius:999px}
+.phone .br-camtoggle span,.phone .br-tab{border-radius:999px}
+
+/* ---------- page: type ---------- */
+.concept-label{font-size:13px;line-height:1.4;padding-left:24px}
+.mast-left{gap:24px}
+.nav{gap:32px;font-size:13px}
+.eyebrow,.demo-label,.section-top span,.sub-h,.number,.job-spec dt,.rat small,.test-band small{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.eyebrow{gap:12px}
+.lead{font-size:17px;line-height:1.55;max-width:400px;margin-top:24px}
+.mini-pair{gap:8px;max-width:400px;margin-top:32px}
+.mini-pair .photo{border-radius:12px}
+.mini-pair .selfie{border-radius:6px}
+.mini-pair figcaption{font-size:13px;margin-top:8px}
+.demo-panel{max-width:400px;margin-top:32px;padding-top:24px}
+.demo-label{margin-bottom:12px}
+.reset{font-size:13px;gap:4px}
+.role{font-size:15px}
+.guide,.seeas-line{font-size:13px}
+.seeas-wrap{max-width:400px;margin-top:24px}
+.seeas-grid{gap:8px}
+.seeas{border-radius:16px;padding:8px 12px;gap:12px}
+.seeas b{font-size:15px}.seeas small{font-size:13px}
+.coach{font-size:15px;border-radius:16px;padding:8px 8px 8px 16px;margin-bottom:16px}
+.coach-btn{font-size:13px;padding:8px 16px}
+.research-intro{font-size:17px;line-height:1.6;max-width:640px;margin:24px 0 64px}
+.research h3{font-size:20px;line-height:1.3;letter-spacing:-.4px;margin:12px 0 8px}
+.research p,.research details ul{font-size:15px;line-height:1.6}
+.job-spec dd{font-size:15px}
+.rat b{font-size:17px;margin-bottom:4px}
+.rat p{font-size:15px;line-height:1.6}
+.rat li:before{font-size:11px;font-weight:600}
+.test-band h3{font-size:28px;line-height:1.15;letter-spacing:-.8px;margin:12px 0 8px}
+.test-band b{font-size:40px;letter-spacing:-1.4px;margin:8px 0}
+.test-band p{font-size:13px;line-height:1.5;color:#aaa}
+.research summary{font-size:17px}
+.research details h3{font-size:17px;margin-top:24px}
+.source{font-size:13px!important}
+.foot .contact,.foot .contact span,.contact-links,.foot .disclaimer{font-size:13px}
+
+/* ---------- page: spacing + radius ---------- */
+.research-shell{padding:96px 0}
+.section-top{padding-bottom:16px;margin-bottom:32px}
+.research .key-decisions{padding-bottom:64px}
+.sub-h{margin:0 0 16px}
+.dec-grid{gap:32px}
+.dec-grid article,.research-grid article{padding-top:16px}
+.job-spec{margin:0 0 64px}
+.job-spec div{padding:16px 24px 16px 0}
+.job-spec dt{margin-bottom:8px}
+.research-grid{gap:32px;margin-bottom:64px}
+.rat{margin:0 0 64px}
+.rat li{gap:24px;padding:24px 0}
+.rat small{margin-bottom:8px}
+.test-band{border-radius:16px;padding:32px;gap:32px;margin:0 0 48px}
+.research details{padding:24px 0}
+.research details p{margin-top:16px}
+.foot{padding-top:24px;margin-top:0}
+.contact-links{gap:16px;margin-top:8px}
+@media(max-width:760px){
+ .concept-label{font-size:11px;padding-left:12px}
+ .nav{font-size:13px}
+ .lead{font-size:16px;margin-top:16px}
+ .mini-pair{margin-top:24px}
+ .demo-panel{margin-top:24px}
+ .research-shell{padding:64px 0}
+ .research-intro{margin:16px 0 48px}
+ .research .key-decisions,.job-spec,.research-grid,.rat{margin-bottom:48px}
+ .research .key-decisions{padding-bottom:0}
+ .dec-grid,.research-grid{gap:24px}
+ .rat li{gap:8px;padding:16px 0}
+ .test-band{padding:24px;gap:24px}
+ .test-band b{font-size:32px}
+}
+.research .sub-h{font-size:11px;font-weight:600;letter-spacing:.1em;line-height:1.4;color:#666;margin:0 0 16px}
+.mini-pair{gap:16px}
+.mini-pair figcaption{font-size:12px}
+.lead{max-width:420px}
+.mini-pair figcaption{display:block;font-size:13px;line-height:1.35}
+.mini-pair figcaption strong,.mini-pair figcaption span{display:block}
+@media(max-width:760px){.mast-left{gap:12px}.concept-label{font-size:11px;line-height:1.35;padding-left:12px}}
 </style>
 </head>
 <body>
