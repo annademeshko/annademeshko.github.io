@@ -731,6 +731,13 @@ html,body{overflow-x:hidden}
 .mini-pair figcaption{display:block;font-size:13px;line-height:1.35}
 .mini-pair figcaption strong,.mini-pair figcaption span{display:block}
 @media(max-width:760px){.mast-left{gap:12px}.concept-label{font-size:11px;line-height:1.35;padding-left:12px}}
+
+/* chat: 12pt between bubbles, as in BeReal (measured @3x: 36px) */
+.phone .br-thread{gap:12px}
+.phone .br-thread[role=log]{margin-top:12px!important}
+.phone .br-thread[role=log]:empty{margin-top:0!important}
+.phone .br-quote{margin-top:0}
+.phone .br-quote+.br-bubble{margin-top:-6px}
 </style>
 </head>
 <body>
