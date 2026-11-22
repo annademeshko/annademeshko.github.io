@@ -300,6 +300,20 @@
         .remate-cover-video) {
         background: #1F1F1F;
       }
+      /* Match case and concept backdrops to the exact light contact dock surface. */
+      html.bilingual-home[data-theme="light"] .home-page :is(
+        .concept-marquee__tile,
+        .concept-marquee__tile[data-palette],
+        .concept-marquee__tile[data-surface],
+        .concept-card,
+        .concept-card[data-palette],
+        .concept-card[data-surface],
+        .case-link .case-texture-frame,
+        .case-link[aria-label] .case-texture-frame,
+        .case-cover:has(> .remate-cover-video),
+        .remate-cover-video) {
+        background: var(--contact-light-surface);
+      }
     </style>
       <style>
       @font-face { font-family: "Covered By Your Grace"; src: url("/assets/fonts/covered-by-your-grace.woff2") format("woff2"); font-display: block; }
@@ -399,7 +413,7 @@
         letter-spacing: 0.03em;
       }
     </style>
-    <link rel="stylesheet" href="/contact-glass.css?v=20261122-light-inverse-beam-2">
+    <link rel="stylesheet" href="/contact-glass.css?v=20261122-matched-light-surfaces-3">
   </head>
   <body>
     <div class="site-controls">
