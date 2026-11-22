@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html data-theme="dark" lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -29,7 +29,7 @@
     (function () {
       try {
         var t = localStorage.getItem("theme");
-          document.documentElement.setAttribute("data-theme", t === "dark" || t === "light" ? t : "pink");
+          document.documentElement.setAttribute("data-theme", t === "dark" || t === "light" ? t : "dark");
       } catch (e) {}
     })();
   </script>
@@ -112,7 +112,7 @@
         .site-footer .contact-dock .dock-icon { width: 56px; height: 56px; border-radius: 13px; }
       }
     </style>
-  <link rel="stylesheet" href="/contact-glass.css?v=20261122-1">
+  <link rel="stylesheet" href="/contact-glass.css?v=20261122-2">
   </head>
 <body>
   <div class="site-controls">

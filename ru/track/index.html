@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html data-theme="dark" lang="ru">
   <head>
     <script>
       // The legacy Worker cannot serve every shared asset; use the direct site.
@@ -47,7 +47,7 @@
       (function () {
         try {
           var t = localStorage.getItem("theme");
-          document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark");
         } catch (e) {}
       })();
     </script>
@@ -79,7 +79,7 @@
         .site-footer .contact-dock .dock-icon { width: 56px; height: 56px; border-radius: 13px; }
       }
     </style>
-  <link rel="stylesheet" href="/contact-glass.css?v=20261122-1">
+  <link rel="stylesheet" href="/contact-glass.css?v=20261122-2">
   </head>
   <body>
     <div class="site-controls">
