@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -16,10 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,11 +26,41 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
           name: github-pages-${{ github.run_attempt }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # Upload can finish before GitHub's artifact API has indexed the file.
+      # Check availability first so deploy-pages never immediately sees 0.
+      - name: Wait for Pages artifact to be indexed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GH_RUN_ID: ${{ github.run_id }}
+          GH_RUN_ATTEMPT: ${{ github.run_attempt }}
+        shell: bash
+        run: |
+          artifact_name="github-pages-${GH_RUN_ATTEMPT}"
+          for attempt in {1..12}; do
+            count="$(gh api "repos/${GH_REPO}/actions/runs/${GH_RUN_ID}/artifacts?name=${artifact_name}" --jq '.artifacts | length' 2>/dev/null)" || count=0
+            if [ "${count}" = "1" ]; then
+              echo "Pages artifact ${artifact_name} is indexed."
+              exit 0
+            fi
+            echo "Artifact not indexed yet (attempt ${attempt}/12). Retrying in 5 seconds..."
+            sleep 5
+          done
+          echo "::error::Pages artifact ${artifact_name} was not indexed after 12 checks."
+          exit 1
 
       - name: Deploy to GitHub Pages
         id: deployment
