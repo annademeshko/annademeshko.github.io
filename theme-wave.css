@@ -1,5 +1,5 @@
 /* Liquid Metal theme reveal, matched to the supplied macro and full-card
-   recordings: deformed fluid contours, internal chrome lens loops and
+   recordings: one continuously deformed fluid contour and
    prism-like spectral highlights. Changes real page snapshots, not a video. */
 
 .theme-wave-prism {
@@ -51,7 +51,7 @@ html.theme-wave-active::view-transition-old(root) {
 html.theme-wave-active::view-transition-new(root) {
   z-index: 2;
   clip-path: var(--theme-fluid-clip, circle(0px at 50% 50%));
-  animation: theme-fluid-hold 2750ms linear both;
+  animation: theme-fluid-hold 3000ms linear both;
 }
 html.theme-wave-active::view-transition-new(theme-prism) {
   z-index: 3;
@@ -62,7 +62,7 @@ html.theme-wave-active::view-transition-new(theme-prism) {
   opacity: var(--theme-fluid-opacity, 0);
   mix-blend-mode: screen;
   filter: saturate(1.2) contrast(1.26) drop-shadow(0 0 3px rgba(39,54,89,.32));
-  animation: theme-fluid-hold 2750ms linear both;
+  animation: theme-fluid-hold 3000ms linear both;
 }
 html.theme-wave-active:is([data-theme-wave-to="light"],[data-theme-wave-to="pink"])::view-transition-new(theme-prism) {
   mix-blend-mode: multiply;

@@ -175,28 +175,57 @@
   updateTitle(initialLang);
   updateThemeControl();
 
-  // Fluid chrome from the two screen-recording references: undulating
-  // reflections, floating inner lens loops, and narrow spectral edge glints.
+  // Viscous liquid metal from the supplied chrome/prism references:
+  // one continuously deforming wave and a narrow refractive edge.
   // Uses real View Transition snapshots so actual text, images and controls
   // change as the wave passes; no imitation screenshot is displayed.
   let runningThemeTransition = null;
   let fluidFrame = 0;
-  const FLUID_DURATION = 2750;
+  const FLUID_DURATION = 3000;
 
-  function fluidPath(cx, cy, radius, elapsed, count, phase, ovalX, ovalY) {
-    const parts = [];
-    for (let i = 0; i < count; i++) {
-      const a = (Math.PI * 2 * i) / count;
-      const irregular = 1
-        + 0.155 * Math.sin(2 * a - elapsed * 4.9 + phase)
-        + 0.098 * Math.sin(3 * a + elapsed * 3.6 - phase * .5)
-        + 0.044 * Math.sin(6 * a - elapsed * 8.3 + phase * 2);
-      const r = Math.max(0, radius * irregular);
-      const px = (cx + r * Math.cos(a) * ovalX).toFixed(1);
-      const py = (cy + r * Math.sin(a) * ovalY).toFixed(1);
-      parts.push((i ? "L" : "M") + px + " " + py);
+  // A single closed surface with attached elongated crests and slow drag.
+  // Smooth cubic segments eliminate the faceted look of a polygonal circle.
+  function fluidPath(cx, cy, radius, elapsed) {
+    const count = 112;
+    const pts = [];
+    const tau = Math.PI * 2;
+    function angularDistance(a, b) {
+      return Math.atan2(Math.sin(a - b), Math.cos(a - b));
     }
-    return parts.join(" ") + " Z";
+    for (let i = 0; i < count; i++) {
+      const a = tau * i / count;
+      // Broad swelling, slight local resistance, plus one tapered crest.
+      // Every detail belongs to this SAME outline; no separate droplets.
+      const slow = 0.098 * Math.sin(2 * a - elapsed * 2.3 + .35);
+      const folded = 0.072 * Math.sin(3 * a + elapsed * 1.75 - .95);
+      const ripples = 0.032 * Math.sin(6 * a - elapsed * 3.3 + .68);
+      const tongueAngle = -.8 + .26 * Math.sin(elapsed * 2.15);
+      const tongue = .265 * Math.exp(-Math.pow(angularDistance(a, tongueAngle) / .18, 2));
+      const trailingPocket = -.138 * Math.exp(
+        -Math.pow(angularDistance(a, tongueAngle + .38) / .25, 2));
+      const resistance = -.115 * Math.exp(
+        -Math.pow(angularDistance(a, 2.25 - elapsed * .4) / .33, 2));
+      const r = radius * Math.max(.7,
+        1 + slow + folded + ripples + tongue + trailingPocket + resistance);
+      pts.push({x: cx + r * Math.cos(a), y: cy + r * Math.sin(a)});
+    }
+    const fmt = (v) => v.toFixed(1);
+    let d = "M" + fmt(pts[0].x) + " " + fmt(pts[0].y);
+    // Closed Catmull-Rom curve converted to cubic Bézier control points.
+    // Smooth, fluid continuity even around stretched-out narrow crests.
+    for (let i = 0; i < count; i++) {
+      const p0 = pts[(i - 1 + count) % count];
+      const p1 = pts[i], p2 = pts[(i + 1) % count];
+      const p3 = pts[(i + 2) % count];
+      const c1x = p1.x + (p2.x - p0.x) / 6;
+      const c1y = p1.y + (p2.y - p0.y) / 6;
+      const c2x = p2.x - (p3.x - p1.x) / 6;
+      const c2y = p2.y - (p3.y - p1.y) / 6;
+      d += " C" + fmt(c1x) + " " + fmt(c1y) + " " +
+        fmt(c2x) + " " + fmt(c2y) + " " +
+        fmt(p2.x) + " " + fmt(p2.y);
+    }
+    return d + " Z";
   }
 
   function animateFluidChrome(root, state, stamp) {
@@ -210,47 +239,29 @@
       return;
     }
 
-    // A viscous acceleration, soft slowdown and small oscillations rather
-    // than the previous expanding circular masks.
-    const e = progress * progress * (3 - 2 * progress);
-    const radius = state.farthest * 1.80 * e;
-    const outer = fluidPath(state.x, state.y, radius, progress, 100, .36, 1, 1);
-    root.style.setProperty("--theme-fluid-clip", 'path("' + outer + '")');
+    // Viscous start, accelerating spread, then a soft settling motion.
+    // The front remains one contiguous wave throughout the transition.
+    const eased = progress * progress * (3 - 2 * progress);
+    const radius = state.farthest * 1.82 * eased;
+    const outline = fluidPath(state.x, state.y, radius, progress);
+    root.style.setProperty("--theme-fluid-clip", 'path("' + outline + '")');
 
-    // Two evolving inner lenses echo the floating chromatic loops in the
-    // supplied close-up video. They decorate the rim; never obscure links.
-    const lensFade = Math.max(0, Math.min(1, (progress - .12) * 5, (.89 - progress) * 5));
-    let loops = "";
-    if (lensFade > 0) {
-      const a = fluidPath(
-        state.x + radius * (.19 + .025 * Math.sin(progress * 7)),
-        state.y - radius * .12,
-        Math.max(9, radius * .23), progress, 64, 1.18, 1.10, .67
-      );
-      const b = fluidPath(
-        state.x - radius * .21,
-        state.y + radius * (.17 + .02 * Math.cos(progress * 5)),
-        Math.max(9, radius * .135), progress, 56, 2.14, 1.12, .78
-      );
-      loops = '<path d="' + a + '" fill="none" stroke="#fff" stroke-width="14" opacity="' + (.46 * lensFade).toFixed(2) + '"/>' +
-              '<path d="' + a + '" fill="none" stroke="#fff" stroke-width="3" opacity="' + (.68 * lensFade).toFixed(2) + '"/>' +
-              '<path d="' + b + '" fill="none" stroke="#fff" stroke-width="9" opacity="' + (.32 * lensFade).toFixed(2) + '"/>';
-    }
-
-    // The mask paints a layered, tapered metallic contour over the captured
-    // gradient. Its width is intentionally irregular in perceived brightness,
-    // with an optically narrow, colored refraction at the leading edge.
+    // Three luminous widths all follow the SAME path; no secondary lenses,
+    // disconnected spots or trailing islands. The narrow inner edge carries
+    // the refracted blue / amber / spectral highlights from the references.
     const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + state.width +
       '" height="' + state.height + '" viewBox="0 0 ' + state.width + ' ' + state.height + '">' +
-      '<path d="' + outer + '" fill="none" stroke="#fff" stroke-width="76" opacity=".08"/>' +
-      '<path d="' + outer + '" fill="none" stroke="#fff" stroke-width="38" opacity=".22"/>' +
-      '<path d="' + outer + '" fill="none" stroke="#fff" stroke-width="18" opacity=".60"/>' +
-      '<path d="' + outer + '" fill="none" stroke="#fff" stroke-width="5" opacity="1"/>' +
-      loops + '</svg>';
+      '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="58" opacity=".10"/>' +
+      '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="24" opacity=".32"/>' +
+      '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="9" opacity=".72"/>' +
+      '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="3" opacity="1"/>' +
+      '</svg>';
     root.style.setProperty("--theme-fluid-rim",
       'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
-    const shine = Math.min(1, progress * 9) * Math.min(1, (1 - progress) * 7);
-    root.style.setProperty("--theme-fluid-opacity", String((shine * .96).toFixed(3)));
+    const fadeIn = Math.min(1, progress * 10);
+    const fadeOut = Math.min(1, (1 - progress) * 8);
+    root.style.setProperty("--theme-fluid-opacity",
+      String((Math.min(fadeIn, fadeOut) * .90).toFixed(3)));
     fluidFrame = requestAnimationFrame((time) => animateFluidChrome(root, state, time));
   }
 
