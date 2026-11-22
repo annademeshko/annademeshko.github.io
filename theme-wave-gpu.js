@@ -87,7 +87,7 @@ void main() {
                     reflection);
   silver = mix(silver, vec3(.007,.013,.034), blackValley * .78);
   silver = mix(silver, vec3(.995,.998,1.), whiteRidge * .89);
-  silver = mix(silver, vec3(.52,.69,.87), coldShoulder * .18);
+  silver = mix(silver, vec3(.72,.73,.76), coldShoulder * .18);
   // On the light and pink themes, the dark graphite valley makes the
   // chrome readable instead of dissolving into the white background.
   vec3 graphite = mix(vec3(.008,.012,.030), vec3(.985,.986,1.),
@@ -99,24 +99,25 @@ void main() {
   // Prismatic highlights run along TWO moving stretches of the SAME wave.
   // Broad angular envelopes replace the previous almost invisible
   // high-power sine product; there are no separate blobs or lens loops.
-  float ribbonA = exp(-pow(wrapAngle(angle, -.96 + .20*sin(t*.60)) / .44, 2.));
-  float ribbonB = exp(-pow(wrapAngle(angle, 2.32 - .24*cos(t*.47)) / .56, 2.));
-  float ribbonGate = clamp(max(ribbonA, ribbonB) * (.83 + .17*detail), 0., 1.);
-  float rainbowWidth = exp(-pow((d - 0.5) / 12., 2.));
-  // RGB dispersion: three adjacent highlights, not a flat RGB tint.
-  float r = exp(-pow((d - 5.1) / 3.4, 2.));
-  float g = exp(-pow((d - 0.3) / 3.4, 2.));
-  float b = exp(-pow((d + 4.6) / 3.4, 2.));
-  vec3 spectrum = clamp(vec3(
-      1.05*r + .14*g,
-      .23*r + .96*g + .30*b,
-      .12*r + .36*g + 1.18*b
+  // Warm optical dispersion: crimson -> vermilion -> amber -> gold.
+  // The spectral colors stay on two stretches of the SAME moving wave;
+  // remove blue/teal channels that previously merged into murky cyan.
+  float ribbonA = exp(-pow(wrapAngle(angle, -.96 + .20*sin(t*.60)) / .53, 2.));
+  float ribbonB = exp(-pow(wrapAngle(angle, 2.32 - .24*cos(t*.47)) / .65, 2.));
+  float ribbonGate = clamp(max(ribbonA, ribbonB) * (.84 + .16*detail), 0., 1.);
+  float warmWidth = exp(-pow((d - 0.5) / 13.4, 2.));
+  float crimson = exp(-pow((d - 5.5) / 3.8, 2.));
+  float orange = exp(-pow((d - 0.3) / 4.1, 2.));
+  float gold = exp(-pow((d + 5.2) / 4.0, 2.));
+  vec3 warmSpectrum = clamp(vec3(
+      1.04*crimson + 1.01*orange + .98*gold,
+      .12*crimson + .41*orange + .72*gold,
+      .075*crimson + .095*orange + .19*gold
     ), 0., 1.);
-  // Let a little dispersed color remain on the surrounding silver
-  // while making the two principal refractions unmistakable.
-  float prismStrength = clamp((.10 + .90*ribbonGate) * rainbowWidth, 0., 1.);
-  metal = mix(metal, spectrum, prismStrength * .93);
-  metal += vec3(.06,.075,.095) * whiteRidge * ribbonGate;
+  float prismStrength = clamp((.045 + .955*ribbonGate) * warmWidth, 0., 1.);
+  metal = mix(metal, warmSpectrum, prismStrength * .97);
+  // A small warm reflection follows the crisp silver crest.
+  metal += vec3(.092,.043,.018) * whiteRidge * ribbonGate;
 
   // More opaque, deeper relief: graphite shadow + bright chrome line
   // plus a subtle 30px halo. Transparent away from the single wave.
