@@ -321,6 +321,44 @@
           0 14px 30px rgba(64,72,84,0.13),
           0 3px 8px rgba(64,72,84,0.05);
       }
+
+      /* Cooler, barely blue white — light homepage only. */
+      html.bilingual-home[data-theme="light"] {
+        --bg: #F6F8FB;
+        --bg-fade: rgba(246,248,251,0);
+        --bg-fade-mid: rgba(246,248,251,0.82);
+        --glass: rgba(246,248,251,0.58);
+        --glass-fade: rgba(246,248,251,0);
+      }
+
+      /* Separate concept cards: no shadows or joined edges in either theme. */
+      html.bilingual-home .home-page .concept-marquee__track {
+        gap: 26px;
+      }
+      html.bilingual-home .home-page :is(.concept-marquee__tile, .concept-card) {
+        box-shadow: none !important;
+        filter: none;
+      }
+      html.bilingual-home[data-theme="light"] .home-page :is(.concept-marquee__tile, .concept-card) {
+        border: 1px solid rgba(140,151,166,0.18);
+      }
+      /* Each tile drifts independently while the gallery keeps scrolling. */
+      @keyframes concept-tile-float {
+        0%, 100% { transform: translate3d(0, -3px, 0); }
+        50% { transform: translate3d(0, 3px, 0); }
+      }
+      @media (min-width: 521px) and (prefers-reduced-motion: no-preference) {
+        html.bilingual-home .home-page .concept-marquee__tile {
+          animation: concept-tile-float 7s ease-in-out infinite;
+        }
+        html.bilingual-home .home-page .concept-marquee__tile:nth-child(4n+1) { animation-duration: 6.4s; animation-delay: -1.5s; }
+        html.bilingual-home .home-page .concept-marquee__tile:nth-child(4n+2) { animation-duration: 8.1s; animation-delay: -3.7s; animation-direction: reverse; }
+        html.bilingual-home .home-page .concept-marquee__tile:nth-child(4n+3) { animation-duration: 7.5s; animation-delay: -5.3s; }
+        html.bilingual-home .home-page .concept-marquee__tile:nth-child(4n) { animation-duration: 9s; animation-delay: -2.1s; animation-direction: reverse; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html.bilingual-home .home-page .concept-marquee__tile { animation: none; }
+      }
     </style>
       <style>
       @font-face { font-family: "Covered By Your Grace"; src: url("/assets/fonts/covered-by-your-grace.woff2") format("woff2"); font-display: block; }
