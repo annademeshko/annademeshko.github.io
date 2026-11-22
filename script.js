@@ -251,6 +251,8 @@
       (state.height + 2) + ' Z ';
     root.style.setProperty("--theme-fluid-old-clip",
       'path(evenodd, "' + outside + outline + '")');
+    root.style.setProperty("--theme-fluid-new-clip",
+      'path("' + outline + '")');
 
     if (state.renderer) {
       state.renderer.draw(state.x, state.y, radius, progress);
@@ -309,6 +311,11 @@
     const oldStyle = getComputedStyle(root);
     const previousBackground = oldStyle.backgroundColor;
     const previousGlass = oldStyle.getPropertyValue("--glass").trim() || "transparent";
+    // Capture the real upper-fade gradient BEFORE changing data-theme.
+    // This element is above the page and otherwise immediately flashes
+    // its new white/dark tint, independently from the travelling wave.
+    const topFade = document.querySelector(".top-fade");
+    const previousTopFade = topFade ? getComputedStyle(topFade).backgroundImage : "none";
     let oldSurface = null, prism = null, renderer = null, cleaned = false;
     const state = { x, y, width, height, farthest, began: null,
                     renderer: null, cleanup: null };
@@ -323,7 +330,8 @@
       root.removeAttribute("data-theme-fluid-gpu");
       root.removeAttribute("data-theme-wave-to");
       for (const key of ["--theme-fluid-old-bg", "--theme-fluid-old-glass",
-        "--theme-fluid-old-clip", "--theme-fluid-x", "--theme-fluid-y", "--theme-fluid-rim",
+        "--theme-fluid-old-top-fade", "--theme-fluid-old-clip",
+        "--theme-fluid-new-clip", "--theme-fluid-x", "--theme-fluid-y", "--theme-fluid-rim",
         "--theme-fluid-opacity"]) root.style.removeProperty(key);
       if (runningThemeTransition === state) runningThemeTransition = null;
       document.removeEventListener("visibilitychange", onVisibilityChange);
@@ -335,7 +343,10 @@
     try {
       root.style.setProperty("--theme-fluid-old-bg", previousBackground);
       root.style.setProperty("--theme-fluid-old-glass", previousGlass);
+      root.style.setProperty("--theme-fluid-old-top-fade", previousTopFade);
       root.style.setProperty("--theme-fluid-old-clip", "inset(0)");
+      root.style.setProperty("--theme-fluid-new-clip",
+        'circle(0px at ' + x + 'px ' + y + 'px)');
       root.style.setProperty("--theme-fluid-x", x.toFixed(1) + "px");
       root.style.setProperty("--theme-fluid-y", y.toFixed(1) + "px");
       root.style.setProperty("--theme-fluid-opacity", "0");

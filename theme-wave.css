@@ -69,3 +69,28 @@ html.theme-wave-active:is([data-theme-wave-to="light"],[data-theme-wave-to="pink
 @media (prefers-reduced-motion: reduce) {
   .theme-wave-prism { display: none; }
 }
+
+/* The fixed top fade previously switched to the next theme immediately
+   (a full-width white/black shadow before the wave arrived). Split it into
+   two complementary, clipped live gradients. The old one stays OUTSIDE
+   the liquid boundary; the new one appears only INSIDE it. No snapshots
+   or pauses to the marquee, videos or Liquid Metal border animations. */
+html.theme-wave-active .top-fade {
+  background: none !important;
+}
+html.theme-wave-active .top-fade::before,
+html.theme-wave-active .top-fade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+}
+html.theme-wave-active .top-fade::before {
+  background-image: var(--theme-fluid-old-top-fade, none);
+  clip-path: var(--theme-fluid-old-clip, inset(0));
+}
+html.theme-wave-active .top-fade::after {
+  background: linear-gradient(180deg, var(--glass) 20%, var(--glass-fade));
+  clip-path: var(--theme-fluid-new-clip, circle(0px at 50% 50%));
+}
