@@ -128,7 +128,7 @@ html.standalone-english .home-page .contact-dock-anchor {
   width:fit-content;max-width:100%;margin-inline:auto;
 }
 
-/* Liquid-chrome contact border in both themes: silver/graphite rim, short
+/* Liquid-chrome contact border in all three themes: silver/graphite rim, short
          prism-refraction highlights, slow 16s orbit. Glass surfaces stay intact. */
       @property --contact-metal-angle {
         syntax: "<angle>";
@@ -140,16 +140,16 @@ html.standalone-english .home-page .contact-dock-anchor {
       }
 
       /* Inherited phase animates the contact dock; wrapper remains for music positioning. */
-      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .home-page .contact-dock-anchor,
-      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock--footer.contact-dock--glass {
+      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .home-page .contact-dock-anchor,
+      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .contact-dock--footer.contact-dock--glass {
         animation: contact-metal-orbit 16s linear infinite;
       }
-      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass {
+      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .contact-dock.contact-dock--glass {
         border-color: rgba(142, 151, 161, .34);
       }
 
       /* Prism colour stops for the dock border. */
-      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) {
+      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) {
         --contact-metal-spectrum:
           transparent 0deg 9deg,
             rgba(14, 25, 65, 0) 9deg,
@@ -189,8 +189,8 @@ html.standalone-english .home-page .contact-dock-anchor {
       }
 
       @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
-        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::before,
-        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::after {
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .contact-dock.contact-dock--glass::before,
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .contact-dock.contact-dock--glass::after {
           inset: -1px;
           padding: 1.5px;
           border-radius: inherit;
@@ -205,7 +205,7 @@ html.standalone-english .home-page .contact-dock-anchor {
           animation: none;
         }
         /* Chrome-like grayscale reflections are the majority of the line. */
-        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::before {
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .contact-dock.contact-dock--glass::before {
           background: conic-gradient(from 45deg,
             #d8dae1 0deg,
             #525866 55deg,
@@ -219,7 +219,7 @@ html.standalone-english .home-page .contact-dock-anchor {
           opacity: .94;
         }
         /* Slow prism refraction: rich, separated spectral streaks over a mostly silver rim. */
-        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::after {
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .contact-dock.contact-dock--glass::after {
           background: conic-gradient(from var(--contact-metal-angle), var(--contact-metal-spectrum));
           opacity: 1;
           /* Tiny chromatic halo only where the refracted band is visible. */
@@ -228,16 +228,16 @@ html.standalone-english .home-page .contact-dock-anchor {
       }
 
       @media (prefers-reduced-motion: reduce) {
-        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .home-page .contact-dock-anchor,
-        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock--footer.contact-dock--glass {
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .home-page .contact-dock-anchor,
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) body .contact-dock--footer.contact-dock--glass {
           animation: none;
         }
       }
 
-/* Liquid Metal on portfolio hover in both themes: reuse the contact dock's chrome
+/* Liquid Metal on portfolio hover in all three themes: reuse the contact dock's chrome
          and spectral highlights. Keep media animation/float intact: only the
          overlay is animated, never the tile's transform. */
-      html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+      html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page :is(
         .concept-marquee__tile,
         .concept-card,
         .case-texture-frame,
@@ -246,7 +246,7 @@ html.standalone-english .home-page .contact-dock-anchor {
         box-shadow: none;
       }
       /* REMATE uses a direct cover; remove its legacy static pink hover frame. */
-      html.standalone-english:is([data-theme="light"], [data-theme="dark"])
+      html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"])
         .home-page .case-link .case-cover:has(> .remate-cover-video)::after {
         content: none;
         display: none;
@@ -254,17 +254,17 @@ html.standalone-english .home-page .contact-dock-anchor {
       }
       /* Cases with nested covers have their own second beam; render only
          the outer frame, avoiding doubled/choppy metallic edges. */
-      html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page .case-texture-frame .case-cover > .portfolio-beam {
+      html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page .case-texture-frame .case-cover > .portfolio-beam {
         opacity: 0 !important;
       }
       @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
-        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame,
           .case-cover:has(> .remate-cover-video)
         ) > .portfolio-beam::before,
-        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame,
@@ -282,7 +282,7 @@ html.standalone-english .home-page .contact-dock-anchor {
           mask-composite: exclude;
           animation: none;
         }
-        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame,
@@ -300,7 +300,7 @@ html.standalone-english .home-page .contact-dock-anchor {
             #eef1f5 360deg);
           opacity: .94;
         }
-        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame,
@@ -314,18 +314,18 @@ html.standalone-english .home-page .contact-dock-anchor {
       /* Start the slow 16-second orbit per tile when hovered/focused; the
          registered custom property is inherited by both beam pseudo-elements. */
       @media (prefers-reduced-motion: no-preference) {
-        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card
         ):is(:hover, :focus-within) > .portfolio-beam,
-        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page .case-link:is(
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page .case-link:is(
           :hover, :focus-visible
         ) :is(.case-texture-frame, .case-cover:has(> .remate-cover-video)) > .portfolio-beam {
           animation: contact-metal-orbit 16s linear infinite;
         }
       }
       @media (prefers-reduced-motion: reduce) {
-        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"], [data-theme="pink"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame,
@@ -470,4 +470,77 @@ html.standalone-english[data-theme="light"] body .site-controls .lang-btn[aria-p
 html.standalone-english[data-theme="dark"] body .site-controls .lang-btn[aria-pressed="true"] {
   background:#252525;color:#f2f2f4;
   box-shadow:-2px -2px 6px rgba(170,180,194,.035),3px 4px 8px rgba(0,0,0,.43);
+}
+
+
+/* Pink: tactile frost-glass dock & gently raised blush icon tiles.
+   Reuse the exact icon glyphs and Liquid Metal orbit from the other themes. */
+html.standalone-english[data-theme="pink"] {
+  --contact-pink-glass: linear-gradient(150deg,
+    rgba(255, 233, 243, .96) 0%,
+    rgba(248, 207, 228, .94) 47%,
+    rgba(226, 154, 193, .94) 100%);
+}
+html.standalone-english[data-theme="pink"] body .contact-dock.contact-dock--glass {
+  --dock-divider: rgba(101, 51, 78, .20);
+  --dock-caption: #251723;
+  background: var(--contact-pink-glass);
+  border: 1px solid rgba(120, 71, 101, .27);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.90),
+    inset 0 -1px 2px rgba(126,69,101,.12),
+    0 9px 20px rgba(81,24,55,.12),
+    0 2px 5px rgba(81,24,55,.05);
+  -webkit-backdrop-filter: blur(22px) saturate(1.16);
+  backdrop-filter: blur(22px) saturate(1.16);
+}
+html.standalone-english[lang][data-theme="pink"] body .contact-dock.contact-dock--glass .dock-item::before {
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 18px;
+  background: #F3C4D9 var(--contact-neumorphic-glyph) center / 100% 100% no-repeat;
+  box-shadow:
+    -5px -5px 12px rgba(255, 244, 251, .87),
+    7px 8px 17px rgba(110, 47, 82, .30),
+    1px 2px 4px rgba(110, 47, 82, .06);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+      html.standalone-english[lang][data-theme="pink"] body .contact-dock.contact-dock--glass .dock-item[data-cv] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(10.2%209.4)%20scale(1.58)%22%20fill-rule%3D%22evenodd%22%20d%3D%22M6.2%201.6h7.1c.3%200%20.6.1.8.3l4.6%204.6c.2.2.3.5.3.8v12.2a1.7%201.7%200%200%201-1.7%201.7H6.2a1.7%201.7%200%200%201-1.7-1.7V3.3a1.7%201.7%200%200%201%201.7-1.7zm.5%209.2h8.4v1.35H6.7v-1.35zm0%203.15h8.4v1.35H6.7v-1.35z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="pink"] body .contact-dock.contact-dock--glass .dock-item[href*="linkedin.com"] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2029.2)%20scale(1.82)%20translate(-12%20-12.9)%22%3E%3Cpath%20d%3D%22M20.45%2020.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85%200-2.14%201.45-2.14%202.94v5.67H9.35V9h3.41v1.56h.05c.48-.9%201.64-1.85%203.37-1.85%203.6%200%204.27%202.37%204.27%205.46v6.28zM5.34%207.43a2.06%202.06%200%200%201-2.06-2.06%202.06%202.06%200%201%201%202.06%202.06zm1.78%2013.02H3.56V9h3.56v11.45z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="pink"] body .contact-dock.contact-dock--glass .dock-item[href*="t.me"],
+      html.standalone-english[lang][data-theme="pink"] body .contact-dock.contact-dock--glass .dock-item[href*="telegram"] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(28%2028)%20scale(1.42)%20translate(-12.2%20-12.4)%22%20d%3D%22M9.42%2015.18%209.02%2020.76c.57%200%20.82-.24%201.11-.54l2.66-2.54%205.52%204.04c1.01.56%201.72.27%202-.93l3.62-16.97h.01c.32-1.5-.54-2.08-1.53-1.71L2.22%2010.26c-1.45.56-1.43%201.37-.25%201.74l5.44%201.69%2012.64-7.91c.6-.39%201.14-.18.69.22%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="pink"] body .contact-dock.contact-dock--glass .dock-item[data-copy-email] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2028)%20scale(1.48)%20translate(-12%20-12.4)%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M3.1%206.2h17.8A2.1%202.1%200%200%201%2023%208.3v9.5a2.1%202.1%200%200%201-2.1%202.1H3.1A2.1%202.1%200%200%201%201%2017.8V8.3A2.1%202.1%200%200%201%203.1%206.2zm.55%201.55%208.35%205.55%208.35-5.55v1.35L12%2014.8%203.65%209.1V7.75z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+
+/* Pink also uses the real grayscale pixel photo, never the illustration. */
+html.standalone-english[data-theme="pink"] .home-page .intro-photo--pink {
+  display: none;
+}
+html.standalone-english[data-theme="pink"] .home-page .intro-photo--pixel {
+  display: block;
+  filter: grayscale(1);
+  image-rendering: pixelated;
+}
+html.standalone-english[data-theme="pink"] .pixel-photo {
+  display: block;
+}
+/* Remove legacy static/white hover frames; Liquid Metal is the sole ring. */
+html.standalone-english[data-theme="pink"] .home-page :is(.concept-marquee__tile,.concept-card):hover {
+  outline: none !important;
+  outline-color: transparent !important;
+}
+html.standalone-english[data-theme="pink"] .home-page .case-link
+  :is(.case-texture-frame,.case-cover:has(> .remate-cover-video))::after {
+  box-shadow: none !important;
+}
+html.standalone-english[data-theme="pink"] .home-page .case-texture-frame .case-cover > .portfolio-beam {
+  opacity: 0 !important;
 }

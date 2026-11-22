@@ -213,18 +213,13 @@
 
     function ready() {
       place();
-      // Pixels by default; hovering reveals the real photo.
-      // The English pink theme retains its original illustration instead.
-      if (!document.documentElement.classList.contains("standalone-english") ||
-          document.documentElement.getAttribute("data-theme") !== "pink") start();
+      // All three English themes use the same grayscale pixel portrait.
+      // Hover (or tap) still reveals the original black-and-white photo.
+      start();
       if (document.documentElement.classList.contains("standalone-english")) {
         new MutationObserver(function () {
-          if (document.documentElement.getAttribute("data-theme") === "pink") {
-            stop();
-          } else {
-            place();
-            start();
-          }
+          place();
+          start();
         }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
       }
       img.addEventListener("pointerenter", stop);
