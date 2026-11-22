@@ -556,7 +556,7 @@
       /* One inherited phase keeps the pointer and its dock in sync. */
       html.bilingual-home[lang][data-theme="light"] body .home-page .contact-dock-anchor,
       html.bilingual-home[lang][data-theme="light"] body .contact-dock--footer.contact-dock--glass {
-        animation: contact-metal-orbit 3.6s linear infinite;
+        animation: contact-metal-orbit 9s linear infinite;
       }
       html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass {
         border-color: rgba(142, 151, 161, .34);
@@ -592,34 +592,47 @@
             #eef1f5 360deg);
           opacity: .94;
         }
-        /* Short red/yellow/cyan/blue glints, not a continuous neon rainbow. */
+        /* Slow prism refraction: rich, separated spectral streaks over a mostly silver rim. */
         html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::after {
           background: conic-gradient(from var(--contact-metal-angle),
-            transparent 0deg 13deg,
-            #131d3c 15deg 16deg,
-            #fa5449 16.6deg,
-            #ffec43 17.3deg,
-            #ffffff 18deg,
-            #00baf6 18.8deg,
-            #162a89 19.6deg,
-            transparent 22deg 117deg,
-            #121b36 118deg,
-            #ffffff 119deg,
-            #32baff 120deg,
-            #f24e50 121deg,
-            transparent 123deg 229deg,
-            #121e43 231deg,
-            #ec4b39 232deg,
-            #ffe34e 233deg,
-            #00d4f8 234deg,
-            #3d4ced 235deg,
-            transparent 238deg 310deg,
-            #111d3c 311deg,
-            #ffffff 312deg,
-            #ffe149 313deg,
-            #31c7ff 314deg,
-            transparent 317deg 360deg);
+            transparent 0deg 9deg,
+            rgba(14, 25, 65, 0) 9deg,
+            #121d4c 12deg,
+            #7838fa 15deg,
+            #2864ff 18deg,
+            #08d9ff 21deg,
+            #44e0b5 24deg,
+            #b7ed63 27deg,
+            #fff24e 30deg,
+            #ff9827 33deg,
+            #ff424e 36deg,
+            #ffffff 38deg,
+            #152448 41deg,
+            rgba(14, 25, 65, 0) 45deg,
+            transparent 45deg 164deg,
+            rgba(14, 25, 65, 0) 164deg,
+            #152552 168deg,
+            #f0444d 172deg,
+            #ffb22e 176deg,
+            #fdf37e 180deg,
+            #50e5cf 184deg,
+            #10bdff 188deg,
+            #4655ff 192deg,
+            #b761f9 195deg,
+            #f4f8ff 198deg,
+            #142452 201deg,
+            rgba(14, 25, 65, 0) 205deg,
+            transparent 205deg 296deg,
+            rgba(14, 25, 65, 0) 296deg,
+            #e9f7ff 300deg,
+            #2cb8ff 304deg,
+            #3343b8 307deg,
+            #f04454 310deg,
+            rgba(14, 25, 65, 0) 314deg,
+            transparent 314deg 360deg);
           opacity: 1;
+          /* Tiny chromatic halo only where the refracted band is visible. */
+          filter: drop-shadow(0 0 1.4px rgba(59, 124, 222, .20));
         }
       }
 
@@ -627,15 +640,31 @@
       html.bilingual-home[lang][data-theme="light"] .home-page .contact-dock-pointer::before {
         background:
           conic-gradient(from var(--contact-metal-angle),
-            transparent 0deg 16deg,
-            #fa5449 17deg,
-            #ffdf42 18deg,
-            #03c5f7 19deg,
-            transparent 21deg 155deg,
-            #092a68 156deg,
-            #f5fbff 157deg,
-            #32a4f6 158deg,
-            transparent 160deg),
+            transparent 0deg 9deg,
+            #121d4c 12deg,
+            #7838fa 15deg,
+            #2864ff 18deg,
+            #08d9ff 21deg,
+            #44e0b5 24deg,
+            #fff24e 30deg,
+            #ff9827 33deg,
+            #ff424e 36deg,
+            #ffffff 38deg,
+            transparent 45deg 164deg,
+            #152552 168deg,
+            #f0444d 172deg,
+            #ffb22e 176deg,
+            #fdf37e 180deg,
+            #50e5cf 184deg,
+            #10bdff 188deg,
+            #4655ff 192deg,
+            #b761f9 195deg,
+            transparent 205deg 296deg,
+            #e9f7ff 300deg,
+            #2cb8ff 304deg,
+            #3343b8 307deg,
+            #f04454 310deg,
+            transparent 314deg 360deg),
           linear-gradient(130deg, #f5f7fc, #a7adb8 37%, #525768 73%, #d2d5de);
         animation: none;
       }
