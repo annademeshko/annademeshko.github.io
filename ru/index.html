@@ -489,9 +489,8 @@
       }
     </style>
     <style>
-      /* White theme only: restrained liquid-chrome border from the video reference.
-         A graphite/silver base remains visible while short RGB-split highlights
-         orbit the rim. The dock, its icons, and the dark theme are untouched. */
+      /* Liquid-chrome contact border in both themes: silver/graphite rim, short
+         prism-refraction highlights, slow 16s orbit. Glass surfaces stay intact. */
       @property --contact-metal-angle {
         syntax: "<angle>";
         initial-value: 0deg;
@@ -502,16 +501,16 @@
       }
 
       /* Inherited phase animates the contact dock; wrapper remains for music positioning. */
-      html.bilingual-home[lang][data-theme="light"] body .home-page .contact-dock-anchor,
-      html.bilingual-home[lang][data-theme="light"] body .contact-dock--footer.contact-dock--glass {
+      html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .home-page .contact-dock-anchor,
+      html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock--footer.contact-dock--glass {
         animation: contact-metal-orbit 16s linear infinite;
       }
-      html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass {
+      html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass {
         border-color: rgba(142, 151, 161, .34);
       }
 
       /* Prism colour stops for the dock border. */
-      html.bilingual-home[lang][data-theme="light"] {
+      html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) {
         --contact-metal-spectrum:
           transparent 0deg 9deg,
             rgba(14, 25, 65, 0) 9deg,
@@ -551,8 +550,8 @@
       }
 
       @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
-        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::before,
-        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::after {
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::before,
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::after {
           inset: -1px;
           padding: 1.5px;
           border-radius: inherit;
@@ -567,7 +566,7 @@
           animation: none;
         }
         /* Chrome-like grayscale reflections are the majority of the line. */
-        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::before {
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::before {
           background: conic-gradient(from 45deg,
             #d8dae1 0deg,
             #525866 55deg,
@@ -581,7 +580,7 @@
           opacity: .94;
         }
         /* Slow prism refraction: rich, separated spectral streaks over a mostly silver rim. */
-        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::after {
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::after {
           background: conic-gradient(from var(--contact-metal-angle), var(--contact-metal-spectrum));
           opacity: 1;
           /* Tiny chromatic halo only where the refracted band is visible. */
@@ -590,17 +589,17 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        html.bilingual-home[lang][data-theme="light"] body .home-page .contact-dock-anchor,
-        html.bilingual-home[lang][data-theme="light"] body .contact-dock--footer.contact-dock--glass {
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .home-page .contact-dock-anchor,
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock--footer.contact-dock--glass {
           animation: none;
         }
       }
     </style>
     <style>
-      /* Liquid Metal on portfolio hover: reuse the light contact dock's chrome
+      /* Liquid Metal on portfolio hover in both themes: reuse the contact dock's chrome
          and spectral highlights. Keep media animation/float intact: only the
          overlay is animated, never the tile's transform. */
-      html.bilingual-home[data-theme="light"] .home-page :is(
+      html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
         .concept-marquee__tile,
         .concept-card,
         .case-texture-frame
@@ -609,16 +608,16 @@
       }
       /* Cases with nested covers have their own second beam; render only
          the outer frame, avoiding doubled/choppy metallic edges. */
-      html.bilingual-home[data-theme="light"] .home-page .case-texture-frame .case-cover > .portfolio-beam {
+      html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page .case-texture-frame .case-cover > .portfolio-beam {
         opacity: 0 !important;
       }
       @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
-        html.bilingual-home[data-theme="light"] .home-page :is(
+        html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame
         ) > .portfolio-beam::before,
-        html.bilingual-home[data-theme="light"] .home-page :is(
+        html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame
@@ -635,7 +634,7 @@
           mask-composite: exclude;
           animation: none;
         }
-        html.bilingual-home[data-theme="light"] .home-page :is(
+        html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame
@@ -652,7 +651,7 @@
             #eef1f5 360deg);
           opacity: .94;
         }
-        html.bilingual-home[data-theme="light"] .home-page :is(
+        html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame
@@ -665,18 +664,18 @@
       /* Start the slow 16-second orbit per tile when hovered/focused; the
          registered custom property is inherited by both beam pseudo-elements. */
       @media (prefers-reduced-motion: no-preference) {
-        html.bilingual-home[data-theme="light"] .home-page :is(
+        html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card
         ):is(:hover, :focus-within) > .portfolio-beam,
-        html.bilingual-home[data-theme="light"] .home-page .case-link:is(
+        html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page .case-link:is(
           :hover, :focus-visible
         ) .case-texture-frame > .portfolio-beam {
           animation: contact-metal-orbit 16s linear infinite;
         }
       }
       @media (prefers-reduced-motion: reduce) {
-        html.bilingual-home[data-theme="light"] .home-page :is(
+        html.bilingual-home:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
           .concept-marquee__tile,
           .concept-card,
           .case-texture-frame
