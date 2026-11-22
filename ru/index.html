@@ -540,6 +540,115 @@
         }
       }
     </style>
+    <style>
+      /* White theme only: restrained liquid-chrome border from the video reference.
+         A graphite/silver base remains visible while short RGB-split highlights
+         orbit the rim. The dock, its icons, and the dark theme are untouched. */
+      @property --contact-metal-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: true;
+      }
+      @keyframes contact-metal-orbit {
+        to { --contact-metal-angle: 360deg; }
+      }
+
+      /* One inherited phase keeps the pointer and its dock in sync. */
+      html.bilingual-home[lang][data-theme="light"] body .home-page .contact-dock-anchor,
+      html.bilingual-home[lang][data-theme="light"] body .contact-dock--footer.contact-dock--glass {
+        animation: contact-metal-orbit 3.6s linear infinite;
+      }
+      html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass {
+        border-color: rgba(142, 151, 161, .34);
+      }
+
+      @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::before,
+        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::after {
+          inset: -1px;
+          padding: 1.5px;
+          border-radius: inherit;
+          pointer-events: none;
+          z-index: -1;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          filter: none;
+          opacity: 1;
+          animation: none;
+        }
+        /* Chrome-like grayscale reflections are the majority of the line. */
+        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::before {
+          background: conic-gradient(from 45deg,
+            #d8dae1 0deg,
+            #525866 55deg,
+            #222739 90deg,
+            #9fa5b1 125deg,
+            #f5f7fc 173deg,
+            #848b9b 220deg,
+            #373c4c 265deg,
+            #ccd0da 310deg,
+            #eef1f5 360deg);
+          opacity: .94;
+        }
+        /* Short red/yellow/cyan/blue glints, not a continuous neon rainbow. */
+        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::after {
+          background: conic-gradient(from var(--contact-metal-angle),
+            transparent 0deg 13deg,
+            #131d3c 15deg 16deg,
+            #fa5449 16.6deg,
+            #ffec43 17.3deg,
+            #ffffff 18deg,
+            #00baf6 18.8deg,
+            #162a89 19.6deg,
+            transparent 22deg 117deg,
+            #121b36 118deg,
+            #ffffff 119deg,
+            #32baff 120deg,
+            #f24e50 121deg,
+            transparent 123deg 229deg,
+            #121e43 231deg,
+            #ec4b39 232deg,
+            #ffe34e 233deg,
+            #00d4f8 234deg,
+            #3d4ced 235deg,
+            transparent 238deg 310deg,
+            #111d3c 311deg,
+            #ffffff 312deg,
+            #ffe149 313deg,
+            #31c7ff 314deg,
+            transparent 317deg 360deg);
+          opacity: 1;
+        }
+      }
+
+      /* Match the small pointer to the same chromatic-metal animation. */
+      html.bilingual-home[lang][data-theme="light"] .home-page .contact-dock-pointer::before {
+        background:
+          conic-gradient(from var(--contact-metal-angle),
+            transparent 0deg 16deg,
+            #fa5449 17deg,
+            #ffdf42 18deg,
+            #03c5f7 19deg,
+            transparent 21deg 155deg,
+            #092a68 156deg,
+            #f5fbff 157deg,
+            #32a4f6 158deg,
+            transparent 160deg),
+          linear-gradient(130deg, #f5f7fc, #a7adb8 37%, #525768 73%, #d2d5de);
+        animation: none;
+      }
+      html.bilingual-home[lang][data-theme="light"] .home-page .contact-dock-pointer::after {
+        background: linear-gradient(135deg, #fafbfc, #ebedf1);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html.bilingual-home[lang][data-theme="light"] body .home-page .contact-dock-anchor,
+        html.bilingual-home[lang][data-theme="light"] body .contact-dock--footer.contact-dock--glass {
+          animation: none;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="site-controls">
