@@ -596,6 +596,95 @@
         }
       }
     </style>
+    <style>
+      /* Liquid Metal on portfolio hover: reuse the light contact dock's chrome
+         and spectral highlights. Keep media animation/float intact: only the
+         overlay is animated, never the tile's transform. */
+      html.bilingual-home[data-theme="light"] .home-page :is(
+        .concept-marquee__tile,
+        .concept-card,
+        .case-texture-frame
+      ) > .portfolio-beam {
+        box-shadow: none;
+      }
+      /* Cases with nested covers have their own second beam; render only
+         the outer frame, avoiding doubled/choppy metallic edges. */
+      html.bilingual-home[data-theme="light"] .home-page .case-texture-frame .case-cover > .portfolio-beam {
+        opacity: 0 !important;
+      }
+      @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+        html.bilingual-home[data-theme="light"] .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame
+        ) > .portfolio-beam::before,
+        html.bilingual-home[data-theme="light"] .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame
+        ) > .portfolio-beam::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1.5px;
+          border-radius: inherit;
+          pointer-events: none;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          animation: none;
+        }
+        html.bilingual-home[data-theme="light"] .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame
+        ) > .portfolio-beam::before {
+          background: conic-gradient(from 45deg,
+            #d8dae1 0deg,
+            #525866 55deg,
+            #222739 90deg,
+            #9fa5b1 125deg,
+            #f5f7fc 173deg,
+            #848b9b 220deg,
+            #373c4c 265deg,
+            #ccd0da 310deg,
+            #eef1f5 360deg);
+          opacity: .94;
+        }
+        html.bilingual-home[data-theme="light"] .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame
+        ) > .portfolio-beam::after {
+          background: conic-gradient(from var(--contact-metal-angle), var(--contact-metal-spectrum));
+          opacity: 1;
+          filter: drop-shadow(0 0 1.4px rgba(59, 124, 222, .20));
+        }
+      }
+      /* Start the slow 16-second orbit per tile when hovered/focused; the
+         registered custom property is inherited by both beam pseudo-elements. */
+      @media (prefers-reduced-motion: no-preference) {
+        html.bilingual-home[data-theme="light"] .home-page :is(
+          .concept-marquee__tile,
+          .concept-card
+        ):is(:hover, :focus-within) > .portfolio-beam,
+        html.bilingual-home[data-theme="light"] .home-page .case-link:is(
+          :hover, :focus-visible
+        ) .case-texture-frame > .portfolio-beam {
+          animation: contact-metal-orbit 16s linear infinite;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html.bilingual-home[data-theme="light"] .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame
+        ) > .portfolio-beam {
+          animation: none !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="site-controls">
