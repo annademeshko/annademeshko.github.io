@@ -478,123 +478,36 @@
     </style>
     <link rel="stylesheet" href="/contact-glass.css?v=20261122-clean-shadow-5">
     <style>
-      /* Contextual iOS edit-menu treatment for the HERO contacts only.
-         Footer contact dock keeps its current glass/beam styling. */
-      html.bilingual-home[lang] .home-page .intro {
-        gap: 20px;
-      }
-      html.bilingual-home[lang] .home-page .intro-tagline {
-        margin-bottom: 0;
-      }
-      html.bilingual-home[lang] .home-page .intro-tagline .sel-handle {
-        width: 2px;
-        background: var(--sel);
-      }
-      html.bilingual-home[lang] .home-page .intro-tagline .sel-handle::after {
-        width: 11px;
-        height: 11px;
-        background: var(--sel);
-      }
-      html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu {
-        --dock-divider: rgba(53, 61, 77, .16);
+      /* Speech-bubble pointer above the original contact dock.
+         The dock's glass, icons, spacing, animated border and link actions are untouched. */
+      html.bilingual-home[lang] .home-page .contact-dock-anchor {
         position: relative;
-        isolation: isolate;
         display: flex;
-        align-items: stretch;
         justify-content: center;
-        gap: 0;
         width: fit-content;
-        max-width: calc(100vw - 24px);
-        padding: 4px 6px;
-        margin-top: 6px;
-        border: 1px solid rgba(190, 197, 207, .55);
-        border-radius: 16px;
-        background: rgba(250, 251, 253, .97);
-        box-shadow: 0 6px 18px rgba(43, 55, 75, .10), 0 1px 3px rgba(43, 55, 75, .055);
-        -webkit-backdrop-filter: blur(16px) saturate(1.15);
-        backdrop-filter: blur(16px) saturate(1.15);
+        max-width: 100%;
+        margin-inline: auto;
       }
-      /* The top pointer faces the selected text, like the iOS edit popover. */
-      html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu::before {
+      html.bilingual-home[lang] .home-page .contact-dock-anchor::before {
         content: "";
-        display: block;
         position: absolute;
-        inset: auto;
-        top: -7px;
-        left: calc(50% - 6px);
-        width: 12px;
-        height: 12px;
-        padding: 0;
-        opacity: 1;
-        z-index: 0;
-        border-top: 1px solid rgba(190, 197, 207, .55);
-        border-left: 1px solid rgba(190, 197, 207, .55);
+        top: -8px;
+        left: calc(50% - 9px);
+        width: 18px;
+        height: 18px;
         border-radius: 2px 0 0 0;
-        background: rgba(250, 251, 253, .97);
+        border-top: 1px solid rgba(143, 150, 162, .30);
+        border-left: 1px solid rgba(143, 150, 162, .30);
+        background: #F9FAFC;
+        box-shadow: -2px -2px 3px rgba(76, 87, 106, .03);
         transform: rotate(45deg);
-        filter: none;
-        -webkit-mask: none;
-        mask: none;
-        animation: none;
         pointer-events: none;
+        z-index: 2;
       }
-      html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu::after {
-        content: none;
-        display: none;
-        animation: none;
-      }
-      html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu .dock-item {
-        position: relative;
-        display: flex;
-        flex: 0 0 69px;
-        width: 69px;
-        height: 56px;
-        align-self: stretch;
-        align-items: center;
-        justify-content: center;
-        padding: 0 6px;
-        border: 0;
-        background: transparent;
-      }
-      html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu .dock-item + .dock-item {
-        border-left: 1px solid var(--dock-divider);
-      }
-      html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu .dock-divider {
-        display: block;
-        align-self: center;
-        flex: 0 0 1px;
-        width: 1px;
-        height: 38px;
-        margin: 0;
-        background: var(--dock-divider);
-      }
-      html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu .dock-icon {
-        width: 52px;
-        height: 52px;
-      }
-      html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu .dock-item::before {
-        top: 2px;
-        width: 52px;
-        height: 52px;
-        border: 0;
-        border-radius: 15px;
+      html.bilingual-home[lang][data-theme="dark"] .home-page .contact-dock-anchor::before {
+        background: #1F1F1F;
+        border-color: rgba(255, 255, 255, .12);
         box-shadow: none;
-      }
-      html.bilingual-home[lang][data-theme="dark"] body .home-page .contact-dock.contact-dock--selection-menu {
-        --dock-divider: rgba(255,255,255,.17);
-        border-color: rgba(255,255,255,.20);
-        background: rgba(43,44,47,.97);
-        box-shadow: 0 5px 17px rgba(0,0,0,.24);
-      }
-      html.bilingual-home[lang][data-theme="dark"] body .home-page .contact-dock.contact-dock--selection-menu::before {
-        border-color: rgba(255,255,255,.20);
-        background: rgba(43,44,47,.97);
-      }
-      @media (max-width: 360px) {
-        html.bilingual-home[lang] body .home-page .contact-dock.contact-dock--selection-menu .dock-item {
-          flex-basis: 61px;
-          width: 61px;
-        }
       }
     </style>
   </head>
@@ -625,13 +538,15 @@
         </div>
         </div>
 
-        <nav class="contact-dock contact-dock--glass contact-dock--selection-menu" aria-label="Контакты">
+        <div class="contact-dock-anchor">
+        <nav class="contact-dock contact-dock--glass" aria-label="Контакты">
           <a class="dock-item" data-cv href="/assets/anna-demeshko-product-designer-ru-20261103.pdf" target="_blank" rel="noreferrer"><svg class="dock-icon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="dkNotes1b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#EFEFEC"/></linearGradient><linearGradient id="dkNotes1t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FDE27A"/><stop offset="1" stop-color="#F6CB45"/></linearGradient><clipPath id="dkNotes1c"><rect width="56" height="56" rx="13"/></clipPath></defs><g clip-path="url(#dkNotes1c)"><rect width="56" height="56" fill="url(#dkNotes1b)"/><rect width="56" height="16.5" fill="url(#dkNotes1t)"/><line x1="4" y1="18.6" x2="54" y2="18.6" stroke="#BDBDB8" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="0 3"/><path d="M9 30h38M9 40.5h38" stroke="#CDCDC9" stroke-width="1.6" stroke-linecap="round"/></g><rect x=".5" y=".5" width="55" height="55" rx="12.5" fill="none" stroke="rgba(0,0,0,.06)"/></svg><span class="dock-label"><span data-lang="ru">Резюме</span><span data-lang="en">CV</span></span></a>
           <span class="dock-divider" aria-hidden="true"></span>
           <a class="dock-item" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><img class="dock-icon" src="/assets/contacts/linkedin.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">LinkedIn</span><span data-lang="en">LinkedIn</span></span></a>
           <a class="dock-item" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><img class="dock-icon" src="/assets/contacts/telegram.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Telegram</span><span data-lang="en">Telegram</span></span></a>
           <button class="dock-item" type="button" data-copy-email="annademeshko.v@gmail.com" aria-label="Email: annademeshko.v@gmail.com"><img class="dock-icon" src="/assets/contacts/mail.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Почта</span><span data-lang="en">Email</span></span><span class="dock-label dock-label--done"><span data-lang="ru">Скопировано</span><span data-lang="en">Copied</span></span></button>
         </nav>
+        </div>
       </section>
 
 
