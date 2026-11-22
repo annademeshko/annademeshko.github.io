@@ -86,7 +86,7 @@
 
   // ---------- 2. Shimmering pixel photo ----------
   function initPhoto() {
-    var img = document.querySelector(".intro-photo");
+    var img = document.querySelector(".intro-photo[data-pixel-mask]") || document.querySelector(".intro-photo");
     if (!img) return;
 
     var PX = 9; // size of one photo pixel, in CSS pixels
@@ -214,7 +214,19 @@
     function ready() {
       place();
       // Pixels by default; hovering reveals the real photo.
-      start();
+      // The English pink theme retains its original illustration instead.
+      if (!document.documentElement.classList.contains("standalone-english") ||
+          document.documentElement.getAttribute("data-theme") !== "pink") start();
+      if (document.documentElement.classList.contains("standalone-english")) {
+        new MutationObserver(function () {
+          if (document.documentElement.getAttribute("data-theme") === "pink") {
+            stop();
+          } else {
+            place();
+            start();
+          }
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      }
       img.addEventListener("pointerenter", stop);
       img.addEventListener("pointerleave", start);
       // On phones there is no hover: a tap toggles between pixels and the photo.

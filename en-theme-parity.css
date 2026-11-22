@@ -1,0 +1,473 @@
+/* English homepage parity with the Russian design language, 2026-11-22.
+   Keep the English copy, 3-way theme selector and pink theme intact. */
+
+      .concept-marquee-band { width: 100vw; margin: 48px 0 48px calc(50% - 50vw); overflow: visible; padding: 22px 0; }
+      .concept-marquee { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab; }
+      .concept-marquee.is-dragging { cursor: grabbing; }
+      .concept-marquee__tile img, .concept-marquee__tile video { user-select: none; -webkit-user-drag: none; }
+      .concept-marquee::-webkit-scrollbar { display: none; }
+      .concept-marquee__track { display: flex; align-items: center; gap: 20px; width: max-content; }
+      .concept-marquee__tile { flex: none; display: block; height: 400px; width: auto; margin: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: var(--fig-cursor, pointer); }
+      .concept-marquee__tile::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; border-radius: 50%; background-color: rgba(15,17,21,.78); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.8' cy='10.8' r='6.8'/%3E%3Cpath d='m16 16 5 5'/%3E%3C/svg%3E"); background-size: 24px 24px; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
+      .concept-marquee__tile:hover::after, .concept-marquee__tile:focus-within::after { opacity: 1; }
+      .concept-marquee__tile img, .concept-marquee__tile video { display: block; width: auto; max-width: none; height: 100%; object-fit: cover; }
+      .concept-fullscreen { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 5vmin; background: rgba(12,13,16,.93); cursor: zoom-out; }
+      .concept-fullscreen.is-open { display: flex; }
+      .concept-fullscreen img, .concept-fullscreen video { max-width: 94vw; max-height: 90vh; width: auto; height: auto; object-fit: contain; border-radius: 12px; cursor: default; }
+      .concept-fullscreen__close { position: absolute; top: 20px; right: 24px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #34363a; color: white; font-size: 30px; cursor: var(--fig-cursor, pointer); }
+      @media (min-width: 521px) { .home-page .portfolio-switcher, .home-page .concepts[data-panel="concepts"] { display: none !important; } .home-page .work[data-panel="cases"] { display: block !important; } }
+      @media (max-width: 520px) { .concept-marquee-band { display: none; } }
+      @media (prefers-reduced-motion: reduce) { .concept-marquee__track { animation: none; } }
+    
+      .selected-cases-heading { width: 100%; max-width: 680px; margin: 8px auto 36px; padding: 0; font-size: 18px; font-weight: 600; line-height: 24.5px; letter-spacing: normal; color: var(--heading); }
+      @media (max-width: 520px) { .selected-cases-heading { display: none; } }
+
+      /* Cooler, barely blue white — light homepage only. */
+      html.standalone-english[data-theme="light"] {
+        --bg: #F6F8FB;
+        --bg-fade: rgba(246,248,251,0);
+        --bg-fade-mid: rgba(246,248,251,0.82);
+        --glass: rgba(246,248,251,0.58);
+        --glass-fade: rgba(246,248,251,0);
+      }
+
+      /* Separate concept cards: no shadows or joined edges in either theme. */
+      html.standalone-english .home-page .concept-marquee__track {
+        gap: 26px;
+        /* The cards float by +/-3px. Reserve room INSIDE the scrollport,
+           otherwise overflow-y:hidden clips the bottom edge while moving. */
+        padding-block: 16px;
+      }
+      html.standalone-english .home-page :is(.concept-marquee__tile, .concept-card) {
+        box-shadow: none !important;
+        filter: none;
+      }
+      /* Light theme: artwork must sit cleanly inside each tile, with no grey halo. */
+      html.standalone-english[data-theme="light"] .home-page :is(.concept-marquee__tile, .concept-card) :is(img, video) {
+        box-shadow: none !important;
+        filter: none;
+      }
+      html.standalone-english[data-theme="light"] .home-page :is(.concept-marquee__tile, .concept-card) {
+        border: 1px solid rgba(140,151,166,0.18);
+      }
+      /* Each tile drifts independently while the gallery keeps scrolling. */
+      @keyframes concept-tile-float {
+        0%, 100% { transform: translate3d(0, -3px, 0); }
+        50% { transform: translate3d(0, 3px, 0); }
+      }
+      @media (min-width: 521px) and (prefers-reduced-motion: no-preference) {
+        html.standalone-english .home-page .concept-marquee__tile {
+          animation: concept-tile-float 7s ease-in-out infinite;
+        }
+        html.standalone-english .home-page .concept-marquee__tile:nth-child(4n+1) { animation-duration: 6.4s; animation-delay: -1.5s; }
+        html.standalone-english .home-page .concept-marquee__tile:nth-child(4n+2) { animation-duration: 8.1s; animation-delay: -3.7s; animation-direction: reverse; }
+        html.standalone-english .home-page .concept-marquee__tile:nth-child(4n+3) { animation-duration: 7.5s; animation-delay: -5.3s; }
+        html.standalone-english .home-page .concept-marquee__tile:nth-child(4n) { animation-duration: 9s; animation-delay: -2.1s; animation-direction: reverse; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html.standalone-english .home-page .concept-marquee__tile { animation: none; }
+      }
+
+
+/* Contact tray colors and matching case/concept surfaces. */
+html.standalone-english[data-theme="light"] {
+  --contact-light-surface: linear-gradient(155deg, rgba(250,251,252,.96) 0%, rgba(238,240,243,.96) 46%, rgba(220,224,229,.96) 100%);
+}
+html.standalone-english[data-theme="light"] {
+  --bg: #F6F8FB;
+  --bg-fade: rgba(246,248,251,0);
+  --bg-fade-mid: rgba(246,248,251,.82);
+  --glass: rgba(246,248,251,.58);
+  --glass-fade: rgba(246,248,251,0);
+}
+html.standalone-english[data-theme="dark"] .home-page :is(
+  .concept-marquee__tile,.concept-card,.case-texture-frame,
+  .case-cover:has(> .remate-cover-video),.remate-cover-video
+) { background: #1F1F1F; }
+html.standalone-english[data-theme="light"] .home-page :is(
+  .concept-marquee__tile,.concept-card,.case-texture-frame,
+  .case-cover:has(> .remate-cover-video),.remate-cover-video
+) {
+  background: var(--contact-light-surface);
+  border: 1px solid rgba(144,151,162,.22);
+  box-sizing: border-box;
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,.96),
+    inset 0 -2px 5px rgba(107,116,128,.11),
+    0 14px 30px rgba(64,72,84,.13),
+    0 3px 8px rgba(64,72,84,.05);
+}
+html.standalone-english .home-page :is(.concept-marquee__tile,.concept-card) {
+  box-shadow: none !important;
+  filter: none;
+}
+html.standalone-english[data-theme="light"] .home-page :is(.concept-marquee__tile,.concept-card) :is(img,video) {
+  box-shadow: none !important;
+  filter: none;
+}
+/* Same soft, frosted contact panel in white and muted graphite in dark. */
+html.standalone-english[data-theme="light"] body .contact-dock.contact-dock--glass {
+  --dock-divider: rgba(50,50,50,.22);
+  background: var(--contact-light-surface);
+  border: 1px solid rgba(143,150,162,.30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.96),
+              inset 0 -1px 2px rgba(114,122,134,.09),
+              0 8px 18px rgba(76,87,106,.075),
+              0 2px 5px rgba(76,87,106,.035);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+  backdrop-filter: blur(22px) saturate(1.35);
+}
+html.standalone-english[data-theme="dark"] body .contact-dock.contact-dock--glass {
+  --dock-divider: rgba(255,255,255,.22);
+  background: linear-gradient(180deg,#1f1f1f 0%,#1d1d1d 50%,#1b1b1b 100%);
+  border: 1px solid rgba(255,255,255,.055);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03),0 12px 28px rgba(0,0,0,.28);
+}
+html.standalone-english .home-page .contact-dock-anchor {
+  position: relative;display:flex;justify-content:center;
+  width:fit-content;max-width:100%;margin-inline:auto;
+}
+
+/* Liquid-chrome contact border in both themes: silver/graphite rim, short
+         prism-refraction highlights, slow 16s orbit. Glass surfaces stay intact. */
+      @property --contact-metal-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: true;
+      }
+      @keyframes contact-metal-orbit {
+        to { --contact-metal-angle: 360deg; }
+      }
+
+      /* Inherited phase animates the contact dock; wrapper remains for music positioning. */
+      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .home-page .contact-dock-anchor,
+      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock--footer.contact-dock--glass {
+        animation: contact-metal-orbit 16s linear infinite;
+      }
+      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass {
+        border-color: rgba(142, 151, 161, .34);
+      }
+
+      /* Prism colour stops for the dock border. */
+      html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) {
+        --contact-metal-spectrum:
+          transparent 0deg 9deg,
+            rgba(14, 25, 65, 0) 9deg,
+            #121d4c 12deg,
+            #7838fa 15deg,
+            #2864ff 18deg,
+            #08d9ff 21deg,
+            #44e0b5 24deg,
+            #b7ed63 27deg,
+            #fff24e 30deg,
+            #ff9827 33deg,
+            #ff424e 36deg,
+            #ffffff 38deg,
+            #152448 41deg,
+            rgba(14, 25, 65, 0) 45deg,
+            transparent 45deg 164deg,
+            rgba(14, 25, 65, 0) 164deg,
+            #152552 168deg,
+            #f0444d 172deg,
+            #ffb22e 176deg,
+            #fdf37e 180deg,
+            #50e5cf 184deg,
+            #10bdff 188deg,
+            #4655ff 192deg,
+            #b761f9 195deg,
+            #f4f8ff 198deg,
+            #142452 201deg,
+            rgba(14, 25, 65, 0) 205deg,
+            transparent 205deg 296deg,
+            rgba(14, 25, 65, 0) 296deg,
+            #e9f7ff 300deg,
+            #2cb8ff 304deg,
+            #3343b8 307deg,
+            #f04454 310deg,
+            rgba(14, 25, 65, 0) 314deg,
+            transparent 314deg 360deg;
+      }
+
+      @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::before,
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::after {
+          inset: -1px;
+          padding: 1.5px;
+          border-radius: inherit;
+          pointer-events: none;
+          z-index: -1;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          filter: none;
+          opacity: 1;
+          animation: none;
+        }
+        /* Chrome-like grayscale reflections are the majority of the line. */
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::before {
+          background: conic-gradient(from 45deg,
+            #d8dae1 0deg,
+            #525866 55deg,
+            #222739 90deg,
+            #9fa5b1 125deg,
+            #f5f7fc 173deg,
+            #848b9b 220deg,
+            #373c4c 265deg,
+            #ccd0da 310deg,
+            #eef1f5 360deg);
+          opacity: .94;
+        }
+        /* Slow prism refraction: rich, separated spectral streaks over a mostly silver rim. */
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::after {
+          background: conic-gradient(from var(--contact-metal-angle), var(--contact-metal-spectrum));
+          opacity: 1;
+          /* Tiny chromatic halo only where the refracted band is visible. */
+          filter: drop-shadow(0 0 1.4px rgba(59, 124, 222, .20));
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .home-page .contact-dock-anchor,
+        html.standalone-english[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock--footer.contact-dock--glass {
+          animation: none;
+        }
+      }
+
+/* Liquid Metal on portfolio hover in both themes: reuse the contact dock's chrome
+         and spectral highlights. Keep media animation/float intact: only the
+         overlay is animated, never the tile's transform. */
+      html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+        .concept-marquee__tile,
+        .concept-card,
+        .case-texture-frame,
+        .case-cover:has(> .remate-cover-video)
+      ) > .portfolio-beam {
+        box-shadow: none;
+      }
+      /* REMATE uses a direct cover; remove its legacy static pink hover frame. */
+      html.standalone-english:is([data-theme="light"], [data-theme="dark"])
+        .home-page .case-link .case-cover:has(> .remate-cover-video)::after {
+        content: none;
+        display: none;
+        box-shadow: none;
+      }
+      /* Cases with nested covers have their own second beam; render only
+         the outer frame, avoiding doubled/choppy metallic edges. */
+      html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page .case-texture-frame .case-cover > .portfolio-beam {
+        opacity: 0 !important;
+      }
+      @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame,
+          .case-cover:has(> .remate-cover-video)
+        ) > .portfolio-beam::before,
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame,
+          .case-cover:has(> .remate-cover-video)
+        ) > .portfolio-beam::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1.5px;
+          border-radius: inherit;
+          pointer-events: none;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          animation: none;
+        }
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame,
+          .case-cover:has(> .remate-cover-video)
+        ) > .portfolio-beam::before {
+          background: conic-gradient(from 45deg,
+            #d8dae1 0deg,
+            #525866 55deg,
+            #222739 90deg,
+            #9fa5b1 125deg,
+            #f5f7fc 173deg,
+            #848b9b 220deg,
+            #373c4c 265deg,
+            #ccd0da 310deg,
+            #eef1f5 360deg);
+          opacity: .94;
+        }
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame,
+          .case-cover:has(> .remate-cover-video)
+        ) > .portfolio-beam::after {
+          background: conic-gradient(from var(--contact-metal-angle), var(--contact-metal-spectrum));
+          opacity: 1;
+          filter: drop-shadow(0 0 1.4px rgba(59, 124, 222, .20));
+        }
+      }
+      /* Start the slow 16-second orbit per tile when hovered/focused; the
+         registered custom property is inherited by both beam pseudo-elements. */
+      @media (prefers-reduced-motion: no-preference) {
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+          .concept-marquee__tile,
+          .concept-card
+        ):is(:hover, :focus-within) > .portfolio-beam,
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page .case-link:is(
+          :hover, :focus-visible
+        ) :is(.case-texture-frame, .case-cover:has(> .remate-cover-video)) > .portfolio-beam {
+          animation: contact-metal-orbit 16s linear infinite;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html.standalone-english:is([data-theme="light"], [data-theme="dark"]) .home-page :is(
+          .concept-marquee__tile,
+          .concept-card,
+          .case-texture-frame,
+          .case-cover:has(> .remate-cover-video)
+        ) > .portfolio-beam {
+          animation: none !important;
+        }
+      }
+
+/* Light-contact tiles: soft raised neoprene / neumorphic material (#ECF0F3).
+         Artwork is preserved from the existing icon SVGs, without their old
+         gradient plates so the softer material can show through. */
+      html.standalone-english[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item::before {
+        box-sizing: border-box;
+        border: 0;
+        border-radius: 18px;
+        background: #ECF0F3 var(--contact-neumorphic-glyph) center / 100% 100% no-repeat;
+        box-shadow:
+          -5px -5px 12px rgba(255, 255, 255, 0.94),
+          7px 8px 17px rgba(143, 159, 184, 0.27),
+          1px 2px 4px rgba(143, 159, 184, 0.045);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+      html.standalone-english[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[data-cv] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(10.2%209.4)%20scale(1.58)%22%20fill-rule%3D%22evenodd%22%20d%3D%22M6.2%201.6h7.1c.3%200%20.6.1.8.3l4.6%204.6c.2.2.3.5.3.8v12.2a1.7%201.7%200%200%201-1.7%201.7H6.2a1.7%201.7%200%200%201-1.7-1.7V3.3a1.7%201.7%200%200%201%201.7-1.7zm.5%209.2h8.4v1.35H6.7v-1.35zm0%203.15h8.4v1.35H6.7v-1.35z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[href*="linkedin.com"] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2029.2)%20scale(1.82)%20translate(-12%20-12.9)%22%3E%3Cpath%20d%3D%22M20.45%2020.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85%200-2.14%201.45-2.14%202.94v5.67H9.35V9h3.41v1.56h.05c.48-.9%201.64-1.85%203.37-1.85%203.6%200%204.27%202.37%204.27%205.46v6.28zM5.34%207.43a2.06%202.06%200%200%201-2.06-2.06%202.06%202.06%200%201%201%202.06%202.06zm1.78%2013.02H3.56V9h3.56v11.45z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[href*="t.me"],
+      html.standalone-english[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[href*="telegram"] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(28%2028)%20scale(1.42)%20translate(-12.2%20-12.4)%22%20d%3D%22M9.42%2015.18%209.02%2020.76c.57%200%20.82-.24%201.11-.54l2.66-2.54%205.52%204.04c1.01.56%201.72.27%202-.93l3.62-16.97h.01c.32-1.5-.54-2.08-1.53-1.71L2.22%2010.26c-1.45.56-1.43%201.37-.25%201.74l5.44%201.69%2012.64-7.91c.6-.39%201.14-.18.69.22%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[data-copy-email] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2028)%20scale(1.48)%20translate(-12%20-12.4)%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M3.1%206.2h17.8A2.1%202.1%200%200%201%2023%208.3v9.5a2.1%202.1%200%200%201-2.1%202.1H3.1A2.1%202.1%200%200%201%201%2017.8V8.3A2.1%202.1%200%200%201%203.1%206.2zm.55%201.55%208.35%205.55%208.35-5.55v1.35L12%2014.8%203.65%209.1V7.75z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html.standalone-english[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item::before {
+          transition: none;
+        }
+      }
+
+/* Dark-contact buttons: same soft raised-neumorphism as the light #ECF0F3
+         tiles, inverted for the #1F1F1F dock. Only the background and soft
+         relief change; original light glyphs and icon geometry are preserved. */
+      html.standalone-english[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item::before {
+        box-sizing: border-box;
+        border: 0;
+        border-radius: 18px;
+        background: #252525 var(--contact-dark-neumorphic-glyph) center / 100% 100% no-repeat;
+        box-shadow:
+          -5px -5px 12px rgba(170, 180, 194, 0.045),
+          7px 8px 17px rgba(0, 0, 0, 0.62),
+          1px 2px 4px rgba(0, 0, 0, 0.15);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+      html.standalone-english[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[data-cv] {
+        --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(10.2%209.4)%20scale(1.58)%22%20fill-rule%3D%22evenodd%22%20d%3D%22M6.2%201.6h7.1c.3%200%20.6.1.8.3l4.6%204.6c.2.2.3.5.3.8v12.2a1.7%201.7%200%200%201-1.7%201.7H6.2a1.7%201.7%200%200%201-1.7-1.7V3.3a1.7%201.7%200%200%201%201.7-1.7zm.5%209.2h8.4v1.35H6.7v-1.35zm0%203.15h8.4v1.35H6.7v-1.35z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[href*="linkedin.com"] {
+        --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2029.2)%20scale(1.82)%20translate(-12%20-12.9)%22%3E%3Cpath%20d%3D%22M20.45%2020.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85%200-2.14%201.45-2.14%202.94v5.67H9.35V9h3.41v1.56h.05c.48-.9%201.64-1.85%203.37-1.85%203.6%200%204.27%202.37%204.27%205.46v6.28zM5.34%207.43a2.06%202.06%200%200%201-2.06-2.06%202.06%202.06%200%201%201%202.06%202.06zm1.78%2013.02H3.56V9h3.56v11.45z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[href*="t.me"],
+      html.standalone-english[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[href*="telegram"] {
+        --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(28%2028)%20scale(1.42)%20translate(-12.2%20-12.4)%22%20d%3D%22M9.42%2015.18%209.02%2020.76c.57%200%20.82-.24%201.11-.54l2.66-2.54%205.52%204.04c1.01.56%201.72.27%202-.93l3.62-16.97h.01c.32-1.5-.54-2.08-1.53-1.71L2.22%2010.26c-1.45.56-1.43%201.37-.25%201.74l5.44%201.69%2012.64-7.91c.6-.39%201.14-.18.69.22%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.standalone-english[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[data-copy-email] {
+        --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2028)%20scale(1.48)%20translate(-12%20-12.4)%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M3.1%206.2h17.8A2.1%202.1%200%200%201%2023%208.3v9.5a2.1%202.1%200%200%201-2.1%202.1H3.1A2.1%202.1%200%200%201%201%2017.8V8.3A2.1%202.1%200%200%201%203.1%206.2zm.55%201.55%208.35%205.55%208.35-5.55v1.35L12%2014.8%203.65%209.1V7.75z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+
+
+/* iOS blue selection in light and dark. Keep the existing pink theme. */
+html.standalone-english[data-theme="light"] .home-page .intro-tagline .text-select {
+  --sel:#0A84FF;
+  --sel-bg:rgba(10,132,255,.20);
+  color:var(--heading);
+  font-weight:400;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+}
+html.standalone-english[data-theme="dark"] .home-page .intro-tagline .text-select {
+  --sel:#65A7FF;
+  --sel-bg:rgba(45,130,255,.35);
+  color:var(--heading);
+  font-weight:400;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+}
+
+/* Pixel portrait exactly as on RU in light/dark; preserve EN illustrations in pink. */
+html.standalone-english .home-page .intro-photo--pixel { display:none; }
+html.standalone-english:is([data-theme="light"],[data-theme="dark"]) .home-page
+  :is(.intro-photo--light,.intro-photo--dark,.intro-photo-real) { display:none; }
+html.standalone-english:is([data-theme="light"],[data-theme="dark"]) .home-page .intro-photo--pixel {
+  display:block;
+  image-rendering:pixelated;
+}
+html.standalone-english[data-theme="pink"] .pixel-photo { display:none; }
+
+/* English theme selector: keep its three handwritten options but style the
+   capsule and active word like the contact buttons in both monochrome themes. */
+html.standalone-english[data-theme="light"] body .site-controls .theme-switch {
+  background:var(--contact-light-surface);border:1px solid rgba(143,150,162,.19);
+  border-radius:16px;padding:5px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),
+             0 8px 18px rgba(76,87,106,.075),0 2px 5px rgba(76,87,106,.035);
+}
+html.standalone-english[data-theme="dark"] body .site-controls .theme-switch {
+  background:linear-gradient(180deg,#1f1f1f,#1b1b1b);
+  border:1px solid rgba(255,255,255,.045);border-radius:16px;padding:5px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 9px 21px rgba(0,0,0,.26);
+}
+html.standalone-english:is([data-theme="light"],[data-theme="dark"]) body .site-controls .theme-btn {
+  border-radius:11px;transition:color 160ms ease, transform 200ms ease-out;
+}
+html.standalone-english[data-theme="light"] body .site-controls .theme-btn[aria-checked="true"] {
+  background:#ECF0F3;color:#2e2e33;
+  box-shadow:-2px -2px 6px rgba(255,255,255,.87),
+              3px 4px 8px rgba(143,159,184,.21);
+}
+html.standalone-english[data-theme="dark"] body .site-controls .theme-btn[aria-checked="true"] {
+  background:#252525;color:#f2f2f4;
+  box-shadow:-2px -2px 6px rgba(170,180,194,.035),
+              3px 4px 8px rgba(0,0,0,.43);
+}
+html.standalone-english[data-theme="light"] body .site-controls .lang-switch {
+  border:1px solid rgba(143,150,162,.19);background:var(--contact-light-surface);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),
+             0 8px 18px rgba(76,87,106,.075),0 2px 5px rgba(76,87,106,.035);
+}
+html.standalone-english[data-theme="dark"] body .site-controls .lang-switch {
+  border:1px solid rgba(255,255,255,.045);
+  background:linear-gradient(180deg,#1f1f1f 0%,#1d1d1d 50%,#1b1b1b 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 9px 21px rgba(0,0,0,.26);
+}
+html.standalone-english[data-theme="light"] body .site-controls .lang-btn[aria-pressed="true"] {
+  background:#ECF0F3;color:#2e2e33;
+  box-shadow:-2px -2px 6px rgba(255,255,255,.87),3px 4px 8px rgba(143,159,184,.21);
+}
+html.standalone-english[data-theme="dark"] body .site-controls .lang-btn[aria-pressed="true"] {
+  background:#252525;color:#f2f2f4;
+  box-shadow:-2px -2px 6px rgba(170,180,194,.035),3px 4px 8px rgba(0,0,0,.43);
+}
