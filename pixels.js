@@ -141,7 +141,9 @@
       var cw = canvas.width / grid.cols;
       var ch = canvas.height / grid.rows;
       var time = t / 1000;
-      var dark = isDark();
+      // Use the same neutral grayscale pixel palette in both themes.
+      // Do not tint the light-theme portrait or its background pink.
+      var dark = true;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (var y = 0; y < grid.rows; y++) {
         for (var x = 0; x < grid.cols; x++) {
