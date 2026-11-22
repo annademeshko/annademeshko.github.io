@@ -127,10 +127,16 @@
     "</span></span>" + ARROW +
     '<span class="np-tip" aria-hidden="true">' + label + " ↗</span>";
 
-  // Mobile: in the intro under the contact icons. Desktop: at the top of the page, scrolls with it (CSS).
+  // Keep the ticker OUTSIDE the positioned dock-arrow wrapper.
+  // Desktop: absolute at the top of the page. Mobile: in the intro below contacts.
   var dock = document.querySelector(".intro .contact-dock");
-  if (dock && dock.parentNode) dock.parentNode.insertBefore(bar, dock.nextSibling);
-  else document.body.appendChild(bar);
+  var dockGroup = dock && dock.closest(".contact-dock-anchor");
+  var insertionPoint = dockGroup || dock;
+  if (insertionPoint && insertionPoint.parentNode) {
+    insertionPoint.parentNode.insertBefore(bar, insertionPoint.nextSibling);
+  } else {
+    document.body.appendChild(bar);
+  }
 
   requestAnimationFrame(function () {
     var run = bar.querySelector(".np-run");
