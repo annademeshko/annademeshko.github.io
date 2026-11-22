@@ -762,6 +762,78 @@
         --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2028)%20scale(1.48)%20translate(-12%20-12.4)%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M3.1%206.2h17.8A2.1%202.1%200%200%201%2023%208.3v9.5a2.1%202.1%200%200%201-2.1%202.1H3.1A2.1%202.1%200%200%201%201%2017.8V8.3A2.1%202.1%200%200%201%203.1%206.2zm.55%201.55%208.35%205.55%208.35-5.55v1.35L12%2014.8%203.65%209.1V7.75z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
       }
     </style>
+    <style>
+      /* Paired contact-inspired top controls.
+         Keep the original geometry and focus/interaction behavior; only adjust
+         the surface and lighting to match the neumorphic contact dock tiles. */
+      html.bilingual-home[lang][data-theme="light"] body .site-controls .theme-toggle {
+        border: 0;
+        background: #ECF0F3;
+        color: #2e2e33;
+        box-shadow:
+          -5px -5px 12px rgba(255, 255, 255, 0.94),
+          7px 8px 17px rgba(143, 159, 184, 0.27),
+          1px 2px 4px rgba(143, 159, 184, 0.045);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .site-controls .theme-toggle {
+        border: 0;
+        background: #252525;
+        color: #f2f2f4;
+        box-shadow:
+          -5px -5px 12px rgba(170, 180, 194, 0.045),
+          7px 8px 17px rgba(0, 0, 0, 0.62),
+          1px 2px 4px rgba(0, 0, 0, 0.15);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+
+      /* The language-switch capsule matches the main contact tray. */
+      html.bilingual-home[lang][data-theme="light"] body .site-controls .lang-switch {
+        border: 1px solid rgba(143, 150, 162, 0.19);
+        background: var(--contact-light-surface,
+          linear-gradient(155deg, #fafbfc 0%, #eef0f3 46%, #dce0e5 100%));
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.96),
+          0 8px 18px rgba(76, 87, 106, 0.075),
+          0 2px 5px rgba(76, 87, 106, 0.035);
+        -webkit-backdrop-filter: blur(22px) saturate(1.35);
+        backdrop-filter: blur(22px) saturate(1.35);
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .site-controls .lang-switch {
+        border: 1px solid rgba(255, 255, 255, 0.045);
+        background: linear-gradient(180deg, #1f1f1f 0%, #1d1d1d 50%, #1b1b1b 100%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.03),
+          0 9px 21px rgba(0, 0, 0, 0.26);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+
+      /* Active language is a gently raised tile; inactive remains flat.
+         Scope these to the language switch so the controls still feel compact. */
+      html.bilingual-home[lang][data-theme="light"] body .site-controls
+        .lang-btn[aria-pressed="true"] {
+        background: #ECF0F3;
+        color: #2e2e33;
+        box-shadow:
+          -2px -2px 6px rgba(255, 255, 255, 0.87),
+          3px 4px 8px rgba(143, 159, 184, 0.21);
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .site-controls
+        .lang-btn[aria-pressed="true"] {
+        background: #252525;
+        color: #f2f2f4;
+        box-shadow:
+          -2px -2px 6px rgba(170, 180, 194, 0.035),
+          3px 4px 8px rgba(0, 0, 0, 0.43);
+      }
+      html.bilingual-home[lang] body .site-controls .lang-btn[aria-pressed="false"] {
+        background: none;
+        box-shadow: none;
+      }
+    </style>
   </head>
   <body>
     <div class="site-controls">
