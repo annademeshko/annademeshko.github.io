@@ -175,7 +175,7 @@
   updateTitle(initialLang);
   updateThemeControl();
 
-  // A chromatic-metal wave from the top-right corner reveals the new theme.
+  // Viscous liquid metal grows out of the contacts in either theme direction.
   // Uses native View Transitions so the entire page (not just the controls)
   // changes together; retains an immediate/reduced-motion fallback.
   let runningThemeTransition = null;
@@ -197,9 +197,20 @@
 
     const width = window.innerWidth;
     const height = window.innerHeight;
-    root.style.setProperty("--theme-wave-x", width + "px");
-    root.style.setProperty("--theme-wave-y", "0px");
-    root.style.setProperty("--theme-wave-max", Math.ceil(Math.hypot(width, height) + 80) + "px");
+    // Origin: contact dock center; use screen center when the dock is offscreen.
+    const dock = document.querySelector(".intro .contact-dock");
+    const bounds = dock && dock.getBoundingClientRect();
+    const visible = bounds && bounds.bottom > 0 && bounds.top < height &&
+      bounds.right > 0 && bounds.left < width;
+    const x = visible ? Math.max(0, Math.min(width, bounds.left + bounds.width / 2)) : width / 2;
+    const y = visible ? Math.max(0, Math.min(height, bounds.top + bounds.height / 2)) : height / 2;
+    const farthest = Math.max(
+      Math.hypot(x, y), Math.hypot(width-x, y),
+      Math.hypot(x, height-y), Math.hypot(width-x, height-y));
+    root.style.setProperty("--theme-wave-x", Math.round(x) + "px");
+    root.style.setProperty("--theme-wave-y", Math.round(y) + "px");
+    root.style.setProperty("--theme-wave-max", Math.ceil(farthest + 100) + "px");
+    root.setAttribute("data-theme-wave-to", next);
     root.classList.add("theme-wave-active");
     let prism = null;
     let transition;
@@ -210,6 +221,7 @@
       root.style.removeProperty("--theme-wave-x");
       root.style.removeProperty("--theme-wave-y");
       root.style.removeProperty("--theme-wave-max");
+      root.removeAttribute("data-theme-wave-to");
       runningThemeTransition = null;
     }
     try {

@@ -1,97 +1,145 @@
-/* Corner-origin liquid metal theme reveal; shared by /, /ru/ and /en/.
-   Supported browsers use View Transitions snapshots. Others switch instantly. */
-@property --theme-edge-radius {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
+/* Organic lava-like liquid metal theme switching for /, /ru/ and /en/.
+   Seven connected lobes emerge from the contacts, revealing the next theme. */
+@property --theme-liquid-r0 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --theme-liquid-r1 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --theme-liquid-r2 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --theme-liquid-r3 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --theme-liquid-r4 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --theme-liquid-r5 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --theme-liquid-r6 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --theme-liquid-spectrum-angle { syntax:"<angle>"; inherits:false; initial-value:0deg; }
 .theme-wave-prism {
-  position: fixed;
-  inset: 0;
-  z-index: 2147483000;
-  pointer-events: none;
-  view-transition-name: theme-prism;
-  /* Predominantly silver / graphite, with a few localized Pink-Floyd-like
-     prismatic refractions rather than a permanent rainbow. */
-  background: conic-gradient(from 0deg at var(--theme-wave-x) var(--theme-wave-y),
-    #455063 0deg,
-    #202839 45deg,
-    #adb5c1 90deg,
-    #f6f9fc 130deg,
-    #303b51 155deg,
-    #151e35 186deg,
-    #909dad 193deg,
-    #ffffff 198deg,
-    #fe496a 201deg,
-    #ffce44 204deg,
-    #55ebcb 207deg,
-    #2d91f5 210deg,
-    #3544a4 213deg,
-    #f9fcff 215deg,
-    #4e6078 224deg,
-    #0f1729 231deg,
-    #aab4c2 239deg,
-    #f6f9fe 245deg,
-    #303748 248deg,
-    #e74a6f 250deg,
-    #fff378 252deg,
-    #5be7e7 254deg,
-    #6370e0 256deg,
-    #f8faff 258deg,
-    #37445a 270deg,
-    #cfd4de 320deg,
-    #454f62 360deg
-  );
+  position:fixed; inset:0; pointer-events:none; z-index:2147483000;
+  view-transition-name:theme-prism;
+  background:conic-gradient(from var(--theme-liquid-spectrum-angle) at var(--theme-wave-x) var(--theme-wave-y),
+    #aeb6c2 0deg,#272e3f 35deg,#eaf0f7 73deg,#505d71 108deg,#101c38 132deg,
+    #c7d0da 143deg,#fefeff 147deg,#f05269 150deg,#ffbd39 153deg,#fcf370 156deg,
+    #49dfbc 159deg,#46b9ff 162deg,#5646bf 165deg,#fff 168deg,#7a889d 180deg,
+    #273248 203deg,#c4ccd6 239deg,#f5f7fe 260deg,#3a4358 275deg,
+    #f34d76 279deg,#ffcc47 282deg,#48e5db 285deg,#345dec 288deg,
+    #f7fbff 292deg,#424e63 307deg,#d5dce5 343deg,#aeb6c2 360deg);
 }
-html.theme-wave-active::view-transition-old(root) {
-  animation: none;
-  z-index: 1;
-}
-html.theme-wave-active::view-transition-new(root) {
-  animation: theme-wave-reveal 2300ms cubic-bezier(.25, .65, .12, 1) both;
-  z-index: 2;
+html.theme-wave-active::view-transition-old(root){animation:none;z-index:1;}
+html.theme-wave-active::view-transition-new(root){
+  z-index:2;
+  -webkit-mask-image:
+    radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y), #000 0 calc(var(--theme-liquid-r0) - 2px), transparent calc(var(--theme-liquid-r0) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 10vw) calc(var(--theme-wave-y) - 4vh), #000 0 calc(var(--theme-liquid-r1) - 2px), transparent calc(var(--theme-liquid-r1) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 9vw) calc(var(--theme-wave-y) - 9vh), #000 0 calc(var(--theme-liquid-r2) - 2px), transparent calc(var(--theme-liquid-r2) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 14vw) calc(var(--theme-wave-y) + 10vh), #000 0 calc(var(--theme-liquid-r3) - 2px), transparent calc(var(--theme-liquid-r3) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 12vw) calc(var(--theme-wave-y) + 13vh), #000 0 calc(var(--theme-liquid-r4) - 2px), transparent calc(var(--theme-liquid-r4) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 3vw) calc(var(--theme-wave-y) + 20vh), #000 0 calc(var(--theme-liquid-r5) - 2px), transparent calc(var(--theme-liquid-r5) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 19vw) calc(var(--theme-wave-y) + 2vh), #000 0 calc(var(--theme-liquid-r6) - 2px), transparent calc(var(--theme-liquid-r6) + 3px));
+  mask-image:
+    radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y), #000 0 calc(var(--theme-liquid-r0) - 2px), transparent calc(var(--theme-liquid-r0) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 10vw) calc(var(--theme-wave-y) - 4vh), #000 0 calc(var(--theme-liquid-r1) - 2px), transparent calc(var(--theme-liquid-r1) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 9vw) calc(var(--theme-wave-y) - 9vh), #000 0 calc(var(--theme-liquid-r2) - 2px), transparent calc(var(--theme-liquid-r2) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 14vw) calc(var(--theme-wave-y) + 10vh), #000 0 calc(var(--theme-liquid-r3) - 2px), transparent calc(var(--theme-liquid-r3) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 12vw) calc(var(--theme-wave-y) + 13vh), #000 0 calc(var(--theme-liquid-r4) - 2px), transparent calc(var(--theme-liquid-r4) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 3vw) calc(var(--theme-wave-y) + 20vh), #000 0 calc(var(--theme-liquid-r5) - 2px), transparent calc(var(--theme-liquid-r5) + 3px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 19vw) calc(var(--theme-wave-y) + 2vh), #000 0 calc(var(--theme-liquid-r6) - 2px), transparent calc(var(--theme-liquid-r6) + 3px));
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  animation:theme-liquid-grow 2750ms cubic-bezier(.32,.66,.12,1) both;
 }
 html.theme-wave-active::view-transition-group(root),
-html.theme-wave-active::view-transition-group(theme-prism) {
-  animation-duration: 2300ms;
+html.theme-wave-active::view-transition-group(theme-prism){animation-duration:2750ms;}
+html.theme-wave-active::view-transition-new(theme-prism){
+  z-index:3;mix-blend-mode:screen;
+  -webkit-mask-image:
+    radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y), transparent calc(var(--theme-liquid-r0) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r0) - 19px), #000 calc(var(--theme-liquid-r0) - 10px), #000 calc(var(--theme-liquid-r0) - 2px), transparent calc(var(--theme-liquid-r0) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 10vw) calc(var(--theme-wave-y) - 4vh), transparent calc(var(--theme-liquid-r1) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r1) - 19px), #000 calc(var(--theme-liquid-r1) - 10px), #000 calc(var(--theme-liquid-r1) - 2px), transparent calc(var(--theme-liquid-r1) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 9vw) calc(var(--theme-wave-y) - 9vh), transparent calc(var(--theme-liquid-r2) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r2) - 19px), #000 calc(var(--theme-liquid-r2) - 10px), #000 calc(var(--theme-liquid-r2) - 2px), transparent calc(var(--theme-liquid-r2) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 14vw) calc(var(--theme-wave-y) + 10vh), transparent calc(var(--theme-liquid-r3) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r3) - 19px), #000 calc(var(--theme-liquid-r3) - 10px), #000 calc(var(--theme-liquid-r3) - 2px), transparent calc(var(--theme-liquid-r3) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 12vw) calc(var(--theme-wave-y) + 13vh), transparent calc(var(--theme-liquid-r4) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r4) - 19px), #000 calc(var(--theme-liquid-r4) - 10px), #000 calc(var(--theme-liquid-r4) - 2px), transparent calc(var(--theme-liquid-r4) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 3vw) calc(var(--theme-wave-y) + 20vh), transparent calc(var(--theme-liquid-r5) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r5) - 19px), #000 calc(var(--theme-liquid-r5) - 10px), #000 calc(var(--theme-liquid-r5) - 2px), transparent calc(var(--theme-liquid-r5) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 19vw) calc(var(--theme-wave-y) + 2vh), transparent calc(var(--theme-liquid-r6) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r6) - 19px), #000 calc(var(--theme-liquid-r6) - 10px), #000 calc(var(--theme-liquid-r6) - 2px), transparent calc(var(--theme-liquid-r6) + 9px));
+  mask-image:
+    radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y), transparent calc(var(--theme-liquid-r0) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r0) - 19px), #000 calc(var(--theme-liquid-r0) - 10px), #000 calc(var(--theme-liquid-r0) - 2px), transparent calc(var(--theme-liquid-r0) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 10vw) calc(var(--theme-wave-y) - 4vh), transparent calc(var(--theme-liquid-r1) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r1) - 19px), #000 calc(var(--theme-liquid-r1) - 10px), #000 calc(var(--theme-liquid-r1) - 2px), transparent calc(var(--theme-liquid-r1) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 9vw) calc(var(--theme-wave-y) - 9vh), transparent calc(var(--theme-liquid-r2) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r2) - 19px), #000 calc(var(--theme-liquid-r2) - 10px), #000 calc(var(--theme-liquid-r2) - 2px), transparent calc(var(--theme-liquid-r2) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 14vw) calc(var(--theme-wave-y) + 10vh), transparent calc(var(--theme-liquid-r3) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r3) - 19px), #000 calc(var(--theme-liquid-r3) - 10px), #000 calc(var(--theme-liquid-r3) - 2px), transparent calc(var(--theme-liquid-r3) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 12vw) calc(var(--theme-wave-y) + 13vh), transparent calc(var(--theme-liquid-r4) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r4) - 19px), #000 calc(var(--theme-liquid-r4) - 10px), #000 calc(var(--theme-liquid-r4) - 2px), transparent calc(var(--theme-liquid-r4) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) - 3vw) calc(var(--theme-wave-y) + 20vh), transparent calc(var(--theme-liquid-r5) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r5) - 19px), #000 calc(var(--theme-liquid-r5) - 10px), #000 calc(var(--theme-liquid-r5) - 2px), transparent calc(var(--theme-liquid-r5) + 9px)),
+    radial-gradient(circle at calc(var(--theme-wave-x) + 19vw) calc(var(--theme-wave-y) + 2vh), transparent calc(var(--theme-liquid-r6) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r6) - 19px), #000 calc(var(--theme-liquid-r6) - 10px), #000 calc(var(--theme-liquid-r6) - 2px), transparent calc(var(--theme-liquid-r6) + 9px));
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  animation:theme-liquid-grow 2750ms cubic-bezier(.32,.66,.12,1) both,
+    theme-liquid-chrome-fade 2750ms linear both,
+    theme-liquid-chrome-sweep 2750ms linear both;
 }
-html.theme-wave-active::view-transition-new(theme-prism) {
-  z-index: 3;
-  mix-blend-mode: screen;
-  /* Thin undulating-looking chrome / prism rim follows the expanding mask.
-     Registered length animates mask directly, not the captured snapshot. */
-  -webkit-mask-image: radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y),
-    transparent calc(var(--theme-edge-radius) - 42px),
-    rgba(0,0,0,.38) calc(var(--theme-edge-radius) - 34px),
-    #000 calc(var(--theme-edge-radius) - 24px),
-    #000 calc(var(--theme-edge-radius) - 7px),
-    transparent calc(var(--theme-edge-radius) + 8px)
-  );
-  mask-image: radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y),
-    transparent calc(var(--theme-edge-radius) - 42px),
-    rgba(0,0,0,.38) calc(var(--theme-edge-radius) - 34px),
-    #000 calc(var(--theme-edge-radius) - 24px),
-    #000 calc(var(--theme-edge-radius) - 7px),
-    transparent calc(var(--theme-edge-radius) + 8px)
-  );
-  animation: theme-wave-rim 2300ms cubic-bezier(.25, .65, .12, 1) both;
+html.theme-wave-active[data-theme-wave-to="light"]::view-transition-new(theme-prism){mix-blend-mode:multiply;}
+html.theme-wave-active::view-transition-old(theme-prism){animation:none;opacity:0;}
+@keyframes theme-liquid-grow {0% {
+--theme-liquid-r0: 0px;
+--theme-liquid-r1: 0px;
+--theme-liquid-r2: 0px;
+--theme-liquid-r3: 0px;
+--theme-liquid-r4: 0px;
+--theme-liquid-r5: 0px;
+--theme-liquid-r6: 0px;
 }
-html.theme-wave-active::view-transition-old(theme-prism) {
-  animation: none;
-  opacity: 0;
+12% {
+--theme-liquid-r0: calc(var(--theme-wave-max) * 0.16);
+--theme-liquid-r1: calc(var(--theme-wave-max) * 0.1);
+--theme-liquid-r2: calc(var(--theme-wave-max) * 0.11);
+--theme-liquid-r3: calc(var(--theme-wave-max) * 0.07);
+--theme-liquid-r4: calc(var(--theme-wave-max) * 0.06);
+--theme-liquid-r5: calc(var(--theme-wave-max) * 0.02);
+--theme-liquid-r6: calc(var(--theme-wave-max) * 0.04);
 }
-@keyframes theme-wave-reveal {
-  from { clip-path: circle(0px at var(--theme-wave-x) var(--theme-wave-y)); }
-  to { clip-path: circle(var(--theme-wave-max) at var(--theme-wave-x) var(--theme-wave-y)); }
+29% {
+--theme-liquid-r0: calc(var(--theme-wave-max) * 0.43);
+--theme-liquid-r1: calc(var(--theme-wave-max) * 0.34);
+--theme-liquid-r2: calc(var(--theme-wave-max) * 0.37);
+--theme-liquid-r3: calc(var(--theme-wave-max) * 0.32);
+--theme-liquid-r4: calc(var(--theme-wave-max) * 0.29);
+--theme-liquid-r5: calc(var(--theme-wave-max) * 0.25);
+--theme-liquid-r6: calc(var(--theme-wave-max) * 0.27);
 }
-@keyframes theme-wave-rim {
-  from { --theme-edge-radius: 0px; }
-  to { --theme-edge-radius: var(--theme-wave-max); }
+48% {
+--theme-liquid-r0: calc(var(--theme-wave-max) * 0.72);
+--theme-liquid-r1: calc(var(--theme-wave-max) * 0.62);
+--theme-liquid-r2: calc(var(--theme-wave-max) * 0.67);
+--theme-liquid-r3: calc(var(--theme-wave-max) * 0.59);
+--theme-liquid-r4: calc(var(--theme-wave-max) * 0.65);
+--theme-liquid-r5: calc(var(--theme-wave-max) * 0.57);
+--theme-liquid-r6: calc(var(--theme-wave-max) * 0.6);
 }
-@media (prefers-reduced-motion: reduce) {
-  html.theme-wave-active::view-transition-old(root),
+67% {
+--theme-liquid-r0: calc(var(--theme-wave-max) * 1.03);
+--theme-liquid-r1: calc(var(--theme-wave-max) * 0.96);
+--theme-liquid-r2: calc(var(--theme-wave-max) * 0.94);
+--theme-liquid-r3: calc(var(--theme-wave-max) * 0.92);
+--theme-liquid-r4: calc(var(--theme-wave-max) * 0.97);
+--theme-liquid-r5: calc(var(--theme-wave-max) * 0.91);
+--theme-liquid-r6: calc(var(--theme-wave-max) * 0.9);
+}
+84% {
+--theme-liquid-r0: calc(var(--theme-wave-max) * 1.29);
+--theme-liquid-r1: calc(var(--theme-wave-max) * 1.24);
+--theme-liquid-r2: calc(var(--theme-wave-max) * 1.23);
+--theme-liquid-r3: calc(var(--theme-wave-max) * 1.19);
+--theme-liquid-r4: calc(var(--theme-wave-max) * 1.23);
+--theme-liquid-r5: calc(var(--theme-wave-max) * 1.21);
+--theme-liquid-r6: calc(var(--theme-wave-max) * 1.2);
+}
+100% {
+--theme-liquid-r0: calc(var(--theme-wave-max) * 1.58);
+--theme-liquid-r1: calc(var(--theme-wave-max) * 1.51);
+--theme-liquid-r2: calc(var(--theme-wave-max) * 1.54);
+--theme-liquid-r3: calc(var(--theme-wave-max) * 1.5);
+--theme-liquid-r4: calc(var(--theme-wave-max) * 1.55);
+--theme-liquid-r5: calc(var(--theme-wave-max) * 1.51);
+--theme-liquid-r6: calc(var(--theme-wave-max) * 1.52);
+}}
+@keyframes theme-liquid-chrome-fade {
+  0%{opacity:0;}10%{opacity:.83;}55%{opacity:.8;}
+  79%{opacity:.66;}95%{opacity:.22;}100%{opacity:0;}
+}
+@keyframes theme-liquid-chrome-sweep {
+  from{--theme-liquid-spectrum-angle:-26deg;}
+  to{--theme-liquid-spectrum-angle:38deg;}
+}
+@media (prefers-reduced-motion:reduce){
   html.theme-wave-active::view-transition-new(root),
-  html.theme-wave-active::view-transition-new(theme-prism) {
-    animation-duration: 0.01ms !important;
-  }
+  html.theme-wave-active::view-transition-new(theme-prism){animation-duration:.01ms!important;}
 }
