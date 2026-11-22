@@ -1,145 +1,85 @@
-/* Organic lava-like liquid metal theme switching for /, /ru/ and /en/.
-   Seven connected lobes emerge from the contacts, revealing the next theme. */
-@property --theme-liquid-r0 { syntax: "<length>"; inherits: false; initial-value: 0px; }
-@property --theme-liquid-r1 { syntax: "<length>"; inherits: false; initial-value: 0px; }
-@property --theme-liquid-r2 { syntax: "<length>"; inherits: false; initial-value: 0px; }
-@property --theme-liquid-r3 { syntax: "<length>"; inherits: false; initial-value: 0px; }
-@property --theme-liquid-r4 { syntax: "<length>"; inherits: false; initial-value: 0px; }
-@property --theme-liquid-r5 { syntax: "<length>"; inherits: false; initial-value: 0px; }
-@property --theme-liquid-r6 { syntax: "<length>"; inherits: false; initial-value: 0px; }
-@property --theme-liquid-spectrum-angle { syntax:"<angle>"; inherits:false; initial-value:0deg; }
+/* Liquid Metal theme reveal, matched to the supplied macro and full-card
+   recordings: deformed fluid contours, internal chrome lens loops and
+   prism-like spectral highlights. Changes real page snapshots, not a video. */
+
 .theme-wave-prism {
-  position:fixed; inset:0; pointer-events:none; z-index:2147483000;
-  view-transition-name:theme-prism;
-  background:conic-gradient(from var(--theme-liquid-spectrum-angle) at var(--theme-wave-x) var(--theme-wave-y),
-    #aeb6c2 0deg,#272e3f 35deg,#eaf0f7 73deg,#505d71 108deg,#101c38 132deg,
-    #c7d0da 143deg,#fefeff 147deg,#f05269 150deg,#ffbd39 153deg,#fcf370 156deg,
-    #49dfbc 159deg,#46b9ff 162deg,#5646bf 165deg,#fff 168deg,#7a889d 180deg,
-    #273248 203deg,#c4ccd6 239deg,#f5f7fe 260deg,#3a4358 275deg,
-    #f34d76 279deg,#ffcc47 282deg,#48e5db 285deg,#345dec 288deg,
-    #f7fbff 292deg,#424e63 307deg,#d5dce5 343deg,#aeb6c2 360deg);
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  view-transition-name: theme-prism;
+  /* High-contrast silver and graphite with narrow dispersed spectral bands;
+     the changing SVG edge mask is shared with the actual reveal shape. */
+  background:
+    conic-gradient(from 17deg at var(--theme-fluid-x) var(--theme-fluid-y),
+      #0c1322 0deg,
+      #c7d0dc 24deg,
+      #fafcff 41deg,
+      #354157 52deg,
+      #070e20 63deg,
+      #f7fbff 76deg,
+      #ee425c 78deg,
+      #ffab30 80deg,
+      #fff266 82deg,
+      #29dab8 84deg,
+      #36b8f9 86deg,
+      #493cd0 88deg,
+      #fff 91deg,
+      #142239 96deg,
+      #bcc5d4 128deg,
+      #f9fbfd 146deg,
+      #151f33 168deg,
+      #7c899c 192deg,
+      #f4f7fd 214deg,
+      #e44357 217deg,
+      #ffd033 219deg,
+      #56e4e0 221deg,
+      #415af1 223deg,
+      #fff 226deg,
+      #172238 237deg,
+      #e6ecf3 266deg,
+      #384154 289deg,
+      #050c1b 301deg,
+      #e8edf5 319deg,
+      #a1aebe 341deg,
+      #0c1322 360deg);
 }
-html.theme-wave-active::view-transition-old(root){animation:none;z-index:1;}
-html.theme-wave-active::view-transition-new(root){
-  z-index:2;
-  -webkit-mask-image:
-    radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y), #000 0 calc(var(--theme-liquid-r0) - 2px), transparent calc(var(--theme-liquid-r0) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 10vw) calc(var(--theme-wave-y) - 4vh), #000 0 calc(var(--theme-liquid-r1) - 2px), transparent calc(var(--theme-liquid-r1) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 9vw) calc(var(--theme-wave-y) - 9vh), #000 0 calc(var(--theme-liquid-r2) - 2px), transparent calc(var(--theme-liquid-r2) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 14vw) calc(var(--theme-wave-y) + 10vh), #000 0 calc(var(--theme-liquid-r3) - 2px), transparent calc(var(--theme-liquid-r3) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 12vw) calc(var(--theme-wave-y) + 13vh), #000 0 calc(var(--theme-liquid-r4) - 2px), transparent calc(var(--theme-liquid-r4) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 3vw) calc(var(--theme-wave-y) + 20vh), #000 0 calc(var(--theme-liquid-r5) - 2px), transparent calc(var(--theme-liquid-r5) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 19vw) calc(var(--theme-wave-y) + 2vh), #000 0 calc(var(--theme-liquid-r6) - 2px), transparent calc(var(--theme-liquid-r6) + 3px));
-  mask-image:
-    radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y), #000 0 calc(var(--theme-liquid-r0) - 2px), transparent calc(var(--theme-liquid-r0) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 10vw) calc(var(--theme-wave-y) - 4vh), #000 0 calc(var(--theme-liquid-r1) - 2px), transparent calc(var(--theme-liquid-r1) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 9vw) calc(var(--theme-wave-y) - 9vh), #000 0 calc(var(--theme-liquid-r2) - 2px), transparent calc(var(--theme-liquid-r2) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 14vw) calc(var(--theme-wave-y) + 10vh), #000 0 calc(var(--theme-liquid-r3) - 2px), transparent calc(var(--theme-liquid-r3) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 12vw) calc(var(--theme-wave-y) + 13vh), #000 0 calc(var(--theme-liquid-r4) - 2px), transparent calc(var(--theme-liquid-r4) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 3vw) calc(var(--theme-wave-y) + 20vh), #000 0 calc(var(--theme-liquid-r5) - 2px), transparent calc(var(--theme-liquid-r5) + 3px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 19vw) calc(var(--theme-wave-y) + 2vh), #000 0 calc(var(--theme-liquid-r6) - 2px), transparent calc(var(--theme-liquid-r6) + 3px));
-  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
-  animation:theme-liquid-grow 2750ms cubic-bezier(.32,.66,.12,1) both;
+html.theme-wave-active::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
 }
-html.theme-wave-active::view-transition-group(root),
-html.theme-wave-active::view-transition-group(theme-prism){animation-duration:2750ms;}
-html.theme-wave-active::view-transition-new(theme-prism){
-  z-index:3;mix-blend-mode:screen;
-  -webkit-mask-image:
-    radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y), transparent calc(var(--theme-liquid-r0) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r0) - 19px), #000 calc(var(--theme-liquid-r0) - 10px), #000 calc(var(--theme-liquid-r0) - 2px), transparent calc(var(--theme-liquid-r0) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 10vw) calc(var(--theme-wave-y) - 4vh), transparent calc(var(--theme-liquid-r1) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r1) - 19px), #000 calc(var(--theme-liquid-r1) - 10px), #000 calc(var(--theme-liquid-r1) - 2px), transparent calc(var(--theme-liquid-r1) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 9vw) calc(var(--theme-wave-y) - 9vh), transparent calc(var(--theme-liquid-r2) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r2) - 19px), #000 calc(var(--theme-liquid-r2) - 10px), #000 calc(var(--theme-liquid-r2) - 2px), transparent calc(var(--theme-liquid-r2) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 14vw) calc(var(--theme-wave-y) + 10vh), transparent calc(var(--theme-liquid-r3) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r3) - 19px), #000 calc(var(--theme-liquid-r3) - 10px), #000 calc(var(--theme-liquid-r3) - 2px), transparent calc(var(--theme-liquid-r3) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 12vw) calc(var(--theme-wave-y) + 13vh), transparent calc(var(--theme-liquid-r4) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r4) - 19px), #000 calc(var(--theme-liquid-r4) - 10px), #000 calc(var(--theme-liquid-r4) - 2px), transparent calc(var(--theme-liquid-r4) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 3vw) calc(var(--theme-wave-y) + 20vh), transparent calc(var(--theme-liquid-r5) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r5) - 19px), #000 calc(var(--theme-liquid-r5) - 10px), #000 calc(var(--theme-liquid-r5) - 2px), transparent calc(var(--theme-liquid-r5) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 19vw) calc(var(--theme-wave-y) + 2vh), transparent calc(var(--theme-liquid-r6) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r6) - 19px), #000 calc(var(--theme-liquid-r6) - 10px), #000 calc(var(--theme-liquid-r6) - 2px), transparent calc(var(--theme-liquid-r6) + 9px));
-  mask-image:
-    radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y), transparent calc(var(--theme-liquid-r0) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r0) - 19px), #000 calc(var(--theme-liquid-r0) - 10px), #000 calc(var(--theme-liquid-r0) - 2px), transparent calc(var(--theme-liquid-r0) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 10vw) calc(var(--theme-wave-y) - 4vh), transparent calc(var(--theme-liquid-r1) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r1) - 19px), #000 calc(var(--theme-liquid-r1) - 10px), #000 calc(var(--theme-liquid-r1) - 2px), transparent calc(var(--theme-liquid-r1) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 9vw) calc(var(--theme-wave-y) - 9vh), transparent calc(var(--theme-liquid-r2) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r2) - 19px), #000 calc(var(--theme-liquid-r2) - 10px), #000 calc(var(--theme-liquid-r2) - 2px), transparent calc(var(--theme-liquid-r2) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 14vw) calc(var(--theme-wave-y) + 10vh), transparent calc(var(--theme-liquid-r3) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r3) - 19px), #000 calc(var(--theme-liquid-r3) - 10px), #000 calc(var(--theme-liquid-r3) - 2px), transparent calc(var(--theme-liquid-r3) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 12vw) calc(var(--theme-wave-y) + 13vh), transparent calc(var(--theme-liquid-r4) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r4) - 19px), #000 calc(var(--theme-liquid-r4) - 10px), #000 calc(var(--theme-liquid-r4) - 2px), transparent calc(var(--theme-liquid-r4) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) - 3vw) calc(var(--theme-wave-y) + 20vh), transparent calc(var(--theme-liquid-r5) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r5) - 19px), #000 calc(var(--theme-liquid-r5) - 10px), #000 calc(var(--theme-liquid-r5) - 2px), transparent calc(var(--theme-liquid-r5) + 9px)),
-    radial-gradient(circle at calc(var(--theme-wave-x) + 19vw) calc(var(--theme-wave-y) + 2vh), transparent calc(var(--theme-liquid-r6) - 27px), rgba(0,0,0,.23) calc(var(--theme-liquid-r6) - 19px), #000 calc(var(--theme-liquid-r6) - 10px), #000 calc(var(--theme-liquid-r6) - 2px), transparent calc(var(--theme-liquid-r6) + 9px));
-  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
-  animation:theme-liquid-grow 2750ms cubic-bezier(.32,.66,.12,1) both,
-    theme-liquid-chrome-fade 2750ms linear both,
-    theme-liquid-chrome-sweep 2750ms linear both;
+html.theme-wave-active::view-transition-new(root) {
+  z-index: 2;
+  clip-path: var(--theme-fluid-clip, circle(0px at 50% 50%));
+  animation: theme-fluid-hold 2750ms linear both;
 }
-html.theme-wave-active[data-theme-wave-to="light"]::view-transition-new(theme-prism){mix-blend-mode:multiply;}
-html.theme-wave-active::view-transition-old(theme-prism){animation:none;opacity:0;}
-@keyframes theme-liquid-grow {0% {
---theme-liquid-r0: 0px;
---theme-liquid-r1: 0px;
---theme-liquid-r2: 0px;
---theme-liquid-r3: 0px;
---theme-liquid-r4: 0px;
---theme-liquid-r5: 0px;
---theme-liquid-r6: 0px;
+html.theme-wave-active::view-transition-new(theme-prism) {
+  z-index: 3;
+  -webkit-mask-image: var(--theme-fluid-rim, linear-gradient(transparent,transparent));
+  mask-image: var(--theme-fluid-rim, linear-gradient(transparent,transparent));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  opacity: var(--theme-fluid-opacity, 0);
+  mix-blend-mode: screen;
+  filter: saturate(1.2) contrast(1.26) drop-shadow(0 0 3px rgba(39,54,89,.32));
+  animation: theme-fluid-hold 2750ms linear both;
 }
-12% {
---theme-liquid-r0: calc(var(--theme-wave-max) * 0.16);
---theme-liquid-r1: calc(var(--theme-wave-max) * 0.1);
---theme-liquid-r2: calc(var(--theme-wave-max) * 0.11);
---theme-liquid-r3: calc(var(--theme-wave-max) * 0.07);
---theme-liquid-r4: calc(var(--theme-wave-max) * 0.06);
---theme-liquid-r5: calc(var(--theme-wave-max) * 0.02);
---theme-liquid-r6: calc(var(--theme-wave-max) * 0.04);
+html.theme-wave-active:is([data-theme-wave-to="light"],[data-theme-wave-to="pink"])::view-transition-new(theme-prism) {
+  mix-blend-mode: multiply;
 }
-29% {
---theme-liquid-r0: calc(var(--theme-wave-max) * 0.43);
---theme-liquid-r1: calc(var(--theme-wave-max) * 0.34);
---theme-liquid-r2: calc(var(--theme-wave-max) * 0.37);
---theme-liquid-r3: calc(var(--theme-wave-max) * 0.32);
---theme-liquid-r4: calc(var(--theme-wave-max) * 0.29);
---theme-liquid-r5: calc(var(--theme-wave-max) * 0.25);
---theme-liquid-r6: calc(var(--theme-wave-max) * 0.27);
+html.theme-wave-active::view-transition-old(theme-prism) {
+  opacity: 0;
+  animation: none;
 }
-48% {
---theme-liquid-r0: calc(var(--theme-wave-max) * 0.72);
---theme-liquid-r1: calc(var(--theme-wave-max) * 0.62);
---theme-liquid-r2: calc(var(--theme-wave-max) * 0.67);
---theme-liquid-r3: calc(var(--theme-wave-max) * 0.59);
---theme-liquid-r4: calc(var(--theme-wave-max) * 0.65);
---theme-liquid-r5: calc(var(--theme-wave-max) * 0.57);
---theme-liquid-r6: calc(var(--theme-wave-max) * 0.6);
+/* A no-op animation keeps the native transition snapshots alive while JS
+   drives the organic shape, without crossfading page contents. */
+@keyframes theme-fluid-hold {
+  from { transform: translateZ(0); }
+  to { transform: translateZ(0); }
 }
-67% {
---theme-liquid-r0: calc(var(--theme-wave-max) * 1.03);
---theme-liquid-r1: calc(var(--theme-wave-max) * 0.96);
---theme-liquid-r2: calc(var(--theme-wave-max) * 0.94);
---theme-liquid-r3: calc(var(--theme-wave-max) * 0.92);
---theme-liquid-r4: calc(var(--theme-wave-max) * 0.97);
---theme-liquid-r5: calc(var(--theme-wave-max) * 0.91);
---theme-liquid-r6: calc(var(--theme-wave-max) * 0.9);
-}
-84% {
---theme-liquid-r0: calc(var(--theme-wave-max) * 1.29);
---theme-liquid-r1: calc(var(--theme-wave-max) * 1.24);
---theme-liquid-r2: calc(var(--theme-wave-max) * 1.23);
---theme-liquid-r3: calc(var(--theme-wave-max) * 1.19);
---theme-liquid-r4: calc(var(--theme-wave-max) * 1.23);
---theme-liquid-r5: calc(var(--theme-wave-max) * 1.21);
---theme-liquid-r6: calc(var(--theme-wave-max) * 1.2);
-}
-100% {
---theme-liquid-r0: calc(var(--theme-wave-max) * 1.58);
---theme-liquid-r1: calc(var(--theme-wave-max) * 1.51);
---theme-liquid-r2: calc(var(--theme-wave-max) * 1.54);
---theme-liquid-r3: calc(var(--theme-wave-max) * 1.5);
---theme-liquid-r4: calc(var(--theme-wave-max) * 1.55);
---theme-liquid-r5: calc(var(--theme-wave-max) * 1.51);
---theme-liquid-r6: calc(var(--theme-wave-max) * 1.52);
-}}
-@keyframes theme-liquid-chrome-fade {
-  0%{opacity:0;}10%{opacity:.83;}55%{opacity:.8;}
-  79%{opacity:.66;}95%{opacity:.22;}100%{opacity:0;}
-}
-@keyframes theme-liquid-chrome-sweep {
-  from{--theme-liquid-spectrum-angle:-26deg;}
-  to{--theme-liquid-spectrum-angle:38deg;}
-}
-@media (prefers-reduced-motion:reduce){
+@media (prefers-reduced-motion: reduce) {
   html.theme-wave-active::view-transition-new(root),
-  html.theme-wave-active::view-transition-new(theme-prism){animation-duration:.01ms!important;}
+  html.theme-wave-active::view-transition-new(theme-prism) {
+    animation-duration: .01ms !important;
+  }
 }

@@ -175,55 +175,137 @@
   updateTitle(initialLang);
   updateThemeControl();
 
-  // Viscous liquid metal grows out of the contacts in either theme direction.
-  // Uses native View Transitions so the entire page (not just the controls)
-  // changes together; retains an immediate/reduced-motion fallback.
+  // Fluid chrome from the two screen-recording references: undulating
+  // reflections, floating inner lens loops, and narrow spectral edge glints.
+  // Uses real View Transition snapshots so actual text, images and controls
+  // change as the wave passes; no imitation screenshot is displayed.
   let runningThemeTransition = null;
+  let fluidFrame = 0;
+  const FLUID_DURATION = 2750;
+
+  function fluidPath(cx, cy, radius, elapsed, count, phase, ovalX, ovalY) {
+    const parts = [];
+    for (let i = 0; i < count; i++) {
+      const a = (Math.PI * 2 * i) / count;
+      const irregular = 1
+        + 0.155 * Math.sin(2 * a - elapsed * 4.9 + phase)
+        + 0.098 * Math.sin(3 * a + elapsed * 3.6 - phase * .5)
+        + 0.044 * Math.sin(6 * a - elapsed * 8.3 + phase * 2);
+      const r = Math.max(0, radius * irregular);
+      const px = (cx + r * Math.cos(a) * ovalX).toFixed(1);
+      const py = (cy + r * Math.sin(a) * ovalY).toFixed(1);
+      parts.push((i ? "L" : "M") + px + " " + py);
+    }
+    return parts.join(" ") + " Z";
+  }
+
+  function animateFluidChrome(root, state, stamp) {
+    if (runningThemeTransition !== state.transition) return;
+    if (state.began == null) state.began = stamp;
+    const progress = Math.min(1, (stamp - state.began) / FLUID_DURATION);
+    if (progress >= 1) {
+      root.style.setProperty("--theme-fluid-clip", "inset(0)");
+      root.style.setProperty("--theme-fluid-rim", "linear-gradient(transparent, transparent)");
+      root.style.setProperty("--theme-fluid-opacity", "0");
+      return;
+    }
+
+    // A viscous acceleration, soft slowdown and small oscillations rather
+    // than the previous expanding circular masks.
+    const e = progress * progress * (3 - 2 * progress);
+    const radius = state.farthest * 1.80 * e;
+    const outer = fluidPath(state.x, state.y, radius, progress, 100, .36, 1, 1);
+    root.style.setProperty("--theme-fluid-clip", 'path("' + outer + '")');
+
+    // Two evolving inner lenses echo the floating chromatic loops in the
+    // supplied close-up video. They decorate the rim; never obscure links.
+    const lensFade = Math.max(0, Math.min(1, (progress - .12) * 5, (.89 - progress) * 5));
+    let loops = "";
+    if (lensFade > 0) {
+      const a = fluidPath(
+        state.x + radius * (.19 + .025 * Math.sin(progress * 7)),
+        state.y - radius * .12,
+        Math.max(9, radius * .23), progress, 64, 1.18, 1.10, .67
+      );
+      const b = fluidPath(
+        state.x - radius * .21,
+        state.y + radius * (.17 + .02 * Math.cos(progress * 5)),
+        Math.max(9, radius * .135), progress, 56, 2.14, 1.12, .78
+      );
+      loops = '<path d="' + a + '" fill="none" stroke="#fff" stroke-width="14" opacity="' + (.46 * lensFade).toFixed(2) + '"/>' +
+              '<path d="' + a + '" fill="none" stroke="#fff" stroke-width="3" opacity="' + (.68 * lensFade).toFixed(2) + '"/>' +
+              '<path d="' + b + '" fill="none" stroke="#fff" stroke-width="9" opacity="' + (.32 * lensFade).toFixed(2) + '"/>';
+    }
+
+    // The mask paints a layered, tapered metallic contour over the captured
+    // gradient. Its width is intentionally irregular in perceived brightness,
+    // with an optically narrow, colored refraction at the leading edge.
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + state.width +
+      '" height="' + state.height + '" viewBox="0 0 ' + state.width + ' ' + state.height + '">' +
+      '<path d="' + outer + '" fill="none" stroke="#fff" stroke-width="76" opacity=".08"/>' +
+      '<path d="' + outer + '" fill="none" stroke="#fff" stroke-width="38" opacity=".22"/>' +
+      '<path d="' + outer + '" fill="none" stroke="#fff" stroke-width="18" opacity=".60"/>' +
+      '<path d="' + outer + '" fill="none" stroke="#fff" stroke-width="5" opacity="1"/>' +
+      loops + '</svg>';
+    root.style.setProperty("--theme-fluid-rim",
+      'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
+    const shine = Math.min(1, progress * 9) * Math.min(1, (1 - progress) * 7);
+    root.style.setProperty("--theme-fluid-opacity", String((shine * .96).toFixed(3)));
+    fluidFrame = requestAnimationFrame((time) => animateFluidChrome(root, state, time));
+  }
+
   function switchThemeWithLiquidMetal(next, apply) {
     if (root.getAttribute("data-theme") === next) return;
-    const supported = typeof document.startViewTransition === "function";
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const enabled = document.querySelector('link[href*="/theme-wave.css"]');
-    if (!supported || reduced || !enabled) {
+    const supported = typeof document.startViewTransition === "function"
+      && CSS.supports("clip-path", 'path("M 0 0 L 1 1 Z")');
+    if (!supported || reduced || document.visibilityState === "hidden" ||
+        !document.querySelector('link[href*="/theme-wave.css"]')) {
       apply();
       return;
     }
-    // A second rapid click takes effect immediately rather than queuing wipes.
     if (runningThemeTransition) {
       runningThemeTransition.skipTransition();
+      cancelAnimationFrame(fluidFrame);
       apply();
       return;
     }
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    // Origin: contact dock center; use screen center when the dock is offscreen.
+    const width = window.innerWidth, height = window.innerHeight;
     const dock = document.querySelector(".intro .contact-dock");
-    const bounds = dock && dock.getBoundingClientRect();
-    const visible = bounds && bounds.bottom > 0 && bounds.top < height &&
-      bounds.right > 0 && bounds.left < width;
-    const x = visible ? Math.max(0, Math.min(width, bounds.left + bounds.width / 2)) : width / 2;
-    const y = visible ? Math.max(0, Math.min(height, bounds.top + bounds.height / 2)) : height / 2;
+    const rect = dock && dock.getBoundingClientRect();
+    const visible = rect && rect.bottom > 0 && rect.top < height &&
+      rect.right > 0 && rect.left < width;
+    const x = visible ? Math.max(0, Math.min(width, rect.left + rect.width / 2)) : width / 2;
+    const y = visible ? Math.max(0, Math.min(height, rect.top + rect.height / 2)) : height / 2;
     const farthest = Math.max(
-      Math.hypot(x, y), Math.hypot(width-x, y),
-      Math.hypot(x, height-y), Math.hypot(width-x, height-y));
-    root.style.setProperty("--theme-wave-x", Math.round(x) + "px");
-    root.style.setProperty("--theme-wave-y", Math.round(y) + "px");
-    root.style.setProperty("--theme-wave-max", Math.ceil(farthest + 100) + "px");
-    root.setAttribute("data-theme-wave-to", next);
+      Math.hypot(x, y), Math.hypot(width - x, y),
+      Math.hypot(x, height - y), Math.hypot(width - x, height - y)
+    );
+
     root.classList.add("theme-wave-active");
-    let prism = null;
-    let transition;
-    function cleanup() {
-      if (transition && runningThemeTransition !== transition) return;
+    root.setAttribute("data-theme-wave-to", next);
+    root.style.setProperty("--theme-fluid-x", x.toFixed(1) + "px");
+    root.style.setProperty("--theme-fluid-y", y.toFixed(1) + "px");
+    root.style.setProperty("--theme-fluid-clip", 'circle(0px at ' + x + 'px ' + y + 'px)');
+    root.style.setProperty("--theme-fluid-opacity", "0");
+    root.style.setProperty("--theme-fluid-rim", "linear-gradient(transparent, transparent)");
+    let prism = null, transition;
+    const state = { x, y, width, height, farthest, began: null, transition: null };
+
+    const cleanup = () => {
+      if (state.transition && runningThemeTransition !== state.transition) return;
+      cancelAnimationFrame(fluidFrame);
       prism?.remove();
       root.classList.remove("theme-wave-active");
-      root.style.removeProperty("--theme-wave-x");
-      root.style.removeProperty("--theme-wave-y");
-      root.style.removeProperty("--theme-wave-max");
       root.removeAttribute("data-theme-wave-to");
+      for (const key of ["--theme-fluid-x", "--theme-fluid-y",
+        "--theme-fluid-clip", "--theme-fluid-rim", "--theme-fluid-opacity"]) {
+        root.style.removeProperty(key);
+      }
       runningThemeTransition = null;
-    }
+    };
+
     try {
       transition = document.startViewTransition(() => {
         apply();
@@ -232,7 +314,11 @@
         prism.setAttribute("aria-hidden", "true");
         document.body.appendChild(prism);
       });
+      state.transition = transition;
       runningThemeTransition = transition;
+      transition.ready.then(() => {
+        fluidFrame = requestAnimationFrame((time) => animateFluidChrome(root, state, time));
+      }, cleanup);
       transition.finished.then(cleanup, cleanup);
     } catch (error) {
       cleanup();
