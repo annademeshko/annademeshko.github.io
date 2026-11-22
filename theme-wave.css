@@ -3,21 +3,27 @@
    continuous Liquid Metal borders stay animated during the three-second
    color reveal. Only the OLD BACKGROUND is painted behind live content. */
 
-html.theme-wave-active::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: var(--theme-fluid-old-bg, transparent);
-  clip-path: var(--theme-fluid-old-clip, inset(0));
-}
-/* The old background sits above the new html background but BELOW all
-   living content, which keeps its original CSS animation timelines. */
+/* The old background must be INSIDE the live body's stacking context.
+   body::after is the frosted sheet at z-index -2: putting the old surface
+   at -1 keeps the NEW glass from tinting the OLD background outside the wave.
+   Foreground tiles, borders, text and videos remain untouched and animated. */
 html.theme-wave-active > body {
   position: relative;
   z-index: 1;
   background: transparent;
+}
+.theme-wave-old-surface {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      var(--theme-fluid-old-glass, transparent),
+      var(--theme-fluid-old-glass, transparent)
+    ),
+    var(--theme-fluid-old-bg, transparent);
+  clip-path: var(--theme-fluid-old-clip, inset(0));
 }
 
 .theme-wave-prism {

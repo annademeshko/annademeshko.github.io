@@ -302,10 +302,14 @@
       Math.hypot(x, height - y), Math.hypot(width - x, height - y)
     );
 
-    // Capture only the original BACKGROUND COLOR, not the page. Every
-    // animation, video and running marquee stays attached to the DOM.
-    const previousBackground = getComputedStyle(root).backgroundColor;
-    let prism = null, renderer = null, cleaned = false;
+    // Hold the actual old backdrop, including its frosted-glass layer.
+    // Capturing only html.backgroundColor caused the NEW translucent glass
+    // to blend with it immediately, creating the grey flash in the video.
+    // The old surface sits ABOVE body::after yet BELOW all live content.
+    const oldStyle = getComputedStyle(root);
+    const previousBackground = oldStyle.backgroundColor;
+    const previousGlass = oldStyle.getPropertyValue("--glass").trim() || "transparent";
+    let oldSurface = null, prism = null, renderer = null, cleaned = false;
     const state = { x, y, width, height, farthest, began: null,
                     renderer: null, cleanup: null };
     state.cleanup = () => {
@@ -314,11 +318,12 @@
       cancelAnimationFrame(fluidFrame);
       renderer?.destroy();
       prism?.remove();
+      oldSurface?.remove();
       root.classList.remove("theme-wave-active");
       root.removeAttribute("data-theme-fluid-gpu");
       root.removeAttribute("data-theme-wave-to");
-      for (const key of ["--theme-fluid-old-bg", "--theme-fluid-old-clip",
-        "--theme-fluid-x", "--theme-fluid-y", "--theme-fluid-rim",
+      for (const key of ["--theme-fluid-old-bg", "--theme-fluid-old-glass",
+        "--theme-fluid-old-clip", "--theme-fluid-x", "--theme-fluid-y", "--theme-fluid-rim",
         "--theme-fluid-opacity"]) root.style.removeProperty(key);
       if (runningThemeTransition === state) runningThemeTransition = null;
       document.removeEventListener("visibilitychange", onVisibilityChange);
@@ -329,6 +334,7 @@
 
     try {
       root.style.setProperty("--theme-fluid-old-bg", previousBackground);
+      root.style.setProperty("--theme-fluid-old-glass", previousGlass);
       root.style.setProperty("--theme-fluid-old-clip", "inset(0)");
       root.style.setProperty("--theme-fluid-x", x.toFixed(1) + "px");
       root.style.setProperty("--theme-fluid-y", y.toFixed(1) + "px");
@@ -337,6 +343,10 @@
         "linear-gradient(transparent, transparent)");
       root.setAttribute("data-theme-wave-to", next);
       root.classList.add("theme-wave-active");
+      oldSurface = document.createElement("div");
+      oldSurface.className = "theme-wave-old-surface";
+      oldSurface.setAttribute("aria-hidden", "true");
+      document.body.appendChild(oldSurface);
 
       // Switch theme on the SAME live page; our inverse wave mask paints
       // the old background outside the front while the new one expands.
