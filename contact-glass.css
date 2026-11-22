@@ -125,10 +125,6 @@ html:root[lang][data-theme][data-theme="dark"] body .contact-dock.contact-dock--
 }
 
 
-html:root[lang][data-theme="dark"] body .contact-dock.contact-dock--glass::after,
-html:root[lang][data-theme="dark"] body .contact-dock.contact-dock--glass::before {
-  opacity: 0;
-}
 
 @keyframes contact-border-beam {
   to { --contact-beam-angle: 360deg; }
