@@ -342,6 +342,11 @@
         box-shadow: none !important;
         filter: none;
       }
+      /* Light theme: artwork must sit cleanly inside each tile, with no grey halo. */
+      html.bilingual-home[data-theme="light"] .home-page :is(.concept-marquee__tile, .concept-card) :is(img, video) {
+        box-shadow: none !important;
+        filter: none;
+      }
       html.bilingual-home[data-theme="light"] .home-page :is(.concept-marquee__tile, .concept-card) {
         border: 1px solid rgba(140,151,166,0.18);
       }
@@ -461,7 +466,7 @@
         letter-spacing: 0.03em;
       }
     </style>
-    <link rel="stylesheet" href="/contact-glass.css?v=20261122-frosted-light-4">
+    <link rel="stylesheet" href="/contact-glass.css?v=20261122-clean-shadow-5">
   </head>
   <body>
     <div class="site-controls">
