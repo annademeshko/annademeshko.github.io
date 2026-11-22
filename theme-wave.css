@@ -1,96 +1,104 @@
-/* Live-DOM Liquid Metal theme transition.
-   No View Transition snapshots: videos, concept marquee motion, and
-   continuous Liquid Metal borders stay animated during the three-second
-   color reveal. Only the OLD BACKGROUND is painted behind live content. */
-
-/* The old background must be INSIDE the live body's stacking context.
-   body::after is the frosted sheet at z-index -2: putting the old surface
-   at -1 keeps the NEW glass from tinting the OLD background outside the wave.
-   Foreground tiles, borders, text and videos remain untouched and animated. */
-html.theme-wave-active > body {
-  position: relative;
-  z-index: 1;
-  background: transparent;
-}
-.theme-wave-old-surface {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      var(--theme-fluid-old-glass, transparent),
-      var(--theme-fluid-old-glass, transparent)
-    ),
-    var(--theme-fluid-old-bg, transparent);
-  clip-path: var(--theme-fluid-old-clip, inset(0));
-}
+/* Liquid Metal theme reveal, matched to the supplied macro and full-card
+   recordings: one continuously deformed fluid contour and
+   prism-like spectral highlights. Changes real page snapshots, not a video. */
 
 .theme-wave-prism {
   position: fixed;
   inset: 0;
   z-index: 2147483000;
   pointer-events: none;
-  background: conic-gradient(from 17deg at var(--theme-fluid-x) var(--theme-fluid-y),
-    #0c1322 0deg,#c7d0dc 24deg,#fafcff 41deg,#354157 52deg,
-    #070e20 63deg,#f7fbff 76deg,#ed344b 78deg,#ff652c 80deg,
-    #ffac36 82deg,#ffe198 84deg,#ff8535 86deg,#ed3f41 88deg,
-    #fff 91deg,#142239 96deg,#bcc5d4 128deg,#f9fbfd 146deg,
-    #151f33 168deg,#7c899c 192deg,#f4f7fd 214deg,
-    #ed3543 217deg,#ff752b 219deg,#ffc04a 221deg,
-    #f04a3c 223deg,#fff 226deg,#172238 237deg,#e6ecf3 266deg,
-    #384154 289deg,#050c1b 301deg,#e8edf5 319deg,
-    #a1aebe 341deg,#0c1322 360deg);
-  -webkit-mask-image: var(--theme-fluid-rim, linear-gradient(transparent, transparent));
-  mask-image: var(--theme-fluid-rim, linear-gradient(transparent, transparent));
+  view-transition-name: theme-prism;
+  /* High-contrast silver and graphite with narrow dispersed spectral bands;
+     the changing SVG edge mask is shared with the actual reveal shape. */
+  background:
+    conic-gradient(from 17deg at var(--theme-fluid-x) var(--theme-fluid-y),
+      #0c1322 0deg,
+      #c7d0dc 24deg,
+      #fafcff 41deg,
+      #354157 52deg,
+      #070e20 63deg,
+      #f7fbff 76deg,
+      #ed344b 78deg,
+      #ff652c 80deg,
+      #ffac36 82deg,
+      #ffe198 84deg,
+      #ff8535 86deg,
+      #ed3f41 88deg,
+      #fff 91deg,
+      #142239 96deg,
+      #bcc5d4 128deg,
+      #f9fbfd 146deg,
+      #151f33 168deg,
+      #7c899c 192deg,
+      #f4f7fd 214deg,
+      #ed3543 217deg,
+      #ff752b 219deg,
+      #ffc04a 221deg,
+      #f04a3c 223deg,
+      #fff 226deg,
+      #172238 237deg,
+      #e6ecf3 266deg,
+      #384154 289deg,
+      #050c1b 301deg,
+      #e8edf5 319deg,
+      #a1aebe 341deg,
+      #0c1322 360deg);
+}
+html.theme-wave-active::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+html.theme-wave-active::view-transition-new(root) {
+  z-index: 2;
+  clip-path: var(--theme-fluid-clip, circle(0px at 50% 50%));
+  animation: theme-fluid-hold 3000ms linear both;
+}
+html.theme-wave-active::view-transition-new(theme-prism) {
+  z-index: 3;
+  -webkit-mask-image: var(--theme-fluid-rim, linear-gradient(transparent,transparent));
+  mask-image: var(--theme-fluid-rim, linear-gradient(transparent,transparent));
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   opacity: var(--theme-fluid-opacity, 0);
   mix-blend-mode: screen;
-  filter: saturate(1.65) contrast(1.42)
-          drop-shadow(0 0 5px rgba(39,54,89,.38));
+  filter: saturate(1.65) contrast(1.42) drop-shadow(0 0 5px rgba(39,54,89,.38));
+  animation: theme-fluid-hold 3000ms linear both;
 }
-html.theme-wave-active:is([data-theme-wave-to="light"],[data-theme-wave-to="pink"])
-  .theme-wave-prism:not(.theme-wave-prism--gpu) {
+html.theme-wave-active:is([data-theme-wave-to="light"],[data-theme-wave-to="pink"])::view-transition-new(theme-prism) {
   mix-blend-mode: multiply;
 }
+html.theme-wave-active::view-transition-old(theme-prism) {
+  opacity: 0;
+  animation: none;
+}
+/* A no-op animation keeps the native transition snapshots alive while JS
+   drives the organic shape, without crossfading page contents. */
+@keyframes theme-fluid-hold {
+  from { transform: translateZ(0); }
+  to { transform: translateZ(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-wave-active::view-transition-new(root),
+  html.theme-wave-active::view-transition-new(theme-prism) {
+    animation-duration: .01ms !important;
+  }
+}
+
+/* WebGL2 Liquid Metal: the GPU paints true flowing reflection bands and RGB
+   dispersion on the single organic contour. Existing SVG/CSS styles remain
+   in place as an exact-duration fallback for devices without WebGL2. */
 .theme-wave-prism--gpu {
   display: block;
   width: 100vw;
   height: 100vh;
   background: transparent !important;
+}
+html.theme-wave-active[data-theme-fluid-gpu="1"]::view-transition-new(theme-prism) {
   -webkit-mask-image: none !important;
   mask-image: none !important;
   mix-blend-mode: normal !important;
+  /* Keep strong metal relief readable on light, dark and pink. */
   filter: saturate(1.38) contrast(1.18)
           drop-shadow(0 0 5px rgba(55,95,164,.20)) !important;
   opacity: 1 !important;
-}
-@media (prefers-reduced-motion: reduce) {
-  .theme-wave-prism { display: none; }
-}
-
-/* The fixed top fade previously switched to the next theme immediately
-   (a full-width white/black shadow before the wave arrived). Split it into
-   two complementary, clipped live gradients. The old one stays OUTSIDE
-   the liquid boundary; the new one appears only INSIDE it. No snapshots
-   or pauses to the marquee, videos or Liquid Metal border animations. */
-html.theme-wave-active .top-fade {
-  background: none !important;
-}
-html.theme-wave-active .top-fade::before,
-html.theme-wave-active .top-fade::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-repeat: no-repeat;
-}
-html.theme-wave-active .top-fade::before {
-  background-image: var(--theme-fluid-old-top-fade, none);
-  clip-path: var(--theme-fluid-old-clip, inset(0));
-}
-html.theme-wave-active .top-fade::after {
-  background: linear-gradient(180deg, var(--glass) 20%, var(--glass-fade));
-  clip-path: var(--theme-fluid-new-clip, circle(0px at 50% 50%));
 }
