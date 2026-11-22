@@ -556,10 +556,50 @@
       /* One inherited phase keeps the pointer and its dock in sync. */
       html.bilingual-home[lang][data-theme="light"] body .home-page .contact-dock-anchor,
       html.bilingual-home[lang][data-theme="light"] body .contact-dock--footer.contact-dock--glass {
-        animation: contact-metal-orbit 9s linear infinite;
+        animation: contact-metal-orbit 16s linear infinite;
       }
       html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass {
         border-color: rgba(142, 151, 161, .34);
+      }
+
+      /* One shared spectrum, sampled by both the dock and pointer. */
+      html.bilingual-home[lang][data-theme="light"] {
+        --contact-metal-spectrum:
+          transparent 0deg 9deg,
+            rgba(14, 25, 65, 0) 9deg,
+            #121d4c 12deg,
+            #7838fa 15deg,
+            #2864ff 18deg,
+            #08d9ff 21deg,
+            #44e0b5 24deg,
+            #b7ed63 27deg,
+            #fff24e 30deg,
+            #ff9827 33deg,
+            #ff424e 36deg,
+            #ffffff 38deg,
+            #152448 41deg,
+            rgba(14, 25, 65, 0) 45deg,
+            transparent 45deg 164deg,
+            rgba(14, 25, 65, 0) 164deg,
+            #152552 168deg,
+            #f0444d 172deg,
+            #ffb22e 176deg,
+            #fdf37e 180deg,
+            #50e5cf 184deg,
+            #10bdff 188deg,
+            #4655ff 192deg,
+            #b761f9 195deg,
+            #f4f8ff 198deg,
+            #142452 201deg,
+            rgba(14, 25, 65, 0) 205deg,
+            transparent 205deg 296deg,
+            rgba(14, 25, 65, 0) 296deg,
+            #e9f7ff 300deg,
+            #2cb8ff 304deg,
+            #3343b8 307deg,
+            #f04454 310deg,
+            rgba(14, 25, 65, 0) 314deg,
+            transparent 314deg 360deg;
       }
 
       @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
@@ -594,42 +634,7 @@
         }
         /* Slow prism refraction: rich, separated spectral streaks over a mostly silver rim. */
         html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass::after {
-          background: conic-gradient(from var(--contact-metal-angle),
-            transparent 0deg 9deg,
-            rgba(14, 25, 65, 0) 9deg,
-            #121d4c 12deg,
-            #7838fa 15deg,
-            #2864ff 18deg,
-            #08d9ff 21deg,
-            #44e0b5 24deg,
-            #b7ed63 27deg,
-            #fff24e 30deg,
-            #ff9827 33deg,
-            #ff424e 36deg,
-            #ffffff 38deg,
-            #152448 41deg,
-            rgba(14, 25, 65, 0) 45deg,
-            transparent 45deg 164deg,
-            rgba(14, 25, 65, 0) 164deg,
-            #152552 168deg,
-            #f0444d 172deg,
-            #ffb22e 176deg,
-            #fdf37e 180deg,
-            #50e5cf 184deg,
-            #10bdff 188deg,
-            #4655ff 192deg,
-            #b761f9 195deg,
-            #f4f8ff 198deg,
-            #142452 201deg,
-            rgba(14, 25, 65, 0) 205deg,
-            transparent 205deg 296deg,
-            rgba(14, 25, 65, 0) 296deg,
-            #e9f7ff 300deg,
-            #2cb8ff 304deg,
-            #3343b8 307deg,
-            #f04454 310deg,
-            rgba(14, 25, 65, 0) 314deg,
-            transparent 314deg 360deg);
+          background: conic-gradient(from var(--contact-metal-angle), var(--contact-metal-spectrum));
           opacity: 1;
           /* Tiny chromatic halo only where the refracted band is visible. */
           filter: drop-shadow(0 0 1.4px rgba(59, 124, 222, .20));
@@ -638,33 +643,9 @@
 
       /* Match the small pointer to the same chromatic-metal animation. */
       html.bilingual-home[lang][data-theme="light"] .home-page .contact-dock-pointer::before {
+        /* Shared phase, sampled at the same top-center angle as the dock rim. */
         background:
-          conic-gradient(from var(--contact-metal-angle),
-            transparent 0deg 9deg,
-            #121d4c 12deg,
-            #7838fa 15deg,
-            #2864ff 18deg,
-            #08d9ff 21deg,
-            #44e0b5 24deg,
-            #fff24e 30deg,
-            #ff9827 33deg,
-            #ff424e 36deg,
-            #ffffff 38deg,
-            transparent 45deg 164deg,
-            #152552 168deg,
-            #f0444d 172deg,
-            #ffb22e 176deg,
-            #fdf37e 180deg,
-            #50e5cf 184deg,
-            #10bdff 188deg,
-            #4655ff 192deg,
-            #b761f9 195deg,
-            transparent 205deg 296deg,
-            #e9f7ff 300deg,
-            #2cb8ff 304deg,
-            #3343b8 307deg,
-            #f04454 310deg,
-            transparent 314deg 360deg),
+          conic-gradient(from var(--contact-metal-angle) at 50% 360px, var(--contact-metal-spectrum)),
           linear-gradient(130deg, #f5f7fc, #a7adb8 37%, #525768 73%, #d2d5de);
         animation: none;
       }
