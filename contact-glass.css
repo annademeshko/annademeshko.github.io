@@ -264,3 +264,57 @@ html:root[lang][data-theme] body .contact-dock .dock-item:focus-visible::before 
 @media (prefers-reduced-motion: reduce) {
   html:root[lang][data-theme] body .contact-dock .dock-item::before { transition: none; }
 }
+
+
+/* Matte contact tooltips: dark on the light theme, light on the dark theme. */
+html:root[lang][data-theme="dark"] body .contact-dock {
+  --dock-tip-bg: #f4f4f6;
+  --dock-tip-text: #2a2a2e;
+}
+html:root[lang][data-theme="light"] body .contact-dock,
+html:root[lang][data-theme="pink"] body .contact-dock {
+  --dock-tip-bg: #2c2c31;
+  --dock-tip-text: #f3f3f5;
+}
+
+@media (min-width: 641px) {
+  html:root[lang][data-theme="dark"] body .contact-dock .dock-label,
+  html:root[lang][data-theme="dark"] body .np-tip {
+    background: linear-gradient(180deg, #ffffff 0%, #e7e7eb 100%);
+    color: #2a2a2e;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  html:root[lang][data-theme="light"] body .contact-dock .dock-label,
+  html:root[lang][data-theme="pink"] body .contact-dock .dock-label,
+  html:root[lang][data-theme="light"] body .np-tip,
+  html:root[lang][data-theme="pink"] body .np-tip {
+    background: linear-gradient(180deg, #3c3c41 0%, #242428 100%);
+    color: #f3f3f5;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 8px 16px rgba(0, 0, 0, 0.22);
+  }
+}
+
+html:root[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item.is-copied .dock-label--done {
+  background: linear-gradient(180deg, #ffffff 0%, #e7e7eb 100%);
+  color: #2a2a2e;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.12);
+}
+html:root[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item.is-copied .dock-label--done,
+html:root[lang][data-theme="pink"] body .contact-dock.contact-dock--glass .dock-item.is-copied .dock-label--done {
+  background: linear-gradient(180deg, #3c3c41 0%, #242428 100%);
+  color: #f3f3f5;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.22);
+}
