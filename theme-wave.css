@@ -1,0 +1,97 @@
+/* Corner-origin liquid metal theme reveal; shared by /, /ru/ and /en/.
+   Supported browsers use View Transitions snapshots. Others switch instantly. */
+@property --theme-edge-radius {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+.theme-wave-prism {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  view-transition-name: theme-prism;
+  /* Predominantly silver / graphite, with a few localized Pink-Floyd-like
+     prismatic refractions rather than a permanent rainbow. */
+  background: conic-gradient(from 0deg at var(--theme-wave-x) var(--theme-wave-y),
+    #455063 0deg,
+    #202839 45deg,
+    #adb5c1 90deg,
+    #f6f9fc 130deg,
+    #303b51 155deg,
+    #151e35 186deg,
+    #909dad 193deg,
+    #ffffff 198deg,
+    #fe496a 201deg,
+    #ffce44 204deg,
+    #55ebcb 207deg,
+    #2d91f5 210deg,
+    #3544a4 213deg,
+    #f9fcff 215deg,
+    #4e6078 224deg,
+    #0f1729 231deg,
+    #aab4c2 239deg,
+    #f6f9fe 245deg,
+    #303748 248deg,
+    #e74a6f 250deg,
+    #fff378 252deg,
+    #5be7e7 254deg,
+    #6370e0 256deg,
+    #f8faff 258deg,
+    #37445a 270deg,
+    #cfd4de 320deg,
+    #454f62 360deg
+  );
+}
+html.theme-wave-active::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+html.theme-wave-active::view-transition-new(root) {
+  animation: theme-wave-reveal 2300ms cubic-bezier(.25, .65, .12, 1) both;
+  z-index: 2;
+}
+html.theme-wave-active::view-transition-group(root),
+html.theme-wave-active::view-transition-group(theme-prism) {
+  animation-duration: 2300ms;
+}
+html.theme-wave-active::view-transition-new(theme-prism) {
+  z-index: 3;
+  mix-blend-mode: screen;
+  /* Thin undulating-looking chrome / prism rim follows the expanding mask.
+     Registered length animates mask directly, not the captured snapshot. */
+  -webkit-mask-image: radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y),
+    transparent calc(var(--theme-edge-radius) - 42px),
+    rgba(0,0,0,.38) calc(var(--theme-edge-radius) - 34px),
+    #000 calc(var(--theme-edge-radius) - 24px),
+    #000 calc(var(--theme-edge-radius) - 7px),
+    transparent calc(var(--theme-edge-radius) + 8px)
+  );
+  mask-image: radial-gradient(circle at var(--theme-wave-x) var(--theme-wave-y),
+    transparent calc(var(--theme-edge-radius) - 42px),
+    rgba(0,0,0,.38) calc(var(--theme-edge-radius) - 34px),
+    #000 calc(var(--theme-edge-radius) - 24px),
+    #000 calc(var(--theme-edge-radius) - 7px),
+    transparent calc(var(--theme-edge-radius) + 8px)
+  );
+  animation: theme-wave-rim 2300ms cubic-bezier(.25, .65, .12, 1) both;
+}
+html.theme-wave-active::view-transition-old(theme-prism) {
+  animation: none;
+  opacity: 0;
+}
+@keyframes theme-wave-reveal {
+  from { clip-path: circle(0px at var(--theme-wave-x) var(--theme-wave-y)); }
+  to { clip-path: circle(var(--theme-wave-max) at var(--theme-wave-x) var(--theme-wave-y)); }
+}
+@keyframes theme-wave-rim {
+  from { --theme-edge-radius: 0px; }
+  to { --theme-edge-radius: var(--theme-wave-max); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-wave-active::view-transition-old(root),
+  html.theme-wave-active::view-transition-new(root),
+  html.theme-wave-active::view-transition-new(theme-prism) {
+    animation-duration: 0.01ms !important;
+  }
+}

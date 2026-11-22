@@ -175,6 +175,59 @@
   updateTitle(initialLang);
   updateThemeControl();
 
+  // A chromatic-metal wave from the top-right corner reveals the new theme.
+  // Uses native View Transitions so the entire page (not just the controls)
+  // changes together; retains an immediate/reduced-motion fallback.
+  let runningThemeTransition = null;
+  function switchThemeWithLiquidMetal(next, apply) {
+    if (root.getAttribute("data-theme") === next) return;
+    const supported = typeof document.startViewTransition === "function";
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const enabled = document.querySelector('link[href*="/theme-wave.css"]');
+    if (!supported || reduced || !enabled) {
+      apply();
+      return;
+    }
+    // A second rapid click takes effect immediately rather than queuing wipes.
+    if (runningThemeTransition) {
+      runningThemeTransition.skipTransition();
+      apply();
+      return;
+    }
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    root.style.setProperty("--theme-wave-x", width + "px");
+    root.style.setProperty("--theme-wave-y", "0px");
+    root.style.setProperty("--theme-wave-max", Math.ceil(Math.hypot(width, height) + 80) + "px");
+    root.classList.add("theme-wave-active");
+    let prism = null;
+    let transition;
+    function cleanup() {
+      if (transition && runningThemeTransition !== transition) return;
+      prism?.remove();
+      root.classList.remove("theme-wave-active");
+      root.style.removeProperty("--theme-wave-x");
+      root.style.removeProperty("--theme-wave-y");
+      root.style.removeProperty("--theme-wave-max");
+      runningThemeTransition = null;
+    }
+    try {
+      transition = document.startViewTransition(() => {
+        apply();
+        prism = document.createElement("div");
+        prism.className = "theme-wave-prism";
+        prism.setAttribute("aria-hidden", "true");
+        document.body.appendChild(prism);
+      });
+      runningThemeTransition = transition;
+      transition.finished.then(cleanup, cleanup);
+    } catch (error) {
+      cleanup();
+      apply();
+    }
+  }
+
   // Three-way theme switch (pink / white / black) on the homepage.
   const themeButtons = document.querySelectorAll(".theme-btn[data-theme-set]");
   const updateThemeButtons = () => {
@@ -188,9 +241,11 @@
   themeButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
       const next = button.getAttribute("data-theme-set");
-      root.setAttribute("data-theme", next);
-      store("theme", next);
-      updateThemeButtons();
+      switchThemeWithLiquidMetal(next, () => {
+        root.setAttribute("data-theme", next);
+        store("theme", next);
+        updateThemeButtons();
+      });
     });
     button.addEventListener("keydown", (event) => {
       const step = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1
@@ -211,9 +266,11 @@
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
       const next = getTheme() === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", next);
-      store("theme", next);
-      updateThemeControl();
+      switchThemeWithLiquidMetal(next, () => {
+        root.setAttribute("data-theme", next);
+        store("theme", next);
+        updateThemeControl();
+      });
     });
   }
 
