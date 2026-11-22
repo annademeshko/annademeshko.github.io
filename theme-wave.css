@@ -83,3 +83,20 @@ html.theme-wave-active::view-transition-old(theme-prism) {
     animation-duration: .01ms !important;
   }
 }
+
+/* WebGL2 Liquid Metal: the GPU paints true flowing reflection bands and RGB
+   dispersion on the single organic contour. Existing SVG/CSS styles remain
+   in place as an exact-duration fallback for devices without WebGL2. */
+.theme-wave-prism--gpu {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background: transparent !important;
+}
+html.theme-wave-active[data-theme-fluid-gpu="1"]::view-transition-new(theme-prism) {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  opacity: 1 !important;
+}

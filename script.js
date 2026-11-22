@@ -246,18 +246,25 @@
     const outline = fluidPath(state.x, state.y, radius, progress);
     root.style.setProperty("--theme-fluid-clip", 'path("' + outline + '")');
 
-    // Three luminous widths all follow the SAME path; no secondary lenses,
-    // disconnected spots or trailing islands. The narrow inner edge carries
-    // the refracted blue / amber / spectral highlights from the references.
-    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + state.width +
-      '" height="' + state.height + '" viewBox="0 0 ' + state.width + ' ' + state.height + '">' +
-      '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="58" opacity=".10"/>' +
-      '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="24" opacity=".32"/>' +
-      '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="9" opacity=".72"/>' +
-      '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="3" opacity="1"/>' +
-      '</svg>';
-    root.style.setProperty("--theme-fluid-rim",
-      'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
+    // Use real WebGL2 refraction/reflection material when supported. The GPU
+    // computes its highlights from the same deformed contour as the reveal.
+    // Keep the original SVG chrome as a robust no-WebGL fallback.
+    if (state.renderer) {
+      state.renderer.draw(state.x, state.y, radius, progress);
+    } else {
+      // Three luminous widths all follow the SAME path; no secondary lenses,
+      // disconnected spots or trailing islands. The narrow inner edge carries
+      // the refracted blue / amber / spectral highlights from the references.
+      const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + state.width +
+        '" height="' + state.height + '" viewBox="0 0 ' + state.width + ' ' + state.height + '">' +
+        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="58" opacity=".10"/>' +
+        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="24" opacity=".32"/>' +
+        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="9" opacity=".72"/>' +
+        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="3" opacity="1"/>' +
+        '</svg>';
+      root.style.setProperty("--theme-fluid-rim",
+        'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
+    }
     const fadeIn = Math.min(1, progress * 10);
     const fadeOut = Math.min(1, (1 - progress) * 8);
     root.style.setProperty("--theme-fluid-opacity",
@@ -301,14 +308,16 @@
     root.style.setProperty("--theme-fluid-clip", 'circle(0px at ' + x + 'px ' + y + 'px)');
     root.style.setProperty("--theme-fluid-opacity", "0");
     root.style.setProperty("--theme-fluid-rim", "linear-gradient(transparent, transparent)");
-    let prism = null, transition;
-    const state = { x, y, width, height, farthest, began: null, transition: null };
+    let prism = null, transition, renderer = null;
+    const state = { x, y, width, height, farthest, began: null, transition: null, renderer: null };
 
     const cleanup = () => {
       if (state.transition && runningThemeTransition !== state.transition) return;
       cancelAnimationFrame(fluidFrame);
+      renderer?.destroy();
       prism?.remove();
       root.classList.remove("theme-wave-active");
+      root.removeAttribute("data-theme-fluid-gpu");
       root.removeAttribute("data-theme-wave-to");
       for (const key of ["--theme-fluid-x", "--theme-fluid-y",
         "--theme-fluid-clip", "--theme-fluid-rim", "--theme-fluid-opacity"]) {
@@ -320,8 +329,20 @@
     try {
       transition = document.startViewTransition(() => {
         apply();
-        prism = document.createElement("div");
-        prism.className = "theme-wave-prism";
+        // A live GPU canvas draws the metallic edge. The actual theme is
+        // revealed by the native View Transition clip path, not by a screenshot.
+        const canvas = document.createElement("canvas");
+        renderer = window.ThemeWaveGPU?.create?.(canvas, width, height, next) || null;
+        if (renderer) {
+          prism = canvas;
+          prism.className = "theme-wave-prism theme-wave-prism--gpu";
+          root.setAttribute("data-theme-fluid-gpu", "1");
+          renderer.draw(x, y, 0, 0);
+        } else {
+          prism = document.createElement("div");
+          prism.className = "theme-wave-prism";
+        }
+        state.renderer = renderer;
         prism.setAttribute("aria-hidden", "true");
         document.body.appendChild(prism);
       });
