@@ -61,7 +61,7 @@ void main() {
   vec2 p = vec2(gl_FragCoord.x / u_buffer.x * u_view.x,
                 (1. - gl_FragCoord.y / u_buffer.y) * u_view.y);
   float d = signedFront(p);
-  if (abs(d) > 46.) { outColor = vec4(0.); return; }
+  if (abs(d) > 60.) { outColor = vec4(0.); return; }
   float angle = atan(p.y - u_origin.y, p.x - u_origin.x);
   float t = u_time;
   float n = noise2(p * .009 + vec2(t * .23, -t * .15));
@@ -69,32 +69,63 @@ void main() {
   vec2 normal = normalize(vec2(signedFront(p+vec2(2.,0.)) - signedFront(p-vec2(2.,0.)),
                               signedFront(p+vec2(0.,2.)) - signedFront(p-vec2(0.,2.))) + vec2(.0001));
   float directional = .5 + .5 * dot(normal, normalize(vec2(-.67, -.74)));
-  float band = .5 + .5 * sin(d * .43 + angle * 3.4 + t * 1.1 + 4.3 * n);
-  float thinStripe = pow(.5 + .5 * sin(d * .68 - angle * 2.1 + 5.1 * detail - t * 1.5), 7.);
-  float specular = pow(max(0., directional), 3.) * .54 + thinStripe * .44;
-  float highlight = exp(-pow((d + 1.5 + 1.6 * n) / 3.7, 2.));
-  float trough = exp(-pow((d - 8.) / 5.5, 2.));
-  float halo = exp(-pow(d / 24., 2.));
+  // Chrome bands respond to the deformed front normal. Widen the
+  // near-black valley and the white specular ridge so both show clearly
+  // against either a light or dark page.
+  float flow = .5 + .5 * sin(d * .34 + angle * 4.25 + t * .94 + 4.2 * n);
+  float striation = .5 + .5 * sin(d * .64 - angle * 2.9 + 5.1 * detail - t * 1.17);
+  float microGlint = pow(striation, 5.);
+  float whiteRidge = exp(-pow((d + 1.0 + 2.2 * n) / 3.1, 2.));
+  float blackValley = exp(-pow((d - 10.0 - 2.0 * detail) / 6.4, 2.));
+  float coldShoulder = exp(-pow((d + 14.) / 10., 2.));
+  float broadGlow = exp(-pow(d / 31., 2.));
   float nearby = exp(-pow(d / 13., 2.));
-  float core = exp(-pow(d / 5.0, 2.));
-  vec3 silver = mix(vec3(.09, .13, .22), vec3(.81, .86, .96),
-                    clamp(.20 + directional*.4 + band*.24 + specular*.45, 0., 1.));
-  silver = mix(silver, vec3(.99, .995, 1.), highlight * .64);
-  silver = mix(silver, vec3(.018, .032, .085), trough * .32);
-  vec3 graphite = mix(vec3(.02, .035, .075), vec3(.72, .76, .86),
-                      clamp(.12 + band * .45 + specular*.27, 0., 1.));
+  float sharp = exp(-pow(d / 4.3, 2.));
+  float reflection = clamp(.16 + .62 * flow + .16 * directional +
+    .34 * microGlint, 0., 1.);
+  vec3 silver = mix(vec3(.014,.021,.043), vec3(.985,.990,1.),
+                    reflection);
+  silver = mix(silver, vec3(.007,.013,.034), blackValley * .78);
+  silver = mix(silver, vec3(.995,.998,1.), whiteRidge * .89);
+  silver = mix(silver, vec3(.52,.69,.87), coldShoulder * .18);
+  // On the light and pink themes, the dark graphite valley makes the
+  // chrome readable instead of dissolving into the white background.
+  vec3 graphite = mix(vec3(.008,.012,.030), vec3(.985,.986,1.),
+                      clamp(.10 + flow * .70 + microGlint * .22, 0., 1.));
+  graphite = mix(graphite, vec3(.009,.014,.025), blackValley * .90);
+  graphite = mix(graphite, vec3(1.), whiteRidge * .88);
   vec3 metal = mix(silver, graphite, u_light);
-  float flares = pow(max(0., sin(angle*5.1 - t*.77 + n*3.1)), 13.);
-  flares *= .55 + .45 * pow(max(0.,sin(angle*3.4 + t*1.25)), 4.);
-  float pRed = exp(-pow((d - 6.) / 4.2, 2.));
-  float pGreen = exp(-pow((d - 1.) / 4.1, 2.));
-  float pBlue = exp(-pow((d + 4.) / 4.2, 2.));
-  vec3 prism = vec3(pRed + .10*pBlue,
-                    .42 * pRed + .74*pGreen + .23*pBlue,
-                    .14 * pRed + .89*pBlue + .20*pGreen);
-  metal = mix(metal, prism, flares * .88);
-  float opacity = clamp(.15*halo + .40*nearby + .60*core + .20*highlight, 0., .96);
-  opacity *= smoothstep(0.,4.,min(u_time,3.-u_time)) * .91 + .09;
+
+  // Prismatic highlights run along TWO moving stretches of the SAME wave.
+  // Broad angular envelopes replace the previous almost invisible
+  // high-power sine product; there are no separate blobs or lens loops.
+  float ribbonA = exp(-pow(wrapAngle(angle, -.96 + .20*sin(t*.60)) / .44, 2.));
+  float ribbonB = exp(-pow(wrapAngle(angle, 2.32 - .24*cos(t*.47)) / .56, 2.));
+  float ribbonGate = clamp(max(ribbonA, ribbonB) * (.83 + .17*detail), 0., 1.);
+  float rainbowWidth = exp(-pow((d - 0.5) / 12., 2.));
+  // RGB dispersion: three adjacent highlights, not a flat RGB tint.
+  float r = exp(-pow((d - 5.1) / 3.4, 2.));
+  float g = exp(-pow((d - 0.3) / 3.4, 2.));
+  float b = exp(-pow((d + 4.6) / 3.4, 2.));
+  vec3 spectrum = clamp(vec3(
+      1.05*r + .14*g,
+      .23*r + .96*g + .30*b,
+      .12*r + .36*g + 1.18*b
+    ), 0., 1.);
+  // Let a little dispersed color remain on the surrounding silver
+  // while making the two principal refractions unmistakable.
+  float prismStrength = clamp((.10 + .90*ribbonGate) * rainbowWidth, 0., 1.);
+  metal = mix(metal, spectrum, prismStrength * .93);
+  metal += vec3(.06,.075,.095) * whiteRidge * ribbonGate;
+
+  // More opaque, deeper relief: graphite shadow + bright chrome line
+  // plus a subtle 30px halo. Transparent away from the single wave.
+  float opacity = clamp(.24*broadGlow + .70*nearby +
+                        .44*sharp + .15*whiteRidge, 0., .98);
+  // Remain visible throughout the middle of the three-second switch,
+  // with only short fade-ins/outs at the very beginning and end.
+  opacity *= smoothstep(0., .18, u_time) *
+             smoothstep(0., .18, 3. - u_time);
   outColor = vec4(metal, opacity);
 }`;
   const compile = (type, source) => {

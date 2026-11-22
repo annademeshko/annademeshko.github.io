@@ -257,10 +257,10 @@
       // the refracted blue / amber / spectral highlights from the references.
       const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + state.width +
         '" height="' + state.height + '" viewBox="0 0 ' + state.width + ' ' + state.height + '">' +
-        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="58" opacity=".10"/>' +
-        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="24" opacity=".32"/>' +
-        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="9" opacity=".72"/>' +
-        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="3" opacity="1"/>' +
+        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="64" opacity=".19"/>' +
+        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="30" opacity=".55"/>' +
+        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="12" opacity=".94"/>' +
+        '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="4" opacity="1"/>' +
         '</svg>';
       root.style.setProperty("--theme-fluid-rim",
         'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');

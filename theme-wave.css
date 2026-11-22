@@ -61,7 +61,7 @@ html.theme-wave-active::view-transition-new(theme-prism) {
   mask-repeat: no-repeat;
   opacity: var(--theme-fluid-opacity, 0);
   mix-blend-mode: screen;
-  filter: saturate(1.2) contrast(1.26) drop-shadow(0 0 3px rgba(39,54,89,.32));
+  filter: saturate(1.65) contrast(1.42) drop-shadow(0 0 5px rgba(39,54,89,.38));
   animation: theme-fluid-hold 3000ms linear both;
 }
 html.theme-wave-active:is([data-theme-wave-to="light"],[data-theme-wave-to="pink"])::view-transition-new(theme-prism) {
@@ -97,6 +97,8 @@ html.theme-wave-active[data-theme-fluid-gpu="1"]::view-transition-new(theme-pris
   -webkit-mask-image: none !important;
   mask-image: none !important;
   mix-blend-mode: normal !important;
-  filter: none !important;
+  /* Keep strong metal relief readable on light, dark and pink. */
+  filter: saturate(1.38) contrast(1.18)
+          drop-shadow(0 0 5px rgba(55,95,164,.20)) !important;
   opacity: 1 !important;
 }
