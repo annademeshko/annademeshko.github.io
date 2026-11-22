@@ -334,6 +334,9 @@
       /* Separate concept cards: no shadows or joined edges in either theme. */
       html.bilingual-home .home-page .concept-marquee__track {
         gap: 26px;
+        /* The cards float by +/-3px. Reserve room INSIDE the scrollport,
+           otherwise overflow-y:hidden clips the bottom edge while moving. */
+        padding-block: 16px;
       }
       html.bilingual-home .home-page :is(.concept-marquee__tile, .concept-card) {
         box-shadow: none !important;
