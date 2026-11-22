@@ -229,32 +229,34 @@
   }
 
   function animateFluidChrome(root, state, stamp) {
-    if (runningThemeTransition !== state.transition) return;
+    // No document snapshots: the original marquee, videos, animated borders
+    // and page remain in the live DOM for the entire three-second transition.
+    if (runningThemeTransition !== state) return;
     if (state.began == null) state.began = stamp;
     const progress = Math.min(1, (stamp - state.began) / FLUID_DURATION);
     if (progress >= 1) {
-      root.style.setProperty("--theme-fluid-clip", "inset(0)");
-      root.style.setProperty("--theme-fluid-rim", "linear-gradient(transparent, transparent)");
-      root.style.setProperty("--theme-fluid-opacity", "0");
+      state.cleanup();
       return;
     }
 
-    // Viscous start, accelerating spread, then a soft settling motion.
-    // The front remains one contiguous wave throughout the transition.
     const eased = progress * progress * (3 - 2 * progress);
     const radius = state.farthest * 1.82 * eased;
     const outline = fluidPath(state.x, state.y, radius, progress);
-    root.style.setProperty("--theme-fluid-clip", 'path("' + outline + '")');
 
-    // Use real WebGL2 refraction/reflection material when supported. The GPU
-    // computes its highlights from the same deformed contour as the reveal.
-    // Keep the original SVG chrome as a robust no-WebGL fallback.
+    // Old background occupies only the OUTSIDE of the growing new-theme
+    // wave. Even-odd clipping exposes the new background through the hole,
+    // while foreground elements stay live and continue moving.
+    const outside = 'M -2 -2 L ' + (state.width + 2) + ' -2 L ' +
+      (state.width + 2) + ' ' + (state.height + 2) + ' L -2 ' +
+      (state.height + 2) + ' Z ';
+    root.style.setProperty("--theme-fluid-old-clip",
+      'path(evenodd, "' + outside + outline + '")');
+
     if (state.renderer) {
       state.renderer.draw(state.x, state.y, radius, progress);
     } else {
-      // Three luminous widths all follow the SAME path; no secondary lenses,
-      // disconnected spots or trailing islands. The narrow inner edge carries
-      // the refracted blue / amber / spectral highlights from the references.
+      // Equivalent silver/ruby-amber wave in browsers without WebGL2.
+      // The mask follows the SAME continuous shape, never extra droplets.
       const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + state.width +
         '" height="' + state.height + '" viewBox="0 0 ' + state.width + ' ' + state.height + '">' +
         '<path d="' + outline + '" fill="none" stroke="#fff" stroke-width="64" opacity=".19"/>' +
@@ -275,19 +277,18 @@
   function switchThemeWithLiquidMetal(next, apply) {
     if (root.getAttribute("data-theme") === next) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const supported = typeof document.startViewTransition === "function"
-      && CSS.supports("clip-path", 'path("M 0 0 L 1 1 Z")');
+    const supported = typeof CSS !== "undefined" &&
+      CSS.supports("clip-path",
+        'path(evenodd, "M 0 0 L 100 0 L 100 100 L 0 100 Z M 40 40 L 60 40 L 60 60 L 40 60 Z")');
     if (!supported || reduced || document.visibilityState === "hidden" ||
         !document.querySelector('link[href*="/theme-wave.css"]')) {
       apply();
       return;
     }
-    if (runningThemeTransition) {
-      runningThemeTransition.skipTransition();
-      cancelAnimationFrame(fluidFrame);
-      apply();
-      return;
-    }
+
+    // Rapid repeated toggles do not queue frozen captures. Finish the
+    // previous overlay, retain the live DOM, and start a fresh wave.
+    if (runningThemeTransition) runningThemeTransition.cleanup();
 
     const width = window.innerWidth, height = window.innerHeight;
     const dock = document.querySelector(".intro .contact-dock");
@@ -301,60 +302,66 @@
       Math.hypot(x, height - y), Math.hypot(width - x, height - y)
     );
 
-    root.classList.add("theme-wave-active");
-    root.setAttribute("data-theme-wave-to", next);
-    root.style.setProperty("--theme-fluid-x", x.toFixed(1) + "px");
-    root.style.setProperty("--theme-fluid-y", y.toFixed(1) + "px");
-    root.style.setProperty("--theme-fluid-clip", 'circle(0px at ' + x + 'px ' + y + 'px)');
-    root.style.setProperty("--theme-fluid-opacity", "0");
-    root.style.setProperty("--theme-fluid-rim", "linear-gradient(transparent, transparent)");
-    let prism = null, transition, renderer = null;
-    const state = { x, y, width, height, farthest, began: null, transition: null, renderer: null };
-
-    const cleanup = () => {
-      if (state.transition && runningThemeTransition !== state.transition) return;
+    // Capture only the original BACKGROUND COLOR, not the page. Every
+    // animation, video and running marquee stays attached to the DOM.
+    const previousBackground = getComputedStyle(root).backgroundColor;
+    let prism = null, renderer = null, cleaned = false;
+    const state = { x, y, width, height, farthest, began: null,
+                    renderer: null, cleanup: null };
+    state.cleanup = () => {
+      if (cleaned) return;
+      cleaned = true;
       cancelAnimationFrame(fluidFrame);
       renderer?.destroy();
       prism?.remove();
       root.classList.remove("theme-wave-active");
       root.removeAttribute("data-theme-fluid-gpu");
       root.removeAttribute("data-theme-wave-to");
-      for (const key of ["--theme-fluid-x", "--theme-fluid-y",
-        "--theme-fluid-clip", "--theme-fluid-rim", "--theme-fluid-opacity"]) {
-        root.style.removeProperty(key);
-      }
-      runningThemeTransition = null;
+      for (const key of ["--theme-fluid-old-bg", "--theme-fluid-old-clip",
+        "--theme-fluid-x", "--theme-fluid-y", "--theme-fluid-rim",
+        "--theme-fluid-opacity"]) root.style.removeProperty(key);
+      if (runningThemeTransition === state) runningThemeTransition = null;
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "hidden") state.cleanup();
     };
 
     try {
-      transition = document.startViewTransition(() => {
-        apply();
-        // A live GPU canvas draws the metallic edge. The actual theme is
-        // revealed by the native View Transition clip path, not by a screenshot.
-        const canvas = document.createElement("canvas");
-        renderer = window.ThemeWaveGPU?.create?.(canvas, width, height, next) || null;
-        if (renderer) {
-          prism = canvas;
-          prism.className = "theme-wave-prism theme-wave-prism--gpu";
-          root.setAttribute("data-theme-fluid-gpu", "1");
-          renderer.draw(x, y, 0, 0);
-        } else {
-          prism = document.createElement("div");
-          prism.className = "theme-wave-prism";
-        }
-        state.renderer = renderer;
-        prism.setAttribute("aria-hidden", "true");
-        document.body.appendChild(prism);
-      });
-      state.transition = transition;
-      runningThemeTransition = transition;
-      transition.ready.then(() => {
-        fluidFrame = requestAnimationFrame((time) => animateFluidChrome(root, state, time));
-      }, cleanup);
-      transition.finished.then(cleanup, cleanup);
-    } catch (error) {
-      cleanup();
+      root.style.setProperty("--theme-fluid-old-bg", previousBackground);
+      root.style.setProperty("--theme-fluid-old-clip", "inset(0)");
+      root.style.setProperty("--theme-fluid-x", x.toFixed(1) + "px");
+      root.style.setProperty("--theme-fluid-y", y.toFixed(1) + "px");
+      root.style.setProperty("--theme-fluid-opacity", "0");
+      root.style.setProperty("--theme-fluid-rim",
+        "linear-gradient(transparent, transparent)");
+      root.setAttribute("data-theme-wave-to", next);
+      root.classList.add("theme-wave-active");
+
+      // Switch theme on the SAME live page; our inverse wave mask paints
+      // the old background outside the front while the new one expands.
       apply();
+
+      const canvas = document.createElement("canvas");
+      renderer = window.ThemeWaveGPU?.create?.(canvas, width, height, next) || null;
+      if (renderer) {
+        prism = canvas;
+        prism.className = "theme-wave-prism theme-wave-prism--gpu";
+        root.setAttribute("data-theme-fluid-gpu", "1");
+        renderer.draw(x, y, 0, 0);
+      } else {
+        prism = document.createElement("div");
+        prism.className = "theme-wave-prism";
+      }
+      state.renderer = renderer;
+      prism.setAttribute("aria-hidden", "true");
+      document.body.appendChild(prism);
+      runningThemeTransition = state;
+      document.addEventListener("visibilitychange", onVisibilityChange);
+      fluidFrame = requestAnimationFrame((time) => animateFluidChrome(root, state, time));
+    } catch (error) {
+      state.cleanup();
+      if (root.getAttribute("data-theme") !== next) apply();
     }
   }
 
