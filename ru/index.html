@@ -286,6 +286,20 @@
       html.bilingual-home .home-page :is(.concept-marquee__tile, .concept-card, .case-texture-frame)::before {
         display: none;
       }
+      /* Dark-mode backdrop for concept and case covers. */
+      html.bilingual-home[data-theme="dark"] .home-page :is(
+        .concept-marquee__tile,
+        .concept-marquee__tile[data-palette],
+        .concept-marquee__tile[data-surface],
+        .concept-card,
+        .concept-card[data-palette],
+        .concept-card[data-surface],
+        .case-link .case-texture-frame,
+        .case-link[aria-label] .case-texture-frame,
+        .case-cover:has(> .remate-cover-video),
+        .remate-cover-video) {
+        background: #1F1F1F;
+      }
     </style>
       <style>
       @font-face { font-family: "Covered By Your Grace"; src: url("/assets/fonts/covered-by-your-grace.woff2") format("woff2"); font-display: block; }
