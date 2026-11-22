@@ -1,7 +1,7 @@
 // Playlist ticker: tracks from the "best songs ever" Spotify playlist, in order,
 // scrolling one after another. Static list (first 100 tracks of the playlist),
 // so no Spotify sign-in or server is needed. Clicking it opens the playlist.
-// Desktop: pinned to the top centre. Mobile: sits under the contact icons in the intro.
+// Desktop: page-top centre, scrolls with document. Mobile: under contact icons.
 (function () {
   var PLAYLIST = "https://open.spotify.com/playlist/14TdC0nbL1qSOms0uueJ5V";
   var TRACKS = [
@@ -127,15 +127,30 @@
     "</span></span>" + ARROW +
     '<span class="np-tip" aria-hidden="true">' + label + " ↗</span>";
 
-  // Keep the ticker OUTSIDE the positioned dock-arrow wrapper.
-  // Desktop: absolute at the top of the page. Mobile: in the intro below contacts.
+  // The ticker must not inherit the intro's layout or containing block
+  // on desktop: it belongs to body at the top centre of the page. On phones,
+  // it is a normal-flow row directly under the contact dock.
   var dock = document.querySelector(".intro .contact-dock");
   var dockGroup = dock && dock.closest(".contact-dock-anchor");
   var insertionPoint = dockGroup || dock;
-  if (insertionPoint && insertionPoint.parentNode) {
-    insertionPoint.parentNode.insertBefore(bar, insertionPoint.nextSibling);
-  } else {
-    document.body.appendChild(bar);
+  var mobileTicker = window.matchMedia("(max-width: 520px)");
+
+  function positionTicker() {
+    if (mobileTicker.matches && insertionPoint && insertionPoint.parentNode) {
+      // Avoid moving the node unnecessarily: reparenting resets the marquee.
+      if (bar.parentNode !== insertionPoint.parentNode ||
+          bar.previousElementSibling !== insertionPoint) {
+        insertionPoint.parentNode.insertBefore(bar, insertionPoint.nextSibling);
+      }
+    } else if (bar.parentNode !== document.body) {
+      document.body.appendChild(bar);
+    }
+  }
+  positionTicker();
+  if (mobileTicker.addEventListener) {
+    mobileTicker.addEventListener("change", positionTicker);
+  } else if (mobileTicker.addListener) {
+    mobileTicker.addListener(positionTicker);
   }
 
   requestAnimationFrame(function () {

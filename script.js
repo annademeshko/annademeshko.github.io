@@ -275,9 +275,14 @@
   function switchThemeWithLiquidMetal(next, apply) {
     if (root.getAttribute("data-theme") === next) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Phones and touch-only tablets switch instantly. View Transitions and
+    // the three-second Liquid Metal reveal remain desktop-only.
+    const mobile = window.matchMedia(
+      "(max-width: 760px), (hover: none) and (pointer: coarse)"
+    ).matches;
     const supported = typeof document.startViewTransition === "function"
       && CSS.supports("clip-path", 'path("M 0 0 L 1 1 Z")');
-    if (!supported || reduced || document.visibilityState === "hidden" ||
+    if (mobile || !supported || reduced || document.visibilityState === "hidden" ||
         !document.querySelector('link[href*="/theme-wave.css"]')) {
       apply();
       return;
