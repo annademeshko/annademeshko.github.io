@@ -1,12 +1,15 @@
-/* Booking link: same matte app tiles and hover behavior as the existing contact dock. */
+/* Booking uses the same dock-item pseudo-element, plate and theme rules as
+   CV, LinkedIn, Telegram and Email. Only its camera artwork is unique. */
 html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link] {
   --dock-glass-icon: url("/assets/contacts/booking-dark.svg");
+  --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%22.86%22%3E%3Crect%20x%3D%2210.2%22%20y%3D%2217.5%22%20width%3D%2225.6%22%20height%3D%2221%22%20rx%3D%226%22%2F%3E%3Cpath%20d%3D%22M35.5%2023.5%2043.2%2018.5c1.6-1.1%203.6.05%203.6%201.95v15.1c0%201.9-2%203.05-3.6%201.95l-7.7-5z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%22.92%22%3E%3Crect%20x%3D%2210.2%22%20y%3D%2217.5%22%20width%3D%2225.6%22%20height%3D%2221%22%20rx%3D%226%22%2F%3E%3Cpath%20d%3D%22M35.5%2023.5%2043.2%2018.5c1.6-1.1%203.6.05%203.6%201.95v15.1c0%201.9-2%203.05-3.6%201.95l-7.7-5z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
 html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-link] {
   --dock-glass-icon: url("/assets/contacts/booking-light.svg");
 }
 
-/* Fit five contact actions on narrow screens without horizontal overflow. */
+/* Five equal contact items, while preserving the shared icon/hover/tooltip rules. */
 @media (max-width: 640px) {
   html:root[lang][data-theme] body .contact-dock.contact-dock--glass {
     display: grid;
@@ -33,7 +36,7 @@ html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-l
   html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-item::before {
     width: clamp(42px, 12vw, 56px);
     height: clamp(42px, 12vw, 56px);
-    border-radius: 15px;
+    border-radius: 18px;
   }
   html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-label {
     display: block;
@@ -52,47 +55,5 @@ html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-l
   }
   html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-item.is-copied .dock-label--done {
     display: block;
-  }
-}
-
-/* The symbol now lives in markup, not in an externally loaded CSS background.
-   This prevents the icon being hidden if its former SVG/CSS asset is unavailable. */
-html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link] {
-  --booking-plate-top: #1f1f1f;
-  --booking-plate-bottom: #1c1c1c;
-  --booking-outline: rgba(255,255,255,.04);
-  --booking-symbol: #f2f2f4;
-}
-html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-link] {
-  --booking-plate-top: #fafbfc;
-  --booking-plate-bottom: #dce0e5;
-  --booking-outline: rgba(28,28,30,.10);
-  --booking-symbol: #2e2e33;
-}
-html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link]::before {
-  display: none !important;
-  content: none !important;
-}
-html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link] .booking-icon {
-  visibility: visible !important;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 8px 16px rgba(0,0,0,.28);
-  border-radius: 18px;
-}
-html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-link] .booking-icon {
-  box-shadow: 0 8px 16px rgba(24,20,32,.08), 0 1px 2px rgba(0,0,0,.05);
-}
-@media (hover: hover) {
-  html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link]:hover .booking-icon {
-    transform: translateY(-2px);
-  }
-}
-@media (max-width: 640px) {
-  html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link] .booking-icon {
-    width: clamp(42px, 12vw, 56px);
-    height: clamp(42px, 12vw, 56px);
-    box-sizing: border-box;
-    box-shadow: 0 6px 12px rgba(0,0,0,.15);
   }
 }
