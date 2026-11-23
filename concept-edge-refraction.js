@@ -72,4 +72,123 @@
   `;
   document.head.appendChild(style);
   band.classList.add('concept-edge-glass');
+
+
+  // The card silhouette bends near each side, while its scrolling box stays
+  // the same size. This creates the rounded upper/lower lens contour.
+  const marquee = band.querySelector('.concept-marquee');
+  const track = band.querySelector('.concept-marquee__track');
+  const motionAllowed = window.matchMedia('(min-width: 1025px) and (prefers-reduced-motion: no-preference)');
+  const curveSvg = document.createElementNS(ns, 'svg');
+  curveSvg.setAttribute('aria-hidden', 'true');
+  curveSvg.setAttribute('width', '0');
+  curveSvg.setAttribute('height', '0');
+  curveSvg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;pointer-events:none';
+  const curveDefs = document.createElementNS(ns, 'defs');
+  curveSvg.appendChild(curveDefs);
+  document.body.appendChild(curveSvg);
+
+  const clipData = new WeakMap();
+  let nextId = 0;
+  let queued = false;
+  let visible = true;
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const num = value => Number(value.toFixed(4));
+
+  function outline(side, amount, rx, ry) {
+    const d = .084 * amount;
+    const inner = 1 - rx;
+    const near = rx + .21;
+    if (side === 'left') {
+      return 'M ' + num(rx) + ' 0 C ' + num(near) + ' ' + num(d * .23) + ' .7 ' + num(d * .98) + ' ' + num(inner) + ' ' + num(d) + ' ' +
+        'Q 1 ' + num(d) + ' 1 ' + num(d + ry) + ' L 1 ' + num(1 - d - ry) + ' ' +
+        'Q 1 ' + num(1 - d) + ' ' + num(inner) + ' ' + num(1 - d) + ' ' +
+        'C .7 ' + num(1 - d * .98) + ' ' + num(near) + ' ' + num(1 - d * .23) + ' ' + num(rx) + ' 1 ' +
+        'Q 0 1 0 ' + num(1 - ry) + ' L 0 ' + num(ry) + ' Q 0 0 ' + num(rx) + ' 0 Z';
+    }
+    return 'M ' + num(rx) + ' ' + num(d) + ' C .3 ' + num(d * .98) + ' ' + num(1 - near) + ' ' + num(d * .23) + ' ' + num(inner) + ' 0 ' +
+      'Q 1 0 1 ' + num(ry) + ' L 1 ' + num(1 - ry) + ' Q 1 1 ' + num(inner) + ' 1 ' +
+      'C ' + num(1 - near) + ' ' + num(1 - d * .23) + ' .3 ' + num(1 - d * .98) + ' ' + num(rx) + ' ' + num(1 - d) + ' ' +
+      'Q 0 ' + num(1 - d) + ' 0 ' + num(1 - d - ry) + ' L 0 ' + num(d + ry) + ' ' +
+      'Q 0 ' + num(d) + ' ' + num(rx) + ' ' + num(d) + ' Z';
+  }
+
+  function ensureClip(tile) {
+    let item = clipData.get(tile);
+    if (item) return item;
+    const clip = document.createElementNS(ns, 'clipPath');
+    const path = document.createElementNS(ns, 'path');
+    const id = 'concept-edge-curve-' + (++nextId);
+    clip.setAttribute('id', id);
+    clip.setAttribute('clipPathUnits', 'objectBoundingBox');
+    clip.appendChild(path);
+    curveDefs.appendChild(clip);
+    item = { id, path, strength: -1, side: '' };
+    clipData.set(tile, item);
+    return item;
+  }
+
+  function updateCurves() {
+    queued = false;
+    if (!track) return;
+    const enabled = motionAllowed.matches && visible;
+    const galleryRect = marquee.getBoundingClientRect();
+    const zone = Math.min(300, Math.max(190, galleryRect.width * .22));
+    track.querySelectorAll('.concept-marquee__tile').forEach(tile => {
+      const stored = clipData.get(tile);
+      if (!enabled) {
+        if (stored && stored.strength !== 0) {
+          tile.style.removeProperty('clip-path');
+          stored.strength = 0;
+        }
+        return;
+      }
+      const rect = tile.getBoundingClientRect();
+      if (rect.right < galleryRect.left || rect.left > galleryRect.right) {
+        if (stored && stored.strength !== 0) {
+          tile.style.removeProperty('clip-path');
+          stored.strength = 0;
+        }
+        return;
+      }
+      const left = clamp((zone - (rect.left - galleryRect.left)) / zone);
+      const right = clamp((rect.right - (galleryRect.right - zone)) / zone);
+      const side = left > right ? 'left' : 'right';
+      const strength = Math.max(left, right);
+      if (strength < .025) {
+        if (stored && stored.strength !== 0) {
+          tile.style.removeProperty('clip-path');
+          stored.strength = 0;
+        }
+        return;
+      }
+      const item = ensureClip(tile);
+      if (item.side === side && Math.abs(item.strength - strength) < .004) return;
+      const rx = Math.min(.08, 18 / Math.max(1, rect.width));
+      const ry = Math.min(.09, 18 / Math.max(1, rect.height));
+      item.path.setAttribute('d', outline(side, strength, rx, ry));
+      item.strength = strength;
+      item.side = side;
+      if (!tile.style.clipPath) tile.style.clipPath = 'url("#' + item.id + '")';
+    });
+  }
+
+  function scheduleCurveUpdate() {
+    if (queued) return;
+    queued = true;
+    window.requestAnimationFrame(updateCurves);
+  }
+  marquee.addEventListener('scroll', scheduleCurveUpdate, { passive: true });
+  window.addEventListener('resize', scheduleCurveUpdate, { passive: true });
+  document.addEventListener('visibilitychange', scheduleCurveUpdate);
+  if (motionAllowed.addEventListener) motionAllowed.addEventListener('change', scheduleCurveUpdate);
+  if ('ResizeObserver' in window && track) new ResizeObserver(scheduleCurveUpdate).observe(track);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      scheduleCurveUpdate();
+    }, { rootMargin: '180px' }).observe(band);
+  }
+  scheduleCurveUpdate();
+
 })();
