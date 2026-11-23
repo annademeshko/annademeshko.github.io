@@ -54,3 +54,45 @@ html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-l
     display: block;
   }
 }
+
+/* The symbol now lives in markup, not in an externally loaded CSS background.
+   This prevents the icon being hidden if its former SVG/CSS asset is unavailable. */
+html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link] {
+  --booking-plate-top: #1f1f1f;
+  --booking-plate-bottom: #1c1c1c;
+  --booking-outline: rgba(255,255,255,.04);
+  --booking-symbol: #f2f2f4;
+}
+html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-link] {
+  --booking-plate-top: #fafbfc;
+  --booking-plate-bottom: #dce0e5;
+  --booking-outline: rgba(28,28,30,.10);
+  --booking-symbol: #2e2e33;
+}
+html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link]::before {
+  display: none !important;
+  content: none !important;
+}
+html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link] .booking-icon {
+  visibility: visible !important;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 16px rgba(0,0,0,.28);
+  border-radius: 18px;
+}
+html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-link] .booking-icon {
+  box-shadow: 0 8px 16px rgba(24,20,32,.08), 0 1px 2px rgba(0,0,0,.05);
+}
+@media (hover: hover) {
+  html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link]:hover .booking-icon {
+    transform: translateY(-2px);
+  }
+}
+@media (max-width: 640px) {
+  html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link] .booking-icon {
+    width: clamp(42px, 12vw, 56px);
+    height: clamp(42px, 12vw, 56px);
+    box-sizing: border-box;
+    box-shadow: 0 6px 12px rgba(0,0,0,.15);
+  }
+}
