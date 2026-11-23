@@ -1,0 +1,56 @@
+/* Booking link: same matte app tiles and hover behavior as the existing contact dock. */
+html:root[lang][data-theme] body .contact-dock .dock-item[data-booking-link] {
+  --dock-glass-icon: url("/assets/contacts/booking-dark.svg");
+}
+html:root[lang][data-theme="light"] body .contact-dock .dock-item[data-booking-link] {
+  --dock-glass-icon: url("/assets/contacts/booking-light.svg");
+}
+
+/* Fit five contact actions on narrow screens without horizontal overflow. */
+@media (max-width: 640px) {
+  html:root[lang][data-theme] body .contact-dock.contact-dock--glass {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: start;
+    justify-items: center;
+    column-gap: clamp(5px, 2vw, 11px);
+    row-gap: 0;
+    width: min(calc(100vw - 36px), 460px);
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 12px clamp(6px, 2vw, 12px);
+  }
+  html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-divider {
+    display: none;
+  }
+  html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-item {
+    width: 100%;
+    min-width: 0;
+    justify-self: stretch;
+    align-items: center;
+  }
+  html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-icon,
+  html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-item::before {
+    width: clamp(42px, 12vw, 56px);
+    height: clamp(42px, 12vw, 56px);
+    border-radius: 15px;
+  }
+  html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-label {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 8px;
+    font-size: clamp(10px, 2.7vw, 12px);
+    line-height: 1.2;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    text-align: center;
+  }
+  html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-label--done {
+    display: none;
+  }
+  html:root[lang][data-theme] body .contact-dock.contact-dock--glass .dock-item.is-copied .dock-label--done {
+    display: block;
+  }
+}
