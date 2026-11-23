@@ -1,0 +1,107 @@
+/* Liquid Metal Border — source-derived from annademeshko.github.io.
+   The original border is in en-theme-parity.css / en-bilingual-parity.css.
+   Material colors and 16s orbit match the portfolio. Scoped for reuse. */
+@property --lmb-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: true;
+}
+@keyframes lmb-orbit { to { --lmb-angle: 360deg; } }
+.liquid-metal-border {
+  --lmb-thickness: 1.5px;
+  --lmb-radius: 26px;
+  --lmb-duration: 16s;
+  --lmb-angle: 0deg;
+  --lmb-spectrum:
+    transparent 0deg 9deg,
+            rgba(14, 25, 65, 0) 9deg,
+            #121d4c 12deg,
+            #7838fa 15deg,
+            #2864ff 18deg,
+            #08d9ff 21deg,
+            #44e0b5 24deg,
+            #b7ed63 27deg,
+            #fff24e 30deg,
+            #ff9827 33deg,
+            #ff424e 36deg,
+            #ffffff 38deg,
+            #152448 41deg,
+            rgba(14, 25, 65, 0) 45deg,
+            transparent 45deg 164deg,
+            rgba(14, 25, 65, 0) 164deg,
+            #152552 168deg,
+            #f0444d 172deg,
+            #ffb22e 176deg,
+            #fdf37e 180deg,
+            #50e5cf 184deg,
+            #10bdff 188deg,
+            #4655ff 192deg,
+            #b761f9 195deg,
+            #f4f8ff 198deg,
+            #142452 201deg,
+            rgba(14, 25, 65, 0) 205deg,
+            transparent 205deg 296deg,
+            rgba(14, 25, 65, 0) 296deg,
+            #e9f7ff 300deg,
+            #2cb8ff 304deg,
+            #3343b8 307deg,
+            #f04454 310deg,
+            rgba(14, 25, 65, 0) 314deg,
+            transparent 314deg 360deg;
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--lmb-radius);
+  border: 1px solid rgba(142,151,161,.34);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .liquid-metal-border:not(.liquid-metal-border--hover):not(.liquid-metal-border--still),
+  .liquid-metal-border--hover:is(:hover, :focus-visible, :focus-within) {
+    animation: lmb-orbit var(--lmb-duration) linear infinite;
+  }
+}
+@supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+  .liquid-metal-border::before,
+  .liquid-metal-border::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    inset: -1px;
+    padding: var(--lmb-thickness);
+    box-sizing: border-box;
+    border-radius: inherit;
+    pointer-events: none;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  .liquid-metal-border::before {
+    background: conic-gradient(from 45deg, #d8dae1 0deg,
+            #525866 55deg,
+            #222739 90deg,
+            #9fa5b1 125deg,
+            #f5f7fc 173deg,
+            #848b9b 220deg,
+            #373c4c 265deg,
+            #ccd0da 310deg,
+            #eef1f5 360deg);
+    opacity: .94;
+  }
+  .liquid-metal-border::after {
+    background: conic-gradient(from var(--lmb-angle), var(--lmb-spectrum));
+    opacity: 1;
+    filter: drop-shadow(0 0 1.4px rgba(59,124,222,.20));
+  }
+  .liquid-metal-border--hover::before,
+  .liquid-metal-border--hover::after {
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .liquid-metal-border--hover:is(:hover,:focus-visible,:focus-within)::before { opacity: .94; }
+  .liquid-metal-border--hover:is(:hover,:focus-visible,:focus-within)::after { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .liquid-metal-border { animation: none !important; }
+  .liquid-metal-border::before,
+  .liquid-metal-border::after { transition: none !important; }
+}
