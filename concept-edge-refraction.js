@@ -89,6 +89,10 @@
   document.body.appendChild(curveSvg);
 
   const clipData = new WeakMap();
+  // Proximity-based depth: the tile nearest the viewport centre grows gently
+  // while all others recede. The CSS 'scale' property composes with the existing
+  // transform-based float animation (unlike setting 'transform' directly).
+  const depthData = new WeakMap();
   let nextId = 0;
   let queued = false;
   let visible = true;
@@ -133,10 +137,17 @@
     if (!track) return;
     const enabled = motionAllowed.matches && visible;
     const galleryRect = marquee.getBoundingClientRect();
+    const galleryCenter = galleryRect.left + galleryRect.width / 2;
+    const depthRange = Math.max(380, Math.min(760, galleryRect.width * .64));
     const zone = Math.min(300, Math.max(190, galleryRect.width * .22));
     track.querySelectorAll('.concept-marquee__tile').forEach(tile => {
       const stored = clipData.get(tile);
       if (!enabled) {
+        if (depthData.has(tile)) {
+          tile.style.removeProperty('scale');
+          tile.style.removeProperty('z-index');
+          depthData.delete(tile);
+        }
         if (stored && stored.strength !== 0) {
           tile.style.removeProperty('clip-path');
           stored.strength = 0;
@@ -144,6 +155,17 @@
         return;
       }
       const rect = tile.getBoundingClientRect();
+      // Transform scaling does not move the tile's horizontal centre, so the
+      // calculation stays stable without feedback loops as the marquee flows.
+      const tileCenter = rect.left + rect.width / 2;
+      const proximity = clamp(1 - Math.abs(tileCenter - galleryCenter) / depthRange);
+      const smoothFocus = proximity * proximity * (3 - 2 * proximity);
+      const depthScale = (.9 + .175 * smoothFocus).toFixed(3);
+      if (depthData.get(tile) !== depthScale) {
+        tile.style.setProperty('scale', depthScale);
+        tile.style.setProperty('z-index', String(Math.round(smoothFocus * 20)));
+        depthData.set(tile, depthScale);
+      }
       if (rect.right < galleryRect.left || rect.left > galleryRect.right) {
         if (stored && stored.strength !== 0) {
           tile.style.removeProperty('clip-path');
