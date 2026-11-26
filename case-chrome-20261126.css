@@ -1,0 +1,345 @@
+/* Case chrome: shared homepage materials and responsive geometry. */
+
+      /* Optional pink theme on the standalone English homepage. */
+      html.standalone-english[data-theme="pink"] {
+        --text: #171016;
+        --heading: #090609;
+        --intro-text: #27131e;
+        --muted: #38202e;
+        --link: #38202e;
+        --link-hover: #090609;
+        --bg: #ed2e8e;
+        --pearl-base: #ed2e8e;
+        --bg-fade: rgba(237, 46, 142, 0);
+        --bg-fade-mid: rgba(237, 46, 142, .82);
+        --glass: rgba(237, 46, 142, .55);
+        --glass-fade: rgba(237, 46, 142, 0);
+        background-color: #ed2e8e;
+      }
+
+      /* Violet glass contact trays, scoped to the standalone English homepage. */
+      html.standalone-english .contact-dock {
+        border: 1px solid rgba(134, 130, 224, .62);
+        background: linear-gradient(115deg, rgba(91, 82, 180, .24), rgba(142, 145, 244, .56));
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .88),
+          inset 0 -1px 0 rgba(122, 120, 224, .45),
+          inset 0 0 18px rgba(175, 177, 255, .28),
+          0 10px 28px rgba(90, 77, 176, .16);
+        -webkit-backdrop-filter: blur(22px) saturate(1.5);
+        backdrop-filter: blur(22px) saturate(1.5);
+        --dock-divider: rgba(73, 62, 132, .2);
+      }
+      html.standalone-english .contact-dock::before {
+        background: linear-gradient(120deg, rgba(255,255,255,.36), transparent 42%, rgba(222,225,255,.28));
+      }
+      html.standalone-english[data-theme="dark"] .contact-dock {
+        border-color: rgba(162, 165, 255, .72);
+        background: linear-gradient(115deg, rgba(56, 48, 104, .62), rgba(108, 112, 213, .72));
+        box-shadow: inset 0 1px 0 rgba(218,220,255,.6), inset 0 -1px 0 rgba(152,155,255,.42), 0 10px 28px rgba(87,76,184,.2);
+        --dock-divider: rgba(221, 222, 255, .28);
+      }
+      @media (max-width: 640px) {
+        html.standalone-english .contact-dock {
+          width: fit-content;
+          max-width: calc(100vw - 32px);
+          padding: 14px;
+          border-radius: 26px;
+          grid-template-columns: repeat(4, 56px);
+          column-gap: clamp(10px, 4vw, 24px);
+          --dock-caption: #353151;
+        }
+        html.standalone-english .contact-dock .dock-icon { width: 56px; height: 56px; border-radius: 13px; }
+        html.standalone-english[data-theme="dark"] .contact-dock { --dock-caption: #f1efff; }
+        html.standalone-english .contact-dock::before { display: block; }
+      }
+
+
+      /* Match the contact trays to the black case covers. */
+      html.standalone-english .contact-dock,
+      html.standalone-english[data-theme="dark"] .contact-dock {
+        background: #090909;
+        border-color: #090909;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        --dock-divider: rgba(255,255,255,.2);
+        --dock-caption: #f4f4f4;
+      }
+      html.standalone-english .contact-dock::before { display: none; }
+
+
+      /* Contact trays take the background colour of the profile illustration for each theme. */
+      html.standalone-english[data-theme="pink"] .contact-dock {
+        background: #242424; border-color: #242424;
+        --dock-divider: rgba(255,255,255,.2); --dock-caption: #f4f4f4;
+      }
+      html.standalone-english[data-theme="light"] .contact-dock {
+        background: #f13385; border-color: #f13385;
+        --dock-divider: rgba(0,0,0,.22); --dock-caption: #000;
+      }
+      html.standalone-english[data-theme="dark"] .contact-dock {
+        background: #fbfcfc; border-color: #fbfcfc;
+        --dock-divider: rgba(0,0,0,.16); --dock-caption: #111;
+      }
+
+
+      /* Liquid-chrome contact border in both themes: silver/graphite rim, short
+         prism-refraction highlights, slow 16s orbit. Glass surfaces stay intact. */
+      @property --contact-metal-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: true;
+      }
+      @keyframes contact-metal-orbit {
+        to { --contact-metal-angle: 360deg; }
+      }
+
+      /* Inherited phase animates the contact dock; wrapper remains for music positioning. */
+      html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .home-page .contact-dock-anchor,
+      html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock--footer.contact-dock--glass {
+        animation: contact-metal-orbit 16s linear infinite;
+      }
+      html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass {
+        border-color: rgba(142, 151, 161, .34);
+      }
+
+      /* Prism colour stops for the dock border. */
+      html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) {
+        --contact-metal-spectrum:
+          transparent 0deg 9deg,
+            rgba(14, 25, 65, 0) 9deg,
+            #121d4c 12deg,
+            #7838fa 15deg,
+            #2864ff 18deg,
+            #08d9ff 21deg,
+            #44e0b5 24deg,
+            #b7ed63 27deg,
+            #fff24e 30deg,
+            #ff9827 33deg,
+            #ff424e 36deg,
+            #ffffff 38deg,
+            #152448 41deg,
+            rgba(14, 25, 65, 0) 45deg,
+            transparent 45deg 164deg,
+            rgba(14, 25, 65, 0) 164deg,
+            #152552 168deg,
+            #f0444d 172deg,
+            #ffb22e 176deg,
+            #fdf37e 180deg,
+            #50e5cf 184deg,
+            #10bdff 188deg,
+            #4655ff 192deg,
+            #b761f9 195deg,
+            #f4f8ff 198deg,
+            #142452 201deg,
+            rgba(14, 25, 65, 0) 205deg,
+            transparent 205deg 296deg,
+            rgba(14, 25, 65, 0) 296deg,
+            #e9f7ff 300deg,
+            #2cb8ff 304deg,
+            #3343b8 307deg,
+            #f04454 310deg,
+            rgba(14, 25, 65, 0) 314deg,
+            transparent 314deg 360deg;
+      }
+
+      @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::before,
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::after {
+          inset: -1px;
+          padding: 1.5px;
+          border-radius: inherit;
+          pointer-events: none;
+          z-index: -1;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          filter: none;
+          opacity: 1;
+          animation: none;
+        }
+        /* Chrome-like grayscale reflections are the majority of the line. */
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::before {
+          background: conic-gradient(from 45deg,
+            #d8dae1 0deg,
+            #525866 55deg,
+            #222739 90deg,
+            #9fa5b1 125deg,
+            #f5f7fc 173deg,
+            #848b9b 220deg,
+            #373c4c 265deg,
+            #ccd0da 310deg,
+            #eef1f5 360deg);
+          opacity: .94;
+        }
+        /* Slow prism refraction: rich, separated spectral streaks over a mostly silver rim. */
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock.contact-dock--glass::after {
+          background: conic-gradient(from var(--contact-metal-angle), var(--contact-metal-spectrum));
+          opacity: 1;
+          /* Tiny chromatic halo only where the refracted band is visible. */
+          filter: drop-shadow(0 0 1.4px rgba(59, 124, 222, .20));
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .home-page .contact-dock-anchor,
+        html.bilingual-home[lang]:is([data-theme="light"], [data-theme="dark"]) body .contact-dock--footer.contact-dock--glass {
+          animation: none;
+        }
+      }
+
+
+      /* Light-contact tiles: soft raised neoprene / neumorphic material (#ECF0F3).
+         Artwork is preserved from the existing icon SVGs, without their old
+         gradient plates so the softer material can show through. */
+      html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item::before {
+        box-sizing: border-box;
+        border: 0;
+        border-radius: 18px;
+        background: #ECF0F3 var(--contact-neumorphic-glyph) center / 100% 100% no-repeat;
+        box-shadow:
+          -5px -5px 12px rgba(255, 255, 255, 0.94),
+          7px 8px 17px rgba(143, 159, 184, 0.27),
+          1px 2px 4px rgba(143, 159, 184, 0.045);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+      html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[data-cv] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(10.2%209.4)%20scale(1.58)%22%20fill-rule%3D%22evenodd%22%20d%3D%22M6.2%201.6h7.1c.3%200%20.6.1.8.3l4.6%204.6c.2.2.3.5.3.8v12.2a1.7%201.7%200%200%201-1.7%201.7H6.2a1.7%201.7%200%200%201-1.7-1.7V3.3a1.7%201.7%200%200%201%201.7-1.7zm.5%209.2h8.4v1.35H6.7v-1.35zm0%203.15h8.4v1.35H6.7v-1.35z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[href*="linkedin.com"] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2029.2)%20scale(1.82)%20translate(-12%20-12.9)%22%3E%3Cpath%20d%3D%22M20.45%2020.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85%200-2.14%201.45-2.14%202.94v5.67H9.35V9h3.41v1.56h.05c.48-.9%201.64-1.85%203.37-1.85%203.6%200%204.27%202.37%204.27%205.46v6.28zM5.34%207.43a2.06%202.06%200%200%201-2.06-2.06%202.06%202.06%200%201%201%202.06%202.06zm1.78%2013.02H3.56V9h3.56v11.45z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[href*="t.me"],
+      html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[href*="telegram"] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(28%2028)%20scale(1.42)%20translate(-12.2%20-12.4)%22%20d%3D%22M9.42%2015.18%209.02%2020.76c.57%200%20.82-.24%201.11-.54l2.66-2.54%205.52%204.04c1.01.56%201.72.27%202-.93l3.62-16.97h.01c.32-1.5-.54-2.08-1.53-1.71L2.22%2010.26c-1.45.56-1.43%201.37-.25%201.74l5.44%201.69%2012.64-7.91c.6-.39%201.14-.18.69.22%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item[data-copy-email] {
+        --contact-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%232e2e33%22%20fill-opacity%3D%220.86%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2028)%20scale(1.48)%20translate(-12%20-12.4)%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M3.1%206.2h17.8A2.1%202.1%200%200%201%2023%208.3v9.5a2.1%202.1%200%200%201-2.1%202.1H3.1A2.1%202.1%200%200%201%201%2017.8V8.3A2.1%202.1%200%200%201%203.1%206.2zm.55%201.55%208.35%205.55%208.35-5.55v1.35L12%2014.8%203.65%209.1V7.75z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html.bilingual-home[lang][data-theme="light"] body .contact-dock.contact-dock--glass .dock-item::before {
+          transition: none;
+        }
+      }
+
+
+      /* Dark-contact buttons: same soft raised-neumorphism as the light #ECF0F3
+         tiles, inverted for the #1F1F1F dock. Only the background and soft
+         relief change; original light glyphs and icon geometry are preserved. */
+      html.bilingual-home[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item::before {
+        box-sizing: border-box;
+        border: 0;
+        border-radius: 18px;
+        background: #252525 var(--contact-dark-neumorphic-glyph) center / 100% 100% no-repeat;
+        box-shadow:
+          -5px -5px 12px rgba(170, 180, 194, 0.045),
+          7px 8px 17px rgba(0, 0, 0, 0.62),
+          1px 2px 4px rgba(0, 0, 0, 0.15);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[data-cv] {
+        --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(10.2%209.4)%20scale(1.58)%22%20fill-rule%3D%22evenodd%22%20d%3D%22M6.2%201.6h7.1c.3%200%20.6.1.8.3l4.6%204.6c.2.2.3.5.3.8v12.2a1.7%201.7%200%200%201-1.7%201.7H6.2a1.7%201.7%200%200%201-1.7-1.7V3.3a1.7%201.7%200%200%201%201.7-1.7zm.5%209.2h8.4v1.35H6.7v-1.35zm0%203.15h8.4v1.35H6.7v-1.35z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[href*="linkedin.com"] {
+        --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2029.2)%20scale(1.82)%20translate(-12%20-12.9)%22%3E%3Cpath%20d%3D%22M20.45%2020.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85%200-2.14%201.45-2.14%202.94v5.67H9.35V9h3.41v1.56h.05c.48-.9%201.64-1.85%203.37-1.85%203.6%200%204.27%202.37%204.27%205.46v6.28zM5.34%207.43a2.06%202.06%200%200%201-2.06-2.06%202.06%202.06%200%201%201%202.06%202.06zm1.78%2013.02H3.56V9h3.56v11.45z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[href*="t.me"],
+      html.bilingual-home[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[href*="telegram"] {
+        --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cpath%20transform%3D%22translate(28%2028)%20scale(1.42)%20translate(-12.2%20-12.4)%22%20d%3D%22M9.42%2015.18%209.02%2020.76c.57%200%20.82-.24%201.11-.54l2.66-2.54%205.52%204.04c1.01.56%201.72.27%202-.93l3.62-16.97h.01c.32-1.5-.54-2.08-1.53-1.71L2.22%2010.26c-1.45.56-1.43%201.37-.25%201.74l5.44%201.69%2012.64-7.91c.6-.39%201.14-.18.69.22%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .contact-dock.contact-dock--glass .dock-item[data-copy-email] {
+        --contact-dark-neumorphic-glyph: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22%23f2f2f4%22%20fill-opacity%3D%220.92%22%20stroke%3D%22none%22%3E%3Cg%20transform%3D%22translate(28%2028)%20scale(1.48)%20translate(-12%20-12.4)%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M3.1%206.2h17.8A2.1%202.1%200%200%201%2023%208.3v9.5a2.1%202.1%200%200%201-2.1%202.1H3.1A2.1%202.1%200%200%201%201%2017.8V8.3A2.1%202.1%200%200%201%203.1%206.2zm.55%201.55%208.35%205.55%208.35-5.55v1.35L12%2014.8%203.65%209.1V7.75z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      }
+
+
+      /* Paired contact-inspired top controls.
+         Keep the original geometry and focus/interaction behavior; only adjust
+         the surface and lighting to match the neumorphic contact dock tiles. */
+      html.bilingual-home[lang][data-theme="light"] body .site-controls .theme-toggle {
+        border: 0;
+        background: #ECF0F3;
+        color: #2e2e33;
+        box-shadow:
+          -5px -5px 12px rgba(255, 255, 255, 0.94),
+          7px 8px 17px rgba(143, 159, 184, 0.27),
+          1px 2px 4px rgba(143, 159, 184, 0.045);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .site-controls .theme-toggle {
+        border: 0;
+        background: #252525;
+        color: #f2f2f4;
+        box-shadow:
+          -5px -5px 12px rgba(170, 180, 194, 0.045),
+          7px 8px 17px rgba(0, 0, 0, 0.62),
+          1px 2px 4px rgba(0, 0, 0, 0.15);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+
+      /* The language-switch capsule matches the main contact tray. */
+      html.bilingual-home[lang][data-theme="light"] body .site-controls .lang-switch {
+        border: 1px solid rgba(143, 150, 162, 0.19);
+        background: var(--contact-light-surface,
+          linear-gradient(155deg, #fafbfc 0%, #eef0f3 46%, #dce0e5 100%));
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.96),
+          0 8px 18px rgba(76, 87, 106, 0.075),
+          0 2px 5px rgba(76, 87, 106, 0.035);
+        -webkit-backdrop-filter: blur(22px) saturate(1.35);
+        backdrop-filter: blur(22px) saturate(1.35);
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .site-controls .lang-switch {
+        border: 1px solid rgba(255, 255, 255, 0.045);
+        background: linear-gradient(180deg, #1f1f1f 0%, #1d1d1d 50%, #1b1b1b 100%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.03),
+          0 9px 21px rgba(0, 0, 0, 0.26);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+
+      /* Active language is a gently raised tile; inactive remains flat.
+         Scope these to the language switch so the controls still feel compact. */
+      html.bilingual-home[lang][data-theme="light"] body .site-controls
+        .lang-btn[aria-pressed="true"] {
+        background: #ECF0F3;
+        color: #2e2e33;
+        box-shadow:
+          -2px -2px 6px rgba(255, 255, 255, 0.87),
+          3px 4px 8px rgba(143, 159, 184, 0.21);
+      }
+      html.bilingual-home[lang][data-theme="dark"] body .site-controls
+        .lang-btn[aria-pressed="true"] {
+        background: #252525;
+        color: #f2f2f4;
+        box-shadow:
+          -2px -2px 6px rgba(170, 180, 194, 0.035),
+          3px 4px 8px rgba(0, 0, 0, 0.43);
+      }
+      html.bilingual-home[lang] body .site-controls .lang-btn[aria-pressed="false"] {
+        background: none;
+        box-shadow: none;
+      }
+
+
+html.case-chrome[data-theme="light"]{--bg:#F6F8FB;--bg-fade:rgba(246,248,251,0);--bg-fade-mid:rgba(246,248,251,.82);--glass:rgba(246,248,251,.58);--glass-fade:rgba(246,248,251,0);}
+html.case-chrome[data-theme="dark"]{--bg:#121315;}
+html.case-chrome .site-controls .theme-switch{display:inline-flex!important;}
+html.case-chrome.standalone-english:not(.lang-switch-enabled) .site-controls .lang-switch{display:none!important;}
+html.case-chrome.bilingual-home .site-controls .lang-switch{display:inline-flex!important;}
+html.case-chrome .site-controls .theme-toggle{display:none!important;}
+html.case-chrome .site-footer > .contact-dock.contact-dock--glass{border-radius:26px!important;max-width:calc(100vw - 24px)!important;}
+html.case-chrome .site-footer > .contact-dock.contact-dock--glass .dock-item{position:relative;}
+@media(min-width:1025px) and (hover:hover) and (pointer:fine){
+ html.case-chrome .site-controls{top:50%!important;right:16px!important;left:auto!important;transform:translateY(-50%)!important;}
+}
+@media(max-width:520px){
+ html.case-chrome .site-controls{top:20px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;}
+ html.case-chrome .site-controls.is-hidden{transform:translateX(-50%) translateY(-160%)!important;}
+}

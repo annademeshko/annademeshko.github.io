@@ -66,13 +66,28 @@
       }
     </style>
   <link rel="stylesheet" href="/contact-glass.css?v=20261122-13">
-  </head>
+  <script>
+(function(){
+ var root=document.documentElement, ru=root.lang==="ru";
+ var bilingual=ru||root.classList.contains("lang-switch-enabled")||new URLSearchParams(location.search).get("langswitch")==="1"||(history.state||{}).langSwitchFromRu===true;
+ root.classList.add("case-chrome",bilingual?"bilingual-home":"standalone-english");
+ root.setAttribute("data-direction","01");
+ try {var t=localStorage.getItem("theme");root.dataset.theme=t==="light"||t==="dark"||(!bilingual&&t==="pink")?t:"dark";}catch(e){}
+})();
+</script>
+<link rel="stylesheet" href="/case-chrome-20261126.css?v=1">
+<link rel="stylesheet" href="/en-theme-parity.css?v=20261123-pink-unified-3">
+<link rel="stylesheet" href="/en-bilingual-parity.css?v=20261123-ru-match-1">
+<link rel="stylesheet" href="/cursor-light-monochrome.css?v=20261123-black-white-1">
+<link rel="stylesheet" href="/theme-wave.css?v=20261123-mobile-instant-12">
+<link rel="stylesheet" href="/booking-dock.css?v=20261123-3">
+<link rel="stylesheet" href="/en-home-20261126.css?v=22">
+<link rel="stylesheet" href="/bilingual-home-20261126.css?v=1">
+
+</head>
   <body>
     <div class="site-controls">
-      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
+<div class="theme-switch liquid-metal-border liquid-metal-border--hover" role="radiogroup" aria-label="Theme"><button class="theme-btn" type="button" role="radio" data-theme-set="light" aria-label="White theme" title="White"></button><button class="theme-btn" type="button" role="radio" data-theme-set="pink" aria-label="Pink theme" title="Pink"></button><button class="theme-btn" type="button" role="radio" data-theme-set="dark" aria-label="Black theme" title="Black"></button></div>
       <div class="lang-switch" role="group" aria-label="Язык / Language">
         <a class="lang-btn" href="/ru/remate/" data-lang-set="ru" aria-pressed="true">RU</a>
         <a class="lang-btn" href="https://annademeshko.com/remate/?langswitch=1" data-lang-set="en" aria-pressed="false">EN</a>
@@ -492,6 +507,7 @@
           <span class="dock-divider" aria-hidden="true"></span>
           <a class="dock-item" href="https://www.linkedin.com/in/anna-demeshko-534755238/" target="_blank" rel="noreferrer"><img class="dock-icon" src="/assets/contacts/linkedin.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">LinkedIn</span><span data-lang="en">LinkedIn</span></span></a>
           <a class="dock-item" href="https://t.me/annademeshko" target="_blank" rel="noreferrer"><img class="dock-icon" src="/assets/contacts/telegram.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Telegram</span><span data-lang="en">Telegram</span></span></a>
+          <a class="dock-item" data-booking-link href="https://calendly.com/annademeshko-v/let-s-discuss-your-design-project" target="_blank" rel="noopener noreferrer" aria-label="Book a Meeting" data-aria-ru="Забронировать встречу" data-aria-en="Book a Meeting"><img class="dock-icon" src="/assets/contacts/booking-dark.svg" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Забронировать встречу</span><span data-lang="en">Book a Meeting</span></span></a>
           <button class="dock-item" type="button" data-copy-email="annademeshko.v@gmail.com" aria-label="Email: annademeshko.v@gmail.com"><img class="dock-icon" src="/assets/contacts/mail.webp" width="56" height="56" alt="" decoding="async"><span class="dock-label"><span data-lang="ru">Почта</span><span data-lang="en">Email</span></span><span class="dock-label dock-label--done"><span data-lang="ru">Скопировано</span><span data-lang="en">Copied</span></span></button>
         </nav>
     </footer>
@@ -502,7 +518,25 @@
       <a class="case-nav-link case-nav-home" href="/ru/">На главную</a>
       <a class="case-nav-link case-nav-next" href="/ru/copilot/" aria-label="Следующий кейс"><span class="case-nav-label">Следующий кейс</span><img class="case-nav-icon next-icon" src="/assets/icon-external.svg" alt=""></a>
       </nav>
-    <script src="/script.js?v=20261107-cv"></script>
+    <script>
+(function(){
+ var root=document.documentElement,group=document.querySelector(".site-controls .theme-switch");if(!group)return;
+ var ru=root.lang==="ru",bilingual=root.classList.contains("bilingual-home");
+ if(bilingual)group.querySelector('[data-theme-set="pink"]')?.remove();
+ group.setAttribute("aria-label",ru?"Тема":"Theme");
+ for(var b of group.querySelectorAll(".theme-btn")){
+  b.textContent="";b.removeAttribute("title");
+  if(ru)b.setAttribute("aria-label",b.dataset.themeSet==="light"?"Светлая тема":"Тёмная тема");
+  b.insertAdjacentHTML("beforeend",'<svg class="swatch-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8l3 3 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+ }
+ for(var item of document.querySelectorAll(".site-footer .dock-item")){
+  var label=item.querySelector('.dock-label [data-lang="'+root.lang+'"]')||item.querySelector(".dock-label");
+  if(label&&!item.getAttribute("aria-label"))item.setAttribute("aria-label",label.textContent.trim());
+ }
+})();
+</script>
+<script src="/theme-wave-gpu.js?v=20261123-mobile-instant-12"></script>
+<script src="/script.js?v=20261123-mobile-instant-12"></script>
     <script src="/pixels.js?v=20261029-notrail" defer></script>
     <!-- Cloudflare Web Analytics (self-exclusion via ?noanalytics=1) -->
     <script>
