@@ -1,5 +1,5 @@
 <!doctype html>
-<html data-theme="dark" lang="ru" class="bilingual-home">
+<html data-theme="dark" lang="ru" class="bilingual-home" data-direction="01">
   <head>
     <script>
       // The legacy Worker cannot serve every shared asset; use the direct site.
@@ -837,13 +837,10 @@
     <link rel="stylesheet" href="/cursor-light-monochrome.css?v=20261123-black-white-1">
     <link rel="stylesheet" href="/theme-wave.css?v=20261123-mobile-instant-12">
   <link rel="stylesheet" href="/booking-dock.css?v=20261123-3">
-  </head>
+  <link rel="stylesheet" href="/bilingual-home-20261126.css?v=1"></head>
   <body>
     <div class="site-controls">
-      <button class="theme-toggle" type="button" aria-label="Тема / Theme">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
+      <div class="theme-switch" role="radiogroup" aria-label="Тема"><button class="theme-btn" type="button" role="radio" data-theme-set="light" aria-label="Светлая тема"></button><button class="theme-btn" type="button" role="radio" data-theme-set="dark" aria-label="Тёмная тема"></button></div>
       <div class="lang-switch" role="group" aria-label="Язык / Language">
         <a class="lang-btn" href="/ru/" data-lang-set="ru" aria-pressed="true">RU</a>
         <a class="lang-btn" href="https://annademeshko.com/en/?langswitch=1" data-lang-set="en" aria-pressed="false">EN</a>
@@ -854,13 +851,13 @@
 
     <main class="page home-page" aria-label="Портфолио Анны Демешко">
       <section class="intro" aria-labelledby="intro-title">
-        <img class="intro-photo" data-pixel-mask="/assets/profile/anna-demeshko-mask-400.png" src="/assets/profile/anna-demeshko-400.webp?v=bw2" srcset="/assets/profile/anna-demeshko-400.webp?v=bw2 400w, /assets/profile/anna-demeshko-600.webp?v=bw2 600w" sizes="128px" width="128" height="128" alt="Анна Демешко" decoding="async" fetchpriority="high">
+        <div class="intro-photo-wrap"><img class="intro-photo" data-pixel-mask="/assets/profile/anna-demeshko-mask-400.png" src="/assets/profile/anna-demeshko-400.webp?v=bw2" srcset="/assets/profile/anna-demeshko-400.webp?v=bw2 400w, /assets/profile/anna-demeshko-600.webp?v=bw2 600w" sizes="128px" width="128" height="128" alt="Анна Демешко" decoding="async" fetchpriority="high"></div>
         <div class="intro-copy">
           <h1 id="intro-title"><span data-lang="ru">Анна Демешко</span><span data-lang="en">Anna Demeshko</span></h1>
           <div class="intro-facts">
-            <p><span data-lang="ru">Product Designer с опытом 4+ лет<br> B2B · B2C · Cybersecurity · AI</span><span data-lang="en">Product Designer with 4+ years of experience<br> B2B · B2C · Cybersecurity · AI</span></p>
+            <p><span data-lang="ru">Продуктовый дизайнер · 4+ года опыта<br> B2B · B2C · Кибербезопасность · AI</span><span data-lang="en">Product Designer with 4+ years of experience<br> B2B · B2C · Cybersecurity · AI</span></p>
             <p><span data-lang="ru"><span class="intro-use">Использую:</span> Claude Code, Codex, Figma Make, ChatGPT</span><span data-lang="en"><span class="intro-use">Use:</span> Claude Code, Codex, Figma Make, ChatGPT</span></p>
-            <p class="intro-tagline"><span data-lang="ru"><span class="text-select"><span class="sel-handle sel-handle--start" aria-hidden="true"></span>Распутываю сложные сценарии,<br> чтобы продуктом было просто и приятно пользоваться<span class="sel-handle sel-handle--end" aria-hidden="true"></span></span></span><span data-lang="en"><span class="text-select"><span class="sel-handle sel-handle--start" aria-hidden="true"></span>I untangle complex flows<br> so the product is simple and pleasant to use<span class="sel-handle sel-handle--end" aria-hidden="true"></span></span></span></p>
+            <p class="intro-tagline"><span data-lang="ru"><span class="text-select"><span class="sel-handle sel-handle--start" aria-hidden="true"></span>Упрощаю сложные сценарии,<br> чтобы пользователи быстрее решали свои задачи<span class="sel-handle sel-handle--end" aria-hidden="true"></span></span></span><span data-lang="en"><span class="text-select"><span class="sel-handle sel-handle--start" aria-hidden="true"></span>I untangle complex flows<br> so the product is simple and pleasant to use<span class="sel-handle sel-handle--end" aria-hidden="true"></span></span></span></p>
           </div>
         </div>
         </div>
@@ -909,7 +906,7 @@
       </div>
 
       <div class="works">
-        <section class="work" data-panel="cases" aria-label="Кейсы">
+        <section class="work" id="cases-panel" data-panel="cases" aria-label="Кейсы">
         <a class="case-card case-link" href="/ru/remate/" aria-label="remate">
           <span class="case-cover"><span class="portfolio-beam" aria-hidden="true"></span>
             <video class="case-image remate-cover-video" width="1600" height="900" autoplay muted loop playsinline preload="metadata" poster="/assets/remate/cover-dark-poster.webp?v=2" aria-label="remate: welcome animation and key screens of the iOS app"><source src="/assets/remate/cover-dark.mp4?v=2" type="video/mp4"></video>
@@ -966,7 +963,7 @@
 
       </section>
 
-        <section class="concepts" data-panel="concepts" aria-label="Концепты" hidden>
+        <section class="concepts" id="concepts-panel" data-panel="concepts" aria-label="Концепты" hidden>
           <div class="concepts-grid">
             <figure class="concept-card" data-texture="violet"><span class="portfolio-beam" aria-hidden="true"></span><video width="2400" height="2400" muted loop playsinline preload="none" poster="/assets/concept-previews/wishr-launch-20261107.jpg" data-video="/assets/concepts/wishr-launch-20261107.mp4" aria-label="Wishr: запуск приложения, онбординг и исполнение желания"></video></figure>
             <figure data-palette="travel-blue" data-surface="blue" class="concept-card" data-texture="ocean"><span class="portfolio-beam" aria-hidden="true"></span><video width="2702" height="2700" muted loop playsinline preload="none" poster="/assets/concept-previews/gift-poster.webp" data-video="/assets/travel/gift-preview.mp4" data-full="/assets/aviasales-gift-concept.gif" aria-label="Концепт подарочных сертификатов Авиасейлс: выбор открытки и отправка подарка"></video></figure>
@@ -1362,6 +1359,6 @@
     <script src="https://annademeshko.com/concept-media.js?v=20261016-2"></script>
     <script src="/language-position.js?v=20261102-fresh-language-switch"></script>
       <script src="/concept-edge-refraction.js?v=20261123-rounded-lens-2" defer></script>
-</body>
+<script src="/bilingual-home-20261126.js?v=1"></script></body>
 </html>
 
